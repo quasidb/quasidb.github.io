@@ -1,5 +1,7 @@
+const dropdown = document.getElementById('pairDropdown');
 const apiURL = 'https://script.google.com/macros/s/AKfycbzBd3FHbK_LSHZUh5WeE1hwVVKivWNw4Qai-Ai2ONAwP7vks_v37_f2ca_YrK8WE4chYg/exec';
 
+// Fetch currency pairs and populate dropdown
 fetch(apiURL)
   .then(res => res.json())
   .then(pairs => {
@@ -16,7 +18,7 @@ fetch(apiURL)
     dropdown.innerHTML = '<option>Error loading pairs</option>';
   });
 
-
+// Fetch full row when a pair is selected
 dropdown.addEventListener('change', () => {
   const selectedPair = dropdown.value;
   if (!selectedPair) return;
