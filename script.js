@@ -1,5 +1,5 @@
 const dropdown = document.getElementById('pairDropdown');
-const apiURL = 'https://script.google.com/macros/s/AKfycbzBd3FHbK_LSHZUh5WeE1hwVVKivWNw4Qai-Ai2ONAwP7vks_v37_f2ca_YrK8WE4chYg/exec';
+const apiURL = 'https://script.google.com/macros/s/AKfycbxknCPoS01RsWuD6rqSF4l1udtEc56CFBrkU72Wf9hjOXyw16u4PT1hwxrKk6zMFdN8/exec';
 
 // Fetch currency pairs and populate dropdown
 fetch(apiURL)
