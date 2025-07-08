@@ -11,21 +11,17 @@
     <h1>QuasiDB</h1>
     <nav>
       <ul>
-        <li><a href="#qdb-scores">Scores</a></li>
-        <li><a href="#vol-delta">Vol Delta</a></li>
+        <li><a href="#pairDropdown">Select Pair</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <section id="qdb-scores">
-      <h2>QDB Scores Panel</h2>
-      <canvas id="scoresChart"></canvas>
-    </section>
-
-    <section id="vol-delta">
-      <h2>Vol Delta Panel</h2>
-      <canvas id="volChart"></canvas>
+    <section>
+      <label for="pairDropdown">Select Currency Pair:</label>
+      <select id="pairDropdown">
+        <option value="">Loading...</option>
+      </select>
     </section>
   </main>
 
@@ -33,7 +29,6 @@
     <p>© 2025 Quasidb. Built with ❤️ and Chart.js</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
