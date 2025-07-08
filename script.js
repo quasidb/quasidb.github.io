@@ -38,12 +38,17 @@ dropdown.addEventListener('change', () => {
           <tbody>
       `;
 
-      for (const [key, value] of Object.entries(data)) {
+      const validKeys = Object.keys(data).slice(0, 12); // Columns A–L
+
+      for (const key of validKeys) {
+        const value = data[key];
         let valueClass = '';
+
         const num = parseFloat(value);
         if (!isNaN(num) && key.includes('%')) {
           valueClass = num >= 0 ? 'positive' : 'negative';
         }
+
         html += `
           <tr>
             <td>${key}</td>
