@@ -17,12 +17,18 @@
   </header>
 
   <main>
-    <section>
-      <label for="pairDropdown">Select Currency Pair:</label>
-      <select id="pairDropdown">
-        <option value="">Loading...</option>
-      </select>
-    </section>
+  <section class="dropdown-row">
+    <label for="pairDropdown">Select Currency Pair:</label>
+    <select id="pairDropdown">
+      <option value="">Loading...</option>
+    </select>
+  </section>
+
+  <section id="dashboard">
+    <div id="dataDisplay"></div>
+    <canvas id="sentimentChart" width="300" height="300"></canvas>
+  </section>
+</main>
 
     <div id="dataDisplay"></div>
 
