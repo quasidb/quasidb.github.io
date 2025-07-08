@@ -1,11 +1,9 @@
-const dropdown = document.getElementById('pairDropdown');
 const apiURL = 'https://script.google.com/macros/s/AKfycbzBd3FHbK_LSHZUh5WeE1hwVVKivWNw4Qai-Ai2ONAwP7vks_v37_f2ca_YrK8WE4chYg/exec';
 
-// Fetch currency pairs and populate dropdown
 fetch(apiURL)
-  .then(response => response.json())
+  .then(res => res.json())
   .then(pairs => {
-    dropdown.innerHTML = ''; // Clear "Loading..."
+    dropdown.innerHTML = '';
     pairs.forEach(pair => {
       const option = document.createElement('option');
       option.value = pair;
@@ -13,7 +11,7 @@ fetch(apiURL)
       dropdown.appendChild(option);
     });
   })
-  .catch(error => {
-    console.error('Dropdown fetch error:', error);
+  .catch(err => {
+    console.error('Dropdown fetch error:', err);
     dropdown.innerHTML = '<option>Error loading pairs</option>';
   });
