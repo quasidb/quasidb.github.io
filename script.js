@@ -1,40 +1,19 @@
-// script.js
-const scoresCtx = document.getElementById('scoresChart').getContext('2d');
-const volCtx = document.getElementById('volChart').getContext('2d');
+const dropdown = document.getElementById('pairDropdown');
+const apiURL = 'https://script.google.com/macros/s/AKfycbzBd3FHbK_LSHZUh5WeE1hwVVKivWNw4Qai-Ai2ONAwP7vks_v37_f2ca_YrK8WE4chYg/exec';
 
-new Chart(scoresCtx, {
-  type: 'bar',
-  data: {
-    labels: ['EUR/USD', 'GBP/USD', 'USD/JPY'],
-    datasets: [{
-      label: 'QDB Score',
-      data: [75, 60, 90],
-      backgroundColor: ['#3498db', '#9b59b6', '#e74c3c']
-    }]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: { beginAtZero: true }
-    }
-  }
-});
-
-new Chart(volCtx, {
-  type: 'line',
-  data: {
-    labels: ['9AM', '12PM', '3PM', '6PM'],
-    datasets: [{
-      label: 'Volatility Delta',
-      data: [0.3, 0.7, -0.2, 0.5],
-      borderColor: '#2ecc71',
-      fill: false
-    }]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: { beginAtZero: false }
-    }
-  }
-});
+// Fetch currency pairs and populate dropdown
+fetch(apiURL)
+  .then(response => response.json())
+  .then(pairs => {
+    dropdown.innerHTML = ''; // Clear "Loading..."
+    pairs.forEach(pair => {
+      const option = document.createElement('option');
+      option.value = pair;
+      option.textContent = pair;
+      dropdown.appendChild(option);
+    });
+  })
+  .catch(error => {
+    console.error('Dropdown fetch error:', error);
+    dropdown.innerHTML = '<option>Error loading pairs</option>';
+  });
