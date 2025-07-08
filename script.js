@@ -38,6 +38,34 @@ dropdown.addEventListener('change', () => {
           <tbody>
       `;
 
+      const ctx = document.getElementById('sentimentChart').getContext('2d');
+
+if (window.pieChart) {
+  window.pieChart.destroy(); // Clean previous chart
+}
+
+window.pieChart = new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ['Short Volume', 'Long Volume'],
+    datasets: [{
+      data: [parseFloat(data.shortVolume), parseFloat(data.longVolume)],
+      backgroundColor: ['#ff4d4d', '#4da6ff']
+    }]
+  },
+  options: {
+    responsive: false,
+    plugins: {
+      legend: { position: 'bottom' },
+      title: {
+        display: true,
+        text: `Position Sentiment for ${selectedPair}`
+      }
+    }
+  }
+});
+
+
       const validKeys = Object.keys(data).slice(0, 12); // Columns A–L
 
       for (const key of validKeys) {
