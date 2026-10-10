@@ -43,8 +43,9 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .btn-sm{padding:9px 16px;font-size:15px}
 
 /* ticker */
-.ticker{border-bottom:1px solid var(--line);background:var(--bg2);overflow:hidden;white-space:nowrap}
-.ticker-track{display:inline-flex;gap:40px;padding:11px 0;animation:scroll 45s linear infinite;font-family:var(--mono);font-size:15px}
+.ticker{position:sticky;top:68px;z-index:19;border-bottom:1px solid var(--line);background:rgba(16,22,36,.92);backdrop-filter:blur(10px);overflow:hidden;white-space:nowrap}
+[id]{scroll-margin-top:130px}
+.ticker-track{display:flex;width:max-content;gap:40px;padding:11px 0;animation:scroll 45s linear infinite;will-change:transform;font-family:var(--mono);font-size:15px}
 .ticker-track span b{font-weight:600;margin-right:6px;color:var(--text)}
 @keyframes scroll{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.ticker-track{animation:none}}
@@ -186,6 +187,32 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
 .risk{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;font-size:14px;line-height:1.6}
 .risk b{color:var(--muted)}
 
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:start}
+.contact-copy p{color:var(--muted);font-size:19px;margin-bottom:22px}
+.perks{list-style:none;display:grid;gap:14px}
+.perks li{padding-left:30px;position:relative;color:var(--muted)}
+.perks li::before{content:"✓";position:absolute;left:0;color:var(--buy);font-weight:700}
+.perks b{color:var(--text)}
+.form{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:34px;display:grid;gap:18px}
+.form label{display:grid;gap:8px;font-size:16px;font-weight:600}
+.form label span{color:var(--dim);font-weight:400}
+.form input[type=text],.form input[type=email],.form textarea{font:inherit;font-size:18px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px 16px;width:100%;transition:border-color .15s}
+.form textarea{min-height:120px;resize:vertical}
+.form input:focus,.form textarea:focus{outline:none;border-color:var(--accent)}
+.form .check{display:flex;gap:12px;align-items:flex-start;font-weight:400;color:var(--muted);font-size:16px;grid-template-columns:none}
+.form .check input{width:22px;height:22px;margin-top:2px;accent-color:var(--accent);flex:none}
+.form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form button{border:0;cursor:pointer;font-family:inherit;justify-content:center;font-size:18px}
+.form button:disabled{opacity:.6;cursor:wait}
+.form .small{font-size:14px;color:var(--dim)}
+.form-msg{display:none;border-radius:12px;padding:16px 18px;font-size:17px}
+.form-msg.ok{display:block;background:var(--buy-bg);color:var(--buy);border:1px solid rgba(34,197,94,.35)}
+.form-msg.err{display:block;background:var(--sell-bg);color:#fca5a5;border:1px solid rgba(239,68,68,.35)}
+@media (max-width:980px){.contact{grid-template-columns:1fr}}
+@media (max-width:640px){.form{padding:22px}}
+
 /* reveal */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -221,6 +248,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
       <a href="#score">QDB Score</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
     </div>
     <a href="https://www.patreon.com/quasidb" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Join on Patreon</a>
   </div>
@@ -513,6 +541,31 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
   </div>
 </section>
 
+<section id="contact" class="alt">
+  <div class="wrap contact">
+    <div class="contact-copy reveal">
+      <div class="kicker">Say hello</div>
+      <h2>Not sure yet? Drop me a message.</h2>
+      <p>Leave your email and a quick note about how you trade. I read every message myself and reply personally.</p>
+      <ul class="perks">
+        <li><b>A personal reply</b>, not a sales bot</li>
+        <li><b>A welcome offer</b> for new members who get in touch first</li>
+        <li><b>Occasional updates</b> on new tools and tabs, only if you want them</li>
+      </ul>
+    </div>
+    <form class="form reveal" id="leadForm" novalidate>
+      <label>Your name <input type="text" name="name" autocomplete="given-name" maxlength="80" required></label>
+      <label>Email address <input type="email" name="email" autocomplete="email" required></label>
+      <label><div>Message <span>(optional)</span></div><textarea name="message" maxlength="2000" placeholder="What do you trade, and what are you hoping the sheet helps with?"></textarea></label>
+      <label class="hp" aria-hidden="true">Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      <label class="check"><input type="checkbox" name="consent" value="yes"> Send me occasional QDB updates by email. I can unsubscribe any time.</label>
+      <button type="submit" class="btn btn-primary">Send message →</button>
+      <div class="form-msg" id="leadMsg" role="status"></div>
+      <p class="small">Your email is only used by quasidb to reply to you and, if you ticked the box, to send updates. It's never shared or sold.</p>
+    </form>
+  </div>
+</section>
+
 <section class="final">
   <div class="wrap">
     <h2>Stop guessing what everyone else is doing.</h2>
@@ -585,6 +638,27 @@ async function loadTicker(){
 }
 loadTicker();
 setInterval(loadTicker, 5*60*1000);
+
+// ---- Contact form → Google Apps Script (QDB Leads) ----
+const LEADS_URL = 'https://script.google.com/macros/s/AKfycbyAeonI9tKb-jdRUWcstZHZQdvAWlon9e-53h631yk_EUoThfmYJGE1wiEnXAdkZXKW/exec';
+const leadForm = document.getElementById('leadForm'), leadMsg = document.getElementById('leadMsg');
+leadForm.addEventListener('submit', async ev => {
+  ev.preventDefault();
+  const fd = new FormData(leadForm);
+  const show = (cls, txt) => { leadMsg.className = 'form-msg ' + cls; leadMsg.textContent = txt; };
+  if (!String(fd.get('name')).trim()) return show('err', 'Please add your name.');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(fd.get('email')).trim())) return show('err', 'That email address doesn\'t look quite right.');
+  if (LEADS_URL.startsWith('PASTE')) return show('err', 'The form isn\'t connected yet. Please message @quasi_db on Telegram for now.');
+  const btn = leadForm.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    await fetch(LEADS_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(fd) });
+    leadForm.querySelectorAll('input:not([type=checkbox]),textarea').forEach(el => el.value = '');
+    show('ok', 'Thanks! Your message is on its way. Keep an eye on your inbox (and spam folder, just in case).');
+  } catch (e) {
+    show('err', 'Something went wrong sending that. Please try again, or message @quasi_db on Telegram.');
+  }
+  btn.disabled = false; btn.textContent = 'Send message →';
+});
 </script>
 </body>
 </html>
