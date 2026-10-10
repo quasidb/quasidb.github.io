@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QDB Sheet — Retail Sentiment, Read Contrarian</title>
+<title>QDB Trading Desk — Retail Sentiment, Read Contrarian</title>
 <meta name="description" content="The QDB Sheet tracks retail FX, index and gold sentiment through the day and scores where the crowd is positioned against price. Built by quasidb.">
-<meta property="og:title" content="QDB Sheet — Retail Sentiment, Read Contrarian">
+<meta property="og:title" content="QDB Trading Desk — Retail Sentiment, Read Contrarian">
 <meta property="og:description" content="Retail sentiment, SSI deltas and a 12-point contrarian score in one sheet.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22%231d3f61%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22none%22%20stroke%3D%22%239fd0ee%22%20stroke-width%3D%224%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-weight%3D%22900%22%20font-size%3D%2234%22%20fill%3D%22%23ffffff%22%3EQ%3C/text%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%2213%22%20r%3D%227%22%20fill%3D%22%239fd0ee%22%20stroke%3D%22%231d3f61%22%20stroke-width%3D%223%22/%3E%3C/svg%3E">
 <meta name="theme-color" content="#0b0f17">
@@ -45,9 +45,9 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .btn-sm{padding:9px 16px;font-size:15px}
 
 /* ticker */
-.ticker{position:sticky;top:68px;z-index:19;border-bottom:1px solid var(--line);background:rgba(16,22,36,.92);backdrop-filter:blur(10px);overflow:hidden;white-space:nowrap}
+.ticker{position:sticky;top:68px;z-index:19;border-bottom:1px solid var(--line);background:var(--bg2);overflow:hidden;white-space:nowrap}
 [id]{scroll-margin-top:130px}
-.ticker-track{display:flex;width:max-content;gap:40px;padding:11px 0;animation:scroll 45s linear infinite;will-change:transform;font-family:var(--mono);font-size:15px}
+.ticker-track{display:flex;width:max-content;gap:40px;padding:11px 0;font-family:var(--mono);font-size:15px}
 .ticker-track span b{font-weight:600;margin-right:6px;color:var(--text)}
 @keyframes scroll{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.ticker-track{animation:none}}
@@ -243,7 +243,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
 
 <nav>
   <div class="wrap">
-    <a href="#" class="logo"><span class="logo-mark" role="img" aria-label="QDB logo"></span>QDB Sheet</a>
+    <a href="#" class="logo"><span class="logo-mark" role="img" aria-label="QDB logo"></span>QDB Trading Desk</a>
     <div class="navlinks">
       <a href="#idea">The idea</a>
       <a href="#inside">What's inside</a>
@@ -579,7 +579,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
 <footer>
   <div class="wrap">
     <div class="foot-top">
-      <a href="#" class="logo"><span class="logo-mark" role="img" aria-label="QDB logo"></span>QDB Sheet</a>
+      <a href="#" class="logo"><span class="logo-mark" role="img" aria-label="QDB logo"></span>QDB Trading Desk</a>
       <div class="foot-links">
         <a href="https://t.me/quasidb" target="_blank" rel="noopener">Telegram</a>
         <a href="https://www.youtube.com/@quasidb" target="_blank" rel="noopener">YouTube</a>
@@ -635,7 +635,6 @@ async function loadTicker(){
     if (!items.length) return;                    // keep the sample values if nothing usable came back
     const track=document.getElementById('tickerTrack');
     track.innerHTML = items.join('') + items.join('');   // doubled for a seamless loop
-    track.style.animationDuration = Math.max(25, items.length*5) + 's';
   }catch(e){ /* offline or blocked: sample values stay */ }
 }
 loadTicker();
@@ -661,6 +660,21 @@ leadForm.addEventListener('submit', async ev => {
   }
   btn.disabled = false; btn.textContent = 'Send message →';
 });
+
+// ---- Ticker motion (JS-driven so it never stalls) ----
+(function(){
+  const track=document.getElementById('tickerTrack');
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let x=0, last=performance.now();
+  const SPEED=45; // pixels per second
+  function step(now){
+    const dt=Math.min(100, now-last); last=now;
+    const half=track.scrollWidth/2;
+    if (half>0){ x-=SPEED*dt/1000; if (-x>=half) x+=half; track.style.transform='translateX('+x+'px)'; }
+    requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+})();
 </script>
 </body>
 </html>
