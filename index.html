@@ -20,6 +20,7 @@
 <meta name="twitter:image" content="https://quasidb.github.io/og-image.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22%231d3f61%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22none%22%20stroke%3D%22%239fd0ee%22%20stroke-width%3D%224%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-weight%3D%22900%22%20font-size%3D%2234%22%20fill%3D%22%23ffffff%22%3EQ%3C/text%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%2213%22%20r%3D%227%22%20fill%3D%22%239fd0ee%22%20stroke%3D%22%231d3f61%22%20stroke-width%3D%223%22/%3E%3C/svg%3E">
 <meta name="theme-color" content="#0b0f17">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -226,6 +227,24 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
 @media (max-width:980px){.contact{grid-template-columns:1fr}}
 @media (max-width:640px){.form{padding:22px}}
 
+/* weekly report band */
+.weekly{padding:0 0 72px}
+.weekly-card{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;background:linear-gradient(135deg,rgba(34,197,94,.10),rgba(59,130,246,.10));border:1px solid rgba(34,197,94,.35);border-radius:22px;padding:40px 44px}
+.weekly .tagfree{display:inline-block;font-family:var(--mono);font-size:14px;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--buy-bg);color:var(--buy);margin-bottom:14px}
+.weekly h2{font-size:clamp(28px,3.2vw,38px);margin-bottom:12px}
+.weekly p{color:var(--muted);font-size:18px}
+.weekly ul{list-style:none;margin-top:16px;display:grid;gap:8px}
+.weekly li{padding-left:28px;position:relative;color:var(--muted);font-size:17px}
+.weekly li::before{content:"✓";position:absolute;left:0;color:var(--buy);font-weight:700}
+.wform{display:grid;gap:12px}
+.wform input{font:inherit;font-size:18px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:15px 16px;width:100%}
+.wform input:focus{outline:none;border-color:var(--accent)}
+.wform button{border:0;cursor:pointer;font-family:inherit;justify-content:center;font-size:18px}
+.wform button:disabled{opacity:.6;cursor:wait}
+.wform .small{font-size:14px;color:var(--dim)}
+.wform .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+@media (max-width:980px){.weekly-card{grid-template-columns:1fr;padding:30px 24px}}
+
 /* reveal */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -263,7 +282,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
     </div>
-    <a href="https://www.patreon.com/quasidb" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Join on Patreon</a>
+    <a href="https://www.patreon.com/quasidb" data-goatcounter-click="patreon-nav" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Join on Patreon</a>
   </div>
 </nav>
 
@@ -297,7 +316,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
       <p class="lead">The QDB Sheet pulls retail sentiment across FX, indices and gold into one place, tracks how it shifts day to day and week to week, and scores where price and crowd positioning line up against each other.</p>
       <div class="cta-row">
         <a href="#pricing" class="btn btn-primary">Get sheet access</a>
-        <a href="#inside" class="btn btn-ghost">See what's inside →</a>
+        <a href="#weekly" class="btn btn-ghost">Free weekly report →</a>
       </div>
       <div class="hero-stats">
         <div><strong>28+</strong>instruments tracked</div>
@@ -330,6 +349,32 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
     </div>
   </div>
 </header>
+
+<section class="weekly" id="weekly">
+  <div class="wrap">
+    <div class="weekly-card reveal">
+      <div>
+        <span class="tagfree">FREE · EVERY SUNDAY</span>
+        <h2>Get the QDB Weekly Sentiment Report</h2>
+        <p>A weekly version of the report Premium members get every evening, straight to your inbox before the new week opens.</p>
+        <ul>
+          <li>Where the retail crowd is stacked across FX, indices &amp; gold</li>
+          <li>The week's biggest positioning shifts</li>
+          <li>Top QDB Scores going into Monday</li>
+        </ul>
+      </div>
+      <form class="wform" id="weeklyForm" novalidate>
+        <input type="text" name="name" placeholder="First name" autocomplete="given-name" maxlength="80" aria-label="First name">
+        <input type="email" name="email" placeholder="Your email address" autocomplete="email" required aria-label="Email address">
+        <input type="hidden" name="source" value="weekly">
+        <label class="hp" aria-hidden="true">Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <button type="submit" class="btn btn-primary">Send me the weekly report →</button>
+        <div class="form-msg" id="weeklyMsg" role="status"></div>
+        <p class="small">Free. One email a week. Unsubscribe any time with one click.</p>
+      </form>
+    </div>
+  </div>
+</section>
 
 <section id="idea" class="alt">
   <div class="wrap">
@@ -493,7 +538,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
           <li>Indicator &amp; robot discussion channels</li>
           <li class="off">QDB Sheet access</li>
         </ul>
-        <a href="https://www.patreon.com/quasidb" class="btn btn-ghost" target="_blank" rel="noopener">Choose Basic</a>
+        <a href="https://www.patreon.com/quasidb" class="btn btn-ghost" data-goatcounter-click="patreon-basic" target="_blank" rel="noopener">Choose Basic</a>
       </div>
       <div class="price hot reveal">
         <h3>Premium</h3>
@@ -505,7 +550,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
           <li>QDB Score, SSI Delta &amp; trade setups</li>
           <li>New tabs and tools as they're added</li>
         </ul>
-        <a href="https://www.patreon.com/quasidb" class="btn btn-primary" target="_blank" rel="noopener">Choose Premium</a>
+        <a href="https://www.patreon.com/quasidb" class="btn btn-primary" data-goatcounter-click="patreon-premium" target="_blank" rel="noopener">Choose Premium</a>
       </div>
     </div>
   </div>
@@ -583,7 +628,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
   <div class="wrap">
     <h2>Stop guessing what everyone else is doing.</h2>
     <p>Join on Patreon and get the QDB Sheet in your browser today.</p>
-    <a href="https://www.patreon.com/quasidb" class="btn btn-primary" target="_blank" rel="noopener">Join on Patreon →</a>
+    <a href="https://www.patreon.com/quasidb" class="btn btn-primary" data-goatcounter-click="patreon-final" target="_blank" rel="noopener">Join on Patreon →</a>
   </div>
 </section>
 
@@ -665,6 +710,7 @@ leadForm.addEventListener('submit', async ev => {
   try {
     await fetch(LEADS_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(fd) });
     leadForm.querySelectorAll('input:not([type=checkbox]),textarea').forEach(el => el.value = '');
+    gcEvent('signup-contact');
     show('ok', 'Thanks! Your message is on its way. Keep an eye on your inbox (and spam folder, just in case).');
   } catch (e) {
     show('err', 'Something went wrong sending that. Please try again, or message @quasi_db on Telegram.');
@@ -686,6 +732,24 @@ leadForm.addEventListener('submit', async ev => {
   }
   requestAnimationFrame(step);
 })();
+
+// ---- Weekly report sign-up (same Apps Script as the contact form) ----
+function gcEvent(name){ try{ window.goatcounter && goatcounter.count && goatcounter.count({path:name, title:name, event:true}); }catch(e){} }
+const weeklyForm=document.getElementById('weeklyForm'), weeklyMsg=document.getElementById('weeklyMsg');
+weeklyForm.addEventListener('submit', async ev=>{
+  ev.preventDefault();
+  const fd=new FormData(weeklyForm);
+  const show=(cls,txt)=>{ weeklyMsg.className='form-msg '+cls; weeklyMsg.textContent=txt; };
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(fd.get('email')).trim())) return show('err','That email address doesn\'t look quite right.');
+  const btn=weeklyForm.querySelector('button'); btn.disabled=true; btn.textContent='Signing you up…';
+  try{
+    await fetch(LEADS_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(fd)});
+    weeklyForm.querySelectorAll('input[type=text],input[type=email]').forEach(el=>el.value='');
+    show('ok','You\'re in! Check your inbox for a welcome email (and your spam folder, just in case).');
+    gcEvent('signup-weekly');
+  }catch(e){ show('err','Something went wrong. Please try again, or message @quasi_db on Telegram.'); }
+  btn.disabled=false; btn.textContent='Send me the weekly report →';
+});
 </script>
 </body>
 </html>
