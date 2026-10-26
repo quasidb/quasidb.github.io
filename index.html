@@ -247,13 +247,6 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
 .live{padding:24px 0 80px}
 .live-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;margin-bottom:24px}
 .live-head .sec-head{margin-bottom:0}
-.live-badge{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--buy);margin-bottom:12px}
-.live-dot{width:10px;height:10px;border-radius:50%;background:var(--buy);animation:livepulse 2s infinite}
-.live-dot.closed{background:var(--dim);animation:none}
-.live-badge.closed{color:var(--muted)}
-@keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
-.live-stamp{font-family:var(--mono);font-size:16px;color:var(--muted);text-align:right;line-height:1.5}
-.live-stamp strong{color:var(--text);font-size:20px}
 .live-frame{display:block;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;box-shadow:0 20px 60px rgba(0,0,0,.35);transition:border-color .2s}
 .live-frame:hover{border-color:#36446a}
 .live-frame img{display:block;width:100%;height:auto;border-radius:10px}
@@ -261,7 +254,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
 .live-key b{font-weight:600}
 .live-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:26px}
 .live-note{font-size:15px;color:var(--dim)}
-@media (max-width:640px){.live{padding:8px 0 56px}.live-stamp{text-align:left}.live-frame{padding:6px}.live-cta .btn{width:100%;justify-content:center}}
+@media (max-width:640px){.live{padding:8px 0 56px}.live-frame{padding:6px}.live-cta .btn{width:100%;justify-content:center}}
 
 /* weekly report band */
 .weekly{padding:0 0 72px}
@@ -313,7 +306,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
   <div class="wrap">
     <a href="#" class="logo"><span class="logo-mark" role="img" aria-label="QDB logo"></span>QDB Trading Desk</a>
     <div class="navlinks">
-      <a href="#live">Live board</a>
+      <a href="#live">Basket board</a>
       <a href="#idea">The idea</a>
       <a href="#inside">What's inside</a>
       <a href="#score">QDB Score</a>
@@ -393,16 +386,15 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
   <div class="wrap">
     <div class="live-head reveal">
       <div class="sec-head">
-        <div class="live-badge" id="liveBadge"><span class="live-dot" id="liveDot"></span><span id="liveStatus">Live board</span></div>
+        <div class="kicker">Inside the QDB Sheet</div>
         <h2>Today's Basket Shifting</h2>
-        <p>Where the retail crowd has moved in each currency since the start of today, and the contrarian read. Straight from the QDB Sheet, refreshed every 30 minutes through the trading day.</p>
+        <p>Where the retail crowd has moved in each currency since the start of the day, and the contrarian read. This is a recent snapshot. Inside the QDB Sheet the board updates every 15 minutes through the trading day.</p>
       </div>
-      <div class="live-stamp" id="liveStamp">Checking for the latest board…</div>
     </div>
 
-    <a class="live-frame reveal" id="liveLink" href="img/basket.png" target="_blank" rel="noopener" title="Open full size" data-goatcounter-click="live-basket-open">
-      <img id="liveImg" src="img/basket.png" width="1225" height="535" loading="lazy"
-           alt="QDB Today's Basket Shifting board: retail crowd shift by currency, with contrarian reads">
+    <a class="live-frame reveal" id="liveLink" href="img/basket.png" target="_blank" rel="noopener" title="Open full size" data-goatcounter-click="basket-snapshot-open">
+      <img id="liveImg" src="img/basket.png" loading="lazy"
+           alt="Snapshot of the QDB Today's Basket Shifting board: retail crowd shift by currency, with contrarian reads">
     </a>
 
     <div class="live-key">
@@ -856,37 +848,6 @@ leadForm.addEventListener('submit', async ev => {
     requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
-})();
-
-// ---- Live basket board: show when it was updated, swap in newer boards ----
-(function(){
-  const IMG='img/basket.png';
-  const img=document.getElementById('liveImg'), link=document.getElementById('liveLink');
-  const stamp=document.getElementById('liveStamp'), dot=document.getElementById('liveDot');
-  const badge=document.getElementById('liveBadge'), status=document.getElementById('liveStatus');
-  if(!img) return;
-  let lastMod=null;
-  const ago=ms=>{const m=Math.round(ms/60000); if(m<1) return 'just now'; if(m<60) return m+' min ago';
-    const h=Math.floor(m/60); if(h<48) return h+' h '+(m%60)+' min ago'; return Math.floor(h/24)+' days ago';};
-  function render(){
-    const d=new Date().getUTCDay(), weekend=(d===0||d===6);
-    dot.classList.toggle('closed',weekend); badge.classList.toggle('closed',weekend);
-    status.textContent=weekend?'Markets closed':'Live board';
-    if(!lastMod) return;
-    const t=lastMod.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-    const day=lastMod.toLocaleDateString([],{weekday:'short',day:'numeric',month:'short'});
-    stamp.innerHTML=(weekend?'Last board of the week<br>':'Updated <strong>'+ago(Date.now()-lastMod)+'</strong><br>')+day+', '+t+' your time';
-  }
-  function refresh(){
-    fetch(IMG+'?check='+Date.now(),{method:'HEAD',cache:'no-store'}).then(r=>{
-      const lm=r.headers.get('Last-Modified');
-      if(!lm){stamp.textContent='Refreshed every 30 min on weekdays';return;}
-      const next=new Date(lm);
-      if(!lastMod||next.getTime()!==lastMod.getTime()){const src=IMG+'?v='+next.getTime(); img.src=src; link.href=src;}
-      lastMod=next; render();
-    }).catch(()=>{stamp.textContent='Refreshed every 30 min on weekdays';});
-  }
-  refresh(); setInterval(refresh,5*60*1000); setInterval(render,60*1000);
 })();
 
 // ---- Weekly report sign-up (same Apps Script as the contact form) ----
