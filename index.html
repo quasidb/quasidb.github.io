@@ -850,6 +850,15 @@ leadForm.addEventListener('submit', async ev => {
   requestAnimationFrame(step);
 })();
 
+// ---- Basket snapshot: always ask for the newest board, never a browser-cached copy ----
+(function(){
+  const img=document.getElementById('liveImg'), link=document.getElementById('liveLink');
+  if(!img) return;
+  const v=Math.floor(Date.now()/(5*60*1000)); // changes every 5 minutes
+  const src='img/basket.png?v='+v;
+  img.src=src; if(link) link.href=src;
+})();
+
 // ---- Weekly report sign-up (same Apps Script as the contact form) ----
 function gcEvent(name){ try{ window.goatcounter && goatcounter.count && goatcounter.count({path:name, title:name, event:true}); }catch(e){} }
 const weeklyForm=document.getElementById('weeklyForm'), weeklyMsg=document.getElementById('weeklyMsg');
