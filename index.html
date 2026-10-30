@@ -89,6 +89,19 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--buy),#4ade80 40%,
 .tabs button{background:none;border:0;border-bottom:2px solid transparent;font:inherit;padding:9px 12px;color:var(--dim);white-space:nowrap;cursor:pointer}
 .tabs button:hover{color:var(--muted)}
 .tabs button.on{color:var(--text);border-bottom-color:var(--accent)}
+.board-intro{padding:14px 18px;border-bottom:1px solid var(--line);font-size:14px;line-height:1.55;color:var(--muted)}
+.board-intro b{color:var(--text)}
+.track{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--buy-bg);border:1px solid rgba(34,197,94,.3);color:var(--text)}
+.track .big{font-family:var(--mono);font-weight:600;color:var(--buy)}
+.track small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.track.pending{background:rgba(147,160,184,.08);border-color:var(--line)}
+.board-scroll{max-height:none}
+.board-scroll.tall{max-height:430px;overflow-y:auto}
+.board-scroll.tall thead th{position:sticky;top:0;background:var(--panel);z-index:1}
+.qscore{font-family:var(--mono);font-weight:600;font-size:16px}
+.qscore small{font-size:12px;color:var(--dim);font-weight:400}
+.board-msg{text-align:center;color:var(--dim);padding:26px 18px;line-height:1.6}
+.board-msg a{color:var(--accent);font-weight:600}
 .board-locked{padding:44px 26px;text-align:center}
 .board-locked .big{font-size:34px;margin-bottom:10px}
 .board-locked h4{font-size:20px;margin-bottom:8px}
@@ -379,6 +392,11 @@ td.lock a:hover{color:var(--accent)}
       <div class="tabs">
         <button type="button" class="on" data-tab="sent">Sentiment</button><button type="button" data-tab="scores">QDB Scores</button><button type="button" data-tab="ssi">FXCM SSI Delta</button><button type="button" data-tab="setups">Trade Setups</button>
       </div>
+      <div class="board-intro" id="scoresIntro" hidden>
+        <b>What's the QDB Score?</b> A 12-check rating for each pair. <b>7 or above</b> leans bullish, <b>3 or below</b> bearish, and 4–6 is no man's land. It's strongest when price confirms a move while retail traders bet the other way.
+        <div class="track" id="trackLine" hidden></div>
+      </div>
+      <div class="board-scroll" id="boardWrap">
       <table id="boardTable">
         <thead id="boardHead"><tr><th>Symbol</th><th>% Long</th><th class="hide-sm">Day shift</th><th>Lean</th><th>QDB Score</th></tr></thead>
         <tbody id="boardBody">
@@ -390,6 +408,7 @@ td.lock a:hover{color:var(--accent)}
           <tr><td>AUDUSD</td><td><span class="bar"><i style="width:26%"></i></span>26%</td><td class="hide-sm buy">−5.5</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
         </tbody>
       </table>
+      </div>
       <div class="board-locked" id="setupsPanel" hidden>
         <div class="big">🔒</div>
         <h4>Today's trade setups are for members</h4>
@@ -852,12 +871,12 @@ const ukTime=()=>new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2
 const signed=(v,dp)=> (v>0?'+':v<0?'−':'')+Math.abs(v).toFixed(dp);
 const HEADS={
   sent:'<tr><th>Symbol</th><th>% Long</th><th class="hide-sm">Day shift</th><th>Lean</th><th>QDB Score</th></tr>',
-  scores:'<tr><th>Symbol</th><th>Today</th><th>This week</th><th>QDB Score</th></tr>',
+  scores:'<tr><th>Symbol</th><th>QDB Score</th><th>Today</th><th>This week</th></tr>',
   ssi:'<tr><th>Instrument</th><th class="hide-sm">Last week</th><th>This week</th><th>Change</th><th>Lean</th></tr>'
 };
 const FOOTS={
   sent:t=>`Live retail positioning · checked ${t} UK time · most crowded pairs first`,
-  scores:t=>`Price change for the QDB Score pairs · biggest movers this week first · checked ${t} UK time · the 12-check score is for members`,
+  scores:t=>`Live QDB Scores · highest to lowest: strongest bullish at the top, strongest bearish at the bottom · scroll for all pairs · checked ${t} UK time · members get the full 12-check breakdown`,
   ssi:(t,day)=>`FXCM Speculative Sentiment Index · ${day} snapshot vs last week · biggest changes first · checked ${t} UK time · positive = crowd net long`,
   setups:()=>'Trade setups refresh through the day in the QDB Sheet'
 };
@@ -866,13 +885,15 @@ function showTab(tab){
   document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab===tab));
   const table=document.getElementById('boardTable'), panel=document.getElementById('setupsPanel'), foot=document.getElementById('boardFoot');
   const badge=document.getElementById('boardBadge');
-  if (tab==='setups'){ table.hidden=true; panel.hidden=false; foot.textContent=FOOTS.setups(); return; }
+  if (tab==='setups'){ document.getElementById('scoresIntro').hidden=true; table.hidden=true; panel.hidden=false; foot.textContent=FOOTS.setups(); return; }
   table.hidden=false; panel.hidden=true;
+  document.getElementById('boardWrap').classList.toggle('tall', tab==='scores');
+  document.getElementById('scoresIntro').hidden = tab!=='scores';
   const d=BOARD[tab];
   if (!d){
     if (tab==='sent') return;                       // sample rows stay until live data arrives
     document.getElementById('boardHead').innerHTML=HEADS[tab];
-    document.getElementById('boardBody').innerHTML=`<tr><td colspan="5" style="text-align:center;color:var(--dim);padding:30px">Loading…</td></tr>`;
+    document.getElementById('boardBody').innerHTML=`<tr><td colspan="5" class="board-msg">Live data is updating. Please check back shortly.<br>Want <b>instant</b> access? Members see the live QDB Scores and SSI in the QDB Sheet · <a href="#pricing" data-goatcounter-click="board-updating-cta">See the plans →</a></td></tr>`;
     foot.textContent=''; return;
   }
   document.getElementById('boardHead').innerHTML=HEADS[tab];
@@ -887,15 +908,20 @@ async function loadScores(){
     const res=await fetch(PUB+'1001',{cache:'no-store'}); if(!res.ok) throw 0;
     const out=[];
     for (const r of parseCSV(await res.text())){
-      const sym=(r[0]||'').trim(), dc=num(r[1]), wc=num(r[2]);
-      if (!/^[A-Z0-9]{5,8}$/.test(sym) || isNaN(dc) || isNaN(wc)) continue;
-      out.push({sym,dc,wc});
+      const sym=(r[0]||'').trim(), sc=num(r[1]), dc=num(r[2]), wc=num(r[3]);
+      if (!/^[A-Z0-9]{5,8}$/.test(sym) || isNaN(sc)) continue;
+      out.push({sym,sc,dc,wc});
     }
     if (!out.length) throw 0;
-    const rows=out.sort((a,b)=>Math.abs(b.wc)-Math.abs(a.wc)).slice(0,7).map(d=>
-      `<tr><td>${esc(d.sym)}</td><td class="${d.dc>0?'buy':d.dc<0?'sell':''}">${signed(d.dc,2)}%</td><td class="${d.wc>0?'buy':d.wc<0?'sell':''}">${signed(d.wc,2)}%</td>${LOCK('score')}</tr>`);
+    // highest score first: strongest bullish at the top, strongest bearish at the bottom; ties: bigger weekly move first
+    const rows=out.sort((a,b)=>b.sc-a.sc || Math.abs(b.wc||0)-Math.abs(a.wc||0)).map(d=>{
+      const cls = d.sc>=7 ? 'buy' : d.sc<=3 ? 'sell' : '';
+      const pc = v => isNaN(v) ? '' : `${signed(v,2)}%`, pcl = v => v>0?'buy':v<0?'sell':'';
+      return `<tr><td>${esc(d.sym)}</td><td class="qscore ${cls}">${Math.round(d.sc)}<small>/12</small></td>`+
+        `<td class="${pcl(d.dc)}">${pc(d.dc)}</td><td class="${pcl(d.wc)}">${pc(d.wc)}</td></tr>`;
+    });
     BOARD.scores={rows:rows.join(''), at:ukTime()};
-  }catch(e){ BOARD.scores={rows:`<tr><td colspan="4" style="text-align:center;color:var(--dim);padding:30px">Live scores data is updating. Please check back shortly.</td></tr>`, at:ukTime()}; }
+  }catch(e){ BOARD.scores={rows:`<tr><td colspan="5" class="board-msg">Live data is updating. Please check back shortly.<br>Want <b>instant</b> access? Members see the live QDB Scores and SSI in the QDB Sheet · <a href="#pricing" data-goatcounter-click="board-updating-cta">See the plans →</a></td></tr>`, at:ukTime()}; }
   if (BOARD.tab==='scores') showTab('scores');
 }
 async function loadSSI(){
@@ -915,11 +941,27 @@ async function loadSSI(){
     const rows=b.rows.sort((x,y)=>Math.abs(y.delta)-Math.abs(x.delta)).slice(0,7).map(d=>
       `<tr><td>${esc(d.sym)}</td><td class="hide-sm ${ssiCls(d.last)}">${signed(d.last,2)}</td><td class="${ssiCls(d.now)}">${signed(d.now,2)}</td><td>${signed(d.delta,2)}</td>${LOCK('ssi-lean')}</tr>`);
     BOARD.ssi={rows:rows.join(''), at:ukTime(), day:b.day};
-  }catch(e){ BOARD.ssi={rows:`<tr><td colspan="5" style="text-align:center;color:var(--dim);padding:30px">Live SSI data is updating. Please check back shortly.</td></tr>`, at:ukTime(), day:''}; }
+  }catch(e){ BOARD.ssi={rows:`<tr><td colspan="5" class="board-msg">Live data is updating. Please check back shortly.<br>Want <b>instant</b> access? Members see the live QDB Scores and SSI in the QDB Sheet · <a href="#pricing" data-goatcounter-click="board-updating-cta">See the plans →</a></td></tr>`, at:ukTime(), day:''}; }
   if (BOARD.tab==='ssi') showTab('ssi');
 }
 
-loadTicker(); loadScores(); loadSSI();
+async function loadTrack(){
+  try{
+    const res=await fetch(PUB+'1003',{cache:'no-store'}); if(!res.ok) return;
+    const all=parseCSV(await res.text()).filter(r=>/^\d{4}-\d{2}-\d{2}$/.test((r[0]||'').trim()) && (r[5]||'').trim());
+    if(!all.length) return;
+    const week=all.map(r=>r[0].trim()).sort().pop(), rows=all.filter(r=>r[0].trim()===week);
+    const hits=rows.filter(r=>r[5].includes('✓')).length, pct=Math.round(hits/rows.length*100);
+    const avg=c=>{ const x=rows.filter(r=>r[3].trim()===c).map(r=>num(r[4])).filter(v=>!isNaN(v)); return x.length? x.reduce((a,b)=>a+b,0)/x.length : null; };
+    const bu=avg('Bullish'), be=avg('Bearish');
+    const d=new Date(week+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    const el=document.getElementById('trackLine'); el.hidden=false;
+    el.innerHTML=`📈 <b>Last week's track record</b> (week of ${d}): <span class="big">${hits} of ${rows.length} calls right · ${pct}%</span>`+
+      `<small>Scores taken at the week open (7+ bullish, 3 or less bearish), checked against how price finished the week.${bu!==null?` Bullish calls averaged ${signed(bu,2)}%`:''}${be!==null?`, bearish calls ${signed(be,2)}%`:''}. Past results don't guarantee future ones.</small>`;
+  }catch(e){}
+}
+
+loadTicker(); loadScores(); loadSSI(); loadTrack();
 setInterval(()=>{ loadTicker(); loadScores(); loadSSI(); }, 5*60*1000);
 
 // ---- Contact form → Google Apps Script (QDB Leads) ----
