@@ -86,8 +86,13 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--buy),#4ade80 40%,
 .sheet-bar .lights{display:flex;gap:7px}.sheet-bar .lights i{width:11px;height:11px;border-radius:50%;background:#2b3550}
 .sheet-bar .t{font-family:var(--mono);font-size:13px;color:var(--muted)}
 .tabs{display:flex;gap:2px;padding:0 12px;border-bottom:1px solid var(--line);font-size:13px;font-family:var(--mono);overflow-x:auto}
-.tabs span{padding:9px 12px;color:var(--dim);white-space:nowrap}
-.tabs span.on{color:var(--text);border-bottom:2px solid var(--accent)}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;font:inherit;padding:9px 12px;color:var(--dim);white-space:nowrap;cursor:pointer}
+.tabs button:hover{color:var(--muted)}
+.tabs button.on{color:var(--text);border-bottom-color:var(--accent)}
+.board-locked{padding:44px 26px;text-align:center}
+.board-locked .big{font-size:34px;margin-bottom:10px}
+.board-locked h4{font-size:20px;margin-bottom:8px}
+.board-locked p{color:var(--muted);font-size:16px;margin:0 auto 20px;max-width:360px}
 table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:15px}
 th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);font-weight:400;text-align:right;padding:10px 14px}
 th:first-child,td:first-child{text-align:left}
@@ -372,19 +377,25 @@ td.lock a:hover{color:var(--accent)}
         <span class="board-badge" id="boardBadge">SAMPLE</span>
       </div>
       <div class="tabs">
-        <span class="on">Sentiment</span><span>QDB Scores</span><span>FXCM SSI Delta</span><span>Trade Setups</span>
+        <button type="button" class="on" data-tab="sent">Sentiment</button><button type="button" data-tab="scores">QDB Scores</button><button type="button" data-tab="ssi">FXCM SSI Delta</button><button type="button" data-tab="setups">Trade Setups</button>
       </div>
-      <table>
-        <thead><tr><th>Symbol</th><th>% Long</th><th class="hide-sm">Day shift</th><th>Lean</th><th>QDB Score</th></tr></thead>
+      <table id="boardTable">
+        <thead id="boardHead"><tr><th>Symbol</th><th>% Long</th><th class="hide-sm">Day shift</th><th>Lean</th><th>QDB Score</th></tr></thead>
         <tbody id="boardBody">
-          <tr><td>EURUSD</td><td><span class="bar"><i style="width:34%"></i></span>34%</td><td class="hide-sm buy">−6.2</td><td><span class="pill b">BUY</span></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
-          <tr><td>GBPUSD</td><td><span class="bar"><i style="width:71%"></i></span>71%</td><td class="hide-sm sell">+4.8</td><td><span class="pill s">SELL</span></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
-          <tr><td>XAUUSD</td><td><span class="bar"><i style="width:66%"></i></span>66%</td><td class="hide-sm sell">+3.1</td><td><span class="pill s">SELL</span></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
-          <tr><td>USDJPY</td><td><span class="bar"><i style="width:29%"></i></span>29%</td><td class="hide-sm buy">−2.4</td><td><span class="pill b">BUY</span></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
-          <tr><td>US500</td><td><span class="bar"><i style="width:31%"></i></span>31%</td><td class="hide-sm buy">−1.7</td><td><span class="pill b">BUY</span></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
-          <tr><td>AUDUSD</td><td><span class="bar"><i style="width:26%"></i></span>26%</td><td class="hide-sm buy">−5.5</td><td><span class="pill b">BUY</span></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
+          <tr><td>EURUSD</td><td><span class="bar"><i style="width:34%"></i></span>34%</td><td class="hide-sm buy">−6.2</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
+          <tr><td>GBPUSD</td><td><span class="bar"><i style="width:71%"></i></span>71%</td><td class="hide-sm sell">+4.8</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
+          <tr><td>XAUUSD</td><td><span class="bar"><i style="width:66%"></i></span>66%</td><td class="hide-sm sell">+3.1</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
+          <tr><td>USDJPY</td><td><span class="bar"><i style="width:29%"></i></span>29%</td><td class="hide-sm buy">−2.4</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
+          <tr><td>US500</td><td><span class="bar"><i style="width:31%"></i></span>31%</td><td class="hide-sm buy">−1.7</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
+          <tr><td>AUDUSD</td><td><span class="bar"><i style="width:26%"></i></span>26%</td><td class="hide-sm buy">−5.5</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
         </tbody>
       </table>
+      <div class="board-locked" id="setupsPanel" hidden>
+        <div class="big">🔒</div>
+        <h4>Today's trade setups are for members</h4>
+        <p>The strongest buy and sell candidates of the day, already filtered by sentiment and bias, inside the QDB Sheet.</p>
+        <a href="#pricing" class="btn btn-primary btn-sm" data-goatcounter-click="board-setups-lock">See the plans →</a>
+      </div>
       <div class="sheet-foot" id="boardFoot">Sample values: live data loads in a moment</div>
     </div>
   </div>
@@ -824,21 +835,92 @@ async function loadTicker(){
 function renderBoard(live){
   const body=document.getElementById('boardBody'); if(!body) return;
   const rows=live.slice().sort((a,b)=>Math.abs(b.pct-50)-Math.abs(a.pct-50)).slice(0,7).map(d=>{
-    const p=Math.round(d.pct), extreme = p>=90 || p<=10;
-    const lean = extreme ? ['m','MONITOR'] : p>50 ? ['s','SELL'] : p<50 ? ['b','BUY'] : ['w','WAIT'];
+    const p=Math.round(d.pct);
     const sh = isNaN(d.shift) ? '' : (d.shift>0?'+':d.shift<0?'−':'')+Math.abs(d.shift).toFixed(1);
     return `<tr><td>${esc(d.sym)}</td><td><span class="bar"><i style="width:${p}%"></i></span>${p}%</td>`+
-      `<td class="hide-sm ${d.shift>0?'sell':d.shift<0?'buy':''}">${sh}</td><td><span class="pill ${lean[0]}">${lean[1]}</span></td>`+
-      `<td class="lock"><a href="#pricing" data-goatcounter-click="board-score-lock">🔒 Members</a></td></tr>`;
+      `<td class="hide-sm ${d.shift>0?'sell':d.shift<0?'buy':''}">${sh}</td>${LOCK('lean')}${LOCK('score')}</tr>`;
   });
-  body.innerHTML=rows.join('');
-  const b=document.getElementById('boardBadge'); b.textContent='LIVE'; b.classList.add("onair");
-  const t=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});
-  document.getElementById('boardFoot').textContent=`Live retail positioning · checked ${t} UK time · most crowded pairs first · 90%+ or 10%- = MONITOR, the crowd can be right at extremes`;
+  BOARD.sent={rows:rows.join(''), at:ukTime()};
+  if (BOARD.tab==='sent') showTab('sent');
 }
 
-loadTicker();
-setInterval(loadTicker, 5*60*1000);
+// ---- Board tabs: QDB Scores and FXCM SSI Delta come from the same public sheet (no scores or leans are published) ----
+const PUB='https://docs.google.com/spreadsheets/d/e/2PACX-1vQH6tE-4tM3gxk5G5OBIbDA7Z3bRwDYQYu4nESCDyD2QrE4DUKJJREGdlENvfCHxnh4xeuBsXYH2mv_/pub?single=true&output=csv&gid=';
+const BOARD={tab:'sent', sent:null, scores:null, ssi:null};
+const LOCK=(what)=>`<td class="lock"><a href="#pricing" data-goatcounter-click="board-${what}-lock">🔒 Members</a></td>`;
+const ukTime=()=>new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});
+const signed=(v,dp)=> (v>0?'+':v<0?'−':'')+Math.abs(v).toFixed(dp);
+const HEADS={
+  sent:'<tr><th>Symbol</th><th>% Long</th><th class="hide-sm">Day shift</th><th>Lean</th><th>QDB Score</th></tr>',
+  scores:'<tr><th>Symbol</th><th>Today</th><th>This week</th><th>QDB Score</th></tr>',
+  ssi:'<tr><th>Instrument</th><th class="hide-sm">Last week</th><th>This week</th><th>Change</th><th>Lean</th></tr>'
+};
+const FOOTS={
+  sent:t=>`Live retail positioning · checked ${t} UK time · most crowded pairs first`,
+  scores:t=>`Price change for the QDB Score pairs · biggest movers this week first · checked ${t} UK time · the 12-check score is for members`,
+  ssi:(t,day)=>`FXCM Speculative Sentiment Index · ${day} snapshot vs last week · biggest changes first · checked ${t} UK time · positive = crowd net long`,
+  setups:()=>'Trade setups refresh through the day in the QDB Sheet'
+};
+function showTab(tab){
+  BOARD.tab=tab;
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab===tab));
+  const table=document.getElementById('boardTable'), panel=document.getElementById('setupsPanel'), foot=document.getElementById('boardFoot');
+  const badge=document.getElementById('boardBadge');
+  if (tab==='setups'){ table.hidden=true; panel.hidden=false; foot.textContent=FOOTS.setups(); return; }
+  table.hidden=false; panel.hidden=true;
+  const d=BOARD[tab];
+  if (!d){
+    if (tab==='sent') return;                       // sample rows stay until live data arrives
+    document.getElementById('boardHead').innerHTML=HEADS[tab];
+    document.getElementById('boardBody').innerHTML=`<tr><td colspan="5" style="text-align:center;color:var(--dim);padding:30px">Loading…</td></tr>`;
+    foot.textContent=''; return;
+  }
+  document.getElementById('boardHead').innerHTML=HEADS[tab];
+  document.getElementById('boardBody').innerHTML=d.rows;
+  foot.textContent=FOOTS[tab](d.at, d.day);
+  badge.textContent='LIVE'; badge.classList.add('onair');
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{ showTab(b.dataset.tab); gcEvent('board-tab-'+b.dataset.tab); }));
+
+async function loadScores(){
+  try{
+    const res=await fetch(PUB+'1001',{cache:'no-store'}); if(!res.ok) throw 0;
+    const out=[];
+    for (const r of parseCSV(await res.text())){
+      const sym=(r[0]||'').trim(), dc=num(r[1]), wc=num(r[2]);
+      if (!/^[A-Z0-9]{5,8}$/.test(sym) || isNaN(dc) || isNaN(wc)) continue;
+      out.push({sym,dc,wc});
+    }
+    if (!out.length) throw 0;
+    const rows=out.sort((a,b)=>Math.abs(b.wc)-Math.abs(a.wc)).slice(0,7).map(d=>
+      `<tr><td>${esc(d.sym)}</td><td class="${d.dc>0?'buy':d.dc<0?'sell':''}">${signed(d.dc,2)}%</td><td class="${d.wc>0?'buy':d.wc<0?'sell':''}">${signed(d.wc,2)}%</td>${LOCK('score')}</tr>`);
+    BOARD.scores={rows:rows.join(''), at:ukTime()};
+  }catch(e){ BOARD.scores={rows:`<tr><td colspan="4" style="text-align:center;color:var(--dim);padding:30px">Live scores data is updating. Please check back shortly.</td></tr>`, at:ukTime()}; }
+  if (BOARD.tab==='scores') showTab('scores');
+}
+async function loadSSI(){
+  try{
+    const res=await fetch(PUB+'1002',{cache:'no-store'}); if(!res.ok) throw 0;
+    const DAYS={monday:'Monday',tuesday:'Tuesday',weds:'Wednesday',wednesday:'Wednesday',thurs:'Thursday',thursday:'Thursday',friday:'Friday'};
+    let day=null, blocks=[];
+    for (const r of parseCSV(await res.text())){
+      const a=(r[0]||'').trim(), k=a.toLowerCase();
+      if (DAYS[k]){ day=DAYS[k]; blocks.push({day, rows:[]}); continue; }
+      const last=num(r[1]), now=num(r[2]), delta=num(r[3]);
+      if (!blocks.length || !/^[A-Za-z0-9]{3,8}$/.test(a) || isNaN(last) || isNaN(now)) continue;
+      blocks[blocks.length-1].rows.push({sym:a, last, now, delta:isNaN(delta)? now-last : delta});
+    }
+    const b=blocks.filter(x=>x.rows.length).pop(); if(!b) throw 0;
+    const ssiCls=v=> v>0?'sell':v<0?'buy':'';      // positive = crowd net long (contrarian red), negative = net short (green)
+    const rows=b.rows.sort((x,y)=>Math.abs(y.delta)-Math.abs(x.delta)).slice(0,7).map(d=>
+      `<tr><td>${esc(d.sym)}</td><td class="hide-sm ${ssiCls(d.last)}">${signed(d.last,2)}</td><td class="${ssiCls(d.now)}">${signed(d.now,2)}</td><td>${signed(d.delta,2)}</td>${LOCK('ssi-lean')}</tr>`);
+    BOARD.ssi={rows:rows.join(''), at:ukTime(), day:b.day};
+  }catch(e){ BOARD.ssi={rows:`<tr><td colspan="5" style="text-align:center;color:var(--dim);padding:30px">Live SSI data is updating. Please check back shortly.</td></tr>`, at:ukTime(), day:''}; }
+  if (BOARD.tab==='ssi') showTab('ssi');
+}
+
+loadTicker(); loadScores(); loadSSI();
+setInterval(()=>{ loadTicker(); loadScores(); loadSSI(); }, 5*60*1000);
 
 // ---- Contact form → Google Apps Script (QDB Leads) ----
 const LEADS_URL = 'https://script.google.com/macros/s/AKfycbyAeonI9tKb-jdRUWcstZHZQdvAWlon9e-53h631yk_EUoThfmYJGE1wiEnXAdkZXKW/exec';
