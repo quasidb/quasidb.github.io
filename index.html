@@ -335,6 +335,7 @@ td.lock a:hover{color:var(--accent)}
       <a href="#live">Basket board</a>
       <a href="#idea">The idea</a>
       <a href="#inside">What's inside</a>
+      <a href="#new">What's new</a>
       <a href="#score">QDB Score</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
@@ -540,6 +541,287 @@ td.lock a:hover{color:var(--accent)}
     </div>
   </div>
 </section>
+
+<!-- ============ WHAT'S NEW AT QDB ============ -->
+<style>
+#new{background:linear-gradient(180deg,var(--bg) 0%,#0e1422 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+#new .new-pill{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--accent);color:#1a1205;margin-left:6px;vertical-align:middle;letter-spacing:.04em}
+.sample-note{display:flex;gap:14px;align-items:flex-start;background:rgba(245,184,61,.08);border:1px solid rgba(245,184,61,.35);border-radius:14px;padding:18px 22px;margin:-20px 0 34px;font-size:18px;color:var(--text)}
+.sample-note strong{color:var(--accent)}
+.sample-note .ico{font-size:24px;line-height:1.2}
+.new-jump{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:56px}
+.new-jump a{font-size:16px;padding:9px 15px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--muted)}
+.new-jump a:hover{color:var(--text);border-color:#36446a}
+.feat{display:grid;grid-template-columns:1.25fr 1fr;gap:44px;align-items:center;margin-bottom:84px;scroll-margin-top:90px}
+.feat.flip{grid-template-columns:1fr 1.25fr}
+.feat.flip .shot{order:2}
+.feat.wide{grid-template-columns:1fr;gap:26px}
+.feat.wide .shot{order:0}
+.shot{position:relative;margin:0;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px;cursor:zoom-in}
+.shot img{display:block;width:100%;height:auto;border-radius:10px}
+.shot .stamp{display:inline-block;margin:2px 0 10px 2px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;background:rgba(11,15,23,.88);color:var(--accent);border:1px solid rgba(245,184,61,.5);padding:4px 10px;border-radius:6px;pointer-events:none}
+.shot figcaption{font-size:14px;color:var(--dim);padding:10px 6px 2px;display:flex;justify-content:space-between;gap:10px}
+.feat .num{font-family:var(--mono);font-size:14px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.feat h3{font-size:clamp(26px,2.6vw,32px);line-height:1.15;letter-spacing:-.02em;margin-bottom:14px}
+.feat p{color:var(--muted);font-size:18px;margin-bottom:14px}
+.feat .read{list-style:none;padding:0;margin:0 0 14px}
+.feat .read li{position:relative;padding-left:26px;font-size:18px;color:var(--text);margin-bottom:9px}
+.feat .read li::before{content:"›";position:absolute;left:6px;top:-1px;color:var(--accent);font-weight:700}
+.feat .eg{font-size:17px;color:var(--muted);border-left:3px solid var(--accent2);padding:6px 0 6px 14px;margin-top:6px}
+.feat .eg b{color:var(--text)}
+.chip{display:inline-block;font-family:var(--mono);font-size:14px;padding:1px 7px;border-radius:5px;font-weight:600}
+.chip.sell{background:var(--sell-bg);color:var(--sell)}.chip.buy{background:var(--buy-bg);color:var(--buy)}.chip.wait{background:rgba(245,184,61,.14);color:var(--accent)}
+.spot{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.spot h4{font-size:20px;margin-bottom:8px}
+.spot p{margin-bottom:0}
+.new-cta{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:40px 24px}
+.new-cta h3{font-size:clamp(26px,3vw,34px);margin-bottom:10px;letter-spacing:-.02em}
+.new-cta p{color:var(--muted);font-size:18px;max-width:640px;margin:0 auto 22px}
+.new-cta .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+#zoom{border:0;padding:0;background:transparent;max-width:96vw;max-height:94vh}
+#zoom::backdrop{background:rgba(5,8,14,.88)}
+#zoom img{display:block;max-width:96vw;max-height:88vh;border-radius:10px}
+#zoom p{text-align:center;color:var(--muted);font-size:15px;margin-top:8px}
+@media (max-width:980px){
+  .feat,.feat.flip{grid-template-columns:1fr;gap:22px;margin-bottom:64px}
+  .feat.flip .shot{order:0}
+  .spot{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .sample-note{font-size:16px;padding:14px 16px}
+  .feat p,.feat .read li{font-size:17px}
+  .shot .stamp{font-size:11px}
+  .shot figcaption span:last-child{white-space:nowrap}
+}
+</style>
+
+<section id="new">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">What's new at QDB <span class="new-pill">NOV 2026</span></div>
+      <h2>A lot has been built behind the paywall lately. Here's a look.</h2>
+      <p>Eight new views added to the QDB Sheet and Discord over the last few weeks. Each one comes with a plain-English guide below, so you can see what it shows even if you're brand new to sentiment trading.</p>
+    </div>
+
+    <div class="sample-note reveal">
+      <span class="ico">⚠️</span>
+      <div><strong>These are samples, not live data.</strong> Every image on this page is a snapshot taken on <strong>Wed 4 Nov 2026</strong> to show what members see. The numbers will have moved on by the time you read this — please don't trade off them. Live versions update hourly (or faster) for members.</div>
+    </div>
+
+    <nav class="new-jump reveal" aria-label="New features">
+      <a href="#new-48h">48 h trend &amp; "what if"</a>
+      <a href="#new-trails">Bubble Trails</a>
+      <a href="#new-ssi">FXCM SSI live</a>
+      <a href="#new-adding">Who's adding / reducing</a>
+      <a href="#new-feed">Signal feed</a>
+      <a href="#new-signals">Top 3 trades</a>
+      <a href="#new-imbalance">Crowd imbalance</a>
+      <a href="#new-newton">Newtonian summary</a>
+    </nav>
+
+    <!-- 1 -->
+    <article class="feat wide reveal" id="new-48h">
+      <figure class="shot">
+        <span class="stamp">SAMPLE · 4 NOV 2026</span>
+        <img src="img/new/48h-basket-trend.webp" alt="Line chart of retail % long for each currency basket over the last 48 trading hours, with dashed projections" loading="lazy" width="1706" height="694">
+        <figcaption><span>Last 48 h — Basket Sentiment</span><span>Tap to enlarge</span></figcaption>
+      </figure>
+      <div>
+        <div class="num">01 · Dashboard</div>
+        <h3>48-hour basket trend, with a "what if" line</h3>
+        <p>Each line is the share of retail traders long a currency (and gold), hour by hour, over the last 48 trading hours. Weekends are cut out so the gaps don't distort the picture.</p>
+        <ul class="read">
+          <li><b>Contrarian read:</b> crowd buying a currency is a bearish lean; crowd selling is a bullish lean.</li>
+          <li><b>Watch the slope, not just the level.</b> A line falling fast means retail is dumping that currency right now.</li>
+          <li><b>Dashed tail = "what if the trend holds"</b> — where each line lands over the next 4 hours if it keeps its current pace. It's a projection to frame the day, not a forecast.</li>
+        </ul>
+        <p class="eg">In this sample, the <b>gold crowd slid from the low 70s to around 52% long</b> over two days, while <b>NZD sat stubbornly near 85% long</b> the whole time.</p>
+      </div>
+    </article>
+
+    <!-- 2 -->
+    <article class="feat flip reveal" id="new-trails">
+      <figure class="shot">
+        <span class="stamp">SAMPLE · 4 NOV 2026</span>
+        <img src="img/new/bubble-trails.webp" alt="Scatter chart showing each currency's path this week from its start-of-week reading to now" loading="lazy" width="1839" height="800">
+        <figcaption><span>Weekly Bubble Trails</span><span>Tap to enlarge</span></figcaption>
+      </figure>
+      <div>
+        <div class="num">02 · Dashboard</div>
+        <h3>Weekly Bubble Trails</h3>
+        <p>The week's crowd journey for every currency on one chart. Think of it as a trail of footprints.</p>
+        <ul class="read">
+          <li><b>Grey dots on the centre line</b> = where each currency started the week.</li>
+          <li><b>Small dots</b> = snapshots through the week. <b>Big labelled bubble</b> = now.</li>
+          <li><b>Left / right</b> = how much the crowd has sold or bought since the week opened. <b>Up / down</b> = how long they are overall.</li>
+          <li>A long trail to the right means retail is piling in — the classic setup for fading them.</li>
+        </ul>
+        <p class="eg">Sample: <b>AUD and JPY travelled furthest right</b> (crowd buying 10–12+ points), while <b>CHF and EUR travelled furthest left</b> (crowd selling).</p>
+      </div>
+    </article>
+
+    <!-- 3 -->
+    <article class="feat wide reveal" id="new-ssi">
+      <figure class="shot">
+        <span class="stamp">SAMPLE · 4 NOV 2026 · 12:05 GMT</span>
+        <img src="img/new/ssi-live-positioning.webp" alt="Two bar charts: FXCM SSI per instrument, and SSI now versus 4 hours and 24 hours ago" loading="lazy" width="1325" height="450">
+        <figcaption><span>FXCM SSI — live crowd positioning &amp; recent change</span><span>Tap to enlarge</span></figcaption>
+      </figure>
+      <div>
+        <div class="num">03 · QDB Sheet</div>
+        <h3>FXCM SSI — live crowd positioning</h3>
+        <p>FXCM's Speculative Sentiment Index, read into the sheet automatically every hour, now across FX, gold, oil and the major indices (US30, SPX500, GER30, UK100, FRA40).</p>
+        <ul class="read">
+          <li><b>Red bars (SSI above 0)</b> = crowd net long → contrarian <span class="chip sell">SELL</span> lean.</li>
+          <li><b>Green bars (SSI below 0)</b> = crowd net short → contrarian <span class="chip buy">BUY</span> lean.</li>
+          <li><b>Further from zero = more one-sided.</b> The right-hand chart lays now, 4 hours ago and 24 hours ago side by side, so you can see whether the crowd is pushing harder or backing off.</li>
+        </ul>
+        <p class="eg">Sample: <b>USDCHF stood out at +6.9</b> — a heavily one-sided long crowd, and still growing over 24 hours.</p>
+      </div>
+    </article>
+
+    <!-- 4 -->
+    <article class="feat reveal" id="new-adding">
+      <figure class="shot">
+        <span class="stamp">SAMPLE · 4 NOV 2026</span>
+        <img src="img/new/ssi-adding-reducing.webp" alt="Table of FXCM SSI now, 4 hours ago and 24 hours ago with labels for adding, reducing, flipped and steady" loading="lazy" width="1075" height="500">
+        <figcaption><span>Who's adding, who's reducing</span><span>Tap to enlarge</span></figcaption>
+      </figure>
+      <div>
+        <div class="num">04 · QDB Sheet</div>
+        <h3>Who's adding, who's reducing</h3>
+        <p>The same SSI numbers translated into plain words, for the last 4 hours and the last 24 hours.</p>
+        <ul class="read">
+          <li><b>▲ Adding</b> — the crowd is piling further into its position.</li>
+          <li><b>▼ Reducing</b> — the crowd is taking some off the table.</li>
+          <li><b>🔄 Flipped</b> — the crowd has switched sides. These are often where things get interesting.</li>
+          <li><b>▬ Steady</b> — nothing meaningful has changed.</li>
+        </ul>
+        <p class="eg">Sample: in just 4 hours, <b>AUDJPY flipped to net long</b> while <b>US30 and EURJPY flipped to net short</b>.</p>
+      </div>
+    </article>
+
+    <!-- 5 -->
+    <article class="feat wide reveal" id="new-feed">
+      <figure class="shot">
+        <span class="stamp">SAMPLE · 4 NOV 2026 · 12:23 UTC · NOT A LIVE SIGNAL</span>
+        <img src="img/new/signal-feed.webp" alt="Signal feed table: one row per pair with QDB score, signals, cohort status, crowded side, ATR stop, live price and mood and failure-rate checks" loading="lazy" width="1831" height="649">
+        <figcaption><span>Signal feed — every check for every pair, on one line</span><span>Tap to enlarge</span></figcaption>
+      </figure>
+      <div>
+        <div class="num">05 · Signal feed</div>
+        <h3>Signal feed — every check, one line per pair</h3>
+        <p>Instead of flicking between tabs, the signal feed pulls everything the QDB Sheet knows about a pair into a single row, refreshed through the day. Green means a check is passing; red means it's pointing the other way or blocked.</p>
+        <ul class="read">
+          <li><b>QDB score &amp; level signal</b> — the 12-point score, and whether it's strong enough to lean buy (1) or sell (−1).</li>
+          <li><b>QDB Δ24h &amp; Δ signal</b> — how much the score has changed in the last day. A score that's building matters more than one that's fading.</li>
+          <li><b>Cohort status</b> — what the crowd is going through right now: <i>Crowd capitulating</i> (giving up on their side), <i>Fresh longs / shorts winning</i>, or <i>Normal</i>.</li>
+          <li><b>Crowded side</b> — which way most retail traders are leaning on that pair.</li>
+          <li><b>ATR stop</b> — a stop distance in pips sized to how much the pair is actually moving, so a quiet pair and a wild one aren't treated the same.</li>
+          <li><b>Safety gates</b> — <i>Buy / Sell allowed</i> checks the wider market mood (risk on/off and oil) and <i>Failure-rate OK</i> checks that the crowd is actually underwater. If a gate says FALSE, that direction is off the table.</li>
+        </ul>
+        <p class="eg">Sample: <b>GBPUSD scored a full 12</b> and <b>EURJPY 11</b>, both leaning buy. <b>EURUSD and EURCAD</b> flagged <i>crowd capitulating</i> — the long crowd throwing in the towel. <b>USDCAD</b> leaned sell with a score of 2, and the mood gate blocked buys on it. Live feed is for members only.</p>
+      </div>
+    </article>
+
+    <!-- 6 -->
+    <article class="feat wide reveal" id="new-signals">
+      <figure class="shot">
+        <span class="stamp">SAMPLE · NOT A LIVE SIGNAL</span>
+        <img src="img/new/top3-signal-feed.webp" alt="Top 3 ranked setups: sell AUDCHF ready, buy CHFJPY ready, sell NZDCHF extreme wait" loading="lazy" width="1345" height="152">
+        <figcaption><span>Top 3 bubble trades</span><span>Tap to enlarge</span></figcaption>
+      </figure>
+      <div>
+        <div class="num">06 · Top 3 trades</div>
+        <h3>Top 3 bubble trades — ranked, with context</h3>
+        <p>This is where the sheet stops being "just data" and gives members a short, ranked list. It pairs the currency the crowd is most wrong about on one side against the weakest on the other, then checks the crowd on the actual pair before calling it ready.</p>
+        <ul class="read">
+          <li><b>Score</b> — e.g. CHF +3 vs AUD −2 gives a net +5 setup.</li>
+          <li><span class="chip buy">✅ Ready</span> — the crowd is on the other side of the trade, but not at an extreme.</li>
+          <li><span class="chip wait">⏳ Extreme – wait</span> — the crowd is beyond 85/15. At extremes the crowd can stay right for a while, so we watch rather than jump in.</li>
+        </ul>
+        <p class="eg">Sample: <span class="chip sell">SELL AUDCHF</span> and <span class="chip buy">BUY CHFJPY</span> were both <b>Ready</b>; <span class="chip sell">SELL NZDCHF</span> was parked on <b>wait</b> with the crowd 91% long. Live setups are for members only.</p>
+      </div>
+    </article>
+
+    <!-- 7 -->
+    <article class="feat flip reveal" id="new-imbalance">
+      <figure class="shot">
+        <span class="stamp">SAMPLE · 4 NOV 2026</span>
+        <img src="img/new/crowd-imbalance.webp" alt="Top 12 most one-sided retail sentiment pairs, table and bar chart of long versus short percentage" loading="lazy" width="1531" height="600">
+        <figcaption><span>Top 12 most extreme pairs</span><span>Tap to enlarge</span></figcaption>
+      </figure>
+      <div>
+        <div class="num">07 · QDB Sheet</div>
+        <h3>Crowd imbalance — the 12 most one-sided pairs</h3>
+        <p>All 28 major pairs plus gold, ranked by how far the retail crowd is from a 50/50 split. Refreshes with every Myfxbook data update.</p>
+        <ul class="read">
+          <li><b>One-sided %</b> — the bigger side of the crowd. 90%+ is very stretched.</li>
+          <li>Use it as a <b>watch-list</b>, not a trigger: an extreme crowd tells you where the pressure is building, not when it releases.</li>
+          <li>Look for <b>themes</b> — the same currency showing up again and again.</li>
+        </ul>
+        <p class="eg">Sample: <b>EURGBP was 96% long</b>, and NZD was everywhere — retail long NZD against CAD, CHF, USD and JPY, and short GBPNZD and AUDNZD (which is also long NZD).</p>
+      </div>
+    </article>
+
+    <!-- 8 -->
+    <article class="feat wide reveal" id="new-newton">
+      <figure class="shot">
+        <span class="stamp">SAMPLE · 4 NOV 2026</span>
+        <img src="img/new/newtonian-summary.webp" alt="Newtonian Sentiment summary table per currency with weekly signal score, bias, phase, reaction and a written summary" loading="lazy" width="1636" height="455">
+        <figcaption><span>🍎 Newtonian Sentiment — summary, strongest signal first</span><span>Tap to enlarge</span></figcaption>
+      </figure>
+      <div>
+        <div class="num">08 · QDB Sheet</div>
+        <h3>Newtonian Sentiment — the crowd as a body in motion</h3>
+        <p>Price isn't the only thing with momentum. This view treats the crowd like a physics problem: how fast is it moving, is it speeding up or running out of steam, and is it starting to snap back? Every currency gets a phase, a reaction and a one-paragraph summary written in plain English.</p>
+        <ul class="read">
+          <li><b>Phase</b> — e.g. <i>High Velocity Buying</i> (retail piling in fast), <i>Drift Selling</i> (slowly adding shorts), <i>Coming Off Upper Spring</i> (unwinding from a stretched long).</li>
+          <li><b>Reaction</b> — what's happening underneath, using open interest: are longs closing, shorts closing, or both sides adding?</li>
+          <li><b>Weekly and daily bias</b> side by side, so you can see when they agree.</li>
+        </ul>
+        <div class="spot">
+          <div>
+            <h4>🔎 Spotlight: NZD unwinding</h4>
+            <p>In this sample the NZD crowd was about <b>85% long</b> — a stretched spring. The Newtonian read flagged <b>"Coming Off Upper Spring"</b>: shorts were closing and the crowd was starting to unwind from that extreme, with open interest still shifting.</p>
+          </div>
+          <div>
+            <h4>Why that matters</h4>
+            <p>The easy contrarian trade ("everyone's long, so sell") was <b>fading</b>, and a buy may have been building — with caution. That's exactly why the Top 3 trades above parked <b>SELL NZDCHF</b> on <i>wait</i> instead of calling it ready. The tools check each other.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="new-cta reveal">
+      <h3>All of this is live for members.</h3>
+      <p>The samples above are a few hours old by design. Members get the live versions in the QDB Sheet and on Discord, updated through the trading day.</p>
+      <div class="btns">
+        <a href="#pricing" class="btn btn-primary" data-goatcounter-click="new-plans">See the plans</a>
+        <a href="https://t.me/quasidb" class="btn btn-ghost" target="_blank" rel="noopener" data-goatcounter-click="new-telegram">Follow free on Telegram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<dialog id="zoom" aria-label="Enlarged sample image">
+  <img src="" alt="">
+  <p>Sample snapshot from Wed 4 Nov 2026 — not live data. Tap anywhere to close.</p>
+</dialog>
+<script>
+(function(){
+  var dlg=document.getElementById('zoom'); if(!dlg||!dlg.showModal) return;
+  var big=dlg.querySelector('img');
+  document.querySelectorAll('#new .shot').forEach(function(f){
+    f.addEventListener('click',function(){
+      var i=f.querySelector('img'); big.src=i.src; big.alt=i.alt; dlg.showModal();
+    });
+  });
+  dlg.addEventListener('click',function(){dlg.close();});
+})();
+</script>
+<!-- ============ /WHAT'S NEW AT QDB ============ -->
+
 
 <section id="score" class="alt">
   <div class="wrap score-grid">
