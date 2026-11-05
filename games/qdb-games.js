@@ -12,6 +12,7 @@
   var LEADS_URL = 'https://script.google.com/macros/s/AKfycbyAeonI9tKb-jdRUWcstZHZQdvAWlon9e-53h631yk_EUoThfmYJGE1wiEnXAdkZXKW/exec';
 
   var GAMES = [
+    { slug: 'stop-hunter', name: 'Stop Hunter', blurb: 'Drag your stop and take profit, then watch the big fish hunt the crowd\u2019s stop loss clusters.' },
     { slug: 'crowd-express', name: 'Crowd Express', blurb: 'Ride the retail sentiment train from Edinburgh to King’s Cross. Know when to board, and when it terminates.' },
     { slug: 'stick-to-the-plan', name: 'Stick to the Plan', blurb: 'Ten trades, one year, real-life bills. Does following a written plan get you funded?' },
     { slug: 'retail-survival-simulator', name: 'Retail Survival Simulator', blurb: 'Survive real market crises: Lehman, the SNB floor, Brexit night and more.' }

@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stop Hunter: where would you put your stop?</title>
+<meta name="description" content="A free trading game from QDB. Drag your stop loss and take profit onto the chart, then watch the big fish hunt the crowd's stop loss clusters. Learn to place stops beyond strong levels.">
+<link rel="canonical" href="https://quasidb.github.io/games/stop-hunter/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.github.io/games/stop-hunter/">
+<meta property="og:title" content="Stop Hunter: would your stop survive the big fish?">
+<meta property="og:description" content="Drag your stop and take profit onto the chart, then watch the big fish hunt the crowd's stop loss clusters. Five trades. Can you survive them all?">
+<meta property="og:image" content="https://quasidb.github.io/games/stop-hunter/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stop Hunter: would your stop survive the big fish?">
+<meta name="twitter:description" content="Drag your stop and take profit onto the chart, then watch the big fish hunt the crowd's stop loss clusters. Five trades. Can you survive them all?">
+<meta name="twitter:image" content="https://quasidb.github.io/games/stop-hunter/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f17; --bg2:#101624; --panel:#141b2b; --line:#26324a; --text:#e8edf6; --muted:#a3afc5; --dim:#6b7892;
+  --buy:#22c55e; --buy-bg:rgba(34,197,94,.13); --sell:#ef4444; --sell-bg:rgba(239,68,68,.13);
+  --accent:#f5b83d; --amber:#ffb000; --blue:#3b82f6; --sea:#38bdf8; --violet:#a78bfa;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:var(--accent)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+.muted{color:var(--muted)}
+.top{position:sticky;top:0;z-index:10;background:rgba(11,15,23,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;text-decoration:none;color:var(--text)}
+.brand img{width:30px;height:30px;border-radius:50%}
+.hud{display:flex;gap:8px;font-family:var(--mono);font-size:14px;flex-wrap:wrap}
+.hud span{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 10px;white-space:nowrap}
+.hud b{color:var(--accent)}
+main{padding:22px 0 10px}
+h1{font-size:clamp(38px,7vw,62px);line-height:1.04;letter-spacing:-.035em;font-weight:700}
+h1 em{font-style:normal;color:var(--sea)}
+h2{font-size:clamp(26px,4.4vw,36px);line-height:1.12;letter-spacing:-.02em}
+h3{font-size:20px;letter-spacing:-.01em}
+.lead{font-size:20px;color:var(--muted);margin:14px 0 0;max-width:42em}
+.kick{font-family:var(--mono);color:var(--sea);font-size:14px;letter-spacing:.08em}
+.card{scroll-margin-top:78px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 22px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);font-weight:700;font-size:18px;text-decoration:none;color:var(--text)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1205}
+.btn[disabled]{opacity:.5;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.story{font-size:19px;margin:14px 0 0}
+.story b{color:var(--text)}
+.chartbox{margin-top:14px;background:#0a1220;border:1px solid var(--line);border-radius:16px;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+.chartbox svg{display:block;width:100%;height:auto}
+.drag{cursor:ns-resize}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media (max-width:560px){.controls{grid-template-columns:1fr}}
+.ctl{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ctl .lab{font-size:15px;color:var(--muted)}
+.ctl .lab b{display:block;font-family:var(--mono);font-size:18px}
+.ctl.sl .lab b{color:var(--sell)} .ctl.tp .lab b{color:var(--buy)}
+.ctl .nudge{display:flex;gap:6px}
+.ctl .nudge button{width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);font-size:22px;font-weight:700}
+.rr{font-family:var(--mono);font-size:15px;color:var(--muted);margin-top:8px}
+.rr b{color:var(--text)}
+.stamp{display:inline-block;font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;border:2px solid currentColor;border-radius:8px;padding:4px 10px;margin-bottom:10px}
+.stamp.g{color:var(--buy)} .stamp.o{color:var(--accent)} .stamp.b{color:var(--sell)}
+@media (prefers-reduced-motion:no-preference){.stamp{animation:thump .4s cubic-bezier(.2,1.6,.4,1) both}@keyframes thump{from{transform:scale(1.8);opacity:0}to{transform:scale(1);opacity:1}}}
+.rline{font-family:var(--mono);font-size:20px;font-weight:700;margin:2px 0 8px}
+.rline.g{color:var(--buy)} .rline.r{color:var(--sell)} .rline.n{color:var(--muted)}
+.note{margin-top:14px;border-left:4px solid var(--sea);background:rgba(56,189,248,.07);border-radius:0 12px 12px 0;padding:12px 16px}
+.note h4{font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--sea);margin-bottom:4px}
+.rules{display:grid;gap:10px;margin-top:18px}
+.rule{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.rule .n{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(56,189,248,.1);color:var(--sea);font-family:var(--mono);font-weight:700;font-size:18px}
+.rule b{display:block;font-size:18px}
+.rule span{color:var(--muted);font-size:17px}
+.ob{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:center;margin-top:18px}
+@media (max-width:700px){.ob{grid-template-columns:1fr}}
+.ob svg{display:block;width:100%;height:auto}
+.grade{font-family:var(--mono);font-weight:700;font-size:clamp(64px,16vw,110px);line-height:1;color:var(--sea);text-shadow:0 0 18px rgba(56,189,248,.35)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+.kpi span{display:block;font-size:14px;color:var(--muted)}
+.kpi b{font-family:var(--mono);font-size:26px}
+@media (max-width:560px){.kpis{grid-template-columns:1fr 1fr}}
+table{width:100%;border-collapse:collapse;font-size:16px}
+td,th{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+.cta{margin-top:18px;background:linear-gradient(135deg,rgba(56,189,248,.10),rgba(34,197,94,.10));border:1px solid rgba(56,189,248,.35);border-radius:18px;padding:22px}
+.cta p{color:var(--muted);margin-top:6px}
+.disc{font-size:13px;color:var(--dim);margin-top:10px}
+.foot{font-size:14px;color:var(--dim);margin:22px 0 0}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../?ref=game-stop-hunter"><img src="../../logo.png" alt="">QDB Games</a>
+    <div class="hud" id="hud" aria-live="polite"></div>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+
+<script>
+/* ======================= ROUNDS =======================
+   Prices are illustrative units 0-100. past = path before entry (last = entry).
+   after = what the market does next. zone = the strong level the trade is taken from.
+   clusters = the crowd's stop loss clusters [price, volume]. ideal = the textbook stop / take profit. */
+const AFFILIATE="https://fxssi.com/plans?promocode=QUASIDB";
+const R=[
+{id:"obvious",pair:"EURUSD",dir:"long",title:"The obvious swing low",
+ past:[60,56,50,46,40,36,34,37,41,40],after:[38,35,32,30,33,40,48,55,61,65,63],
+ zone:[24,31,"Daily demand"],clusters:[[33,8],[64,5]],start:{sl:33,tp:50},ideal:{sl:26,tp:63},
+ story:"You're <b>long EURUSD</b> after a bounce. Everyone can see the swing low just under price, and the crowd has parked its stops right below it: a fat stop loss cluster. Daily demand sits lower down. Drag your stop and your take profit, then press <b>Run the market</b>.",
+ lesson:"The swing low everyone can see is where everyone's stop sits. The big fish dipped into that cluster, filled its orders, and left. Put your stop beyond the strong level, not at the obvious one."},
+{id:"smaller",pair:"GBPUSD",dir:"short",title:"Bigger isn't the magnet",
+ past:[40,46,52,58,63,67,70,66,64],after:[66,70,73,76,72,64,55,46,38,31,29,33],
+ zone:[65,72,"Daily supply"],clusters:[[74,3],[30,9]],start:{sl:73.5,tp:45},ideal:{sl:79,tp:32},
+ story:"You're <b>short GBPUSD</b> from daily supply. There's a small stop cluster just above the zone and a huge one far below. A friend swears price always makes a beeline for the bigger cluster, so a stop just above supply should be safe. Is it?",
+ lesson:"Price took the small cluster above first, then fell to the big one. Bigger clusters aren't automatically the first target, so keep your stop beyond the level and beyond the cluster that sits on top of it."},
+{id:"inside",pair:"XAUUSD",dir:"long",title:"A cluster inside the zone",
+ past:[80,72,64,56,50,45,42,46,49,48],after:[45,42,39,41,48,56,64,72,79,83,80],
+ zone:[38,46,"Weekly demand"],clusters:[[43,7],[82,6]],start:{sl:41,tp:60},ideal:{sl:36,tp:81},
+ story:"You're <b>long gold</b> at weekly demand. This time the crowd's stops are bunched <b>inside</b> the zone, just under the recent low. The next cluster up is far above, near the old high.",
+ lesson:"When the cluster sits inside the zone, the zone's far edge is your line. A stop just beyond weekly demand survived the probe, and the take profit sat at the cluster above, where the magnet was."},
+{id:"greedy",pair:"USDJPY",dir:"short",title:"Take profit at the magnet",
+ past:[30,38,46,54,61,66,63,60],after:[57,52,46,40,35,33,38,48,58,66,71,75],
+ zone:[62,70,"Daily supply"],clusters:[[34,6],[74,4]],start:{sl:77,tp:28},ideal:{sl:78,tp:35},
+ story:"You're <b>short USDJPY</b> from daily supply, and your stop is already sensible. The crowd's long stops cluster at 34 below. Your take profit is set greedily beyond it. Where should it go?",
+ lesson:"Clusters pull price towards them like a magnet, and what happens after they're hit is hard to predict. Bank it at the cluster. Past it, you're hoping."},
+{id:"yolo",pair:"AUDUSD",dir:"long",title:"The YOLO trade",
+ past:[20,24,30,34,38,35,33,37,40],after:[43,48,53,57,59,55,47,38,30,24,19,17],
+ zone:[30,37,"Daily demand"],clusters:[[58,2],[18,10]],start:{sl:34,tp:75},ideal:{sl:28,tp:57},
+ story:"You're <b>long AUDUSD</b> from daily demand. Above: a small cluster at 58. Below: a monster cluster at 18. Someone in the chat is going all in, betting price will dive straight for the big one. You're long, so where do you take profit?",
+ lesson:"Price went for the small cluster first, then flushed down to the big one. The all-in bet on the big cluster got stopped out on the way up. Take the first magnet and get out, and never size up on a guess about which cluster gets hit."}
+];
+
+/* ======================= HELPERS ======================= */
+const app=document.getElementById("app"), hudEl=document.getElementById("hud");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sR=r=>(r>0?"+":r<0?"−":"")+Math.abs(r).toFixed(2)+"R";
+const REDUCED=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+function track(n){try{window.QDBGames&&QDBGames.track(n)}catch(e){}}
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const entryOf=r=>r.past[r.past.length-1];
+
+let S=null, CUR=null;
+function hud(){
+  if(!S){hudEl.innerHTML="";return}
+  hudEl.innerHTML=`<span>Trade <b>${Math.min(S.i+1,R.length)}/${R.length}</b></span><span>Score <b>${S.pts}</b></span><span>Survived <b>${S.survived}</b></span>`;
+}
+
+/* Walk the price path: which comes first, stop or take profit? */
+function simulate(r,sl,tp){
+  const e=entryOf(r), long=r.dir==="long", path=[e].concat(r.after), steps=[];
+  for(let i=1;i<path.length;i++){const a=path[i-1],b=path[i];for(let k=1;k<=20;k++)steps.push({x:i-1+k/20,p:a+(b-a)*k/20})}
+  for(const s of steps){
+    if(long?s.p<=sl:s.p>=sl) return {hit:"sl",x:s.x,p:sl,R:-1};
+    if(long?s.p>=tp:s.p<=tp) return {hit:"tp",x:s.x,p:tp,R:Math.abs(tp-e)/Math.abs(e-sl)};
+  }
+  const last=path[path.length-1];
+  return {hit:"none",x:path.length-1,p:last,R:(long?last-e:e-last)/Math.abs(e-sl)};
+}
+function clusterHits(r){
+  const e=entryOf(r), path=[e].concat(r.after), hits=[];
+  r.clusters.forEach(([c,v],ci)=>{
+    for(let i=1;i<path.length;i++){const a=path[i-1],b=path[i];
+      if((a-c)*(b-c)<=0&&a!==b){hits.push({ci,x:i-1+(c-a)/(b-a)});return}}
+  });
+  return hits.sort((a,b)=>a.x-b.x);
+}
+
+/* ======================= CHART ======================= */
+function compact(){return (app.clientWidth||600)<600}
+function geom(r){
+  const C=compact(), W=C?560:960, H=C?520:430, L=10, OB=0, Rr=W-12, T=18, B=H-30;
+  const n=r.past.length-1+r.after.length;
+  const vals=r.past.concat(r.after,r.zone.slice(0,2),r.clusters.map(c=>c[0]),[r.start.sl,r.start.tp,r.ideal.sl,r.ideal.tp]);
+  const lo=Math.max(0,Math.min(...vals)-8), hi=Math.min(100,Math.max(...vals)+8);
+  const X=i=>L+(Rr-L)*i/n, Y=p=>T+(hi-p)/(hi-lo)*(B-T), P=y=>hi-(y-T)/(B-T)*(hi-lo);
+  return {C,W,H,L,OB,Rr,T,B,n,X,Y,P,lo,hi,fs:C?22:15};
+}
+function chartSVG(r,o){
+  o=o||{}; const g=geom(r), e=entryOf(r), long=r.dir==="long", eaten=o.eaten||new Set();
+  const {W,H,L,Rr,T,B,X,Y,fs}=g, k=r.past.length-1;
+  let s=`<svg id="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(r.pair)} chart. ${long?"Long":"Short"} entry at ${e}. ${esc(r.zone[2])} from ${r.zone[0]} to ${r.zone[1]}. Stop loss clusters at ${r.clusters.map(c=>c[0]).join(" and ")}.">`;
+  s+=`<rect width="${W}" height="${H}" fill="#0a1220"/>`;
+  // zone
+  const zc=long?"34,197,94":"239,68,68";
+  s+=`<rect x="${L}" y="${Y(r.zone[1])}" width="${Rr-L}" height="${Y(r.zone[0])-Y(r.zone[1])}" fill="rgba(${zc},.14)" stroke="rgba(${zc},.5)" stroke-dasharray="6 4"/>`;
+  s+=`<text x="${Rr-8}" y="${long?Y(r.zone[0])-7:Y(r.zone[1])+fs+3}" text-anchor="end" font-family="Space Grotesk, sans-serif" font-size="${fs}" font-weight="700" fill="rgb(${zc})">${esc(r.zone[2])}</text>`;
+  // clusters across the chart
+  r.clusters.forEach(([c,v],ci)=>{
+    const gone=eaten.has(ci);
+    s+=`<line x1="${L}" x2="${Rr}" y1="${Y(c)}" y2="${Y(c)}" stroke="#a78bfa" stroke-opacity="${gone?.18:.75}" stroke-width="${1.5+v*1.1}" ${gone?'stroke-dasharray="4 6"':""}/>`;
+    s+=`<text x="${Rr-8}" y="${Y(c)-(4+v*0.6)}" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="${fs-2}" font-weight="700" fill="#c4b5fd" opacity="${gone?.4:1}">${gone?"EATEN":"STOP CLUSTER"} · ${v}k</text>`;
+  });
+  // price so far
+  const pth=(arr,off)=>arr.map((v,i)=>(i?"L":"M")+X(i+off).toFixed(1)+" "+Y(v).toFixed(1)).join(" ");
+  s+=`<path d="${pth(r.past,0)}" fill="none" stroke="#e8edf6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  s+=`<path id="future" d="" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  // entry
+  s+=`<line x1="${X(k)}" x2="${Rr}" y1="${Y(e)}" y2="${Y(e)}" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 5"/>`;
+  s+=`<circle cx="${X(k)}" cy="${Y(e)}" r="7" fill="var(--accent)" stroke="#0b0f17" stroke-width="2"/>`;
+  s+=`<text x="${X(k)-12}" y="${Y(e)-14}" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="${fs-1}" font-weight="700" fill="var(--accent)">${long?"BUY":"SELL"} ${e}</text>`;
+  // stop + tp lines (draggable)
+  [["sl",CUR.sl,"#ef4444","STOP"],["tp",CUR.tp,"#22c55e","TAKE PROFIT"]].forEach(([id,v,col,lab])=>{
+    const y=Y(v);
+    s+=`<g id="ln-${id}" class="${o.locked?"":"drag"}" data-k="${id}">
+      <rect x="${L}" y="${y-18}" width="${Rr-L}" height="36" fill="transparent"/>
+      <line x1="${L}" x2="${Rr}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="3"/>
+      <rect x="${L+4}" y="${y-fs*.95}" width="${(lab.length+7)*fs*.62+10}" height="${fs*1.9}" rx="8" fill="${col}"/>
+      <text x="${L+14}" y="${y+fs*.35}" font-family="JetBrains Mono, monospace" font-size="${fs-1}" font-weight="700" fill="#0b0f17">${o.locked?"":"↕ "}${lab} ${v.toFixed(1)}</text>
+    </g>`;
+  });
+  s+=`<g id="fx"></g>`;
+  s+=`<text x="${L+6}" y="${H-9}" font-family="JetBrains Mono, monospace" font-size="${fs-3}" fill="#6b7892">${esc(r.pair)} · illustrative</text>`;
+  return s+"</svg>";
+}
+
+/* dragging */
+function enableDrag(r){
+  const svg=document.getElementById("chart"); if(!svg) return;
+  const g=geom(r); let dragging=null;
+  const toPrice=ev=>{const pt=svg.createSVGPoint();pt.x=ev.clientX;pt.y=ev.clientY;const p=pt.matrixTransform(svg.getScreenCTM().inverse());return g.P(p.y)};
+  svg.querySelectorAll(".drag").forEach(el=>{
+    el.addEventListener("pointerdown",ev=>{dragging=el.dataset.k;el.setPointerCapture&&el.setPointerCapture(ev.pointerId);ev.preventDefault()});
+  });
+  svg.addEventListener("pointermove",ev=>{if(!dragging)return;setLine(r,dragging,toPrice(ev))});
+  const stop=()=>{dragging=null};
+  svg.addEventListener("pointerup",stop);svg.addEventListener("pointercancel",stop);
+}
+function bounds(r,k){
+  const e=entryOf(r), long=r.dir==="long";
+  const g=geom(r), a=g.lo+1, b=g.hi-1;
+  if(k==="sl") return long?[a,e-1.5]:[e+1.5,b];
+  return long?[e+1.5,b]:[a,e-1.5];
+}
+function setLine(r,k,v){
+  const [a,b]=bounds(r,k); CUR[k]=Math.round(clamp(v,a,b)*2)/2;
+  const g=geom(r), y=g.Y(CUR[k]), el=document.getElementById("ln-"+k);
+  if(el){el.querySelector("line").setAttribute("y1",y);el.querySelector("line").setAttribute("y2",y);
+    const rs=el.querySelectorAll("rect");rs[0].setAttribute("y",y-18);rs[1].setAttribute("y",y-g.fs*.95);
+    const t=el.querySelector("text");t.setAttribute("y",y+g.fs*.35);t.textContent="↕ "+(k==="sl"?"STOP":"TAKE PROFIT")+" "+CUR[k].toFixed(1);}
+  readout(r);
+}
+function readout(r){
+  const e=entryOf(r), risk=Math.abs(e-CUR.sl), rew=Math.abs(CUR.tp-e);
+  const set=(id,t)=>{const el=document.getElementById(id);if(el)el.textContent=t};
+  set("slv",CUR.sl.toFixed(1)); set("tpv",CUR.tp.toFixed(1));
+  const rr=document.getElementById("rr"); if(rr) rr.innerHTML=`Risk <b>${risk.toFixed(1)}</b> · Reward <b>${rew.toFixed(1)}</b> · Reward-to-risk <b>${(rew/risk).toFixed(2)} : 1</b>`;
+}
+
+/* ======================= SCREENS ======================= */
+function slcSVG(){
+  // explainer: two stop loss clusters around price, thickness = volume
+  const W=440,H=300; let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Diagram of stop loss clusters: a thick band of stops below price and a thinner band above, with a fish heading for the thin one.">`;
+  s+=`<rect width="${W}" height="${H}" rx="14" fill="#0d1729"/>`;
+  s+=`<line x1="20" x2="420" y1="80" y2="80" stroke="#a78bfa" stroke-width="5" stroke-opacity=".8"/><text x="420" y="68" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" fill="#c4b5fd">SMALL CLUSTER · 3k</text>`;
+  s+=`<line x1="20" x2="420" y1="226" y2="226" stroke="#a78bfa" stroke-width="13" stroke-opacity=".8"/><text x="420" y="208" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" fill="#c4b5fd">BIG CLUSTER · 9k</text>`;
+  s+=`<path d="M24 170 L70 150 L110 162 L150 140 L190 152 L230 132 L270 146 L300 150" fill="none" stroke="#e8edf6" stroke-width="3" stroke-linejoin="round"/>`;
+  s+=`<circle cx="300" cy="150" r="6" fill="#f5b83d"/><text x="312" y="155" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" fill="#f5b83d">PRICE</text>`;
+  s+=`<text x="24" y="106" font-family="Space Grotesk, sans-serif" font-size="14" fill="#c4b5fd">Stops of traders who are short</text>`;
+  s+=`<text x="24" y="258" font-family="Space Grotesk, sans-serif" font-size="14" fill="#c4b5fd">Stops of traders who are long</text>`;
+  s+=`<g transform="translate(372 112) rotate(-35)">${fish(.9)}</g>`;
+  return s+"</svg>";
+}
+function fish(sc){return `<g transform="scale(${sc})"><path d="M-30 0 q18 -18 44 -8 l14 -10 v36 l-14 -10 q-26 10 -44 -8z" fill="#38bdf8" stroke="#0b1226" stroke-width="2"/><path d="M-8 -9 l8 -14 l8 12z" fill="#38bdf8" stroke="#0b1226" stroke-width="2"/><circle cx="-18" cy="-3" r="2.6" fill="#0b1226"/><path d="M-30 3 l7 3 l-2 -5 l4 4 l-1 -5 l3 4" fill="none" stroke="#fff" stroke-width="1.5"/></g>`}
+
+function startScreen(){
+  S=null; hud(); window.scrollTo({top:0});
+  const best=store("sh_best");
+  app.innerHTML=`<p class="kick">A FREE QDB GAME · 5 TRADES · ABOUT 5 MINUTES</p>
+  <h1 style="margin-top:8px">Stop <em>Hunter</em></h1>
+  <p class="lead">Every trader's stop loss is an order waiting in the market. When lots of them bunch up at the same price, they form a <b style="color:var(--text)">stop loss cluster</b>, and the big fish need that liquidity to fill their own orders. Your job: put your stop where the big fish isn't hunting, and your take profit where it is.</p>
+  <div class="ob">
+    <div class="card" style="padding:10px">${slcSVG()}</div>
+    <div>
+      <h3>How to read stop loss clusters</h3>
+      <p class="muted" style="margin-top:6px">A stop loss cluster indicator draws two lines: the biggest bunch of stops above price and the biggest below. The thicker the line, the more stops are sitting there. Stops above price belong to traders who are short, and turn into <b style="color:#86efac">buy</b> orders when hit. Stops below belong to traders who are long, and turn into <b style="color:#fca5a5">sell</b> orders.</p>
+    </div>
+  </div>
+  <div class="rules">
+    <div class="rule"><div class="n">1</div><div><b>Clusters are a target, not a shield</b><span>Never put your stop at the obvious swing high or low, and never inside the crowd's stop loss cluster. That's exactly what gets hunted.</span></div></div>
+    <div class="rule"><div class="n">2</div><div><b>Stops go beyond strong levels</b><span>Trade from weekly or daily demand and supply, and put your stop beyond the zone and beyond any cluster sitting on it, where there are few other stops.</span></div></div>
+    <div class="rule"><div class="n">3</div><div><b>Take profit at the magnet</b><span>Clusters pull price towards them. Bank your profit at the cluster in your direction, not past it.</span></div></div>
+    <div class="rule"><div class="n">4</div><div><b>Bigger isn't always first</b><span>Don't assume price makes a beeline for the larger cluster. It often takes the smaller, nearer one first.</span></div></div>
+  </div>
+  <div class="row"><button class="btn primary" onclick="begin()">Start hunting</button><a class="btn" href="../">More games</a></div>
+  ${best?`<p class="muted" style="margin-top:12px;font-size:16px">Your best: ${best.pts} points (${esc(best.g)}).</p>`:""}
+  <p class="foot">Educational only, not financial advice. Charts and clusters are illustrative, written to teach the idea, not real data.</p>`;
+}
+
+function begin(){S={i:0,pts:0,R:0,survived:0,log:[]};track("start-stop-hunter");try{QDBGames.showFooter()}catch(e){}show()}
+
+function show(){
+  const r=R[S.i]; CUR={sl:r.start.sl,tp:r.start.tp}; hud(); window.scrollTo({top:0});
+  app.innerHTML=`<p class="kick">TRADE ${S.i+1} OF ${R.length} · ${esc(r.pair)} · ${r.dir==="long"?"LONG":"SHORT"}</p>
+  <h2 style="margin:4px 0 4px">${esc(r.title)}</h2>
+  <p class="story">${r.story}</p>
+  <div class="chartbox">${chartSVG(r,{})}</div>
+  <div class="legend"><span><i style="background:#ef4444"></i>Your stop (drag it)</span><span><i style="background:#22c55e"></i>Your take profit (drag it)</span><span><i style="background:#a78bfa;height:6px"></i>Crowd's stop cluster (thicker = more stops)</span></div>
+  <div class="controls">
+    <div class="ctl sl"><div class="lab">Stop loss<b id="slv"></b></div><div class="nudge"><button aria-label="Move stop up" onclick="nudge('sl',1)">▲</button><button aria-label="Move stop down" onclick="nudge('sl',-1)">▼</button></div></div>
+    <div class="ctl tp"><div class="lab">Take profit<b id="tpv"></b></div><div class="nudge"><button aria-label="Move take profit up" onclick="nudge('tp',1)">▲</button><button aria-label="Move take profit down" onclick="nudge('tp',-1)">▼</button></div></div>
+  </div>
+  <p class="rr" id="rr"></p>
+  <div class="row"><button class="btn primary" id="runBtn" onclick="run()">Run the market</button></div>`;
+  readout(r); enableDrag(r);
+}
+function nudge(k,d){setLine(R[S.i],k,CUR[k]+d)}
+
+function run(){
+  const r=R[S.i], res=simulate(r,CUR.sl,CUR.tp), hits=clusterHits(r), e=entryOf(r);
+  document.getElementById("runBtn").disabled=true;
+  document.querySelectorAll(".nudge button").forEach(b=>b.disabled=true);
+  const box=document.querySelector(".chartbox"); box.innerHTML=chartSVG(r,{locked:true});
+  const g=geom(r), k=r.past.length-1, path=[e].concat(r.after), fut=document.getElementById("future"), fx=document.getElementById("fx");
+  const endX=res.x, eaten=new Set();
+  const pointAt=x=>{const i=Math.min(Math.floor(x),path.length-2),f=x-i;return path[i]+(path[i+1]-path[i])*f};
+  const draw=x=>{let d=`M${g.X(k)} ${g.Y(e)}`;for(let i=1;i<=Math.floor(x);i++)d+=` L${g.X(k+i)} ${g.Y(path[i])}`;d+=` L${g.X(k+x)} ${g.Y(pointAt(x))}`;fut.setAttribute("d",d)};
+  const chomp=h=>{eaten.add(h.ci);const c=r.clusters[h.ci][0],cx=g.X(k+h.x),cy=g.Y(c);
+    const el=document.createElementNS("http://www.w3.org/2000/svg","g");
+    el.innerHTML=`<g transform="translate(${cx} ${cy})">${fish(g.C?1.1:1)}</g><text x="${cx}" y="${cy-26}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="${g.fs}" font-weight="700" fill="#38bdf8">CHOMP</text>`;
+    fx.appendChild(el);
+    const lines=document.querySelectorAll("#chart line");/* fade the cluster on next full redraw */};
+  const finish=()=>{
+    draw(endX);
+    const mk=document.createElementNS("http://www.w3.org/2000/svg","g"), mx=g.X(k+res.x), my=g.Y(res.p);
+    const col=res.hit==="sl"?"#ef4444":res.hit==="tp"?"#22c55e":"#94a3b8";
+    mk.innerHTML=`<circle cx="${mx}" cy="${my}" r="10" fill="none" stroke="${col}" stroke-width="3"/><circle cx="${mx}" cy="${my}" r="4" fill="${col}"/>`;
+    fx.appendChild(mk);
+    // reveal the rest of the path faintly
+    const rest=document.createElementNS("http://www.w3.org/2000/svg","path");
+    let d=`M${g.X(k+res.x)} ${g.Y(res.p)}`;for(let i=Math.ceil(res.x);i<path.length;i++)d+=` L${g.X(k+i)} ${g.Y(path[i])}`;
+    rest.setAttribute("d",d);rest.setAttribute("fill","none");rest.setAttribute("stroke","#7dd3fc");rest.setAttribute("stroke-opacity",".35");rest.setAttribute("stroke-width","2");rest.setAttribute("stroke-dasharray","6 6");
+    fx.insertBefore(rest,fx.firstChild);
+    setTimeout(()=>result(r,res),REDUCED?0:500);
+  };
+  if(REDUCED){hits.filter(h=>h.x<=endX).forEach(chomp);finish();return}
+  const dur=900*endX/ (path.length-1) * (path.length-1)/4 + 400, t0=performance.now(); let done=new Set();
+  const total=Math.max(1200,endX*320);
+  function frame(t){const x=Math.min(endX,(t-t0)/total*endX);draw(x);
+    hits.forEach((h,i)=>{if(!done.has(i)&&h.x<=x){done.add(i);chomp(h)}});
+    if(x<endX)requestAnimationFrame(frame);else finish()}
+  requestAnimationFrame(frame);
+}
+
+function result(r,res){
+  const ideal=simulate(r,r.ideal.sl,r.ideal.tp);
+  const pts=Math.max(-100,Math.round(res.R*100));
+  S.pts+=pts; S.R+=res.R; if(res.hit!=="sl")S.survived++;
+  S.log.push({r,res,pts,ideal,sl:CUR.sl,tp:CUR.tp}); hud();
+  const st=res.hit==="tp"?["g","Target hit"]:res.hit==="sl"?["b","Stopped out"]:res.R>=0?["o","Still open, in profit"]:["o","Still open, in the red"];
+  const why=res.hit==="sl"
+    ?(hitsCluster(r,CUR.sl)?"Your stop sat in the crowd's stop cluster. The big fish came for that liquidity and took you with it.":"The probe ran through your stop. It was too close to the action.")
+    :res.hit==="tp"?(res.R<ideal.R-0.15?"You banked it, though a stop beyond the level or a take profit at the cluster would have earned more.":"Clean. Your stop sat where the hunt couldn't reach, and you banked at the magnet.")
+    :"Your take profit was never reached. Price tagged the cluster and turned back without you.";
+  const box=document.createElement("div");
+  box.innerHTML=`<div class="card" style="margin-top:14px">
+    <span class="stamp ${st[0]}">${st[1]}</span>
+    <div class="rline ${res.R>0?"g":res.R<0?"r":"n"}">${sR(res.R)} · ${pts>=0?"+":""}${pts} points</div>
+    <p>${esc(why)}</p>
+    <p class="muted" style="margin-top:8px;font-size:17px">Textbook ticket: stop at ${r.ideal.sl}, take profit at ${r.ideal.tp} for ${sR(ideal.R)}.</p>
+    <div class="note"><h4>Hunter's note</h4><p>${esc(r.lesson)}</p></div>
+    <div class="row"><button class="btn primary" onclick="next()">${S.i+1<R.length?"Next trade":"See your results"}</button></div>
+  </div>`;
+  document.querySelector(".controls").replaceWith(box);
+  const rr=document.getElementById("rr"); if(rr)rr.remove(); const rb=document.getElementById("runBtn"); if(rb)rb.parentElement.remove();
+  box.scrollIntoView({behavior:REDUCED?"auto":"smooth",block:"start"});
+}
+function hitsCluster(r,sl){return r.clusters.some(([c,v])=>Math.abs(sl-c)<=2+v*0.25)}
+function next(){S.i++; if(S.i<R.length) show(); else end()}
+
+function gradeOf(p){return p>=850?["Apex predator","Your stops sat where nobody was hunting, and you banked at the magnets. That's how the big fish trade."]
+  :p>=550?["Shark spotter","You see where the stops are bunched. Tighten up the take profits and you're there."]
+  :p>=200?["Bait ball","Some of your stops sat right where the crowd's did. Move them beyond the strong level next time."]
+  :["Fish food","The big fish ate well today. Replay with the four rules in mind: beyond the level, away from the cluster."]}
+
+function end(){
+  const [g,msg]=gradeOf(S.pts);
+  const prev=store("sh_best"); if(!prev||S.pts>prev.pts) store("sh_best",{pts:S.pts,g});
+  hud(); window.scrollTo({top:0}); track("finish-stop-hunter");
+  app.innerHTML=`<p class="kick">YOUR HUNT</p>
+  <div class="grade" style="margin-top:6px">${S.pts}</div>
+  <h2 style="margin-top:6px">${esc(g)}</h2>
+  <p class="lead" style="margin-top:8px">${esc(msg)}</p>
+  <div class="kpis">
+    <div class="kpi"><span>Stops survived</span><b>${S.survived}/${R.length}</b></div>
+    <div class="kpi"><span>Total result</span><b style="color:${S.R>=0?"var(--buy)":"var(--sell)"}">${sR(S.R)}</b></div>
+    <div class="kpi"><span>Textbook total</span><b>${sR(S.log.reduce((a,x)=>a+x.ideal.R,0))}</b></div>
+  </div>
+  <div class="card" style="overflow-x:auto"><h3 style="margin-bottom:6px">Your trades</h3>
+  <table><tr><th>Trade</th><th>Your stop / target</th><th class="n" style="text-align:right">Result</th></tr>
+  ${S.log.map(x=>`<tr><td><b>${esc(x.r.pair)}</b><br><span class="muted" style="font-size:14px">${esc(x.r.title)}</span></td><td>${x.sl.toFixed(1)} / ${x.tp.toFixed(1)}<br><span class="muted" style="font-size:14px">${x.res.hit==="sl"?"Stopped out":x.res.hit==="tp"?"Target hit":"Closed at the end"}</span></td><td class="n">${sR(x.res.R)}</td></tr>`).join("")}
+  </table></div>
+  <div class="cta"><h3>See the real stop loss clusters</h3>
+    <p>The clusters in this game are illustrative. FXSSI's Stop Loss Clusters indicator shows where traders' stops are actually bunched, updated through the day, right on your MT4 or MT5 chart. QDB uses them alongside the QDB Sheet.</p>
+    <div class="row"><a class="btn primary" href="${AFFILIATE}" target="_blank" rel="sponsored noopener" onclick="track('affiliate-fxssi-stop-hunter')">Get FXSSI with code QUASIDB</a><a class="btn" href="../../?ref=game-stop-hunter#pricing">See the QDB Sheet</a><button class="btn" onclick="begin()">Hunt again</button></div>
+    <p class="disc">Affiliate link: if you buy through it, QDB earns a commission at no extra cost to you. FXSSI is an independent company and doesn't endorse this game.</p>
+  </div>
+  <div id="shareSlot"></div>
+  <p class="foot">Educational only, not financial advice. Charts and clusters are illustrative, written to teach the idea, not real data.</p>`;
+  try{QDBGames.mount(document.getElementById("shareSlot"),{text:`I scored ${S.pts} on Stop Hunter and made ${g}: ${S.survived} of ${R.length} stops survived the big fish. Would yours?`})}catch(e){}
+}
+
+startScreen();
+</script>
+<script src="../qdb-games.js" data-game="stop-hunter" data-title="Stop Hunter"></script>
+</body>
+</html>
