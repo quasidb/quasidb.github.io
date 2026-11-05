@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Retail Survival Simulator: survive 10 real market crises</title>
+<meta name="description" content="A free trading game: manage a $7,500 retail account through real market crises like Lehman, the SNB floor and Brexit night. Can you survive?">
+<link rel="canonical" href="https://quasidb.github.io/games/retail-survival-simulator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.github.io/games/retail-survival-simulator/">
+<meta property="og:title" content="Retail Survival Simulator: can you survive 10 real market crises?">
+<meta property="og:description" content="A free trading game: manage a $7,500 retail account through real market crises like Lehman, the SNB floor and Brexit night. Can you survive?">
+<meta property="og:image" content="https://quasidb.github.io/games/retail-survival-simulator/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Retail Survival Simulator: can you survive 10 real market crises?">
+<meta name="twitter:description" content="A free trading game: manage a $7,500 retail account through real market crises like Lehman, the SNB floor and Brexit night. Can you survive?">
+<meta name="twitter:image" content="https://quasidb.github.io/games/retail-survival-simulator/og.png">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07090e; --panel: #0f141d; --panel-2: #0a0e15; --line: #1e293b; --line-2: #2b3a52;
+  --text: #f1f5f9; --muted: #94a3b8; --accent: #38bdf8; --accent-ink: #04121c;
+  --good: #22c55e; --warn: #f59e0b; --bad: #ef4444;
+  --good-bg: rgba(34,197,94,.10); --warn-bg: rgba(245,158,11,.10); --bad-bg: rgba(239,68,68,.10); --accent-bg: rgba(56,189,248,.10);
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #eef2f7; --panel: #ffffff; --panel-2: #f5f8fb; --line: #d6dee9; --line-2: #b9c6d8;
+    --text: #0f172a; --muted: #475569; --accent: #0369a1; --accent-ink: #ffffff;
+    --good: #15803d; --warn: #b45309; --bad: #b91c1c;
+    --good-bg: rgba(21,128,61,.08); --warn-bg: rgba(180,83,9,.08); --bad-bg: rgba(185,28,28,.08); --accent-bg: rgba(3,105,161,.08);
+  }
+}
+:root[data-theme="light"] {
+  --bg: #eef2f7; --panel: #ffffff; --panel-2: #f5f8fb; --line: #d6dee9; --line-2: #b9c6d8;
+  --text: #0f172a; --muted: #475569; --accent: #0369a1; --accent-ink: #ffffff;
+  --good: #15803d; --warn: #b45309; --bad: #b91c1c;
+  --good-bg: rgba(21,128,61,.08); --warn-bg: rgba(180,83,9,.08); --bad-bg: rgba(185,28,28,.08); --accent-bg: rgba(3,105,161,.08);
+}
+:root[data-theme="dark"] {
+  --bg: #07090e; --panel: #0f141d; --panel-2: #0a0e15; --line: #1e293b; --line-2: #2b3a52;
+  --text: #f1f5f9; --muted: #94a3b8; --accent: #38bdf8; --accent-ink: #04121c;
+  --good: #22c55e; --warn: #f59e0b; --bad: #ef4444;
+}
+*, *::before, *::after { box-sizing: inherit; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+html, body { margin: 0; min-height: 100%; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--sans);
+  font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  display: flex; flex-direction: column; min-height: 100vh;
+}
+a { color: var(--accent); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--panel) 94%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.top-inner { max-width: 960px; margin: 0 auto; padding: 14px 20px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-weight: 700; font-size: 17px; color: var(--accent); letter-spacing: .04em; background: none; border: 0; padding: 0; }
+.pulse { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); } 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.hud { display: flex; flex-wrap: wrap; gap: 10px; font-family: var(--mono); }
+.hud[hidden] { display: none; }
+.tick { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; display: flex; gap: 8px; align-items: baseline; }
+.tick span:first-child { color: var(--muted); font-size: 13px; }
+.tick b { font-size: 18px; }
+
+main { flex: 1; width: 100%; max-width: 960px; margin: 0 auto; padding: 28px 20px 40px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: clamp(22px, 4vw, 40px); box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 6%, transparent); }
+.screen[hidden] { display: none; }
+h1, h2, h3 { line-height: 1.2; margin: 0; letter-spacing: -.01em; }
+h1 { font-size: clamp(30px, 5vw, 44px); font-weight: 800; }
+h2 { font-size: clamp(26px, 4vw, 34px); font-weight: 800; }
+h3 { font-size: 21px; font-weight: 700; }
+p { margin: 0 0 1em; }
+.lead { font-size: 20px; color: var(--text); max-width: 66ch; }
+.muted { color: var(--muted); }
+.kicker { font-family: var(--mono); font-size: 15px; color: var(--accent); margin-bottom: 12px; display: inline-block; }
+.stack > * + * { margin-top: 20px; }
+
+.prize { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; border: 2px solid var(--good); background: var(--good-bg); border-radius: 14px; padding: 18px 20px; }
+.prize-icon { font-size: 44px; line-height: 1; }
+.prize h3 { margin: 0 0 6px; }
+.prize p { margin: 0; }
+.prize b { color: var(--good); }
+.mandate { border: 1px solid color-mix(in srgb, var(--warn) 40%, transparent); background: var(--warn-bg); border-radius: 12px; padding: 16px 20px; color: var(--text); font-size: 18px; }
+.mandate b { color: var(--warn); }
+
+.btn { border-radius: 12px; padding: 15px 24px; font-weight: 700; font-size: 18px; border: 1px solid var(--line-2); background: var(--panel-2); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.green { background: var(--good); color: #04140a; border-color: var(--good); }
+.row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.group-title { font-size: 22px; font-weight: 800; margin: 34px 0 6px; }
+.group-title:first-of-type { margin-top: 26px; }
+.group-sub { color: var(--muted); margin: 0 0 14px; font-size: 17px; }
+.cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr)); }
+.card { text-align: left; background: var(--panel-2); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; }
+.card:hover { border-color: var(--accent); }
+.card-new { border: 2px solid var(--good); }
+.new-pill { background: var(--good); color: #04140a; font-weight: 800; border-radius: 999px; padding: 2px 10px; font-size: 13px; }
+.card .meta { display: flex; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 14px; color: var(--muted); }
+.card .meta .done { color: var(--good); }
+.card h3 { color: var(--text); }
+.card p { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.5; }
+
+.profile { border: 1px solid var(--line-2); border-radius: 14px; padding: 20px 22px; background: var(--accent-bg); }
+.profile h3 { margin-bottom: 6px; }
+.bars { display: grid; gap: 8px; margin-top: 14px; font-family: var(--mono); font-size: 15px; }
+.bar { display: grid; grid-template-columns: 120px 1fr 52px; gap: 10px; align-items: center; }
+.bar .track { height: 12px; background: var(--panel-2); border-radius: 6px; overflow: hidden; border: 1px solid var(--line); }
+.bar .fill { height: 100%; }
+
+.game-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 22px; flex-wrap: wrap; }
+.game-head .kicker { margin: 0; }
+.linkbtn { background: none; border: 0; color: var(--muted); font-family: var(--mono); font-size: 15px; padding: 6px 0; }
+.linkbtn:hover { color: var(--text); }
+.stamp { font-family: var(--mono); font-weight: 700; color: var(--accent); font-size: 17px; margin-bottom: 14px; }
+.story { background: var(--panel-2); border: 1px solid var(--line); border-radius: 14px; padding: clamp(20px, 3vw, 30px); font-size: 19px; line-height: 1.7; }
+.story p:last-child { margin-bottom: 0; }
+.story .q { font-style: italic; color: var(--muted); }
+.num { font-family: var(--mono); font-weight: 700; white-space: nowrap; }
+.g { color: var(--good); } .a { color: var(--warn); } .r { color: var(--bad); }
+.scene { margin: 0 0 18px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #2b2347; }
+.scene svg { display: block; width: 100%; height: auto; }
+.scene .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.6s ease-in .3s forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.scene .blink { animation: blink 1.1s steps(2, start) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.scene .flashbg { animation: flashbg .9s ease-in-out infinite alternate; }
+@keyframes flashbg { from { fill: #1a0303; } to { fill: #4a0808; } }
+.scene .ticker { animation: tick 22s linear infinite; }
+@keyframes tick { to { transform: translateX(var(--tw)); } }
+.scene .shake { transform-box: fill-box; transform-origin: center; animation: shake .18s linear infinite; }
+@keyframes shake { 0% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } 100% { transform: rotate(-6deg); } }
+.scene .steam { animation: steam 2.4s ease-in-out infinite; }
+@keyframes steam { 50% { transform: translateY(-5px); opacity: .35; } }
+.scene .popup { transform-box: fill-box; transform-origin: center; animation: pop .35s cubic-bezier(.3,1.6,.6,1) 2.2s both; }
+@keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .scene * { animation: none !important; }
+  .scene .draw { stroke-dashoffset: 0; }
+}
+.choices-label { font-family: var(--mono); color: var(--muted); font-size: 15px; margin: 26px 0 12px; }
+.choices { display: grid; gap: 12px; }
+.choice { text-align: left; background: var(--panel-2); border: 1px solid var(--line-2); border-radius: 12px; padding: 18px 20px; font-size: 19px; line-height: 1.45; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+.choice:hover { border-color: var(--accent); background: var(--accent-bg); }
+.choice .key { font-family: var(--mono); font-weight: 700; color: var(--accent); }
+
+.verdict { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 4px; }
+.chip { font-family: var(--mono); font-size: 15px; font-weight: 700; border-radius: 999px; padding: 6px 14px; border: 1px solid currentColor; }
+.chip.good { color: var(--good); background: var(--good-bg); }
+.chip.warn { color: var(--warn); background: var(--warn-bg); }
+.chip.bad { color: var(--bad); background: var(--bad-bg); }
+.chip.info { color: var(--accent); background: var(--accent-bg); }
+.box { border-radius: 14px; padding: 20px 22px; border: 1px solid var(--line); background: var(--panel-2); }
+.box h4 { margin: 0 0 8px; font-size: 17px; font-family: var(--mono); color: var(--accent); }
+.box.lesson { border-color: color-mix(in srgb, var(--accent) 40%, transparent); background: var(--accent-bg); }
+.box.record h4 { color: var(--warn); }
+.box.twist { border: 2px dashed color-mix(in srgb, #c084fc 60%, transparent); background: color-mix(in srgb, #c084fc 10%, transparent); }
+.box.twist h4 { color: #c084fc; }
+.box.twist p { font-size: 19px; font-style: italic; }
+.box.risk { border-color: color-mix(in srgb, var(--good) 40%, transparent); background: var(--good-bg); }
+.box.risk h4 { color: var(--good); }
+.box.risk b { color: var(--text); }
+.formula { font-family: var(--mono); font-size: 15px; color: var(--muted); border-top: 1px dashed var(--line-2); padding-top: 10px; margin-top: 4px; }
+.box p:last-child, .box ul:last-child { margin-bottom: 0; }
+.box ul { margin: 0 0 1em; padding-left: 22px; }
+.box li { margin-bottom: 6px; }
+.sources { font-size: 15px; color: var(--muted); margin-top: 12px; }
+
+.done-pass { color: var(--good); } .done-retake { color: var(--warn); } .done-fail { color: var(--bad); }
+.progress { margin-top: 18px; border: 1px solid var(--line-2); border-radius: 14px; padding: 18px 22px; background: var(--panel-2); }
+.progress .track { height: 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 7px; overflow: hidden; margin-top: 10px; }
+.progress .fill { height: 100%; background: var(--accent); }
+.finish-banner { margin-top: 18px; border: 2px solid var(--good); background: var(--good-bg); border-radius: 14px; padding: 20px 22px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; }
+.finish-banner h3 { margin: 0; }
+.trophy { font-size: 64px; line-height: 1; }
+.price-card { border: 2px solid var(--good); border-radius: 18px; padding: clamp(22px, 4vw, 34px); background: var(--good-bg); text-align: center; }
+.price-card.mid { border-color: var(--warn); background: var(--warn-bg); }
+.price-card.std { border-color: var(--line-2); background: var(--panel-2); }
+.price-card .was { font-family: var(--mono); color: var(--muted); text-decoration: line-through; font-size: 22px; }
+.price-card .now { font-family: var(--mono); font-weight: 800; font-size: clamp(52px, 10vw, 76px); line-height: 1.1; margin: 6px 0; }
+.price-card .plan { font-size: 20px; font-weight: 700; }
+.tiers { display: grid; gap: 10px; font-size: 17px; }
+.tier { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); }
+.tier.you { border-color: var(--accent); background: var(--accent-bg); font-weight: 700; }
+.tier b { font-family: var(--mono); }
+.help-note { font-size: 16px; color: var(--muted); border-left: 3px solid var(--line-2); padding-left: 14px; }
+.community-points { border: 1px solid color-mix(in srgb, var(--good) 35%, transparent); background: var(--good-bg); border-radius: 12px; padding: 16px 20px; font-family: var(--mono); font-size: 16px; line-height: 1.8; }
+
+footer { border-top: 1px solid var(--line); background: var(--panel); padding: 18px 20px; text-align: center; font-size: 15px; color: var(--muted); }
+footer p { margin: 4px auto; max-width: 70ch; }
+
+@media (max-width: 560px) {
+  body { font-size: 17px; }
+  .story, .choice { font-size: 18px; }
+  .tick b { font-size: 16px; }
+  .bar { grid-template-columns: 96px 1fr 46px; }
+}
+@media (prefers-reduced-motion: reduce) { .pulse { animation: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <button class="brand" onclick="app.toIntro()" aria-label="Retail Survival Simulator, back to start"><span class="pulse" aria-hidden="true"></span>RETAIL SURVIVAL SIMULATOR</button>
+    <div class="hud" id="hud" hidden aria-live="polite">
+      <div class="tick"><span>Equity</span><b id="hud-eq">$7,500.00</b></div>
+      <div class="tick"><span>Change</span><b id="hud-chg">0.0%</b></div>
+      <div class="tick"><span>Status</span><b id="hud-status">SECURE</b></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="panel">
+
+  <!-- INTRO -->
+  <section id="screen-intro" class="screen stack">
+    <span class="kicker">Risk and psychology challenge</span>
+    <h1>Can you survive 10 real market crises?</h1>
+    <p class="lead">You manage a <span class="num" style="color:var(--accent)">$7,500</span> retail account from your home office. No risk desk, no prime broker, no safety net. Just you, your screen and your discipline.</p>
+    <p class="muted">Most scenarios replay real market events with the real prices. Your account size and position are illustrative, so the lesson lands the same way it did for thousands of real traders that day.</p>
+    <div class="prize">
+      <div class="prize-icon" aria-hidden="true">🏆</div>
+      <div>
+        <h3>Pass the challenge, unlock a reward</h3>
+        <p>Make sound calls in every scenario to unlock <b>Lifetime access</b> to the knowledge pool, spreadsheet, indicators and EAs for <b class="num" id="intro-best">$450</b> instead of <span class="num" id="intro-full">$600</span>. Get them right first time for the best price; retakes still earn a discount.</p>
+      </div>
+    </div>
+    <div class="mandate"><b>The rule:</b> choose what you would <b>actually do</b> if this was on your screen today. Leave hindsight at the door.</div>
+    <div class="row"><button class="btn primary" onclick="app.toMenu()">Start the challenge</button></div>
+  </section>
+
+  <!-- MENU -->
+  <section id="screen-menu" class="screen" hidden>
+    <span class="kicker">Select a stress test</span>
+    <h2>Choose your crisis</h2>
+    <div id="profile-slot"></div>
+    <div id="menu-groups"></div>
+  </section>
+
+  <!-- GAME -->
+  <section id="screen-game" class="screen" hidden>
+    <div class="game-head">
+      <span class="kicker" id="game-badge"></span>
+      <button class="linkbtn" onclick="app.toMenu()">Leave scenario</button>
+    </div>
+    <div class="scene" id="game-art" hidden></div>
+    <div class="stamp" id="game-stamp"></div>
+    <div class="story" id="game-story"></div>
+    <div class="choices-label">What do you do?</div>
+    <div class="choices" id="game-choices"></div>
+  </section>
+
+  <!-- ENDING -->
+  <section id="screen-end" class="screen" hidden>
+    <span class="kicker" id="end-badge"></span>
+    <h2 id="end-title"></h2>
+    <div class="verdict" id="end-chips"></div>
+    <div class="stack" style="margin-top:22px">
+      <div class="scene" id="end-art" hidden></div>
+      <div class="story" id="end-summary"></div>
+      <div class="box twist" id="end-twist-box" hidden><h4>🎭 The Saturday twist</h4><p id="end-twist"></p></div>
+      <div class="box lesson"><h4>The core takeaway</h4><p id="end-lesson"></p></div>
+      <div class="box risk" id="end-risk-box" hidden><h4>📏 Risk check: how big should this position have been?</h4><div id="end-risk"></div></div>
+      <div class="box record"><h4 id="end-record-title">What actually happened</h4><div id="end-record"></div><p class="sources" id="end-sources"></p></div>
+      <p class="help-note" id="end-help" hidden>If trading losses are weighing on you, talking to someone helps. Free, confidential support lines for your country are listed at <a href="https://findahelpline.com" target="_blank" rel="noopener noreferrer">findahelpline.com</a>.</p>
+      <div class="row">
+        <button class="btn primary" id="btn-finish" hidden onclick="app.toComplete()">See your final result</button>
+        <button class="btn" id="btn-replay">Replay this scenario</button>
+        <button class="btn" onclick="app.toMenu()">Back to scenarios</button>
+        <button class="btn primary" onclick="app.toCommunity()">Explore disciplined frameworks</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLETION -->
+  <section id="screen-complete" class="screen stack" hidden>
+    <div class="trophy" aria-hidden="true" id="cmp-icon">🏆</div>
+    <span class="kicker" id="cmp-kicker">Simulator complete</span>
+    <h1 id="cmp-title"></h1>
+    <p class="lead" id="cmp-lead"></p>
+    <div class="price-card" id="cmp-card">
+      <div class="plan">Lifetime access: knowledge pool, spreadsheet, indicators and EAs</div>
+      <div class="was" id="cmp-was"></div>
+      <div class="now" id="cmp-price"></div>
+      <p class="muted" id="cmp-note" style="margin:0 0 18px"></p>
+      <a class="btn green" id="cmp-pay" target="_blank" rel="noopener noreferrer" style="font-size:20px;padding:18px 30px"></a>
+      <p class="muted" style="margin:16px 0 0;font-size:16px">Add your Discord or Telegram username in the PayPal note so you can be given access.</p>
+    </div>
+    <div class="box"><h4>Your results</h4><div id="cmp-results"></div></div>
+    <div class="box"><h4>Pricing tiers</h4><div class="tiers" id="cmp-tiers"></div></div>
+    <div class="row">
+      <button class="btn" onclick="app.toMenu()">Back to scenarios</button>
+      <a class="btn" href="https://patreon.com/quasidb" target="_blank" rel="noopener noreferrer">Visit patreon.com/quasidb</a>
+    </div>
+  </section>
+
+  <!-- COMMUNITY -->
+  <section id="screen-community" class="screen stack" hidden>
+    <span class="kicker">The professional solution</span>
+    <h2>Stop gambling. Start executing a mechanical edge.</h2>
+    <div class="story">
+      <p>Every wipeout in this simulator came from the same short list: size too big for the risk, no plan for the gap, and decisions made by hope or ego instead of rules.</p>
+      <p>Consistency isn't a miracle indicator. It's <b>strict risk per trade, hard drawdown limits, mechanical entries, and fading the retail crowd</b> when it's trapped on the wrong side.</p>
+      <div class="community-points">
+        &gt; 16+ years of market experience<br>
+        &gt; Focus: VWAP structure, retail sentiment, zero over-leveraging
+      </div>
+    </div>
+    <div class="row">
+      <a class="btn green" href="https://patreon.com/quasidb" target="_blank" rel="noopener noreferrer">Join patreon.com/quasidb</a>
+      <button class="btn" onclick="app.toMenu()">Back to scenarios</button>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <p>Retail Survival Simulator, built for independent traders. <a href="https://patreon.com/quasidb" target="_blank" rel="noopener noreferrer">patreon.com/quasidb</a></p>
+  <p>Historical prices and events come from contemporary reporting. Account balances, positions and fills are illustrative. Educational only, not financial advice.</p>
+</footer>
+
+<script>
+/* ============================================================
+   EDIT HERE: community settings used by the impersonator scenario
+   ============================================================ */
+const CONFIG = {
+  start: 7500,
+  communityName: 'QDB',
+  realAdmin: '@quasi_db',
+  fakeAdmin: '@quasi_d8',
+  fullPrice: 600,
+  tiers: {
+    first:  { price: 450, link: 'https://paypal.me/quasidb/450USD' },
+    retake: { price: 500, link: 'https://paypal.me/quasidb/500USD' },
+    std:    { price: 600, link: 'https://paypal.me/quasidb/600USD' }
+  },
+  adminPolicy: 'Admins here will never DM you first to offer account management, and will never ask you to send money or passwords.'
+};
+
+const T = { D: 'discipline', H: 'hope', E: 'ego' };
+
+/* ============================================================
+   SCENE ART (inline SVG, retro cartoon style)
+   ============================================================ */
+const MONO = "'JetBrains Mono', ui-monospace, monospace";
+const HAND = "'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive";
+
+function ticker(id, text, y, color, band) {
+  const s = (text + '   ●   ').toUpperCase();
+  const w = Math.round(s.length * 8.6);
+  const t = (x) => `<text x="${x}" y="${y + 18}" font-family="${MONO}" font-size="14" font-weight="700" fill="${color}" textLength="${w}" lengthAdjust="spacingAndGlyphs">${s}</text>`;
+  return `<rect x="106" y="${y}" width="388" height="26" fill="${band}"/>
+    <g class="ticker" style="--tw:-${w}px">${t(112)}${t(112 + w)}${t(112 + 2 * w)}</g>`;
+}
+
+function crt(id, label, screen, opts = {}) {
+  const o = Object.assign({ screenBg: '#04140a', led: '#3dff7a', mug: 'steam', phone: 'calm', note: 'RISK 1%!' }, opts);
+  const mug = o.mug === 'spill'
+    ? `<path d="M2 344 q30 -8 70 0 q20 4 -6 9 q-40 6 -64 -1 z" fill="#5a3416" stroke="#3a210c" stroke-width="2"/>
+       <g transform="rotate(-90 40 320)"><rect x="20" y="300" width="40" height="40" rx="6" fill="#eef1f6" stroke="#1d1712" stroke-width="3"/>
+       <path d="M60 310 q14 0 14 12 q0 12 -14 12" fill="none" stroke="#1d1712" stroke-width="3"/></g>
+       <ellipse cx="20" cy="320" rx="6" ry="18" fill="#3a210c" stroke="#1d1712" stroke-width="3"/>`
+    : `<rect x="12" y="300" width="40" height="40" rx="6" fill="#eef1f6" stroke="#1d1712" stroke-width="3"/>
+       <path d="M52 310 q14 0 14 12 q0 12 -14 12" fill="none" stroke="#1d1712" stroke-width="3"/>
+       <text x="32" y="327" text-anchor="middle" font-family="${MONO}" font-size="11" font-weight="700" fill="#2b2347">QDB</text>
+       ${o.mug === 'steam' ? `<g class="steam" fill="none" stroke="#c9c2e0" stroke-width="2.5" stroke-linecap="round" opacity=".8">
+         <path d="M24 292 q-6 -10 0 -18 q6 -8 0 -16"/><path d="M38 292 q-6 -10 0 -18 q6 -8 0 -16"/></g>` : ''}`;
+  const phoneScreen = o.phone === 'alarm' ? '#ff3b3b' : o.phone === 'dark' ? '#1b1b1b' : '#8fd3ff';
+  const phone = `<g class="${o.phone === 'alarm' ? 'shake' : ''}">
+      <rect x="544" y="296" width="44" height="58" rx="7" fill="#26262b" stroke="#0d0d10" stroke-width="3"/>
+      <rect x="550" y="303" width="32" height="20" rx="2" fill="${phoneScreen}"/>
+      ${o.phone === 'alarm' ? `<text x="566" y="317" text-anchor="middle" font-family="${MONO}" font-size="8" font-weight="700" fill="#fff">MARGIN</text>` : ''}
+      <g fill="#55555e">${[0,1,2].map(r => [0,1,2,3].map(c => `<rect x="${551 + c * 8}" y="${328 + r * 7}" width="5" height="4" rx="1"/>`).join('')).join('')}</g>
+    </g>
+    ${o.phone === 'alarm' ? `<g class="blink" stroke="#ff3b3b" stroke-width="3" stroke-linecap="round"><path d="M536 300 l-8 -6"/><path d="M534 318 l-10 0"/><path d="M596 300 l8 -6"/><path d="M598 318 l10 0"/></g>` : ''}`;
+  return `<svg viewBox="0 0 600 400" role="img" aria-label="${label}" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="${id}-scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="#000" opacity=".28"/></pattern>
+    <radialGradient id="${id}-vig" cx="50%" cy="50%" r="65%"><stop offset="60%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".55"/></radialGradient>
+    <filter id="${id}-glow" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <clipPath id="${id}-clip"><rect x="106" y="52" width="388" height="214" rx="16"/></clipPath>
+  </defs>
+  <rect width="600" height="400" fill="#2b2347"/>
+  <g opacity=".14" fill="#fff"><circle cx="40" cy="40" r="2"/><circle cx="560" cy="120" r="2"/><circle cx="30" cy="200" r="1.5"/><circle cx="575" cy="40" r="1.5"/></g>
+  <rect y="330" width="600" height="70" fill="#7a5230"/><rect y="330" width="600" height="10" fill="#9a6a3e"/><line x1="0" y1="330" x2="600" y2="330" stroke="#1d1712" stroke-width="3"/>
+  <rect x="255" y="306" width="90" height="18" fill="#cbbd9a" stroke="#2b2117" stroke-width="3"/>
+  <rect x="210" y="320" width="180" height="14" rx="7" fill="#d8cba8" stroke="#2b2117" stroke-width="3"/>
+  <rect x="70" y="20" width="460" height="290" rx="28" fill="#e3d7b8" stroke="#2b2117" stroke-width="4"/>
+  <rect x="92" y="40" width="416" height="244" rx="20" fill="#c3b48f" stroke="#2b2117" stroke-width="2"/>
+  <rect x="106" y="52" width="388" height="214" rx="16" fill="${o.screenBg}" class="${o.screenClass || ''}"/>
+  <g clip-path="url(#${id}-clip)">
+    <g filter="url(#${id}-glow)">${screen}</g>
+    <rect x="106" y="52" width="388" height="214" fill="url(#${id}-scan)"/>
+    <rect x="106" y="52" width="388" height="214" fill="url(#${id}-vig)"/>
+  </g>
+  <text x="300" y="300" text-anchor="middle" font-family="${MONO}" font-size="12" font-weight="700" fill="#6d5f43" letter-spacing="2">QDB-2000</text>
+  <circle cx="496" cy="296" r="5" fill="${o.led}" stroke="#2b2117" stroke-width="1.5"/>
+  <g transform="rotate(8 505 40)"><rect x="470" y="6" width="74" height="64" fill="#ffe066" stroke="#2b2117" stroke-width="2"/>
+    <text x="507" y="36" text-anchor="middle" font-family="${HAND}" font-size="13" font-weight="700" fill="#2b2117">${o.note}</text>
+    <text x="507" y="54" text-anchor="middle" font-family="${HAND}" font-size="13" font-weight="700" fill="#2b2117">${o.note2 || ''}</text></g>
+  ${mug}
+  ${phone}
+</svg>`;
+}
+
+/* S&P 500 price to screen y for the Lehman charts */
+const spY = (p, top, bot, hi, lo) => top + (hi - p) / (hi - lo) * (bot - top);
+
+const ART = {
+  lehmanFri: () => {
+    const G = '#3dff88', D = '#1f8a4c';
+    const pts = [[120,1247],[150,1244],[180,1249],[210,1246],[240,1252],[270,1250],[300,1255],[330,1251],[360,1253],[390,1249],[420,1254],[450,1250],[480,1251.7]];
+    const path = pts.map(([x, p], i) => `${i ? 'L' : 'M'}${x} ${spY(p, 132, 208, 1262, 1238).toFixed(1)}`).join(' ');
+    return crt('lf', 'A chunky retro computer monitor on a desk on Friday evening. The screen shows the S&P 500 at 1,251.70 and a blinking Market Closed sign, while a news ticker mentions Lehman seeking a buyer.', `
+      <text x="120" y="84" font-family="${MONO}" font-size="20" font-weight="700" fill="${G}">S&amp;P 500</text>
+      <text x="480" y="84" text-anchor="end" font-family="${MONO}" font-size="22" font-weight="700" fill="${G}">1,251.70</text>
+      <text x="120" y="106" font-family="${MONO}" font-size="13" fill="${D}">FRI 12 SEP 2008  16:45 ET</text>
+      <g stroke="${D}" stroke-width="1" stroke-dasharray="2 6" opacity=".6"><line x1="114" y1="140" x2="486" y2="140"/><line x1="114" y1="170" x2="486" y2="170"/><line x1="114" y1="200" x2="486" y2="200"/></g>
+      <path d="${path}" fill="none" stroke="${G}" stroke-width="3" stroke-linejoin="round" class="draw" pathLength="1"/>
+      <g class="blink"><rect x="208" y="206" width="184" height="28" rx="4" fill="#04140a" stroke="#ffb000" stroke-width="2"/>
+      <text x="300" y="226" text-anchor="middle" font-family="${MONO}" font-size="16" font-weight="700" fill="#ffb000">MARKET CLOSED</text></g>
+      ${ticker('lf', 'Lehman seeks a buyer   ●   Rescue talks at the New York Fed this weekend   ●   Your position: long $75,000', 240, G, '#0b2a16')}
+    `, { note: 'WEEKEND', note2: 'RISK?', mug: 'steam', phone: 'calm' });
+  },
+
+  lehmanMon: () => {
+    const R = '#ff4040';
+    const pts = [[120,1250],[140,1247],[160,1249],[180,1240],[200,1243],[220,1232],[240,1236],[260,1224],[280,1228],[300,1216],[320,1220],[340,1209],[360,1213],[380,1203],[400,1207],[420,1198],[440,1201],[460,1194],[480,1192.7]];
+    const path = pts.map(([x, p], i) => `${i ? 'L' : 'M'}${x} ${spY(p, 122, 226, 1256, 1188).toFixed(1)}`).join(' ');
+    return crt('lm', 'The same retro monitor on Monday, flashing red. The headline reads Lehman files for bankruptcy and a red line plunges to 1,192.70, down 4.71 percent. The phone on the desk is buzzing with a margin warning and the coffee mug has been knocked over.', `
+      <text x="300" y="82" text-anchor="middle" font-family="${MONO}" font-size="17" font-weight="800" fill="#fff" class="blink">LEHMAN FILES FOR BANKRUPTCY</text>
+      <text x="120" y="108" font-family="${MONO}" font-size="14" font-weight="700" fill="${R}">S&amp;P 500</text>
+      <text x="480" y="108" text-anchor="end" font-family="${MONO}" font-size="17" font-weight="800" fill="${R}">1,192.70 ▼4.71%</text>
+      <g stroke="#7a1a1a" stroke-width="1" stroke-dasharray="2 6"><line x1="114" y1="140" x2="486" y2="140"/><line x1="114" y1="180" x2="486" y2="180"/><line x1="114" y1="220" x2="486" y2="220"/></g>
+      <path d="${path}" fill="none" stroke="${R}" stroke-width="4" stroke-linejoin="round" class="draw" pathLength="1"/>
+      ${ticker('lm', 'Dow −504.48   ●   S&P 500 −59.00   ●   Merrill Lynch sold to Bank of America   ●   AIG seeks emergency Fed funding', 240, '#fff', '#8a0f0f')}
+    `, { screenBg: '#2a0505', screenClass: 'flashbg', led: '#ff3b3b', mug: 'spill', phone: 'alarm', note: 'WEEKEND', note2: 'RISK?' });
+  },
+
+  lehmanCall: () => {
+    const A = '#ffb000', R = '#ff4040';
+    return crt('lc', 'The retro monitor shows the headline House rejects bailout 228 to 205 and a red line crashing off the bottom of the chart. A grey broker pop-up window reads Margin call: all positions closed, balance 1,610 dollars.', `
+      <text x="300" y="82" text-anchor="middle" font-family="${MONO}" font-size="16" font-weight="800" fill="${A}">HOUSE REJECTS BAILOUT 228–205</text>
+      <path d="M120 112 L170 118 L210 126 L250 150 L280 146 L320 190 L350 184 L390 240 L420 236 L470 300" fill="none" stroke="${R}" stroke-width="4" stroke-linejoin="round" class="draw" pathLength="1"/>
+      <g class="popup">
+        <rect x="168" y="112" width="264" height="118" fill="#c0c0c0" stroke="#000" stroke-width="2"/>
+        <rect x="170" y="114" width="260" height="22" fill="#0a246a"/>
+        <text x="178" y="130" font-family="Tahoma, Verdana, sans-serif" font-size="13" font-weight="700" fill="#fff">Broker Notice</text>
+        <rect x="408" y="117" width="18" height="16" fill="#c0c0c0" stroke="#000"/><text x="417" y="130" text-anchor="middle" font-family="Tahoma, sans-serif" font-size="12" font-weight="700">×</text>
+        <circle cx="198" cy="162" r="14" fill="#ffd800" stroke="#000" stroke-width="2"/><text x="198" y="168" text-anchor="middle" font-family="Tahoma, sans-serif" font-size="18" font-weight="900">!</text>
+        <text x="222" y="158" font-family="Tahoma, Verdana, sans-serif" font-size="15" font-weight="700" fill="#000">MARGIN CALL</text>
+        <text x="222" y="176" font-family="Tahoma, Verdana, sans-serif" font-size="12" fill="#000">All positions closed.</text>
+        <text x="222" y="192" font-family="Tahoma, Verdana, sans-serif" font-size="12" fill="#000">Balance: $1,610.00</text>
+        <rect x="270" y="200" width="60" height="22" fill="#c0c0c0" stroke="#000" stroke-width="2"/><text x="300" y="215" text-anchor="middle" font-family="Tahoma, sans-serif" font-size="12">OK</text>
+      </g>
+      ${ticker('lc', 'Dow −777   ●   S&P 500 −8.8%   ●   Worst day since the 1987 crash', 240, '#fff', '#5a0a0a')}
+    `, { screenBg: '#0a0606', led: '#ff3b3b', mug: 'none', phone: 'dark', note: 'WEEKEND', note2: 'RISK?' });
+  }
+};
+
+
+/* ============================================================
+   SCENARIOS
+   Node fields: stamp, text, equity (absolute) or delta (relative), choices[{label, to, trait}]
+   Ending fields: end:true, title, verdict (sound|late|lucky|poor), summary, lesson
+   {EQ} in any text is replaced with the current equity.
+   ============================================================ */
+
+/* ---------- Modern flat-screen frame (2015 onwards) ---------- */
+function lcd(id, label, screen, opts = {}) {
+  const o = Object.assign({ time: 'day', bezel: '#1d2129', screenBg: '#0b1220', mug: 'steam', phone: 'calm', note: '', note2: '', led: '#3dff7a' }, opts);
+  const sky = { day: ['#8ec5ff', '#ffd75e'], night: ['#0d1430', '#f3f0d8'], dawn: ['#ffb37a', '#fff1a8'] }[o.time];
+  const wall = { day: '#3a4766', night: '#151a33', dawn: '#4a3a5c' }[o.time];
+  const mug = o.mug === 'spill'
+    ? `<path d="M2 344 q30 -8 70 0 q20 4 -6 9 q-40 6 -64 -1 z" fill="#5a3416" stroke="#3a210c" stroke-width="2"/>
+       <g transform="rotate(-90 40 320)"><rect x="20" y="300" width="40" height="40" rx="6" fill="#eef1f6" stroke="#1d1712" stroke-width="3"/>
+       <path d="M60 310 q14 0 14 12 q0 12 -14 12" fill="none" stroke="#1d1712" stroke-width="3"/></g>
+       <ellipse cx="20" cy="320" rx="6" ry="18" fill="#3a210c" stroke="#1d1712" stroke-width="3"/>`
+    : o.mug === 'none' ? '' :
+      `<rect x="12" y="300" width="40" height="40" rx="6" fill="#eef1f6" stroke="#1d1712" stroke-width="3"/>
+       <path d="M52 310 q14 0 14 12 q0 12 -14 12" fill="none" stroke="#1d1712" stroke-width="3"/>
+       <text x="32" y="327" text-anchor="middle" font-family="${MONO}" font-size="11" font-weight="700" fill="#2b2347">QDB</text>
+       ${o.mug === 'steam' ? `<g class="steam" fill="none" stroke="#c9c2e0" stroke-width="2.5" stroke-linecap="round" opacity=".8"><path d="M24 292 q-6 -10 0 -18 q6 -8 0 -16"/><path d="M38 292 q-6 -10 0 -18 q6 -8 0 -16"/></g>` : ''}`;
+  const pScr = { alarm: '#ff3b3b', dark: '#15171c', calm: '#3b82f6', chat: '#e8f1ff' }[o.phone];
+  const phone = `<g class="${o.phone === 'alarm' ? 'shake' : ''}">
+      <rect x="546" y="292" width="38" height="64" rx="8" fill="#15171c" stroke="#05060a" stroke-width="3"/>
+      <rect x="550" y="298" width="30" height="50" rx="3" fill="${pScr}"/>
+      ${o.phone === 'alarm' ? `<text x="565" y="326" text-anchor="middle" font-family="${MONO}" font-size="8" font-weight="800" fill="#fff">MARGIN</text>` : ''}
+      ${o.phone === 'chat' ? `<rect x="553" y="304" width="20" height="8" rx="3" fill="#9aa9c2"/><rect x="557" y="316" width="20" height="8" rx="3" fill="#3b82f6"/><rect x="553" y="328" width="16" height="8" rx="3" fill="#9aa9c2"/>` : ''}
+    </g>
+    ${o.phone === 'alarm' ? `<g class="blink" stroke="#ff3b3b" stroke-width="3" stroke-linecap="round"><path d="M538 300 l-8 -6"/><path d="M536 318 l-10 0"/><path d="M594 300 l8 -6"/><path d="M596 318 l4 0"/></g>` : ''}`;
+  const celestial = o.time === 'night'
+    ? `<circle cx="40" cy="70" r="13" fill="${sky[1]}"/><circle cx="46" cy="65" r="11" fill="${sky[0]}"/><circle cx="22" cy="110" r="1.5" fill="#fff"/><circle cx="52" cy="104" r="1.2" fill="#fff"/>`
+    : o.time === 'dawn' ? `<circle cx="36" cy="128" r="16" fill="${sky[1]}"/>` : `<circle cx="38" cy="66" r="13" fill="${sky[1]}"/>`;
+  return `<svg viewBox="0 0 600 400" role="img" aria-label="${label}" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="${id}-glow" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation=".9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <clipPath id="${id}-clip"><rect x="106" y="52" width="388" height="214"/></clipPath>
+    <clipPath id="${id}-win"><rect x="10" y="40" width="56" height="100" rx="3"/></clipPath>
+  </defs>
+  <rect width="600" height="400" fill="${wall}"/>
+  <g clip-path="url(#${id}-win)"><rect x="10" y="40" width="56" height="100" fill="${sky[0]}"/>${celestial}</g>
+  <rect x="10" y="40" width="56" height="100" rx="3" fill="none" stroke="#1d1712" stroke-width="3"/><line x1="38" y1="40" x2="38" y2="140" stroke="#1d1712" stroke-width="2.5"/><line x1="10" y1="90" x2="66" y2="90" stroke="#1d1712" stroke-width="2.5"/>
+  <rect y="330" width="600" height="70" fill="#6b4a2e"/><rect y="330" width="600" height="10" fill="#8a6239"/><line x1="0" y1="330" x2="600" y2="330" stroke="#1d1712" stroke-width="3"/>
+  <rect x="284" y="284" width="32" height="40" fill="#2a2e37" stroke="#0b0c10" stroke-width="3"/>
+  <rect x="228" y="318" width="144" height="12" rx="6" fill="#343944" stroke="#0b0c10" stroke-width="3"/>
+  <rect x="82" y="34" width="436" height="256" rx="12" fill="${o.bezel}" stroke="#0b0c10" stroke-width="4"/>
+  <rect x="106" y="52" width="388" height="214" fill="${o.screenBg}" class="${o.screenClass || ''}"/>
+  <g clip-path="url(#${id}-clip)"><g filter="url(#${id}-glow)">${screen}</g></g>
+  <circle cx="300" cy="278" r="3" fill="#4b5263"/><circle cx="500" cy="278" r="3.5" fill="${o.led}"/>
+  <rect x="190" y="344" width="220" height="24" rx="5" fill="#d9dde4" stroke="#1d1712" stroke-width="3"/>
+  <g fill="#aab1bd">${[0,1].map(r => Array.from({length: 13}, (_, c) => `<rect x="${197 + c * 16}" y="${348 + r * 9}" width="12" height="6" rx="1.5"/>`).join('')).join('')}</g>
+  ${o.note ? `<g transform="rotate(-6 545 60)"><rect x="508" y="20" width="74" height="62" fill="#ffe066" stroke="#2b2117" stroke-width="2"/>
+    <text x="545" y="46" text-anchor="middle" font-family="${HAND}" font-size="13" font-weight="700" fill="#2b2117">${o.note}</text>
+    <text x="545" y="64" text-anchor="middle" font-family="${HAND}" font-size="13" font-weight="700" fill="#2b2117">${o.note2}</text></g>` : ''}
+  ${mug}${phone}
+</svg>`;
+}
+
+/* ---------- screen helpers ---------- */
+const yP = (p, top, bot, hi, lo) => top + (hi - p) / (hi - lo) * (bot - top);
+const pathOf = (pts, top, bot, hi, lo) => pts.map(([x, p], i) => `${i ? 'L' : 'M'}${x} ${yP(p, top, bot, hi, lo).toFixed(1)}`).join(' ');
+const hdr = (t, col, cls = '', size = 17) => `<text x="300" y="80" text-anchor="middle" font-family="${MONO}" font-size="${size}" font-weight="800" fill="${col}" class="${cls}">${t}</text>`;
+const row = (l, r, lc, rc) => `<text x="120" y="106" font-family="${MONO}" font-size="14" font-weight="700" fill="${lc}">${l}</text><text x="480" y="106" text-anchor="end" font-family="${MONO}" font-size="17" font-weight="800" fill="${rc}">${r}</text>`;
+const grid = (col) => `<g stroke="${col}" stroke-width="1" stroke-dasharray="2 6" opacity=".7"><line x1="110" y1="140" x2="490" y2="140"/><line x1="110" y1="180" x2="490" y2="180"/><line x1="110" y1="220" x2="490" y2="220"/></g>`;
+const line = (d, col, w = 4) => `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round" class="draw" pathLength="1"/>`;
+const hline = (y, col, label, side = 'start') => `<line x1="110" y1="${y}" x2="490" y2="${y}" stroke="${col}" stroke-width="2" stroke-dasharray="7 5"/><text x="${side === 'start' ? 116 : 484}" y="${y - 6}" text-anchor="${side}" font-family="${MONO}" font-size="12" font-weight="800" fill="${col}">${label}</text>`;
+const tag = (x, y, t, col, anchor = 'middle', size = 13) => `<text x="${x}" y="${y}" text-anchor="${anchor}" font-family="${MONO}" font-size="${size}" font-weight="800" fill="${col}">${t}</text>`;
+const stamp = (x, y, t, col, rot = -12) => `<g class="popup"><g transform="rotate(${rot} ${x} ${y})"><rect x="${x - t.length * 7 - 12}" y="${y - 20}" width="${t.length * 14 + 24}" height="34" rx="4" fill="none" stroke="${col}" stroke-width="4"/><text x="${x}" y="${y + 6}" text-anchor="middle" font-family="${MONO}" font-size="20" font-weight="900" fill="${col}">${t}</text></g></g>`;
+const C = { w: '#e8eef8', m: '#7f8ba3', g: '#22e07a', r: '#ff4747', a: '#ffb020', c: '#4cc9ff', gr: '#24324a' };
+
+Object.assign(ART, {
+  /* ----- reusable: negative balance ----- */
+  negBal: (eq) => lcd('nb', 'A flat-screen monitor showing an account balance in red below zero and a new email notice about a negative balance that must be repaid.', `
+    ${tag(300, 92, 'ACCOUNT BALANCE', C.m, 'middle', 15)}
+    <text x="300" y="150" text-anchor="middle" font-family="${MONO}" font-size="40" font-weight="900" fill="${C.r}" class="blink">${fmt(eq)}</text>
+    ${tag(300, 182, 'MARGIN DEFICIT: PAYMENT DUE', C.a, 'middle', 15)}
+    <rect x="150" y="200" width="300" height="34" rx="6" fill="#16223a" stroke="${C.c}" stroke-width="2"/>
+    <rect x="162" y="208" width="26" height="18" fill="none" stroke="${C.c}" stroke-width="2"/><path d="M162 208 l13 10 l13 -10" fill="none" stroke="${C.c}" stroke-width="2"/>
+    ${tag(196, 223, '1 new email: negative balance notice', C.w, 'start', 12)}
+  `, { screenBg: '#140608', mug: 'spill', phone: 'alarm', led: '#ff3b3b' }),
+
+  /* ----- SNB ----- */
+  snbFloor: () => {
+    const pts = [[120,1.2032],[150,1.2025],[180,1.2015],[210,1.2021],[240,1.2008],[270,1.2012],[300,1.2005],[330,1.2018],[360,1.2009],[390,1.2014],[420,1.2006],[450,1.2011],[480,1.2010]];
+    return lcd('sf', 'A flat-screen monitor showing EUR/CHF at 1.2010 hugging a dashed amber line labelled SNB floor 1.2000. A news ticker says the central bank calls the floor a pillar of policy.', `
+      ${hdr('EUR/CHF', C.w, '', 20)}
+      ${row('MON 12 JAN 2015', '1.2010', C.m, C.w)}
+      ${grid(C.gr)}
+      ${hline(yP(1.2000, 120, 225, 1.2060, 1.1985), C.a, 'SNB FLOOR 1.2000')}
+      ${line(pathOf(pts, 120, 225, 1.2060, 1.1985), C.c)}
+      ${ticker('sf', 'SNB vice-chairman calls the floor a pillar of policy   ●   EUR/CHF steady above 1.20   ●   Forums: free money', 240, C.w, '#132a4a')}
+    `, { time: 'day', bezel: '#b9bec8', note: 'FREE', note2: 'MONEY?' });
+  },
+  snbBreak: () => {
+    const pts = [[120,1.2010],[180,1.2012],[240,1.2008],[252,1.2005],[255,1.15],[258,1.05],[261,0.95],[264,0.85],[270,0.92],[285,0.98],[310,1.03],[340,0.99],[370,1.02],[410,1.00],[445,1.03],[480,1.01]];
+    return lcd('sb', 'The monitor flashes red: SNB scraps the 1.20 floor. The EUR/CHF line falls vertically from 1.20 to 0.85 and then recovers towards 1.00. A sign reads quotes frozen.', `
+      ${hdr('SNB SCRAPS 1.20 FLOOR', '#fff', 'blink', 19)}
+      ${row('EUR/CHF', 'QUOTES FROZEN', C.r, C.a)}
+      ${hline(yP(1.20, 122, 228, 1.23, 0.83), C.a, 'FLOOR 1.2000', 'end')}
+      ${line(pathOf(pts, 122, 228, 1.23, 0.83), C.r)}
+      ${tag(276, yP(0.85, 122, 228, 1.23, 0.83) + 4, '◀ 0.85', C.r, 'start')}
+      ${ticker('sb', 'Spreads thousands of pips wide   ●   Liquidity providers stop quoting   ●   Brokers report client negative balances', 240, '#fff', '#8a0f0f')}
+    `, { screenBg: '#2a0505', screenClass: 'flashbg', bezel: '#b9bec8', mug: 'spill', phone: 'alarm', led: '#ff3b3b', note: 'FREE', note2: 'MONEY?' });
+  },
+
+  /* ----- Brexit ----- */
+  brexitPolls: () => {
+    const pts = [[120,1.478],[160,1.483],[200,1.481],[240,1.488],[280,1.486],[320,1.490],[360,1.492],[400,1.489],[440,1.497],[468,1.5018],[480,1.500]];
+    return lcd('bp', 'Night-time desk. The monitor shows GBP/USD climbing to 1.5018 as referendum polls close, with a ticker saying a late poll points to Remain.', `
+      ${hdr('EU REFERENDUM: POLLS CLOSED', C.w, '', 16)}
+      ${row('GBP/USD', '1.5018 ▲', C.m, C.g)}
+      ${grid(C.gr)}
+      ${line(pathOf(pts, 125, 225, 1.505, 1.470), C.g)}
+      ${tag(462, yP(1.5018, 125, 225, 1.505, 1.470) - 10, '2016 HIGH', C.g, 'end', 12)}
+      ${ticker('bp', 'Late poll points to Remain   ●   Farage: looks like Remain will edge it   ●   First results expected around midnight', 240, C.w, '#132a4a')}
+    `, { time: 'night', note: 'RESULTS', note2: 'TONIGHT' });
+  },
+  brexitSunderland: () => {
+    const pts = [[120,1.500],[200,1.499],[280,1.497],[340,1.493],[360,1.488],[380,1.470],[395,1.455],[410,1.448],[430,1.440],[450,1.4351],[480,1.438]];
+    return lcd('bs', 'Just after midnight. The monitor flashes Sunderland Leave 61.3 percent and GBP/USD drops sharply to 1.4351.', `
+      ${hdr('SUNDERLAND: LEAVE 61.3%', '#fff', 'blink', 19)}
+      ${row('GBP/USD', '1.4351 ▼', C.r, C.r)}
+      ${grid('#5a1a1a')}
+      ${line(pathOf(pts, 122, 228, 1.505, 1.425), C.r)}
+      ${ticker('bs', 'Newcastle votes Remain, but narrowly   ●   Sunderland votes Leave by more than forecast   ●   Sterling plunges', 240, '#fff', '#8a0f0f')}
+    `, { time: 'night', screenBg: '#2a0505', screenClass: 'flashbg', phone: 'alarm', mug: 'spill', led: '#ff3b3b', note: 'RESULTS', note2: 'TONIGHT' });
+  },
+  brexitDawn: () => {
+    const pts = [[120,1.50],[170,1.497],[210,1.47],[240,1.435],[270,1.44],[300,1.41],[330,1.415],[360,1.38],[390,1.36],[420,1.34],[445,1.3229],[465,1.345],[480,1.37]];
+    return lcd('bd', 'Dawn. The monitor reads UK votes to leave the EU, and GBP/USD has fallen from 1.50 to a low of 1.3229, down 11.9 percent from the high.', `
+      ${hdr('UK VOTES TO LEAVE THE EU', C.a, '', 18)}
+      ${row('GBP/USD LOW', '1.3229 ▼11.9%', C.m, C.r)}
+      ${grid(C.gr)}
+      ${line(pathOf(pts, 120, 228, 1.51, 1.31), C.r)}
+      ${tag(445, yP(1.3229, 120, 228, 1.51, 1.31) + 18, '1.3229', C.r, 'middle', 12)}
+      ${ticker('bd', 'Leave 52%, Remain 48%   ●   Pound at lowest since 1985   ●   Barclays stops taking new stop-loss orders', 240, C.w, '#3a2a10')}
+    `, { time: 'dawn', mug: 'none', note: 'RESULTS', note2: 'TONIGHT' });
+  },
+
+  /* ----- Flash crash ----- */
+  flashNight: () => {
+    const pts = [[120,1.2720],[170,1.2700],[220,1.2660],[270,1.2680],[320,1.2630],[370,1.2650],[420,1.2610],[480,1.2620]];
+    const Y = p => yP(p, 120, 228, 1.276, 1.252);
+    return lcd('fn', 'Late at night. The monitor shows GBP/USD at 1.2620 sliding below an entry line at 1.2720, with a red stop line at 1.2560. The header reads London closed, Tokyo open.', `
+      ${hdr('LONDON CLOSED · TOKYO OPEN', C.m, '', 15)}
+      ${row('GBP/USD', '1.2620', C.m, C.w)}
+      ${hline(Y(1.2720), C.c, 'ENTRY 1.2720', 'end')}
+      ${hline(Y(1.2560), C.r, 'STOP 1.2560')}
+      ${line(pathOf(pts, 120, 228, 1.276, 1.252), C.w, 3)}
+      ${ticker('fn', 'Hard Brexit fears weigh on sterling   ●   Asian session liquidity is thin   ●   US jobs report tomorrow', 240, C.w, '#132a4a')}
+    `, { time: 'night', mug: 'steam', phone: 'dark', note: 'BED', note2: 'TIME?' });
+  },
+  flashCrash: () => {
+    const pts = [[120,1.262],[250,1.261],[298,1.260],[301,1.22],[304,1.1841],[308,1.215],[314,1.238],[340,1.245],[400,1.243],[480,1.245]];
+    const Y = p => yP(p, 120, 230, 1.275, 1.175);
+    return lcd('fc', 'Morning after. The chart shows a single huge spike down to 1.1841 and straight back up to 1.2450. A red stop line at 1.2560 is marked, with the actual fill shown far lower at 1.2210.', `
+      ${hdr('GBP/USD −6% IN 2 MINUTES', '#fff', 'blink', 18)}
+      ${row('GBP/USD NOW', '1.2450', C.m, C.w)}
+      ${hline(Y(1.2560), C.r, 'STOP 1.2560')}
+      ${line(pathOf(pts, 120, 230, 1.275, 1.175), C.r)}
+      <circle cx="302" cy="${Y(1.2210).toFixed(1)}" r="7" fill="none" stroke="${C.a}" stroke-width="3"/>
+      ${tag(316, Y(1.2210) + 5, 'YOUR FILL 1.2210', C.a, 'start', 13)}
+      ${tag(312, Y(1.1841) + 2, '1.1841', C.r, 'start', 12)}
+      ${ticker('fc', '31-year low at 1.1841   ●   Bank of England looking into the move   ●   Some platforms printed 1.1378', 240, '#fff', '#8a0f0f')}
+    `, { time: 'dawn', screenBg: '#1a0606', phone: 'alarm', mug: 'spill', led: '#ff3b3b', note: 'BED', note2: 'TIME?' });
+  },
+
+  /* ----- Oil ----- */
+  oilStart: () => {
+    const pts = [[120,22.4],[180,21.0],[240,20.1],[300,19.9],[360,19.6],[420,18.9],[480,18.3]];
+    return lcd('os', 'The monitor shows WTI May crude falling to about 18 dollars, next to a social media post where someone says oil cannot go below zero and calls it the buy of a lifetime.', `
+      ${hdr('WTI CRUDE · MAY CONTRACT', C.w, '', 16)}
+      ${row('FRI 17 APR 2020', '≈ $18', C.m, C.r)}
+      ${grid(C.gr)}
+      ${line(pathOf(pts, 125, 225, 24, 16), C.r, 3)}
+      <g class="popup"><rect x="300" y="118" width="184" height="78" rx="8" fill="#1d2a44" stroke="${C.c}" stroke-width="2"/>
+      ${tag(312, 138, 'social media post', C.c, 'start', 11)}
+      ${tag(312, 160, 'oil can\'t go below 0', C.w, 'start', 13)}
+      ${tag(312, 182, 'BUY OF A LIFETIME', C.g, 'start', 13)}</g>
+      ${ticker('os', 'Global lockdowns crush fuel demand   ●   US storage filling up   ●   May contract expires Tuesday', 240, C.w, '#132a4a')}
+    `, { time: 'day', bezel: '#15171c', phone: 'chat', note: 'EXPIRY', note2: 'TUES 21' });
+  },
+  oilMon: () => {
+    const pts = [[120,18.3],[170,17.0],[220,15.2],[270,12.4],[320,9.0],[370,5.0]];
+    return lcd('om', 'Monday afternoon. The WTI May line has fallen from 18 dollars to about 5 dollars, approaching a dashed zero line.', `
+      ${hdr('WTI MAY: SINGLE DIGITS', C.a, 'blink', 18)}
+      ${row('MON 20 APR 2020', '≈ $5', C.m, C.r)}
+      ${hline(yP(0, 120, 228, 22, -40), C.m, '$0')}
+      ${line(pathOf(pts, 120, 228, 22, -40), C.r)}
+      ${ticker('om', 'Traders without storage rush to exit   ●   Contract expires tomorrow   ●   Liquidity drying up', 240, C.w, '#3a2a10')}
+    `, { time: 'day', bezel: '#15171c', phone: 'alarm', note: 'EXPIRY', note2: 'TUES 21' });
+  },
+  oilNeg: () => {
+    const pts = [[120,18.3],[170,17.0],[220,15.2],[270,12.4],[320,9.0],[370,5.0],[400,1.0],[420,-5],[440,-15],[455,-30],[465,-40],[472,-38],[480,-37.63]];
+    return lcd('on', 'The WTI May line plunges straight through the zero line and settles at minus 37 dollars 63, the first negative settle in history.', `
+      ${hdr('WTI SETTLES −$37.63', '#fff', 'blink', 20)}
+      ${row('FIRST NEGATIVE SETTLE', '−305%', C.m, C.r)}
+      ${hline(yP(0, 120, 228, 22, -42), C.a, '$0')}
+      ${line(pathOf(pts, 120, 228, 22, -42), C.r)}
+      ${ticker('on', 'First negative settle in oil futures history   ●   Sellers paid buyers to take contracts   ●   June contract falls more than 40% next day', 240, '#fff', '#8a0f0f')}
+    `, { time: 'day', bezel: '#15171c', screenBg: '#2a0505', screenClass: 'flashbg', phone: 'alarm', mug: 'spill', led: '#ff3b3b', note: 'EXPIRY', note2: 'TUES 21' });
+  },
+
+  /* ----- Yen ----- */
+  yenStart: () => {
+    const pts = [[120,161.0],[160,161.9],[200,158.0],[240,157.0],[280,155.0],[310,153.5],[340,152.0],[370,150.0],[400,149.6],[430,149.5],[455,148.5],[480,146.5]];
+    const Y = p => yP(p, 120, 228, 163, 145);
+    return lcd('ys', 'USD/JPY falls from above 160 to 146.50. The chart marks where the Bank of Japan hiked and where you bought at 149.50.', `
+      ${hdr('USD/JPY', C.w, '', 20)}
+      ${row('FRI 2 AUG 2024', '146.50 ▼', C.m, C.r)}
+      ${grid(C.gr)}
+      ${line(pathOf(pts, 120, 228, 163, 145), C.w, 3)}
+      <circle cx="370" cy="${Y(150).toFixed(1)}" r="6" fill="${C.a}"/>${tag(370, Y(150) + 22, 'BOJ HIKES', C.a, 'middle', 12)}
+      <circle cx="430" cy="${Y(149.5).toFixed(1)}" r="6" fill="${C.c}"/>${tag(432, Y(149.5) + 22, 'YOU BUY', C.c, 'middle', 12)}
+      ${ticker('ys', 'Bank of Japan raises rates   ●   Weak US jobs report   ●   Recession fears spread', 240, C.w, '#132a4a')}
+    `, { time: 'day', bezel: '#15171c', note: 'SWAP', note2: '= FREE $' });
+  },
+  yenCrash: () => {
+    const pts = [[120,149.5],[200,148.8],[260,146.5],[300,146.5],[330,145.0],[360,144.0],[390,143.5],[420,142.4],[450,141.9],[480,142.2]];
+    return lcd('yc', 'The monitor flashes red: Nikkei 225 down 12.4 percent. USD/JPY falls towards 142.', `
+      ${hdr('NIKKEI 225  −12.4%', '#fff', 'blink', 22)}
+      ${row('USD/JPY', '≈ 142 ▼', C.r, C.r)}
+      ${grid('#5a1a1a')}
+      ${line(pathOf(pts, 125, 228, 151, 140), C.r)}
+      ${ticker('yc', 'Nikkei loses 4,451 points, its biggest drop ever   ●   Carry trades unwound   ●   Yen at seven-month highs', 240, '#fff', '#8a0f0f')}
+    `, { time: 'day', bezel: '#15171c', screenBg: '#2a0505', screenClass: 'flashbg', phone: 'alarm', mug: 'spill', led: '#ff3b3b', note: 'SWAP', note2: '= FREE $' });
+  },
+  yenBounce: () => {
+    const pts = [[120,149.5],[200,146.5],[260,142.0],[290,141.8],[320,144.5],[360,145.0],[390,145.5],[420,147.6],[450,147.0],[480,147.2]];
+    return lcd('yb', 'USD/JPY rebounds from the 142 low to about 147.50 after a Bank of Japan deputy governor says no rate hikes while markets are unstable.', `
+      ${hdr('BOJ: NO HIKES WHILE UNSTABLE', C.a, '', 16)}
+      ${row('USD/JPY', '≈ 147.5 ▲', C.m, C.g)}
+      ${grid(C.gr)}
+      ${line(pathOf(pts, 125, 228, 151, 140), C.g)}
+      ${ticker('yb', 'Nikkei rebounds 10.2%   ●   Yen gives back gains   ●   Deputy Governor Uchida soothes markets', 240, C.w, '#123a22')}
+    `, { time: 'day', bezel: '#15171c', mug: 'none', note: 'SWAP', note2: '= FREE $' });
+  },
+
+  /* ----- Tariffs ----- */
+  tariffDay: () => {
+    const day = [[120,5640],[160,5655],[200,5632],[240,5660],[280,5648],[320,5670.97]];
+    const ah = [[320,5670.97],[350,5600],[380,5560],[410,5490],[440,5470],[480,5420]];
+    return lcd('td', 'The S&P 500 closes at 5,670.97, then a dotted red after-hours line drops sharply as tariffs are announced.', `
+      ${hdr('LIBERATION DAY TARIFFS', C.a, 'blink', 19)}
+      ${row('S&P 500 CLOSE', '5,670.97', C.m, C.w)}
+      <line x1="320" y1="118" x2="320" y2="232" stroke="${C.m}" stroke-width="1.5" stroke-dasharray="3 4"/>${tag(326, 130, '4 PM', C.m, 'start', 11)}
+      ${line(pathOf(day, 120, 228, 5700, 5380), C.w, 3)}
+      <path d="${pathOf(ah, 120, 228, 5700, 5380)}" fill="none" stroke="${C.r}" stroke-width="4" stroke-dasharray="8 6" stroke-linecap="round"/>
+      ${tag(476, 224, 'FUTURES', C.r, 'end', 12)}
+      ${ticker('td', '10% baseline tariff on most imports   ●   Higher reciprocal rates on dozens of countries   ●   Futures slide after hours', 240, C.w, '#3a2a10')}
+    `, { time: 'night', bezel: '#15171c', phone: 'alarm', note: 'RELIEF', note2: 'RALLY?' });
+  },
+  tariffRumour: () => {
+    const pts = [[120,5671],[170,5396],[220,5074],[260,5074],[290,4990],[310,5000],[322,5246],[340,5110],[370,5150],[410,5080],[450,5040],[480,5062]];
+    return lcd('tr', 'An unconfirmed headline about a 90-day tariff pause sends the S&P 500 spiking from its lows. An amber stamp reads unconfirmed.', `
+      ${hdr('REPORT: 90-DAY PAUSE?', '#fff', 'blink', 19)}
+      ${row('MON 7 APR 2025', 'SPIKING', C.m, C.g)}
+      ${grid(C.gr)}
+      ${line(pathOf(pts, 120, 228, 5720, 4950), C.c)}
+      ${stamp(372, 162, 'UNCONFIRMED', C.a, -8)}
+      ${ticker('tr', 'Unverified report of a tariff pause   ●   Stocks surge in minutes   ●   No official confirmation', 240, C.w, '#3a2a10')}
+    `, { time: 'day', bezel: '#15171c', phone: 'chat', note: 'VERIFY', note2: 'FIRST!' });
+  },
+  tariffDenied: () => {
+    const pts = [[120,5671],[170,5396],[220,5074],[260,5074],[290,4990],[310,5000],[322,5246],[340,5110],[370,5150],[410,5080],[440,5062],[480,4983]];
+    return lcd('tx', 'The rumour spike collapses and the S&P 500 falls to 4,982.77. A red stamp reads denied.', `
+      ${hdr('WHITE HOUSE DENIES REPORT', C.r, '', 18)}
+      ${row('S&P 500 TUE CLOSE', '4,982.77 ▼', C.m, C.r)}
+      ${grid(C.gr)}
+      ${line(pathOf(pts, 120, 228, 5720, 4950), C.r)}
+      ${stamp(400, 150, 'DENIED', C.r, -10)}
+      ${ticker('tx', 'Pause report denied   ●   Spike fully reversed   ●   Leveraged longs stopped out', 240, '#fff', '#8a0f0f')}
+    `, { time: 'day', bezel: '#15171c', phone: 'alarm', mug: 'spill', led: '#ff3b3b', note: 'VERIFY', note2: 'FIRST!' });
+  },
+  tariffPause: () => {
+    const pts = [[120,5671],[170,5396],[220,5074],[270,5062],[320,4983],[360,4983],[380,5300],[400,5456.9],[480,5456.9]];
+    return lcd('tp', 'The S&P 500 falls 12 percent over four days, then jumps 9.5 percent in a single day to 5,456.90 when a 90-day pause is announced.', `
+      ${hdr('90-DAY PAUSE ANNOUNCED', C.g, '', 19)}
+      ${row('S&P 500 · 9 APR', '5,456.90 ▲9.5%', C.m, C.g)}
+      ${grid(C.gr)}
+      ${line(pathOf(pts, 120, 228, 5720, 4950), C.g)}
+      ${tag(430, 200, '−12% IN 4 DAYS', C.r, 'middle', 12)}
+      ${ticker('tp', 'One of the best days in S&P 500 history   ●   China excluded from the pause   ●   Volatility stays high', 240, C.w, '#123a22')}
+    `, { time: 'day', bezel: '#15171c', mug: 'steam', note: 'VERIFY', note2: 'FIRST!' });
+  },
+
+  /* ----- Revenge spiral ----- */
+  revengeLog: () => {
+    const rows = [['09:12', '−$75.00'], ['10:05', '−$75.00'], ['11:31', '−$75.00']];
+    return lcd('rl', 'A trade journal on screen lists three EUR/USD trades, all stopped out for minus 75 dollars. A heart-rate line pulses at the bottom and a reminder blinks: daily limit, 3 losses.', `
+      ${hdr('TODAY: −$225.00', C.r, '', 22)}
+      ${rows.map(([t, v], i) => `
+        <rect x="124" y="${100 + i * 34}" width="352" height="28" rx="5" fill="#1b2235"/>
+        ${tag(134, 119 + i * 34, t, C.m, 'start', 13)}${tag(196, 119 + i * 34, 'EUR/USD LONG', C.w, 'start', 13)}
+        ${tag(366, 119 + i * 34, 'STOPPED', C.a, 'end', 13)}${tag(466, 119 + i * 34, v, C.r, 'end', 13)}`).join('')}
+      <path d="M120 218 h70 l8 -14 l8 26 l8 -30 l8 18 h60 l8 -14 l8 26 l8 -30 l8 18 h60 l8 -14 l8 26 l8 -30 l8 18 h50" fill="none" stroke="${C.r}" stroke-width="2.5" class="draw" pathLength="1"/>
+      ${tag(476, 202, 'HR 112', C.r, 'end', 12)}
+      <rect x="106" y="240" width="388" height="26" fill="#3a2a10"/>
+      ${tag(300, 258, 'DAILY LIMIT: 3 LOSSES', C.a, 'middle', 14).replace('class=""', '')}
+    `, { time: 'day', bezel: '#15171c', mug: 'none', phone: 'dark', note: 'MAX 3', note2: 'LOSSES' });
+  },
+  revengeCPI: () => lcd('rc', 'A single giant candle on the US CPI release with long wicks in both directions. A red stamp reads slippage.', `
+    ${hdr('US CPI RELEASE', '#fff', 'blink', 19)}
+    ${row('EUR/USD', '30 PIPS BOTH WAYS', C.m, C.a)}
+    ${grid('#5a1a1a')}
+    ${[150, 180, 210, 240, 270].map((x, i) => `<line x1="${x}" y1="${165 + (i % 2) * 6}" x2="${x}" y2="${185 + (i % 2) * 6}" stroke="${C.m}" stroke-width="2"/><rect x="${x - 6}" y="${170 + (i % 2) * 6}" width="12" height="10" fill="${C.m}"/>`).join('')}
+    <g class="popup"><line x1="320" y1="116" x2="320" y2="230" stroke="${C.r}" stroke-width="3"/><rect x="306" y="150" width="28" height="56" fill="${C.r}"/></g>
+    ${stamp(410, 175, 'SLIPPAGE', C.r, -12)}
+    ${ticker('rc', 'Spreads widen at the release   ●   Stops filled beyond their level   ●   Ten percent risk becomes more', 240, '#fff', '#8a0f0f')}
+  `, { time: 'day', bezel: '#15171c', screenBg: '#1a0606', phone: 'alarm', mug: 'spill', led: '#ff3b3b', note: 'MAX 3', note2: 'LOSSES' }),
+
+  /* ----- Martingale EA ----- */
+  eaGrid: () => eaScene('eg', 'live'),
+  eaDead: () => eaScene('ed', 'dead'),
+  eaOff: () => eaScene('eo', 'off'),
+
+  /* ----- Admin impersonator ----- */
+  scamDM: () => phoneScene('sd', false),
+  scamCheck: () => phoneScene('sc', true)
+});
+
+function eaScene(id, state) {
+  const lots = ['0.10', '0.20', '0.40', '0.80', '1.60'];
+  const pl = ['−$412', '−$598', '−$716', '−$644', '−$430'];
+  const face = state === 'dead'
+    ? `<circle cx="458" cy="77" r="11" fill="${C.r}"/><path d="M452 72 l5 5 M457 72 l-5 5 M459 72 l5 5 M464 72 l-5 5" stroke="#000" stroke-width="2"/><path d="M452 84 q6 -4 12 0" fill="none" stroke="#000" stroke-width="2"/>`
+    : state === 'off'
+    ? `<circle cx="458" cy="77" r="11" fill="${C.m}"/><circle cx="454" cy="74" r="1.8"/><circle cx="462" cy="74" r="1.8"/><line x1="452" y1="82" x2="464" y2="82" stroke="#000" stroke-width="2"/>`
+    : `<circle cx="458" cy="77" r="11" fill="#ffd400"/><circle cx="454" cy="74" r="1.8"/><circle cx="462" cy="74" r="1.8"/><path d="M452 80 q6 6 12 0" fill="none" stroke="#000" stroke-width="2"/>`;
+  const marginTxt = state === 'dead' ? 'MARGIN LEVEL 0% · STOP OUT' : state === 'off' ? 'AUTOTRADING OFF · ALL CLOSED' : 'MARGIN LEVEL 112%';
+  const marginCol = state === 'off' ? C.a : C.r;
+  return lcd(id, `A trading platform window for an expert advisor called GridMaster Pro. It lists five sell orders on USD/JPY with doubling sizes from 0.10 to 1.60 lots, all losing, while price rises. Status: ${marginTxt.toLowerCase()}.`, `
+    <rect x="114" y="60" width="372" height="172" rx="4" fill="#e9ecf1"/>
+    <rect x="114" y="60" width="372" height="26" rx="4" fill="#1f4e8c"/>
+    ${tag(124, 78, 'GridMaster Pro EA · USD/JPY', '#fff', 'start', 13)}
+    ${face}
+    <path d="M370 210 L390 190 L405 196 L420 160 L435 150 L450 120 L470 100" fill="none" stroke="${C.g}" stroke-width="3" class="draw" pathLength="1"/>
+    ${lots.map((l, i) => `${tag(126, 108 + i * 22, 'SELL ' + l, '#1d2129', 'start', 13)}${tag(330, 108 + i * 22, state !== 'live' ? 'CLOSED' : pl[i], state !== 'live' ? '#6b7280' : '#c81e1e', 'end', 13)}`).join('')}
+    <rect x="106" y="240" width="388" height="26" fill="${state === 'off' ? '#3a2a10' : '#5a0a0a'}"/>
+    <text x="300" y="258" text-anchor="middle" font-family="${MONO}" font-size="14" font-weight="800" fill="${marginCol}" class="${state === 'live' ? 'blink' : ''}">${marginTxt}</text>
+  `, { time: 'night', bezel: '#15171c', screenBg: '#2b3140', phone: state === 'live' ? 'alarm' : 'dark', mug: state === 'dead' ? 'spill' : 'steam', led: state === 'off' ? '#3dff7a' : '#ff3b3b', note: 'NEVER', note2: 'LOSES!' });
+}
+
+function phoneScene(id, check) {
+  const fake = CONFIG.fakeAdmin, real = CONFIG.realAdmin;
+  const msg = ['You\'ve been selected for', 'our VIP account management', 'program! Send $500 USDT.', '+30% per month. Offer', 'closes in 1 hour.'];
+  return `<svg viewBox="0 0 600 400" role="img" aria-label="${check ? `A magnifying glass over a phone message shows the sender's username is ${fake}, not ${real}.` : `A phone showing a direct message from ${fake}, offering VIP account management for 500 dollars in USDT, closing in one hour.`}" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="400" fill="#2b2347"/>
+  <rect y="330" width="600" height="70" fill="#6b4a2e"/><line x1="0" y1="330" x2="600" y2="330" stroke="#1d1712" stroke-width="3"/>
+  <g transform="rotate(${check ? 0 : -4} 300 200)">
+    <rect x="190" y="14" width="220" height="372" rx="30" fill="#15171c" stroke="#05060a" stroke-width="4"/>
+    <rect x="202" y="34" width="196" height="332" rx="18" fill="#dfe8f3"/>
+    <rect x="202" y="34" width="196" height="54" rx="18" fill="#2f6fb3"/><rect x="202" y="70" width="196" height="18" fill="#2f6fb3"/>
+    <circle cx="228" cy="62" r="15" fill="#ffb020" stroke="#fff" stroke-width="2"/><text x="228" y="67" text-anchor="middle" font-family="${MONO}" font-size="14" font-weight="900" fill="#1d2129">Q</text>
+    <text x="252" y="58" font-family="${MONO}" font-size="13" font-weight="800" fill="#fff">${CONFIG.communityName} Admin</text>
+    <text x="252" y="76" font-family="${MONO}" font-size="12" fill="#d6e6ff">${fake}</text>
+    <g class="popup"><rect x="212" y="102" width="176" height="${msg.length * 17 + 18}" rx="12" fill="#fff" stroke="#b9c6d8"/>
+    ${msg.map((m, i) => `<text x="222" y="${122 + i * 17}" font-family="Inter, sans-serif" font-size="11.5" fill="#1d2129">${m}</text>`).join('')}</g>
+    <rect x="222" y="230" width="156" height="34" rx="17" fill="#22c55e"/><text x="300" y="252" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#04140a">CLAIM MY SPOT</text>
+    <text x="300" y="290" text-anchor="middle" font-family="${MONO}" font-size="13" font-weight="800" fill="#c81e1e" class="blink">00:59:41 LEFT</text>
+  </g>
+  ${check ? `<g class="popup">
+    <circle cx="330" cy="72" r="58" fill="#fff" fill-opacity=".9" stroke="#1d1712" stroke-width="6"/>
+    <line x1="372" y1="114" x2="430" y2="172" stroke="#1d1712" stroke-width="14" stroke-linecap="round"/>
+    <text x="330" y="80" text-anchor="middle" font-family="${MONO}" font-size="19" font-weight="900" fill="#1d2129">${fake}</text>
+    <circle cx="${330 + (fake.length / 2 - 0.5) * 11.45}" cy="73" r="11" fill="none" stroke="#c81e1e" stroke-width="3"/>
+    </g>
+    <g transform="rotate(4 520 250)"><rect x="440" y="208" width="150" height="82" fill="#ffe066" stroke="#2b2117" stroke-width="2"/>
+    <text x="515" y="236" text-anchor="middle" font-family="${HAND}" font-size="13" font-weight="700" fill="#2b2117">REAL ADMIN:</text>
+    <text x="515" y="258" text-anchor="middle" font-family="${MONO}" font-size="15" font-weight="800" fill="#15803d">${real}</text>
+    <text x="515" y="280" text-anchor="middle" font-family="${HAND}" font-size="13" font-weight="700" fill="#c81e1e">≠ ${fake}</text></g>` : `
+    <g transform="rotate(5 90 250)"><rect x="20" y="206" width="140" height="74" fill="#ffe066" stroke="#2b2117" stroke-width="2"/>
+    <text x="90" y="236" text-anchor="middle" font-family="${HAND}" font-size="13" font-weight="700" fill="#2b2117">CHECK THE</text>
+    <text x="90" y="258" text-anchor="middle" font-family="${HAND}" font-size="13" font-weight="700" fill="#2b2117">USERNAME!</text></g>`}
+</svg>`;
+}
+
+/* attach art to scenario nodes */
+const ART_MAP = {
+  snb: { start: 'snbFloor', morning: 'snbBreak', close: 'negBal', wait: 'negBal', stop: 'negBal', small: 'snbBreak', skip: 'snbBreak' },
+  brexit: { start: 'brexitPolls', sunderland: 'brexitSunderland', stop: 'brexitSunderland', flat: 'brexitDawn', cut: 'brexitDawn', liquidated: 'brexitDawn', double: 'brexitDawn' },
+  flash: { start: 'flashNight', slipped: 'flashCrash', close: 'flashCrash', gslo: 'flashCrash', rest: 'flashCrash', revenge: 'flashCrash', nostop: 'negBal' },
+  oil: { start: 'oilStart', monday: 'oilMon', cut: 'oilNeg', negative: 'negBal', out: 'oilNeg', june: 'oilNeg' },
+  yen: { start: 'yenStart', cut: 'yenCrash', monday: 'yenCrash', bottom: 'yenBounce', hold: 'yenBounce', double: 'yenBounce' },
+  tariff: { start: 'tariffDay', out: 'tariffPause', full: 'tariffPause', weekend: 'tariffRumour', chase: 'tariffDenied', hold: 'tariffPause', spike: 'tariffPause' },
+  revenge: { start: 'revengeLog', allin: 'revengeCPI' },
+  ea: { start: 'eaGrid', plug: 'eaOff', deposit: 'eaDead', trust: 'eaDead' },
+  scam: { start: 'scamDM', proof: 'scamDM', check: 'scamCheck', public: 'scamCheck' }
+};
+
+const SCENARIOS = [
+
+/* ---------- 2008 LEHMAN ---------- */
+{
+  risk: `<p>$75,000 of exposure on $7,500 is <b>10:1 leverage</b>. Your 3% stop on that position risks about <b>$2,250</b>, which is 30% of the account on one trade.</p><p>To risk 1% ($75) with a 3% stop, your exposure should be about <b>$2,500</b>, one thirtieth of what you held.</p>`,
+  id: 'lehman', group: 'history', date: 'September 2008',
+  title: 'The Lehman Weekend',
+  blurb: 'You hold a 10:1 long on the S&P 500 into a weekend where the fate of a 158-year-old bank is being decided behind closed doors.',
+  recordTitle: 'What actually happened',
+  record: `<ul>
+    <li>No rescue was found. Lehman Brothers filed for bankruptcy on Monday 15 September 2008, and Merrill Lynch was sold to Bank of America the same weekend.</li>
+    <li>That Monday the Dow fell 504.48 points (−4.42%) and the S&P 500 fell 59 points (−4.71%) to 1,192.70, Wall Street's worst day since it reopened after 9/11.</li>
+    <li>Treasury's bailout plan sparked a rally later that week, but on 29 September the House voted 228–205 against it. The Dow fell 777 points and the S&P 500 fell 8.8%.</li>
+  </ul>`,
+  sources: 'Sources: AP, Reuters, ABC News, CNBC.',
+  nodes: {
+    start: {
+      stamp: 'Friday 12 September 2008, 4:45 PM ET', equity: 7500, art: 'lehmanFri',
+      text: `<p>You're long the S&amp;P 500 through a CFD: about <span class="num">$75,000</span> of exposure on your <span class="num">$7,500</span> account (10:1). The index closed today at <span class="num">1,251.70</span>.</p>
+             <p>All week the headlines have been about Lehman Brothers. Its shares have collapsed and its owners are hunting for a buyer. Commentators expect a weekend rescue deal, like Bear Stearns got in March.</p>
+             <p>The market is closed for the next 60 hours. Whatever happens, happens without you.</p>`,
+      choices: [
+        { label: 'Close everything and go into the weekend flat.', to: 'flat', trait: T.D },
+        { label: 'Cut to half size and set a hard stop 3% below the close.', to: 'half', trait: T.D },
+        { label: 'Keep the full position. Washington won\'t let a major bank fail.', to: 'monday', trait: T.H }
+      ]
+    },
+    flat: { end: true, equity: 7500, verdict: 'sound', title: 'Flat when it mattered',
+      summary: `<p>There was no rescue. Lehman filed for bankruptcy before Monday's open, and the S&amp;P 500 fell 4.7% that day.</p><p>Your account didn't move: <span class="num g">{EQ}</span>. If a deal had been announced you'd have missed a rally. That's the price of insurance, and it's cheap.</p>`,
+      lesson: 'When the outcome of a weekend depends on one decision you can\'t predict, the cheapest insurance is being flat.' },
+    half: { end: true, equity: 6300, verdict: 'sound', title: 'Stopped out, still standing',
+      summary: `<p>Monday didn't gap as much as you feared. Instead the market bled all day as the news sank in. Your stop at about 1,214 was hit mid-session and filled close to its level.</p><p>Loss: about <span class="num a">$1,200</span>. Balance: <span class="num a">{EQ}</span>. A bad day, but a normal-sized one.</p>`,
+      lesson: 'Halving size and setting a hard stop turned a potential account-killer into an ordinary losing trade. Position size is your first line of defence; the stop is your second.' },
+    monday: {
+      stamp: 'Monday 15 September 2008, 4:00 PM ET', equity: 3968, art: 'lehmanMon',
+      text: `<p>No rescue came. Lehman Brothers filed for bankruptcy before dawn. Merrill Lynch sold itself to Bank of America. AIG is asking the Fed for emergency funding.</p>
+             <p>The S&amp;P 500 closed at <span class="num r">1,192.70</span>, down 4.7%. The Dow lost 504 points.</p>
+             <p>Your account lost <span class="num r">$3,532</span> in one session. Balance: <span class="num r">{EQ}</span>.</p>`,
+      choices: [
+        { label: 'Close it now and take the loss.', to: 'cut', trait: T.D },
+        { label: 'Hold. Washington is already talking about a bailout plan.', to: 'rally', trait: T.H }
+      ]
+    },
+    cut: { end: true, equity: 3968, verdict: 'late', title: 'Right call, too late',
+      summary: `<p>You closed at a 47% drawdown. Balance: <span class="num a">{EQ}</span>.</p><p>Painful, but you stopped the bleeding. Two weeks later the S&amp;P was more than 100 points lower again.</p>`,
+      lesson: 'The real mistake happened on Friday: 10:1 leverage into a weekend with a known binary risk. Closing on Monday was the right decision, made after the damage was done.' },
+    rally: {
+      stamp: 'Friday 19 September 2008, close', equity: 7702.50,
+      text: `<p>Your patience is rewarded, for now. Treasury unveiled a huge plan to take bad mortgage assets off bank balance sheets, and stocks surged.</p>
+             <p>The S&amp;P 500 closed at <span class="num g">1,255.08</span>, above your entry. Balance: <span class="num g">{EQ}</span>.</p>
+             <p>Congress still has to vote on the bailout.</p>`,
+      choices: [
+        { label: 'Take the small profit and close. You got lucky and you know it.', to: 'escape', trait: T.D },
+        { label: 'Hold for the vote. Once the bailout passes, this rips higher.', to: 'vote', trait: T.H }
+      ]
+    },
+    escape: { end: true, equity: 7702.50, verdict: 'lucky', title: 'Escaped, but don\'t learn the wrong lesson',
+      summary: `<p>You closed with a small profit: <span class="num g">{EQ}</span>.</p><p>Ten days later the bailout vote failed and the S&amp;P 500 fell 8.8% in a single session.</p>`,
+      lesson: 'Holding through Monday was a bad decision that happened to work out. Closing on the rebound was the good decision. Judge yourself on the decisions, not the result, or you\'ll repeat the bad one.' },
+    vote: { end: true, equity: 1610, verdict: 'poor', art: 'lehmanCall', title: 'Margin call: the vote that failed',
+      summary: `<p>Monday 29 September. The House of Representatives rejected the bailout 228–205. The Dow fell 777 points and the S&amp;P 500 fell 8.8% to 1,106.39.</p><p>Around 1,158 your broker's margin system closed your position automatically. Balance: <span class="num r">{EQ}</span>.</p>`,
+      lesson: 'You held twice through binary political events with 10:1 leverage. Hope gave you a way out on the 19th, and you didn\'t take it. Never let a lucky escape turn into a reason to keep the same risk.' }
+  }
+},
+
+/* ---------- 2015 SNB ---------- */
+{
+  risk: `<p>1 lot of EUR/CHF is about €100,000, roughly <b>15:1 leverage</b> on this account at about $10 per pip.</p><p>A stop 60 pips away at 1% risk ($75) would mean about <b>0.12 lots</b>. But even 0.1 lot lost 28% here, because the stop couldn't fill. On a pegged currency, size for the gap if the peg breaks, not for your stop.</p>`,
+  id: 'snb', group: 'history', date: 'January 2015',
+  title: 'The Swiss Floor',
+  blurb: 'EUR/CHF has a central bank guarantee at 1.20. Everyone calls a long near the floor the safest trade in forex.',
+  record: `<ul>
+    <li>At 09:30 GMT on 15 January 2015 the Swiss National Bank scrapped its 1.20 floor with no warning and cut its deposit rate to −0.75%.</li>
+    <li>EUR/CHF fell roughly 30% in minutes, touching about 0.85 before settling near parity. FXCM's own report put average EUR/CHF spreads at 2,000–3,000 pips during the event.</li>
+    <li>Three days earlier, SNB Vice-Chairman Jean-Pierre Danthine had publicly called the floor a pillar of Swiss monetary policy.</li>
+    <li>FXCM said its clients owed it about $225 million in negative balances. Alpari UK declared insolvency the next day.</li>
+    <li>In 2018 EU regulators made negative balance protection mandatory for retail CFD clients, largely because of days like this.</li>
+  </ul>`,
+  sources: 'Sources: Bloomberg, US Congressional Research Service, FXCM, Finance Magnates, IBTimes.',
+  nodes: {
+    start: {
+      stamp: 'Monday 12 January 2015', equity: 7500,
+      text: `<p>For more than three years the Swiss National Bank has defended a minimum rate of 1.20 francs per euro. Every dip toward 1.20 gets bought.</p>
+             <p>Forums call a long near the floor <i>free money</i>: the downside is capped, so why not size up? Today an SNB vice-chairman publicly called the floor a pillar of policy.</p>
+             <p>EUR/CHF is at <span class="num">1.2010</span>. One standard lot is worth about <span class="num">$10</span> per pip.</p>`,
+      choices: [
+        { label: '1 standard lot, no stop. The central bank has your back.', to: 'morning', trait: T.E },
+        { label: '1 standard lot with a stop at 1.1950, just under the floor.', to: 'stop', trait: T.H },
+        { label: '0.1 lot. A "can\'t lose" trade doesn\'t exist.', to: 'small', trait: T.D },
+        { label: 'Skip it. 10 pips of upside against an unknown downside isn\'t a trade.', to: 'skip', trait: T.D }
+      ]
+    },
+    morning: {
+      stamp: 'Thursday 15 January 2015, 09:30 GMT', equity: 7500,
+      text: `<p>A headline flashes: <b>SNB DISCONTINUES MINIMUM EXCHANGE RATE.</b></p>
+             <p>EUR/CHF drops through 1.20 in seconds. Your platform shows prices you've never seen: 1.15… 1.05… 0.98… The spread is hundreds of pips wide and quotes keep freezing.</p>
+             <p>Your floating loss is already larger than your account.</p>`,
+      choices: [
+        { label: 'Smash "close" and take whatever fill comes.', to: 'close', trait: T.D },
+        { label: 'Wait for the bounce. The SNB will step back in.', to: 'wait', trait: T.H }
+      ]
+    },
+    close: { end: true, equity: -13600, verdict: 'poor', title: 'Negative balance: you owe your broker',
+      summary: `<p>Your close order filled around <span class="num">1.0000</span>, more than 2,000 pips from your entry. Loss: about $21,100.</p><p>Balance: <span class="num r">{EQ}</span>. Your broker emails asking you to repay the deficit.</p>`,
+      lesson: 'Once the floor broke, every choice was bad. The decision that mattered was made on Monday: full size, no stop, on a trade whose only risk was a sudden policy change.' },
+    wait: { end: true, equity: -27800, verdict: 'poor', title: 'Liquidated near the low',
+      summary: `<p>There was no bounce in time. Your broker's margin system closed your position in the chaos at around <span class="num">0.88</span>, close to the low of the day.</p><p>Balance: <span class="num r">{EQ}</span>. You owe almost four times what you deposited.</p>`,
+      lesson: 'A "guaranteed" level is only as good as the institution guaranteeing it. When a peg breaks, liquidity disappears and your broker\'s stop-out becomes your exit.' },
+    stop: { end: true, equity: -9100, verdict: 'poor', title: 'A stop is an order, not a guarantee',
+      summary: `<p>Your stop at 1.1950 was triggered, but nobody was buying at that price. The first fill your broker could get was about <span class="num">1.0400</span>, 1,600 pips past your stop.</p><p>Balance: <span class="num r">{EQ}</span>. You did the "responsible" thing and still owe money.</p>`,
+      lesson: 'A normal stop becomes a market order when triggered. In a gap it fills at the next available price, however far away. Only size limits your loss when liquidity vanishes. If your broker offers guaranteed stops, this is what they\'re for.' },
+    small: { end: true, equity: 5390, verdict: 'sound', title: 'Small size saved you',
+      summary: `<p>When the floor broke, your 0.1 lot was closed at around 1.0000. Loss: about $2,100.</p><p>Balance: <span class="num a">{EQ}</span>. It hurts, and you're still trading tomorrow while many others aren't.</p>`,
+      lesson: 'The trade idea was the same as everyone else\'s. The size was the difference between a bad day and owing your broker money.' },
+    skip: { end: true, equity: 7500, verdict: 'sound', title: 'The trade you didn\'t take',
+      summary: `<p>You watched it happen on the news. Balance: <span class="num g">{EQ}</span>.</p>`,
+      lesson: 'Always compare the reward to the worst case, not the usual case. Ten pips of upside against an unknown tail risk is a bad bet, however often it has worked.' }
+  }
+},
+
+/* ---------- 2016 BREXIT ---------- */
+{
+  risk: `<p>1 lot of GBP/USD at 1.49 is about $149,000, roughly <b>20:1 leverage</b>, at $10 per pip.</p><p>With a 100-pip stop at 1.4800, risking 1% ($75) means <b>0.075 lots</b>. Overnight on a vote, also expect your stop to slip.</p><p class="formula">Position size = (account × risk %) ÷ (stop distance × value per pip)</p>`,
+  id: 'brexit', group: 'history', date: 'June 2016',
+  title: 'Referendum Night',
+  blurb: 'Polls close, the pound hits its 2016 high, and you\'re in profit. The results come in through the night, one area at a time.',
+  record: `<ul>
+    <li>As polls closed on 23 June 2016, a YouGov poll and Nigel Farage's comments suggested Remain would win. GBP/USD hit 1.5018, its 2016 high.</li>
+    <li>Sunderland voted 61.3% Leave, well above forecasts, and the pound fell several cents in minutes.</li>
+    <li>GBP/USD bottomed at 1.3229, about 1,777 pips (≈12%) below the high and its lowest level since 1985. Barclays stopped accepting new stop-loss orders from 06:00 GMT.</li>
+    <li>Leave won 52% to 48%. Prime Minister David Cameron resigned that morning.</li>
+  </ul>`,
+  sources: 'Sources: Reuters, AP, CNN, ForexLive.',
+  nodes: {
+    start: {
+      stamp: 'Thursday 23 June 2016, 10:30 PM BST', equity: 7500,
+      text: `<p>Polls have just closed on the EU referendum. A late YouGov poll points to Remain, and Nigel Farage has said on TV that it looks like Remain will edge it.</p>
+             <p>GBP/USD spikes to <span class="num g">1.5018</span>, its highest level of the year. You bought 1 lot at <span class="num">1.4900</span> this afternoon and you're up about <span class="num g">$1,100</span>.</p>
+             <p>Results will arrive through the night, starting with the North East of England around midnight.</p>`,
+      choices: [
+        { label: 'Take the profit and go to bed flat.', to: 'flat', trait: T.D },
+        { label: 'Hold with a stop at 1.4800 and let the profit run.', to: 'stop', trait: T.H },
+        { label: 'Hold with no stop. Remain is going to win.', to: 'sunderland', trait: T.H }
+      ]
+    },
+    flat: { end: true, equity: 8600, verdict: 'sound', title: 'You banked the spike',
+      summary: `<p>You sold into the post-poll spike and slept. You woke up to the biggest move in sterling in decades.</p><p>Balance: <span class="num g">{EQ}</span>.</p>`,
+      lesson: 'When the market has priced in one outcome of a binary event, the risk/reward of staying in is terrible. Taking profit into the event is a strategy, not cowardice.' },
+    stop: { end: true, equity: 5900, verdict: 'late', title: 'The stop did its job, mostly',
+      summary: `<p>Just after midnight Sunderland voted 61% Leave and the pound collapsed. Your stop at 1.4800 was hit, but in the thin overnight market it filled at about <span class="num">1.4740</span>.</p><p>Loss: about $1,600. Balance: <span class="num a">{EQ}</span>.</p>`,
+      lesson: 'A stop can slip, but it still capped a loss that would have reached five figures. A stop on a binary event isn\'t perfect; no stop is far worse.' },
+    sunderland: {
+      stamp: 'Friday 24 June 2016, 12:30 AM BST', equity: 2010,
+      text: `<p>Newcastle votes Remain, but by less than expected. Then Sunderland votes <b>61% Leave</b>, far above forecasts.</p>
+             <p>GBP/USD drops to <span class="num r">1.4351</span> in minutes. Traders on TV are comparing it to Black Wednesday.</p>
+             <p>You're down <span class="num r">549 pips</span>. Balance: <span class="num r">{EQ}</span>.</p>`,
+      choices: [
+        { label: 'Close now and accept the damage.', to: 'cut', trait: T.D },
+        { label: 'Hold. London and Scotland haven\'t reported yet.', to: 'liquidated', trait: T.H },
+        { label: 'Add another lot at 1.4351 to improve your average.', to: 'double', trait: T.E }
+      ]
+    },
+    cut: { end: true, equity: 2010, verdict: 'late', title: 'Out at −73%',
+      summary: `<p>You closed at 1.4351. Balance: <span class="num r">{EQ}</span>.</p><p>By dawn GBP/USD was trading at 1.3229. You avoided another 1,100 pips of losses.</p>`,
+      lesson: 'Cutting was right. But the decision that cost 73% was holding a full-size position with no stop through a vote count.' },
+    liquidated: { end: true, equity: 200, verdict: 'poor', title: 'Wiped out before sunrise',
+      summary: `<p>The count kept going Leave's way. Your broker's margin stop-out closed your position at about <span class="num">1.4170</span>. Balance: <span class="num r">{EQ}</span>.</p><p>GBP/USD kept falling to 1.3229 before the final result was announced.</p>`,
+      lesson: '"There are more results to come" is hope, not analysis. When the first real data contradicts your position on a binary event, the market will not wait for you.' },
+    double: { end: true, equity: 0, verdict: 'poor', title: 'Averaging down into a vote count',
+      summary: `<p>With 2 lots on, every pip now cost $20. The pound fell another 100 pips within the hour and your broker liquidated everything near <span class="num">1.4250</span>.</p><p>Balance: <span class="num r">{EQ}</span>.</p>`,
+      lesson: 'Averaging down doubles your exposure at exactly the moment the market has proven you wrong. On an event with new information arriving every hour, it\'s the fastest route to zero.' }
+  }
+},
+
+/* ---------- 2016 FLASH CRASH ---------- */
+{
+  risk: `<p>1 lot of GBP/USD at 1.27 is about $127,000, roughly <b>17:1 leverage</b>, at $10 per pip.</p><p>Your stop was 160 pips from entry. Risking 1% ($75) means about <b>0.05 lots</b>. At that size, even the 510-pip slipped fill would have cost about $240, not $5,100.</p><p class="formula">Position size = (account × risk %) ÷ (stop distance × value per pip)</p>`,
+  id: 'flash', group: 'history', date: 'October 2016',
+  title: 'The Midnight Flash Crash',
+  blurb: 'You go to bed long the pound with a sensible stop. London is closed. Tokyo is thin. Two minutes is all it takes.',
+  record: `<ul>
+    <li>Just after midnight UK time on 7 October 2016, in thin Asian trading, GBP/USD fell about 6% in two minutes to a 31-year low of 1.1841 on composite prices. At least one platform printed 1.1378.</li>
+    <li>It bounced back to around 1.24 almost immediately, then resumed falling during European hours on hard-Brexit fears.</li>
+    <li>Bank of England Governor Mark Carney asked the Bank for International Settlements to investigate. Its report pointed to a combination of factors in a thin market rather than a single trigger.</li>
+  </ul>`,
+  sources: 'Sources: Bloomberg, AFP, Investment Week, BIS Markets Committee.',
+  nodes: {
+    start: {
+      stamp: 'Thursday 6 October 2016, 11:30 PM BST', equity: 7500,
+      text: `<p>The pound has been sliding all week on fears of a "hard Brexit". You bought 1 lot of GBP/USD at <span class="num">1.2720</span>, betting on a bounce. It's now around <span class="num a">1.2620</span>. You have a normal stop at <span class="num">1.2560</span>.</p>
+             <p>You're tired. London is closed and Tokyo is just opening. The US jobs report comes out tomorrow afternoon.</p>`,
+      choices: [
+        { label: 'Close the trade before bed. −100 pips is enough for today.', to: 'close', trait: T.D },
+        { label: 'Switch to a guaranteed stop at 1.2560. It costs a small premium.', to: 'gslo', trait: T.D },
+        { label: 'Keep the normal stop and go to sleep. That\'s what it\'s for.', to: 'slipped', trait: T.H },
+        { label: 'Remove the stop. You\'ll manage it in the morning.', to: 'nostop', trait: T.E }
+      ]
+    },
+    close: { end: true, equity: 6500, verdict: 'sound', title: 'Asleep and flat',
+      summary: `<p>You took the $1,000 loss and slept. You woke up to a 6% flash crash on every news site.</p><p>Balance: <span class="num a">{EQ}</span>.</p>`,
+      lesson: 'Holding a losing position into the thinnest hours of the trading day adds risk with no extra reward. If you can\'t watch it, ask whether you should hold it.' },
+    gslo: { end: true, equity: 5870, verdict: 'sound', title: 'The guarantee paid out',
+      summary: `<p>The crash blew through 1.2560, but a guaranteed stop fills exactly at its level. Loss: $1,600 plus a $30 premium.</p><p>Balance: <span class="num a">{EQ}</span>. Traders with normal stops were filled hundreds of pips lower.</p>`,
+      lesson: 'Guaranteed stops cost a little on every trade and save you on the one night that matters. Use them when holding through thin or event-driven sessions.' },
+    slipped: {
+      stamp: 'Friday 7 October 2016, 6:45 AM BST', equity: 2400,
+      text: `<p>Overnight, GBP/USD fell about <b>6% in two minutes</b> to a 31-year low. Your stop triggered, but there were no buyers at 1.2560. The fill came at <span class="num r">1.2210</span>.</p>
+             <p>Loss: <span class="num r">$5,100</span>. Balance: <span class="num r">{EQ}</span>.</p>
+             <p>The pound is already back around <span class="num">1.2450</span>. It feels like you were robbed.</p>`,
+      choices: [
+        { label: 'Accept it. Stay out of the market today.', to: 'rest', trait: T.D },
+        { label: 'Win it back: go long 3 lots at 1.2450. The crash was a glitch.', to: 'revenge', trait: T.E }
+      ]
+    },
+    rest: { end: true, equity: 2400, verdict: 'late', title: 'Hurt, but not tilted',
+      summary: `<p>You stepped away. Balance: <span class="num r">{EQ}</span>.</p><p>During London hours the pound started falling again.</p>`,
+      lesson: 'Your stop was sensible on a normal night. The risk was holding through the Asian session at all. Stepping away instead of revenge trading kept a bad night from becoming a disaster.' },
+    revenge: { end: true, equity: 300, verdict: 'poor', title: 'The revenge trade',
+      summary: `<p>With 3 lots on, every pip cost $30. The pound resumed its slide in European trading and you were closed out by margin around <span class="num">1.2380</span>.</p><p>Balance: <span class="num r">{EQ}</span>.</p>`,
+      lesson: 'The flash crash took 68% of your account. The revenge trade took most of the rest in a fraction of the time. The most dangerous trade is the one you take to undo the last one.' },
+    nostop: { end: true, equity: -200, verdict: 'poor', title: 'Your broker\'s stop-out was your stop',
+      summary: `<p>With no stop, the crash took your equity to zero within seconds. Your broker's margin system closed you at about <span class="num">1.1950</span>.</p><p>Balance: <span class="num r">{EQ}</span>. By the time you woke up, the price was 500 pips higher.</p>`,
+      lesson: 'Removing a stop doesn\'t remove the risk. It hands the exit to your broker\'s margin engine, which will sell at the worst possible moment.' }
+  }
+},
+
+/* ---------- 2020 NEGATIVE OIL ---------- */
+{
+  risk: `<p>300 barrels at $18 is only $5,400 of exposure, <b>less than 1:1 leverage</b>. That looks safe.</p><p>But the price fell about $56 a barrel, more than 300% of where it started. Low leverage doesn't protect you if the instrument can fall further than you think is possible. Know the worst case for the contract, not just the chart.</p>`,
+  id: 'oil', group: 'history', date: 'April 2020',
+  title: 'Oil Can\'t Go Below Zero',
+  blurb: 'Lockdowns, full storage tanks, and a contract days from expiry. Someone you follow on social media says this is the bottom of a lifetime.',
+  record: `<ul>
+    <li>On Monday 20 April 2020, the May WTI futures contract settled at <b>−$37.63</b> a barrel, a fall of about $56 (≈305%) in one day. It was the first time a US oil futures contract had ever settled below zero.</li>
+    <li>The contract expired the next day, and anyone still holding it had to take delivery of physical oil. With storage nearly full, traders paid to get out. Much of the fall came in the final minutes before settlement.</li>
+    <li>The June contract fell more than 40% the following day. CME's CEO pointed out that futures have always been allowed to trade below zero.</li>
+  </ul>`,
+  sources: 'Sources: Reuters, CNBC, Risk.net, US EIA.',
+  nodes: {
+    start: {
+      stamp: 'Friday 17 April 2020', equity: 7500,
+      text: `<p>The world is in lockdown. Nobody is driving or flying, and US oil storage is filling up fast. The May WTI contract closed at about <span class="num">$18</span>; the June contract at about <span class="num">$25</span>.</p>
+             <p>Someone you follow on social media posts: <i>"Oil can't go below zero. This is the buy of a lifetime."</i></p>
+             <p>Your broker offers a CFD that tracks the May contract until it expires on Tuesday 21 April.</p>`,
+      choices: [
+        { label: 'Stay out. You don\'t understand how expiring futures behave.', to: 'out', trait: T.D },
+        { label: 'Buy 300 barrels of the June contract instead, at about $25.', to: 'june', trait: T.H },
+        { label: 'Buy 300 barrels of May at $18. Cheaper is better.', to: 'monday', trait: T.E }
+      ]
+    },
+    out: { end: true, equity: 7500, verdict: 'sound', title: 'You didn\'t trade what you didn\'t understand',
+      summary: `<p>On Monday the May contract settled at −$37.63. Balance: <span class="num g">{EQ}</span>.</p>`,
+      lesson: '"It can\'t go lower" is never a reason to buy. Know the mechanics of the instrument before you trade it, especially around expiry.' },
+    june: { end: true, equity: 3480, verdict: 'poor', title: 'Right instrument, wrong timing',
+      summary: `<p>You avoided the expiring contract, but the June contract still fell more than 40% on Tuesday as the panic spread. Loss: about $4,000.</p><p>Balance: <span class="num a">{EQ}</span>.</p>`,
+      lesson: 'Avoiding expiry was smart. Buying a market in free fall because it "looks cheap" wasn\'t. Wait for the market to stop falling before you try to catch it.' },
+    monday: {
+      stamp: 'Monday 20 April 2020, early afternoon ET', equity: 3600,
+      text: `<p>Traders with no storage are desperate to exit the May contract before Tuesday's expiry. It has collapsed into single digits and is trading near <span class="num r">$5</span>.</p>
+             <p>You're down <span class="num r">$3,900</span>. Balance: <span class="num r">{EQ}</span>.</p>`,
+      choices: [
+        { label: 'Close now at about $5.', to: 'cut', trait: T.D },
+        { label: 'Hold. It literally cannot go below zero.', to: 'negative', trait: T.H }
+      ]
+    },
+    cut: { end: true, equity: 3600, verdict: 'late', title: 'Out above zero',
+      summary: `<p>You closed at about $5. Balance: <span class="num a">{EQ}</span>.</p><p>Less than two hours later, the contract settled at −$37.63.</p>`,
+      lesson: 'You cut a bad trade before it became a catastrophe. The original mistake was buying an expiring contract because the price looked low.' },
+    negative: { end: true, equity: -9190, verdict: 'poor', title: 'Below zero',
+      summary: `<p>In the last minutes before settlement the price fell straight through zero. The May contract settled at <span class="num r">−$37.63</span>.</p><p>Your broker settled your CFD at that price. Balance: <span class="num r">{EQ}</span>. You owe more than your entire deposit.</p>`,
+      lesson: 'Prices can go anywhere the contract allows, including below zero. If you hold an expiring contract into its final day, you\'re competing with traders who must exit at any price.' }
+  }
+},
+
+/* ---------- 2024 YEN CARRY ---------- */
+{
+  risk: `<p>1 lot of USD/JPY is $100,000, roughly <b>13:1 leverage</b>, at about $6.80 per pip.</p><p>With a 100-pip stop, risking 1% ($75) means about <b>0.11 lots</b>. At that size, the full 750-pip drop to 142 would have cost about $560, not $5,280.</p><p class="formula">Position size = (account × risk %) ÷ (stop distance × value per pip)</p>`,
+  id: 'yen', group: 'history', date: 'August 2024',
+  title: 'The Carry Trade Unwind',
+  blurb: 'Short yen has been the easiest trade in forex for two years. Then the Bank of Japan hikes and a weak US jobs report lands.',
+  record: `<ul>
+    <li>The Bank of Japan raised rates on 31 July 2024. Weak US jobs data on Friday 2 August added recession fears.</li>
+    <li>On Monday 5 August the Nikkei 225 fell 12.4% (4,451 points), its largest point drop ever and its worst percentage day since 1987. The yen hit seven-month highs around 141–143 per dollar as carry trades were unwound.</li>
+    <li>The Nikkei rebounded 10.2% the next day. On 7 August BoJ Deputy Governor Shinichi Uchida said the bank would not raise rates while markets were unstable, and USD/JPY jumped about 2% to around 147.5.</li>
+  </ul>`,
+  sources: 'Sources: Reuters, AP, Bloomberg, Christian Science Monitor.',
+  nodes: {
+    start: {
+      stamp: 'Friday 2 August 2024, after the US jobs report', equity: 5452,
+      text: `<p>For two years, short yen has paid: Japanese rates near zero, US rates above 5%, and swap credited to your account every night. USD/JPY topped 160 in early July.</p>
+             <p>On Wednesday the Bank of Japan raised rates. You bought the dip yesterday: 1 lot of USD/JPY at <span class="num">149.50</span>.</p>
+             <p>Today's US jobs report was weak. USD/JPY has dropped to about <span class="num r">146.50</span>. Balance: <span class="num r">{EQ}</span>.</p>`,
+      choices: [
+        { label: 'Take the loss before the weekend.', to: 'cut', trait: T.D },
+        { label: 'Hold. The carry trade has worked for years.', to: 'monday', trait: T.H }
+      ]
+    },
+    cut: { end: true, equity: 5452, verdict: 'sound', title: 'Out before the crowd',
+      summary: `<p>You closed at about 146.50. Balance: <span class="num a">{EQ}</span>.</p><p>On Monday, Japanese stocks had their biggest point drop in history.</p>`,
+      lesson: 'When a central bank changes direction and the data turns against you, the trade that "always works" is the one most likely to unwind violently. Everyone is on the same side.' },
+    monday: {
+      stamp: 'Monday 5 August 2024, Tokyo afternoon', equity: 2218,
+      text: `<p>The Nikkei closes down <b>12.4%</b>, its largest point drop ever. Funds are buying back yen to unwind carry trades all at once.</p>
+             <p>USD/JPY is trading around <span class="num r">142.00</span>. You're down 750 pips. Balance: <span class="num r">{EQ}</span>.</p>`,
+      choices: [
+        { label: 'Close now and save what\'s left.', to: 'bottom', trait: T.D },
+        { label: 'Hold and do nothing.', to: 'hold', trait: T.H },
+        { label: 'Deposit $3,000 and buy another lot at 142.50.', to: 'double', trait: T.E }
+      ]
+    },
+    bottom: { end: true, equity: 2218, verdict: 'late', title: 'Sold the low',
+      summary: `<p>You closed near 142. Balance: <span class="num r">{EQ}</span>.</p><p>Two days later USD/JPY was back at 147.50.</p>`,
+      lesson: 'Cutting at the point of maximum panic often means selling the low. The time to act was Friday, when the loss was a third of this size.' },
+    hold: { end: true, equity: 6144, verdict: 'lucky', title: 'Saved by a central banker',
+      summary: `<p>On Wednesday a Bank of Japan deputy governor said the bank wouldn't raise rates while markets were unstable. USD/JPY jumped to about 147.50.</p><p>Balance: <span class="num a">{EQ}</span>. You got most of it back.</p>`,
+      lesson: 'This worked, and that is the danger. Your account was 70% down and one sentence from an official rescued it. Repeat this decision often enough and one day nobody will rescue you.' },
+    double: { end: true, equity: 12534, verdict: 'poor', title: 'Rewarded for the wrong thing',
+      summary: `<p>USD/JPY rebounded to about 147.50 on Wednesday. Your second lot made about $3,400.</p><p>Balance: <span class="num g">{EQ}</span>, including the $3,000 you deposited. Net, you're up about $2,000.</p>`,
+      lesson: 'Adding fresh money to a losing position during a crash worked this time. That\'s exactly why it\'s so dangerous: every win teaches you to do it again, until the one time the rebound doesn\'t come.' }
+  }
+},
+
+/* ---------- 2025 LIBERATION DAY ---------- */
+{
+  risk: `<p>$60,000 of exposure on $7,500 is <b>8:1 leverage</b>. A 10% fall in the index, which happened in two days, wipes out 80% of the account.</p><p>To risk 1% ($75) with a 5% stop, your exposure should be about <b>$1,500</b>. That sounds tiny. It's what surviving a two-day 10% drop actually takes.</p>`,
+  id: 'tariff', group: 'history', date: 'April 2025',
+  title: 'Liberation Day',
+  blurb: 'You\'re long US stocks into a tariff announcement. Then an unconfirmed headline sends the market flying.',
+  record: `<ul>
+    <li>After the close on 2 April 2025 (S&amp;P 500 at 5,670.97), the US announced a 10% baseline tariff on most imports plus higher "reciprocal" rates on dozens of countries.</li>
+    <li>The S&amp;P 500 fell 4.8% on 3 April and 6.0% on 4 April, and was down about 12% in four sessions.</li>
+    <li>On 7 April, an unconfirmed report of a 90-day pause caused a huge intraday swing before the White House denied it.</li>
+    <li>On 9 April a 90-day pause was announced for most countries, and the S&amp;P 500 jumped 9.5%, one of its best days ever.</li>
+  </ul>`,
+  sources: 'Sources: AP, Wall Street Journal (via Webull), BNN Bloomberg.',
+  nodes: {
+    start: {
+      stamp: 'Wednesday 2 April 2025, 4:30 PM ET', equity: 7500,
+      text: `<p>You're long <span class="num">$60,000</span> of the US500 (8:1), expecting the President's "Liberation Day" announcement to be less bad than feared. The S&amp;P 500 closed at <span class="num">5,670.97</span>.</p>
+             <p>Instead, the Rose Garden speech announces a 10% tariff on nearly all imports, with much higher rates on dozens of countries. S&amp;P futures are falling hard after hours.</p>`,
+      choices: [
+        { label: 'Close at the first opportunity, whatever the price.', to: 'out', trait: T.D },
+        { label: 'Cut to half size ($30,000) and hold the rest.', to: 'weekend', trait: T.D },
+        { label: 'Hold the full position. Markets always recover.', to: 'full', trait: T.H }
+      ]
+    },
+    out: { end: true, equity: 5606, verdict: 'sound', title: 'Paid to sleep',
+      summary: `<p>You sold at Thursday's open, around 5,490. Loss: about $1,900.</p><p>Balance: <span class="num a">{EQ}</span>. By Tuesday the S&amp;P was below 5,000.</p>`,
+      lesson: 'When news changes the reason you entered a trade, close it. You can always buy back later with a clear head and a full account.' },
+    full: { end: true, equity: 1420, verdict: 'poor', title: 'Right in the end, broke in the middle',
+      summary: `<p>The S&amp;P 500 fell 4.8% on Thursday and 6.0% on Friday. Near 5,100 on Friday your equity fell below your broker's margin requirement and your position was closed.</p><p>Balance: <span class="num r">{EQ}</span>. Five sessions later, the index jumped 9.5% in one day.</p>`,
+      lesson: '"Markets always recover" may be true, but with 8:1 leverage you have to survive the drop first. Leverage doesn\'t change the direction you\'re right about; it changes how long you can afford to be wrong.' },
+    weekend: {
+      stamp: 'Monday 7 April 2025, mid-morning ET', equity: 4340,
+      text: `<p>After −4.8% on Thursday and −6.0% on Friday, the S&amp;P 500 is near 5,074. Your half position is down about $3,160. Balance: <span class="num a">{EQ}</span>.</p>
+             <p>Suddenly a headline: <b>White House considering a 90-day pause on tariffs.</b> Stocks rip higher in minutes. Social media is exploding.</p>
+             <p>Nobody has confirmed the report.</p>`,
+      choices: [
+        { label: 'Chase it. Add $45,000 long right now.', to: 'chase', trait: T.E },
+        { label: 'Ignore unconfirmed headlines. Keep the half position.', to: 'hold', trait: T.D },
+        { label: 'Use the spike to close the rest.', to: 'spike', trait: T.D }
+      ]
+    },
+    chase: { end: true, equity: 1800, verdict: 'poor', title: 'You bought the fake news',
+      summary: `<p>You bought near 5,240. Minutes later the White House denied the report and stocks gave back the entire spike. By Tuesday's close the S&amp;P was at 4,982.77.</p><p>Your equity fell below your broker's margin requirement and everything was closed. Balance: <span class="num r">{EQ}</span>. On Wednesday the real pause was announced, without you.</p>`,
+      lesson: 'Unconfirmed headlines in a panic are a trap. The algorithms trade the headline in milliseconds; you get the reversal. Wait for official confirmation.' },
+    hold: { end: true, equity: 6368, verdict: 'sound', title: 'Patience with a safety margin',
+      summary: `<p>The rumour was denied and stocks fell again on Tuesday, but your half position was small enough to survive. On Wednesday 9 April a 90-day pause was officially announced and the S&amp;P 500 jumped 9.5% to 5,456.90.</p><p>Balance: <span class="num a">{EQ}</span>.</p>`,
+      lesson: 'Reducing size on Wednesday night is what let you hold through the worst of it. You could only afford to be patient because you\'d already made the position small.' },
+    spike: { end: true, equity: 5009, verdict: 'sound', title: 'Sold into the rumour',
+      summary: `<p>You closed near 5,200 on the spike. Balance: <span class="num a">{EQ}</span>.</p><p>You missed Wednesday's rally, but you also avoided Tuesday's drop.</p>`,
+      lesson: 'Using a sharp rally to exit a damaged position is a professional move. You don\'t need to catch the bottom; you need to keep your capital.' }
+  }
+},
+
+/* ---------- REVENGE SPIRAL ---------- */
+{
+  risk: `<p>At <b>1% risk</b>, 10 losses in a row cost you about 10%. At <b>10% risk</b>, 10 losses in a row cost you about 65%, and you need to almost triple what's left just to get back to even.</p><p>Losing streaks happen to every strategy. Your risk per trade decides whether a streak is annoying or fatal.</p>`,
+  id: 'revenge', group: 'psych', date: 'Any Tuesday',
+  title: 'The Revenge Spiral',
+  blurb: 'Three stop-outs before lunch, each one at the exact low. The market feels personal.',
+  recordTitle: 'Why this happens',
+  record: `<p>After a loss, many people take bigger risks to get back to even. Behavioural economists call this the break-even effect. Losses also feel roughly twice as painful as equal gains feel good, so the urge to "fix" a red day is strong.</p>
+           <p>The defence isn't willpower. It's a rule written before the session starts, such as a maximum number of losses or a maximum daily drawdown, after which you stop trading.</p>`,
+  sources: 'Background: Thaler & Johnson (1990) on the break-even effect; Kahneman & Tversky on loss aversion.',
+  nodes: {
+    start: {
+      stamp: 'Tuesday, 11:40 AM', equity: 7275,
+      text: `<p>Your rule is 1% risk per trade (<span class="num">$75</span>). This morning you took three EUR/USD trades. All three stopped out at the exact low before price reversed in your direction.</p>
+             <p>You're down <span class="num r">$225</span>. Your heart rate is up. It feels like the market is hunting your stops.</p>`,
+      choices: [
+        { label: 'Stop for the day. Three losses is your limit.', to: 'stop', trait: T.D },
+        { label: 'One more trade at normal size. You\'ll only take an A+ setup.', to: 'onemore', trait: T.H },
+        { label: 'Win it back: risk 3% ($225) on the next trade.', to: 'triple', trait: T.E }
+      ]
+    },
+    stop: { end: true, equity: 7275, verdict: 'sound', title: 'A normal bad day',
+      summary: `<p>You closed the platform and went for a walk. Balance: <span class="num g">{EQ}</span>, down 3%.</p>`,
+      lesson: 'A 3% day is normal. Every professional has them. What separates them from everyone else is that a 3% day stays a 3% day.' },
+    onemore: {
+      stamp: 'Tuesday, 12:25 PM', delta: -75,
+      text: `<p>No A+ setup appeared, so you took a B-grade one. You wanted to be in the market. It stopped out.</p>
+             <p>Balance: <span class="num r">{EQ}</span>. Four losses in a row.</p>`,
+      choices: [
+        { label: 'Now stop.', to: 'stop2', trait: T.D },
+        { label: 'Enough. Risk 3% and get it all back in one trade.', to: 'triple', trait: T.E }
+      ]
+    },
+    stop2: { end: true, verdict: 'late', title: 'Stopped one trade late',
+      summary: `<p>Balance: <span class="num a">{EQ}</span>.</p><p>You broke your rule once, then caught yourself. That counts.</p>`,
+      lesson: '"Only an A+ setup" is a promise frustrated traders rarely keep. If you notice you\'re negotiating with your own rules, the session is over.' },
+    triple: {
+      stamp: 'Tuesday, 1:10 PM', delta: -225,
+      text: `<p>You took a breakout at triple size. It ran 6 pips in your favour, reversed, and hit your stop.</p>
+             <p>Balance: <span class="num r">{EQ}</span>. You've now lost more on one trade than on the previous three combined.</p>
+             <p>US inflation data is released in 20 minutes.</p>`,
+      choices: [
+        { label: 'Walk away from the screen.', to: 'walk', trait: T.D },
+        { label: 'Go big: risk 10% on the CPI release. One win fixes everything.', to: 'allin', trait: T.E }
+      ]
+    },
+    walk: { end: true, verdict: 'late', title: 'Tilted, but not broken',
+      summary: `<p>Balance: <span class="num a">{EQ}</span>.</p><p>The 3% trade cost more than all your planned losses combined. But you stopped before the news.</p>`,
+      lesson: 'Raising size after losses is the start of a spiral. Notice the moment you think "I need to make it back", because that thought is the warning sign.' },
+    allin: { end: true, delta: -1150, verdict: 'poor', title: 'The spiral completes',
+      summary: `<p>The CPI number came out and EUR/USD spiked 30 pips both ways in under a second. Your stop filled with slippage, and the loss was larger than the 10% you planned.</p><p>Balance: <span class="num r">{EQ}</span>.</p>`,
+      lesson: 'The first three losses cost 3%. The next hour cost far more. No market did this to you; the decisions after the losses did.' }
+  }
+},
+
+/* ---------- MARTINGALE EA ---------- */
+{
+  risk: `<p>The EA doubled its size each time: 0.10 + 0.20 + 0.40 + 0.80 + 1.60 = <b>3.1 lots</b>. That's 31 times the first trade, or about $310,000 of USD/JPY on a $7,500 account: <b>roughly 41:1 leverage</b>.</p><p>Five doublings is all it takes. Before running any EA, find out its maximum total position size and whether your account can survive it.</p>`,
+  id: 'ea', group: 'psych', date: 'Any week',
+  title: 'The Rogue Martingale EA',
+  blurb: 'A shiny MT4 robot with a perfect backtest goes straight onto your live account. Then USD/JPY starts a one-way move.',
+  recordTitle: 'Why this happens',
+  record: `<p>Martingale and grid systems add to losing positions, usually with increasing size, so that a small pullback brings the whole basket back to profit. That creates a smooth equity curve for a long time.</p>
+           <p>The catch is that the risk is hidden in the tail. A strong one-way trend without a pullback makes the position size grow until the account can't carry it. A backtest on a period without that trend will look perfect.</p>`,
+  sources: 'Tip: always ask a vendor for maximum drawdown, forward-test results on a demo account, and whether the system ever adds to losing trades.',
+  nodes: {
+    start: {
+      stamp: 'Tuesday, 11:30 PM', equity: 4700,
+      text: `<p>You bought an MT4 Expert Advisor with a flawless 12-month equity curve. You skipped demo testing and put it straight on your <span class="num">$7,500</span> account trading USD/JPY.</p>
+             <p>For 72 hours it printed small, steady profits. Today USD/JPY caught a strong one-way bid, and your EA is doing what it was built to do: <i>doubling down</i>.</p>
+             <p>Floating loss: <span class="num r">−$2,800</span>. Margin level is blinking red at 112%.</p>`,
+      choices: [
+        { label: 'Pull the plug. Turn off AutoTrading and close everything manually.', to: 'plug', trait: T.D },
+        { label: 'Wire another $3,000 from your bank to save the grid.', to: 'deposit', trait: T.H },
+        { label: 'Trust the algorithm and walk away. The backtest always recovered.', to: 'trust', trait: T.E }
+      ]
+    },
+    plug: { end: true, equity: 4500, verdict: 'sound', title: 'Saved by manual intervention',
+      summary: `<p>You switched AutoTrading off and took the loss manually, with some slippage on the close. Balance: <span class="num a">{EQ}</span>.</p><p>Thirty minutes later USD/JPY rallied another 200 pips. If the EA had kept running, the account would be gone.</p>`,
+      lesson: 'Never run automated code live without forward-testing it on demo through volatile conditions. A curve-fitted backtest is a sales tool, not a risk model.' },
+    deposit: { end: true, equity: 0, verdict: 'poor', title: 'Feeding the grid',
+      summary: `<p>You wired $3,000. For ten minutes the margin level stabilised. Then USD/JPY broke the next resistance with no pullback and the EA opened its largest positions yet.</p><p>Within an hour both deposits were gone. Balance: <span class="num r">{EQ}</span>.</p>`,
+      lesson: 'Adding money to a failing grid buys it time to open bigger positions. It doesn\'t change the maths; it only raises the final bill.' },
+    trust: { end: true, equity: 0, verdict: 'poor', title: 'Black-box blind trust',
+      summary: `<p>You closed the laptop. By dinner your phone buzzed with a margin call. Balance: <span class="num r">{EQ}</span>.</p><p>The vendor's chat room has gone offline and your account there has been banned.</p>`,
+      lesson: 'If a vendor won\'t show out-of-sample or forward-test results, walk away. Markets change regimes, and every grid eventually meets the trend that breaks it.' }
+  }
+},
+
+/* ---------- ADMIN IMPERSONATOR ---------- */
+{
+  id: 'scam', group: 'community', date: 'Any day',
+  title: 'The Admin Impersonator',
+  blurb: 'A DM arrives from the group admin, with the same name and photo, offering an exclusive spot in a VIP program.',
+  recordTitle: 'How to spot it',
+  record: `<ul>
+    <li><b>Check the username, not the display name.</b> Anyone can copy a name and profile photo. Usernames are unique, so scammers use lookalikes (b → 8, l → I, an extra letter).</li>
+    <li><b>Urgency is the tell.</b> "Limited spots" and "closes in 1 hour" exist to stop you from checking.</li>
+    <li><b>Guaranteed monthly returns don't exist.</b> Nobody can promise +30% a month.</li>
+    <li><b>Crypto payments and password requests</b> are how these schemes take money you can't recover.</li>
+    <li>${CONFIG.adminPolicy}</li>
+  </ul>`,
+  sources: 'If you get a message like this, report it to the admins publicly in the group so others are warned.',
+  nodes: {
+    start: {
+      stamp: 'Saturday, 9:12 PM', equity: 7500,
+      text: `<p>A Telegram DM arrives from <span class="num">${CONFIG.fakeAdmin}</span>. Same name and profile photo as the admin of your ${CONFIG.communityName} trading group.</p>
+             <p class="q">"Hi! You've been selected for our private VIP account management program, limited to 10 members. Send $500 USDT for setup and we'll trade your account to +30% per month. Offer closes in 1 hour."</p>`,
+      choices: [
+        { label: 'Check the username letter by letter against the admin list in the group.', to: 'check', trait: T.D },
+        { label: 'Reply and ask for proof of results.', to: 'proof', trait: T.H },
+        { label: 'Send the $500 now, before the spots fill up.', to: 'paid', trait: T.E }
+      ]
+    },
+    check: { end: true, equity: 7500, verdict: 'sound', title: 'Spotted the lookalike',
+      summary: `<p>The real admin is <span class="num">${CONFIG.realAdmin}</span>. This account is <span class="num r">${CONFIG.fakeAdmin}</span>: one character different.</p><p>You blocked it, reported it, and posted a warning in the group. Balance: <span class="num g">{EQ}</span>.</p>`,
+      lesson: 'The display name and photo prove nothing. Check the username every time money is mentioned.' },
+    proof: {
+      stamp: 'Saturday, 9:20 PM', equity: 7500,
+      text: `<p>Within a minute you get screenshots of an MT5 account showing <span class="num g">+$41,800</span> this month, plus three "testimonials" from happy members.</p>
+             <p class="q">"Only 2 spots left. I can't hold yours much longer."</p>`,
+      choices: [
+        { label: 'Ask about it publicly in the group before doing anything.', to: 'public', trait: T.D },
+        { label: 'The screenshots look real. Send the $500.', to: 'paid', trait: T.H }
+      ]
+    },
+    public: { end: true, equity: 7500, verdict: 'sound', title: 'Daylight kills scams',
+      summary: `<p>Within minutes the real admin replied: they never DM first and never take payments. Two other members had received the same message.</p><p>Balance: <span class="num g">{EQ}</span>.</p>`,
+      lesson: 'Screenshots are easy to fake and testimonials are easy to write. Asking in public costs you nothing and protects everyone.' },
+    paid: {
+      stamp: 'Saturday, 9:40 PM', delta: -500,
+      text: `<p class="q">"Payment received! To activate trading we need your MT5 login and master password, plus a $1,500 refundable insurance deposit to protect your funds from drawdown."</p>
+             <p>Your trading capital is now <span class="num a">{EQ}</span>.</p>`,
+      choices: [
+        { label: 'Stop. Report it and accept the $500 is gone.', to: 'stoploss', trait: T.D },
+        { label: 'Pay the $1,500 so the first $500 isn\'t wasted.', to: 'sunk', trait: T.H }
+      ]
+    },
+    stoploss: { end: true, verdict: 'late', title: 'A $500 lesson',
+      summary: `<p>You blocked the account, reported it, and warned the group. Trading capital: <span class="num a">{EQ}</span>.</p>`,
+      lesson: 'Treat a scam like a losing trade: take the small loss early. Every next payment request is designed to feel like protecting what you already paid.' },
+    sunk: { end: true, delta: -1500, verdict: 'poor', title: 'The sunk-cost trap',
+      summary: `<p>After the $1,500 came a "withdrawal fee", then a "tax clearance" charge. Then the account disappeared.</p><p>Trading capital: <span class="num r">{EQ}</span>. You also gave away your master password, so change it now.</p>`,
+      lesson: 'Money you\'ve already lost is gone either way. Scammers make the second request bigger because they know you\'ll want to save the first payment.' }
+  }
+}
+];
+
+
+/* ============================================================
+   WEEKLY SCENARIOS (bonus rounds, not part of the price challenge)
+   Each one appears automatically from its release date (viewer's local time).
+   To add next week's: copy a block, give it a new id and release date.
+   ============================================================ */
+SCENARIOS.push(
+{
+  twist: 'A trader you follow on social media quit this exact plan after three losses last month. He\'s now selling a course on his new "never lose" strategy.',
+  id: 'plan', group: 'weekly', weekly: true, release: '2026-10-05', date: 'Psychology',
+  title: 'The Plan That Lost',
+  blurb: 'You followed every rule and lost four times in a row. Signal number five has just appeared.',
+  recordTitle: 'Why this happens',
+  record: `<p>Your plan wins 45% of the time and winners are twice the size of losers. That's an average of <b>+0.35R per trade</b>, roughly +$26 every time you take a signal at $75 risk.</p>
+    <p>But wins and losses arrive in random order. In a simulation of 100 trades with a 45% win rate, about <b>92%</b> of runs contained a losing streak of five or more. Losing streaks aren't a sign the plan is broken; they're the cost of running it.</p>
+    <p>The edge only shows up if you take every signal at the same size. Skipping, tweaking or sizing up after losses changes the system you tested into one you haven't.</p>`,
+  sources: 'Expectancy = (win rate × average win) − (loss rate × average loss) = (0.45 × 2R) − (0.55 × 1R) = +0.35R.',
+  risk: `<p>At <b>1% risk</b> ($75), four losses cost $300, about 4%. A ten-loss streak, which a 45% system will eventually produce, costs about 10%. Painful, survivable.</p>
+    <p>At 5% risk, the same ten-loss streak would cost about 40% of the account. The plan only works if the size lets you live through its worst streak.</p>`,
+  nodes: {
+    start: {
+      stamp: 'Friday, 10:05 AM', equity: 7200, art: 'planWeek',
+      text: `<p>Your EUR/USD pullback plan was tested on 300 historical trades and three months on demo: it wins <b>45%</b> of the time, and winners are <b>twice</b> the size of losers. You risk 1% ($75) per trade.</p>
+             <p>This week you followed every rule and lost four trades in a row. Balance: <span class="num r">{EQ}</span>.</p>
+             <p>Signal number five has just appeared. It meets every rule in the plan.</p>`,
+      choices: [
+        { label: 'Take it exactly as the plan says. Same size, same stop.', to: 'take', trait: T.D },
+        { label: 'Skip it. The plan clearly isn\'t working this week.', to: 'skip', trait: T.H },
+        { label: 'Tweak it first: tighter stop and an extra filter.', to: 'tweak', trait: T.H },
+        { label: 'Take it at triple size and win the week back.', to: 'triple', trait: T.E }
+      ]
+    },
+    take: {
+      stamp: 'Friday, 4:30 PM', equity: 7350, art: 'planWin',
+      text: `<p>Signal five hits its target: <span class="num g">+$150</span>. Balance: <span class="num a">{EQ}</span>.</p>
+             <p>You're still down <span class="num r">$150</span> for the week. Time for your weekly review.</p>`,
+      choices: [
+        { label: 'A good week. I followed my plan on every trade.', to: 'goodweek', trait: T.D },
+        { label: 'A bad week. I lost money.', to: 'badweek', trait: T.H }
+      ]
+    },
+    goodweek: { end: true, verdict: 'sound', title: 'A losing week, done right', art: 'planWin',
+      summary: `<p>Balance: <span class="num a">{EQ}</span>. Five trades, five rules followed, and an honest review.</p>`,
+      lesson: 'Judge a week by whether you followed the plan, not by the profit and loss. Over enough trades, following the plan is what produces the profit.' },
+    badweek: { end: true, verdict: 'late', title: 'Right trades, wrong scorecard', art: 'planWin',
+      summary: `<p>Balance: <span class="num a">{EQ}</span>. You traded perfectly, then graded yourself on the one thing you don't control.</p>`,
+      lesson: 'If you score yourself on short-term results, a good process will feel like failure half the time, and eventually you\'ll abandon it right before it pays.' },
+    skip: { end: true, equity: 7200, verdict: 'poor', title: 'Skipping the winner', art: 'planSkip',
+      summary: `<p>Signal five went straight to target. It would have made <span class="num g">+$150</span>.</p><p>Balance: <span class="num r">{EQ}</span>. You took all four losers and skipped the winner.</p>`,
+      lesson: 'In a 45% system, you can\'t know which trade will win. Skipping signals after losses is how traders end up taking the losing half of their own strategy.' },
+    tweak: { end: true, equity: 7125, verdict: 'poor', title: 'Fixing what wasn\'t broken', art: 'planSkip',
+      summary: `<p>Your tighter stop was hit by normal noise, then price went on to reach the original target without you.</p><p>Balance: <span class="num r">{EQ}</span>. The original plan would have won.</p>`,
+      lesson: 'Four losses is a tiny sample. Changing tested rules because of last week\'s pain means you\'re now trading an untested system.' },
+    triple: { end: true, equity: 7650, verdict: 'poor', title: 'Paid to break your own rules', art: 'planWin',
+      summary: `<p>Signal five won at triple size: <span class="num g">+$450</span>. Balance: <span class="num g">{EQ}</span>.</p><p>It feels like genius. It was the same trade as the plan, with three times the risk.</p>`,
+      lesson: 'This time the oversized trade won. With a 55% chance of losing, next time it\'s a $225 loss instead of $75, and the habit that caused it is already rewarded.' }
+  }
+},
+{
+  twist: 'The account you follow on social media that shouted "$50 more, get in!" never actually bought. He was flat the whole time, watching.',
+  id: 'noplan', group: 'weekly', weekly: true, release: '2026-10-10', date: 'Psychology',
+  title: 'No Plan, No Control',
+  blurb: 'Gold rips on a headline. You jump in with no stop, no target and no idea what you\'ll do next.',
+  recordTitle: 'Why this happens',
+  record: `<p>A plan makes your decisions <b>before</b> you're in the trade, while you're calm. Without one, every decision gets made in the moment, when you're watching the P&amp;L move and fear or greed are doing the thinking.</p>
+    <p>That's why unplanned trades so often follow the same path: take a small profit too early, or let a winner turn into a loser, then rename the loser an "investment".</p>
+    <p>A minimum plan fits on a sticky note: <b>entry, stop, target, size</b>. If you can't write those four things, you don't have a trade.</p>`,
+  sources: 'Your plan is the decision. The trade is just the execution.',
+  risk: `<p>1 lot of gold is 100 ounces, so every <b>$1</b> move is <b>$100</b>. The $25 headline spike alone was $2,500, a third of the account.</p>
+    <p>With a $10 stop at 1% risk ($75), the right size is <b>0.075 lots</b>. At that size, the $40 slide that followed would have been stopped out for $75.</p>`,
+  nodes: {
+    start: {
+      stamp: 'Tuesday, 2:14 PM', equity: 7500, art: 'goldSpike',
+      text: `<p>Gold jumps <b>$25</b> in five minutes on a surprise headline. Someone you follow on social media posts: <i>"It's going $50 more, get in!"</i></p>
+             <p>You weren't watching gold today. You have no setup, no stop, no target and no idea what the headline means.</p>`,
+      choices: [
+        { label: 'No plan, no trade. Watch it.', to: 'watch', trait: T.D },
+        { label: 'Write a plan first: entry, stop, target, 1% size. Then decide.', to: 'plan', trait: T.D },
+        { label: 'Buy 1 lot now. Figure out the rest later.', to: 'in', trait: T.E }
+      ]
+    },
+    watch: { end: true, equity: 7500, verdict: 'sound', title: 'The trade you didn\'t need', art: 'goldFade',
+      summary: `<p>Gold rose another $6, then slid $40 over the next three days as the headline was reinterpreted.</p><p>Balance: <span class="num g">{EQ}</span>.</p>`,
+      lesson: 'Missing a move costs nothing. Most of the trades that hurt you are ones you never needed to take.' },
+    plan: { end: true, equity: 7425, verdict: 'sound', title: 'A planned loss', art: 'goldFade',
+      summary: `<p>By the time you'd written your plan, gold had pulled back to your entry. You bought 0.075 lots with a $10 stop. It was hit as the move faded.</p><p>Loss: <span class="num a">$75</span>. Balance: <span class="num a">{EQ}</span>. Exactly what you decided it could cost.</p>`,
+      lesson: 'Planned trades still lose sometimes. The difference is that you chose the cost in advance, so a loss is a business expense, not a disaster.' },
+    in: {
+      stamp: 'Tuesday, 2:40 PM', equity: 8100, art: 'goldSpike',
+      text: `<p>Gold keeps climbing. You're up <span class="num g">$600</span> in 26 minutes. Balance: <span class="num g">{EQ}</span>.</p>
+             <p>You have no target, so you have no idea whether this is a good place to take profit.</p>`,
+      choices: [
+        { label: 'Take the profit now. Something feels off.', to: 'lucky', trait: T.D },
+        { label: 'Let it run. Social media says $50 more.', to: 'reverse', trait: T.H }
+      ]
+    },
+    lucky: { end: true, verdict: 'lucky', title: 'Profit without a plan', art: 'goldFade',
+      summary: `<p>You closed at <span class="num g">+$600</span>. Balance: <span class="num g">{EQ}</span>. That evening gold reversed and kept falling for three days.</p>`,
+      lesson: 'You made money, but you can\'t repeat it, because there was nothing to repeat. A profit you can\'t explain teaches you to keep gambling.' },
+    reverse: {
+      stamp: 'Wednesday, 11:20 AM', equity: 6700, art: 'goldFade',
+      text: `<p>Overnight the headline was played down. Gold slid back through your entry. You're now down <span class="num r">$800</span>. Balance: <span class="num r">{EQ}</span>.</p>
+             <p>You never set a stop, so nothing has closed the trade.</p>`,
+      choices: [
+        { label: 'Close it. This was never a real trade.', to: 'cut', trait: T.D },
+        { label: 'Hold. It\'s a long-term gold investment now.', to: 'bag', trait: T.H },
+        { label: 'Buy another lot to lower the average price.', to: 'average', trait: T.E }
+      ]
+    },
+    cut: { end: true, verdict: 'late', title: 'Honest about the mistake', art: 'goldFade',
+      summary: `<p>You closed for <span class="num r">−$800</span>. Balance: <span class="num a">{EQ}</span>.</p><p>Gold kept falling for two more days.</p>`,
+      lesson: 'Calling a bad trade what it is, and closing it, is a skill. The $800 was the cost of entering without a plan, not of closing.' },
+    bag: { end: true, equity: 5100, verdict: 'poor', title: 'The trade that became an "investment"', art: 'goldFade',
+      summary: `<p>By Friday gold was another $16 lower. With 1 lot, that's <span class="num r">−$2,400</span> in total. Balance: <span class="num a">{EQ}</span>.</p>`,
+      lesson: 'Changing your timeframe to avoid taking a loss isn\'t investing. It\'s hope with a new name, and it usually costs far more than the original mistake.' },
+    average: { end: true, equity: 3500, verdict: 'poor', title: 'Doubling the unplanned trade', art: 'goldFade',
+      summary: `<p>With 2 lots on, every $1 move cost $200. Gold slid another $16 by Friday. Balance: <span class="num r">{EQ}</span>.</p>`,
+      lesson: 'Adding to a trade that had no plan doubles a decision you never actually made. No plan meant no limit, so the losses had none either.' }
+  }
+}
+);
+
+
+SCENARIOS.push(
+{
+  id: 'fomo', group: 'weekly', weekly: true, release: '2026-10-17', date: 'Psychology',
+  title: 'The Train Has Left',
+  blurb: 'Your limit order is waiting for a pullback. The market ran without you, and social media is full of screenshots.',
+  twist: 'The pullback came on Wednesday. Your original limit order at 1.1500 would have filled and hit its target on Thursday. The most profitable thing you could have done all week was nothing at all on Monday.',
+  recordTitle: 'Why this happens',
+  record: `<p>Fear of missing out is loss aversion pointed at a trade you never had. Watching other people's gains feels like losing money, even though your account hasn't moved.</p>
+    <p>Chasing means entering after the move, at a worse price, with a stop that now sits inside normal noise. You take on more risk for less reward, right when the move is most stretched.</p>
+    <p>There's always another train. A missed trade costs nothing; a chased trade often costs twice.</p>`,
+  sources: 'Rule of thumb: if the price is already past your plan, the trade is gone. Wait for the next one.',
+  risk: `<p>Your plan risked 1% ($75) with a 30-pip stop: about <b>0.25 lots</b> ($2.50 per pip), aiming for 90 pips (+$225).</p>
+    <p>Chasing at 1.1580 with the same stop puts your stop at 1.1550, inside the pullback that was always likely. Same risk, much lower chance of success.</p>`,
+  nodes: {
+    start: {
+      stamp: 'Monday, 9:40 AM', equity: 7500, art: 'fomoRun',
+      text: `<p>Your plan: buy EUR/USD on a pullback to <span class="num">1.1500</span>, stop at 1.1470, target 1.1590. The limit order is set.</p>
+             <p>Instead of pulling back, price rips straight from 1.1520 to <span class="num g">1.1580</span> without you. Traders you follow on social media are posting screenshots: <i>"+$400 already! Get in!"</i></p>`,
+      choices: [
+        { label: 'Leave the limit order where it is and wait.', to: 'wait', trait: T.D },
+        { label: 'Cancel it and buy at market with the same 30-pip stop.', to: 'chase', trait: T.H },
+        { label: 'Buy at market at double size. No stop, it\'s flying!', to: 'chase2', trait: T.E }
+      ]
+    },
+    wait: { end: true, equity: 7725, verdict: 'sound', title: 'The train came back', art: 'fomoFill',
+      summary: `<p>Price drifted up to 1.1585 and then pulled back. On Wednesday your order filled at 1.1500. On Thursday it hit the 1.1590 target.</p><p>Profit: <span class="num g">+$225</span>. Balance: <span class="num g">{EQ}</span>. Meanwhile, the chasers were posting their stop-outs.</p>`,
+      lesson: 'A plan that waits for your price can feel like missing out. Most of the time, the market gives patient traders their entry back.' },
+    chase: { end: true, equity: 7425, verdict: 'poor', title: 'Bought the top of the day', art: 'fomoFill',
+      summary: `<p>You bought at 1.1580. Price topped at 1.1585, pulled back, and took out your stop at 1.1550.</p><p>Loss: <span class="num r">−$75</span>. Balance: <span class="num a">{EQ}</span>.</p>`,
+      lesson: 'Chasing turned a good planned trade into a poor unplanned one: worse entry, same stop distance, and a pullback that was always likely.' },
+    chase2: {
+      stamp: 'Tuesday, 3:15 PM', equity: 7100, art: 'fomoFill',
+      text: `<p>You bought 0.5 lots at 1.1580. Price pulled back to <span class="num r">1.1500</span>. You're down 80 pips: <span class="num r">−$400</span>. Balance: <span class="num r">{EQ}</span>.</p>
+             <p>Ironically, 1.1500 is exactly where your original plan wanted to buy.</p>`,
+      choices: [
+        { label: 'Close it. This was a FOMO trade, not a plan.', to: 'cut', trait: T.D },
+        { label: 'Hold until it gets back to breakeven.', to: 'hope', trait: T.H }
+      ]
+    },
+    cut: { end: true, verdict: 'late', title: 'Out at the level you wanted in', art: 'fomoFill',
+      summary: `<p>You sold at 1.1500, the exact price your plan wanted to buy. Balance: <span class="num a">{EQ}</span>.</p>`,
+      lesson: 'Closing was right. But notice what FOMO did: it had you buying high and selling low on the same move your plan would have bought low.' },
+    hope: { end: true, equity: 7500, verdict: 'lucky', title: 'Breakeven, by luck', art: 'fomoFill',
+      summary: `<p>Price climbed back to 1.1580 on Friday and you closed at breakeven. Balance: <span class="num g">{EQ}</span>.</p><p>A week of stress, no stop, double size, and nothing to show for it.</p>`,
+      lesson: 'You got your money back, but you held double size with no stop for four days. The same decision on a different week is a blown account.' }
+  }
+},
+{
+  id: 'breakeven', group: 'weekly', weekly: true, release: '2026-10-24', date: 'Psychology',
+  title: 'Protected From Profit',
+  blurb: 'Your trade is 30 pips up and wobbling. Moving the stop to breakeven feels so safe.',
+  twist: 'The dip that took out all the breakeven stops turned out to be the exact low of the week. The stop meant to make sure you couldn\'t lose made sure you couldn\'t win.',
+  recordTitle: 'Why this happens',
+  record: `<p>Moving a stop to breakeven feels like free insurance, but it isn't free. A stop placed at your entry sits right where normal pullbacks happen, so it gets hit far more often than your original stop would.</p>
+    <p>Breakeven stops aren't wrong in themselves. Many good plans use them after a set profit, such as +2R. The problem is moving the stop because you feel nervous, which changes the rules of a system mid-trade.</p>
+    <p>Nervous early profit-taking has the same effect: it cuts your winners short while your losers still run to their full stop.</p>`,
+  sources: 'If your plan says when to move the stop, follow it. If it doesn\'t, write that rule before your next trade.',
+  risk: `<p>Risking 1% ($75) with a 40-pip stop means about <b>0.19 lots</b> ($1.90 per pip). The target is 120 pips: +$228, or 3R.</p>
+    <p>If nerves cut your average winner from 3R to 1R, a strategy that wins 40% of the time goes from strongly profitable to losing money.</p>`,
+  nodes: {
+    start: {
+      stamp: 'Wednesday, 11:10 AM', equity: 7557, art: 'beWobble',
+      text: `<p>You're long GBP/USD from <span class="num">1.3000</span>. Stop 1.2960, target 1.3120. Your plan says: move the stop to breakeven only after +80 pips.</p>
+             <p>Price is at <span class="num g">1.3030</span>, up $57, but it keeps wobbling. Every dip makes your stomach turn.</p>`,
+      choices: [
+        { label: 'Leave the stop exactly where the plan says.', to: 'hold', trait: T.D },
+        { label: 'Move the stop to breakeven now. Can\'t lose.', to: 'be', trait: T.H },
+        { label: 'Close now for +$57. A bird in the hand.', to: 'early', trait: T.H },
+        { label: 'It\'s working, so double the position.', to: 'add', trait: T.E }
+      ]
+    },
+    hold: { end: true, equity: 7728, verdict: 'sound', title: 'Survived the shakeout', art: 'beTarget',
+      summary: `<p>Price dipped to 1.2975 (scary, but well above your stop), then rallied all the way to 1.3120.</p><p>Profit: <span class="num g">+$228</span>. Balance: <span class="num g">{EQ}</span>.</p>`,
+      lesson: 'Your stop was placed where your idea would be wrong, not where you\'d feel uncomfortable. Giving the trade the room you planned is what let it reach target.' },
+    be: { end: true, equity: 7500, verdict: 'poor', title: 'Stopped out at exactly zero', art: 'beStopped',
+      summary: `<p>Price dipped to 1.2975, tagged your new stop at 1.3000 to the pip, and closed you out for <span class="num">$0</span>. Then it rallied straight to 1.3120.</p><p>Balance: <span class="num">{EQ}</span>. You protected yourself from a $228 profit.</p>`,
+      lesson: 'You changed the plan because of a feeling. Breakeven stops belong in the plan at a set level, not in the moment when you\'re nervous.' },
+    early: { end: true, equity: 7557, verdict: 'poor', title: 'A bird in the hand', art: 'beTarget',
+      summary: `<p>You banked <span class="num g">+$57</span>. Balance: <span class="num g">{EQ}</span>.</p><p>Price dipped, then ran to your 1.3120 target without you.</p>`,
+      lesson: 'Taking 0.75R when the plan targets 3R feels safe, but it quietly ruins a strategy\'s maths. Your losers still cost a full 1R each.' },
+    add: {
+      stamp: 'Wednesday, 2:45 PM', equity: 7349, art: 'beWobble',
+      text: `<p>You added another 0.19 lots at 1.3030. Then price dipped to <span class="num r">1.2975</span>. Both positions are now losing. Balance: <span class="num r">{EQ}</span>.</p>`,
+      choices: [
+        { label: 'Hold both. The stop hasn\'t been hit.', to: 'addhold', trait: T.H },
+        { label: 'Panic and close both now.', to: 'addpanic', trait: T.H }
+      ]
+    },
+    addhold: { end: true, equity: 7899, verdict: 'lucky', title: 'Double size, double luck', art: 'beTarget',
+      summary: `<p>Price rallied to 1.3120. Both positions hit target. Balance: <span class="num g">{EQ}</span>.</p>`,
+      lesson: 'It paid, but you doubled your risk on a feeling and nearly bailed in the dip. The plan didn\'t include adding, so this was luck, not a strategy.' },
+    addpanic: { end: true, verdict: 'poor', title: 'Sold the low of the week', art: 'beStopped',
+      summary: `<p>You closed both at 1.2975 for a loss. Balance: <span class="num r">{EQ}</span>.</p><p>That was the low. Price went to target without you.</p>`,
+      lesson: 'Adding size made the normal dip feel unbearable. Bigger positions make you weaker, not braver, at exactly the wrong moment.' }
+  }
+},
+{
+  id: 'zombie', group: 'weekly', weekly: true, release: '2026-10-31', date: 'Halloween special',
+  title: 'The Zombie Trade',
+  blurb: 'A losing trade you buried in March is rising from the dead. It\'s almost back to breakeven. Almost.',
+  twist: 'Zombie trades always come back once, just to check whether you\'ve learned anything.',
+  recordTitle: 'Why this happens',
+  record: `<p>Behavioural economists call it the <b>disposition effect</b>: people sell winners too early and hold losers too long, because closing a loser makes the loss feel real.</p>
+    <p>Waiting for breakeven anchors you to your entry price, a number the market doesn't know or care about. Meanwhile, a position held for months quietly costs you swap every night.</p>
+    <p>A useful test: if you didn't already own this position, would you open it today at this price? If not, close it.</p>`,
+  sources: 'Background: Shefrin & Statman (1985), "The Disposition to Sell Winners Too Early and Ride Losers Too Long".',
+  risk: `<p>0.5 lots of AUD/USD is $5 per pip. A position with no stop has no maximum loss, only the one the market chooses.</p>
+    <p>Months of overnight swap also add up: here it's $140 that you pay whether the trade recovers or not.</p>`,
+  nodes: {
+    start: {
+      stamp: 'Saturday 31 October, 11:58 PM', equity: 7310, art: 'zombieRise',
+      text: `<p>Back in March you bought 0.5 lots of AUD/USD at <span class="num">0.6800</span>. It dropped, you removed the stop, and you stopped looking. You've paid <span class="num r">$140</span> in swap since.</p>
+             <p>Tonight, on Halloween, it's clawing its way back up. It's at <span class="num a">0.6790</span>, just 10 pips from your entry. Balance: <span class="num a">{EQ}</span>.</p>
+             <p>The clock is about to strike midnight.</p>`,
+      choices: [
+        { label: 'Close it now. Take the small loss and bury it properly.', to: 'bury', trait: T.D },
+        { label: 'Wait for exact breakeven, then close.', to: 'midnight', trait: T.H },
+        { label: 'It\'s coming back to life! Add another 0.5 lots.', to: 'feed', trait: T.E }
+      ]
+    },
+    bury: { end: true, verdict: 'sound', title: 'Laid to rest', art: 'zombieGrave',
+      summary: `<p>You closed at 0.6790. Total cost, including swap: about $190. Balance: <span class="num a">{EQ}</span>.</p><p>By Monday it was back at 0.6650.</p>`,
+      lesson: 'Closing at a small loss feels like admitting defeat. It\'s actually the moment you got your capital, and your attention, back.' },
+    midnight: {
+      stamp: 'Sunday 1 November, 12:00 AM', equity: 7360, art: 'zombieRise',
+      text: `<p>At the stroke of midnight, AUD/USD touches <span class="num g">0.6800</span>. Your entry. It's alive!</p>
+             <p>You're at breakeven on the price, but still down <span class="num a">$140</span> from swap. Balance: <span class="num a">{EQ}</span>.</p>`,
+      choices: [
+        { label: 'Close it. That\'s what you were waiting for.', to: 'escape', trait: T.D },
+        { label: 'It\'s alive! Hold for profit this time.', to: 'redead', trait: T.H }
+      ]
+    },
+    escape: { end: true, verdict: 'late', title: 'Escaped the graveyard', art: 'zombieGrave',
+      summary: `<p>You closed at 0.6800. Net result after swap: <span class="num a">−$140</span>. Balance: <span class="num a">{EQ}</span>.</p>`,
+      lesson: 'You got out, but notice the cost: seven months of stress and swap to recover a trade you could have closed in March for less.' },
+    redead: { end: true, equity: 6600, verdict: 'poor', title: 'It died again', art: 'zombieGrave',
+      summary: `<p>The revival lasted one candle. By Monday AUD/USD was back at 0.6650. That's 150 pips (−$750) plus swap. Balance: <span class="num r">{EQ}</span>.</p>`,
+      lesson: 'Reaching breakeven doesn\'t make a trade good. You got the exit you\'d waited seven months for, and hope talked you out of taking it.' },
+    feed: { end: true, equity: 5900, verdict: 'poor', title: 'Feeding the zombie', art: 'zombieGrave',
+      summary: `<p>You bought another 0.5 lots at 0.6790. By Monday the price was back at 0.6650.</p><p>Both positions are now losing, plus swap. Balance: <span class="num r">{EQ}</span>.</p>`,
+      lesson: 'Adding to a position because it\'s finally moving your way rewards seven months of ignoring it. Zombies are always hungry for more of your capital.' }
+  }
+}
+);
+
+Object.assign(ART, {
+  fomoRun: () => fomoScene('fr', false),
+  fomoFill: () => fomoScene('ff', true),
+  beWobble: () => beScene('bw', 'wobble'),
+  beTarget: () => beScene('bt', 'target'),
+  beStopped: () => beScene('bx', 'stopped'),
+  zombieRise: () => zombieScene('zr', false),
+  zombieGrave: () => zombieScene('zg', true)
+});
+
+function fomoScene(id, fill) {
+  const Y = v => yP(v, 118, 228, 1.1600, 1.1460);
+  const run = [[120,1.1515],[160,1.1520],[200,1.1535],[240,1.1560],[270,1.1580],[290,1.1585]];
+  const back = [[290,1.1585],[320,1.1560],[350,1.1530],[380,1.1500],[410,1.1530],[445,1.1565],[480,1.1590]];
+  return lcd(id, fill ? 'The EUR/USD chart pulls back to a dashed limit order line at 1.1500, marked filled, then rises to a target line at 1.1590.' : 'EUR/USD runs from 1.1520 to 1.1580, far above a dashed limit order line at 1.1500. The header reads: the train has left.', `
+    ${hdr(fill ? 'THE TRAIN CAME BACK' : 'THE TRAIN HAS LEFT', fill ? C.g : C.a, fill ? '' : 'blink', 18)}
+    ${row('EUR/USD', fill ? '1.1590 ✓' : '1.1580 ▲', C.m, C.g)}
+    ${hline(Y(1.1590), C.g, 'TARGET 1.1590', 'end')}
+    ${hline(Y(1.1500), C.c, 'YOUR LIMIT 1.1500')}
+    ${line(pathOf(fill ? [...run, ...back.slice(1)] : run, 118, 228, 1.1600, 1.1460), C.w, 3)}
+    ${fill ? `<circle cx="380" cy="${Y(1.1500).toFixed(1)}" r="8" fill="none" stroke="${C.c}" stroke-width="3"/>${tag(380, Y(1.1500) + 24, 'FILLED', C.c, 'middle', 12)}` : ''}
+    ${ticker(id, fill ? 'Pullback to 1.1500   ●   Patient limit orders filled   ●   Chasers stopped out' : 'Social media: +$400 already   ●   Social media: get in now   ●   Your limit order is still waiting', 240, C.w, fill ? '#123a22' : '#3a2a10')}
+  `, { time: 'day', bezel: '#15171c', phone: fill ? 'dark' : 'chat', note: 'WAIT FOR', note2: 'MY PRICE' });
+}
+
+function beScene(id, state) {
+  const Y = v => yP(v, 118, 228, 1.3135, 1.2950);
+  const a = [[120,1.3000],[160,1.3015],[200,1.3008],[240,1.3030],[270,1.3018],[290,1.3032]];
+  const dip = [[290,1.3032],[315,1.3005],[335,1.2975],[355,1.3010],[385,1.3050],[420,1.3080],[450,1.3100],[480,1.3120]];
+  const pts = state === 'wobble' ? a : [...a, ...dip.slice(1)];
+  return lcd(id, state === 'wobble' ? 'GBP/USD wobbles 30 pips above an entry line at 1.3000, with a stop line at 1.2960 and a target at 1.3120.' : state === 'stopped' ? 'GBP/USD dips to 1.2975, hitting a breakeven stop at 1.3000 marked stopped, then rallies to the 1.3120 target.' : 'GBP/USD dips to 1.2975, stays above the 1.2960 stop, then rallies to hit the 1.3120 target.', `
+    ${hdr(state === 'wobble' ? 'UP 30 PIPS... WOBBLING' : state === 'stopped' ? 'STOPPED AT BREAKEVEN' : 'TARGET HIT', state === 'stopped' ? C.a : state === 'target' ? C.g : C.w, '', 18)}
+    ${row('GBP/USD', state === 'wobble' ? '1.3030' : '1.3120', C.m, C.g)}
+    ${hline(Y(1.3120), C.g, 'TARGET 1.3120', 'end')}
+    ${state === 'stopped' ? hline(Y(1.3000), C.a, 'NEW STOP: BREAKEVEN') : hline(Y(1.3000), C.m, 'ENTRY 1.3000')}
+    ${hline(Y(1.2960), C.r, 'STOP 1.2960')}
+    ${line(pathOf(pts, 118, 228, 1.3135, 1.2950), C.w, 3)}
+    ${state === 'stopped' ? `<circle cx="312" cy="${Y(1.3000).toFixed(1)}" r="8" fill="none" stroke="${C.a}" stroke-width="3"/>${tag(312, Y(1.3000) + 34, '$0', C.a, 'middle', 13)}` : ''}
+    ${ticker(id, state === 'stopped' ? 'Stopped out to the pip   ●   Then straight to target   ●   Protected from profit' : 'Normal pullbacks are part of every trend   ●   Your stop is where the idea is wrong', 240, C.w, state === 'stopped' ? '#3a2a10' : '#132a4a')}
+  `, { time: 'day', bezel: '#15171c', phone: state === 'wobble' ? 'calm' : 'dark', note: 'BE ONLY', note2: 'AT +80' });
+}
+
+function zombieScene(id, grave) {
+  const Y = v => yP(v, 120, 228, 0.6860, 0.6620);
+  const rise = [[120,0.6680],[170,0.6700],[220,0.6690],[260,0.6730],[300,0.6750],[340,0.6745],[380,0.6775],[410,0.6790]];
+  const fall = [[410,0.6790],[425,0.6800],[440,0.6760],[460,0.6700],[480,0.6650]];
+  const web = `<g stroke="#e8eef8" stroke-width="1.5" fill="none" opacity=".75"><path d="M82 34 L140 34 M82 34 L82 92 M82 34 L128 80 M82 34 L104 88 M82 34 L136 56"/>
+      <path d="M98 34 q-2 10 -16 14 M118 34 q-6 18 -36 30 M136 34 q-10 26 -54 46"/></g>`;
+  const pumpkin = `<g><ellipse cx="38" cy="318" rx="30" ry="24" fill="#ff8a1c" stroke="#1d1712" stroke-width="3"/>
+      <path d="M38 296 v-10" stroke="#3d6b1f" stroke-width="5" stroke-linecap="round"/>
+      <path d="M24 310 l6 -8 l6 8 z M42 310 l6 -8 l6 8 z" fill="#1d1712"/><path d="M22 324 q16 12 32 0 l-6 2 l-4 -4 l-4 4 l-4 -4 l-4 4 z" fill="#1d1712"/></g>`;
+  const tomb = `<g><path d="M528 352 v-46 q0 -26 30 -26 q30 0 30 26 v46 z" fill="#9aa3b2" stroke="#1d1712" stroke-width="3"/>
+      <text x="558" y="310" text-anchor="middle" font-family="${HAND}" font-size="12" font-weight="700" fill="#1d1712">R.I.P.</text>
+      <text x="558" y="326" text-anchor="middle" font-family="${HAND}" font-size="9" fill="#1d1712">MY STOP</text>
+      <text x="558" y="338" text-anchor="middle" font-family="${HAND}" font-size="9" fill="#1d1712">LOSS</text></g>`;
+  const svg = lcd(id, grave ? 'Halloween desk with a pumpkin, cobwebs and a tombstone reading R.I.P. my stop loss. The AUD/USD chart touches the entry line at 0.6800 for a moment, then dies again down to 0.6650.' : 'Halloween desk with a pumpkin, cobwebs and a tombstone reading R.I.P. my stop loss. The AUD/USD chart crawls back up towards the entry line at 0.6800. The header asks: it\'s alive?', `
+    ${hdr(grave ? 'IT DIED AGAIN' : 'IT\'S ALIVE?!', grave ? C.r : '#b5ff5c', grave ? '' : 'blink', 22)}
+    ${row('AUD/USD', grave ? '0.6650 ▼' : '0.6790 ▲', C.m, grave ? C.r : '#b5ff5c')}
+    ${hline(Y(0.6800), C.a, 'ENTRY 0.6800 (MARCH)', 'end')}
+    ${line(pathOf(grave ? [...rise, ...fall.slice(1)] : rise, 120, 228, 0.6860, 0.6620), grave ? C.r : '#b5ff5c')}
+    ${ticker(id, grave ? 'Revival lasted one candle   ●   Swap still charged nightly   ●   Zombies are always hungry' : 'Day 214 of holding   ●   Swap paid: $140   ●   Ten pips to breakeven', 240, C.w, '#2a1a3a')}
+  `, { time: 'night', bezel: '#15171c', mug: 'none', phone: 'dark', note: 'IT WILL', note2: 'RETURN...' });
+  return svg.replace('</svg>', web + pumpkin + tomb + '</svg>');
+}
+
+Object.assign(ART, {
+  planWeek: () => planScene('pw', 'signal'),
+  planWin: () => planScene('pv', 'win'),
+  planSkip: () => planScene('ps', 'skip'),
+  goldSpike: () => goldScene('gs', false),
+  goldFade: () => goldScene('gf', true)
+});
+
+function planScene(id, state) {
+  const rows = [['MON', 'LOSS', '−$75.00', C.r], ['TUE', 'LOSS', '−$75.00', C.r], ['WED', 'LOSS', '−$75.00', C.r], ['THU', 'LOSS', '−$75.00', C.r]];
+  const fifth = state === 'signal' ? ['FRI', 'SIGNAL #5', 'RULES MET ✓', C.c]
+    : state === 'win' ? ['FRI', 'WIN', '+$150.00', C.g]
+    : ['FRI', 'SKIPPED', 'missed +$150', C.a];
+  const all = [...rows, fifth];
+  return lcd(id, `A trading journal on screen: four losing trades of minus 75 dollars from Monday to Thursday, and a fifth row on Friday reading ${fifth[1].toLowerCase()}, ${fifth[2]}.`, `
+    ${hdr('TRADING JOURNAL · THIS WEEK', C.w, '', 15)}
+    ${all.map(([d, r, v, col], i) => `
+      <rect x="124" y="${92 + i * 28}" width="352" height="23" rx="5" fill="${i === 4 ? '#1d2a44' : '#1b2235'}" ${i === 4 ? `stroke="${col}" stroke-width="2" class="${state === 'signal' ? 'blink' : ''}"` : ''}/>
+      ${tag(134, 108 + i * 28, d, C.m, 'start', 12)}${tag(180, 108 + i * 28, 'EUR/USD', C.w, 'start', 12)}
+      ${tag(270, 108 + i * 28, r, col, 'start', 12)}${tag(466, 108 + i * 28, v, col, 'end', 12)}`).join('')}
+    <rect x="106" y="240" width="388" height="26" fill="#123a22"/>
+    ${tag(300, 258, state === 'skip' ? 'RULES FOLLOWED: 4 OF 5' : 'RULES FOLLOWED: 5 OF 5', state === 'skip' ? C.a : C.g, 'middle', 14)}
+  `, { time: 'day', bezel: '#15171c', mug: 'steam', phone: 'dark', note: 'TRUST', note2: 'THE PLAN' });
+}
+
+function goldScene(id, fade) {
+  const up = [[120,0],[200,2],[260,1],[280,24],[300,25],[330,28],[360,31]];
+  const down = [[360,31],[390,26],[420,16],[450,4],[480,-9]];
+  const Y = v => yP(v, 120, 228, 36, -12);
+  return lcd(id, fade ? 'A gold chart that spiked on a headline, then slid back below where it started. A checklist on screen shows entry, stop, target and size all marked with red question marks.' : 'A gold chart spiking 25 dollars in minutes. A checklist on screen shows entry, stop, target and size all marked with red question marks.', `
+    ${hdr(fade ? 'GOLD: HEADLINE FADES' : 'GOLD +$25 IN 5 MINUTES', fade ? C.r : C.g, fade ? '' : 'blink', 18)}
+    <line x1="110" y1="${Y(0)}" x2="490" y2="${Y(0)}" stroke="${C.m}" stroke-width="2" stroke-dasharray="7 5"/>${tag(116, Y(0) + 18, 'BEFORE THE HEADLINE', C.m, 'start', 12)}
+    ${line(pathOf(fade ? [...up, ...down.slice(1)] : up, 120, 228, 36, -12), fade ? C.r : C.g)}
+    <g class="popup"><rect x="370" y="${fade ? 92 : 150}" width="112" height="${fade ? 70 : 76}" rx="6" fill="#1d2a44" stroke="${C.a}" stroke-width="2"/>
+    ${['ENTRY', 'STOP', 'TARGET', 'SIZE'].map((t, i) => `${tag(380, (fade ? 108 : 168) + i * (fade ? 15 : 16), t, C.w, 'start', 11)}${tag(472, (fade ? 108 : 168) + i * (fade ? 15 : 16), '?', C.r, 'end', 13)}`).join('')}</g>
+    ${ticker(id, fade ? 'Headline played down overnight   ●   Gold gives back the spike   ●   No stop, no exit' : 'Surprise headline hits gold   ●   Social media: it is going $50 higher   ●   No setup, no plan', 240, C.w, fade ? '#8a0f0f' : '#123a22')}
+  `, { time: 'day', bezel: '#15171c', phone: fade ? 'alarm' : 'chat', mug: fade ? 'spill' : 'steam', led: fade ? '#ff3b3b' : '#3dff7a', note: 'PLAN?', note2: '...LATER' });
+}
+
+for (const [sid, m] of Object.entries(ART_MAP)) {
+  const sc = SCENARIOS.find(x => x.id === sid);
+  for (const [nid, key] of Object.entries(m)) if (sc && sc.nodes[nid]) sc.nodes[nid].art = key;
+}
+
+const isReleased = s => !s.release || new Date() >= new Date(s.release + 'T00:00:00');
+const CORE = SCENARIOS.filter(s => !s.weekly);
+const latestWeekly = () => SCENARIOS.filter(s => s.weekly && isReleased(s)).sort((a, b) => b.release.localeCompare(a.release))[0];
+
+const GROUPS = [
+  { id: 'weekly', title: 'New every Saturday', sub: 'Fresh trader psychology scenarios. Bonus rounds: they don\'t affect your challenge price.' },
+  { id: 'history', title: 'Market history', sub: 'Real events with the real prices. Would you have survived?' },
+  { id: 'psych', title: 'Trader psychology', sub: 'No date needed. These happen every week.' },
+  { id: 'community', title: 'Community safety', sub: 'Threats that don\'t come from the chart.' }
+];
+
+const VERDICTS = {
+  sound: ['Sound decision', 'good'],
+  late: ['Right call, too late', 'warn'],
+  lucky: ['Lucky outcome', 'warn'],
+  poor: ['Poor decision', 'bad']
+};
+
+const PROFILES = {
+  discipline: ['The Survivor', 'You cut risk before the market forces you to. You\'ll miss some moonshots, and you\'ll still be trading next year.'],
+  hope: ['The Hopeful Holder', 'You\'re rarely reckless, but you give losing trades time they haven\'t earned. Your ideas are fine; your exits need rules.'],
+  ego: ['The Gunslinger', 'When you\'re hurt, you size up. That works just often enough to be dangerous. A hard daily loss limit would change your results more than any indicator.']
+};
+
+/* ============================================================
+   ENGINE
+   ============================================================ */
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+
+const fmt = n => {
+  const s = Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (n < 0 ? '−$' : '$') + s;
+};
+
+const app = {
+  sc: null, eq: CONFIG.start,
+  done: store.get('rss_done', []),
+  traits: store.get('rss_traits', { discipline: 0, hope: 0, ego: 0 }),
+  scores: store.get('rss_scores', {}),
+
+  isPass(v) { return v === 'sound' || v === 'late'; },
+  allPlayed() { return CORE.every(s => this.scores[s.id]); },
+  tier() {
+    const sc = CORE.map(s => this.scores[s.id] || {});
+    if (sc.every(x => x.first === 'pass')) return 'first';
+    if (sc.every(x => x.best === 'pass')) return 'retake';
+    return 'std';
+  },
+  badge(id) {
+    const x = this.scores[id];
+    if (!x) return '<span>Not played</span>';
+    if (x.first === 'pass') return '<span class="done-pass">✓ Passed first try</span>';
+    if (x.best === 'pass') return '<span class="done-retake">✓ Passed on retake</span>';
+    return '<span class="done-fail">✗ Not passed yet</span>';
+  },
+
+  show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.hidden = s.id !== id);
+    document.getElementById('hud').hidden = !(id === 'screen-game' || id === 'screen-end');
+    window.scrollTo({ top: 0 });
+  },
+  toIntro() { this.show('screen-intro'); },
+  toCommunity() { this.show('screen-community'); },
+
+  toMenu() {
+    const groups = GROUPS.map(g => {
+      const list = SCENARIOS.filter(s => s.group === g.id && isReleased(s)).sort((a, b) => (b.release || '').localeCompare(a.release || ''));
+      if (!list.length) return '';
+      const latest = latestWeekly();
+      const cards = list.map(s => `
+        <button class="card ${latest && s.id === latest.id ? 'card-new' : ''}" onclick="app.start('${s.id}')">
+          <span class="meta"><span>${latest && s.id === latest.id ? '<span class="new-pill">NEW THIS WEEK</span>' : s.date}</span>${this.badge(s.id)}</span>
+          <h3>${s.title}</h3>
+          <p>${s.blurb}</p>
+        </button>`).join('');
+      return `<h3 class="group-title">${g.title}</h3><p class="group-sub">${g.sub}</p><div class="cards">${cards}</div>`;
+    }).join('');
+    document.getElementById('menu-groups').innerHTML = groups;
+    const anyData = Object.keys(this.scores).length || this.done.length;
+    document.getElementById('profile-slot').innerHTML = this.progressHTML() + this.profileHTML() +
+      (anyData ? `<div class="row" style="margin-top:12px"><button class="linkbtn" id="reset-btn" onclick="app.askReset()">↺ Reset all progress</button></div>` : '');
+    this.show('screen-menu');
+  },
+
+  progressHTML() {
+    const played = CORE.filter(s => this.scores[s.id]).length, n = CORE.length;
+    if (played === n) {
+      return `<div class="finish-banner"><div><h3>All ${n} scenarios complete</h3><p class="muted" style="margin:4px 0 0">Your Lifetime access offer is ready.</p></div><button class="btn primary" onclick="app.toComplete()">See your final result</button></div>`;
+    }
+    return `<div class="progress"><b>${played} of ${n} challenge scenarios played.</b> <span class="muted">Pass all ${n} to unlock discounted Lifetime access. Pass them on your first try for the best price.</span><div class="track"><div class="fill" style="width:${played / n * 100}%"></div></div></div>`;
+  },
+
+  toComplete() {
+    const t = this.tier(), cfg = CONFIG.tiers[t];
+    const texts = {
+      first: ['🏆', 'Flawless. You survived every crisis.', 'You made sound calls on every scenario on your first attempt. That\'s the discipline that keeps accounts alive, and exactly the kind of trader we want in the community.', 'Best price: passed every scenario first time', ''],
+      retake: ['🎓', 'You learned the lessons.', 'Some scenarios caught you out the first time, but you came back and made the right calls. That\'s what this simulator is for.', 'Retake price: passed every scenario after retakes', 'mid'],
+      std: ['📘', 'You finished the simulator.', 'Some scenarios still aren\'t passed. Retake them from the scenario menu to unlock a lower price, or join at the standard price.', 'Standard price', 'std']
+    }[t];
+    document.getElementById('cmp-icon').textContent = texts[0];
+    document.getElementById('cmp-title').textContent = texts[1];
+    document.getElementById('cmp-lead').textContent = texts[2];
+    document.getElementById('cmp-card').className = 'price-card ' + texts[4];
+    document.getElementById('cmp-was').textContent = cfg.price < CONFIG.fullPrice ? '$' + CONFIG.fullPrice : '';
+    document.getElementById('cmp-price').textContent = '$' + cfg.price + ' USD';
+    document.getElementById('cmp-note').textContent = texts[3] + '. One-time payment.';
+    const pay = document.getElementById('cmp-pay');
+    pay.href = cfg.link; pay.textContent = 'Pay $' + cfg.price + ' USD with PayPal';
+    document.getElementById('cmp-results').innerHTML = CORE.map(s =>
+      `<div class="tier"><span>${s.title}</span>${this.badge(s.id)}</div>`).join('');
+    document.getElementById('cmp-results').className = 'tiers';
+    const rows = [['first', 'Passed every scenario first time'], ['retake', 'Passed every scenario after retakes'], ['std', 'Standard price']];
+    document.getElementById('cmp-tiers').innerHTML = rows.map(([k, l]) =>
+      `<div class="tier ${k === t ? 'you' : ''}"><span>${l}${k === t ? ' (you)' : ''}</span><b>$${CONFIG.tiers[k].price}</b></div>`).join('');
+    this.show('screen-complete');
+  },
+
+  profileHTML() {
+    const t = this.traits, total = t.discipline + t.hope + t.ego;
+    if (this.done.length < 3 || total === 0) {
+      const left = Math.max(0, 3 - this.done.length);
+      return `<p class="muted" style="margin-top:10px">Finish ${left} more scenario${left === 1 ? '' : 's'} to see your trader profile.</p>`;
+    }
+    const top = Object.keys(t).sort((a, b) => t[b] - t[a])[0];
+    const [name, desc] = PROFILES[top];
+    const bar = (k, label, color) => {
+      const pct = Math.round(t[k] / total * 100);
+      return `<div class="bar"><span>${label}</span><div class="track"><div class="fill" style="width:${pct}%;background:${color}"></div></div><span>${pct}%</span></div>`;
+    };
+    return `<div class="profile" style="margin-top:18px">
+      <h3>Your trader profile: ${name}</h3>
+      <p style="margin:0">${desc}</p>
+      <div class="bars">${bar('discipline', 'Discipline', 'var(--good)')}${bar('hope', 'Hope', 'var(--warn)')}${bar('ego', 'Ego', 'var(--bad)')}</div>
+    </div>`;
+  },
+  askReset() {
+    const b = document.getElementById('reset-btn');
+    if (b.dataset.armed) return this.resetProfile();
+    b.dataset.armed = '1';
+    b.textContent = '⚠ Click again to confirm: this clears all results, including first-try scores';
+    b.style.color = 'var(--bad)';
+    clearTimeout(this._rt);
+    this._rt = setTimeout(() => { if (document.body.contains(b)) { delete b.dataset.armed; b.textContent = '↺ Reset all progress'; b.style.color = ''; } }, 5000);
+  },
+  resetProfile() {
+    this.done = []; this.traits = { discipline: 0, hope: 0, ego: 0 }; this.scores = {};
+    store.set('rss_done', this.done); store.set('rss_traits', this.traits); store.set('rss_scores', this.scores);
+    this.toMenu();
+  },
+
+  start(id) {
+    this.sc = SCENARIOS.find(s => s.id === id);
+    this.eq = CONFIG.start;
+    this.go('start');
+  },
+
+  choose(i) {
+    const c = this.node.choices[i];
+    if (c.trait) { this.traits[c.trait]++; store.set('rss_traits', this.traits); }
+    this.go(c.to);
+  },
+
+  go(nodeId) {
+    const n = this.sc.nodes[nodeId];
+    this.node = n;
+    if (typeof n.equity === 'number') this.eq = n.equity;
+    if (typeof n.delta === 'number') this.eq += n.delta;
+    this.hud();
+    if (n.end) return this.ending(n);
+
+    document.getElementById('game-badge').textContent = this.sc.title;
+    document.getElementById('game-stamp').textContent = n.stamp;
+    this.art('game-art', n.art);
+    document.getElementById('game-story').innerHTML = this.fill(n.text);
+    const keys = 'ABCD';
+    document.getElementById('game-choices').innerHTML = n.choices.map((c, i) =>
+      `<button class="choice" onclick="app.choose(${i})"><span class="key">${keys[i]}</span><span>${c.label}</span></button>`).join('');
+    this.show('screen-game');
+  },
+
+  art(slot, key) {
+    const el = document.getElementById(slot);
+    el.innerHTML = key && ART[key] ? ART[key](this.eq) : '';
+    el.hidden = !(key && ART[key]);
+  },
+
+  fill(html) { return html.replace(/\{EQ\}/g, fmt(this.eq)); },
+
+  status() {
+    const e = this.eq;
+    if (e < 0) return ['NEGATIVE BALANCE', 'var(--bad)'];
+    if (e < 50) return ['LIQUIDATED', 'var(--bad)'];
+    if (e < 2500) return ['CRITICAL', 'var(--bad)'];
+    if (e < 6000) return ['DAMAGED', 'var(--warn)'];
+    if (e > CONFIG.start) return ['IN PROFIT', 'var(--good)'];
+    return ['SECURE', 'var(--good)'];
+  },
+
+  hud() {
+    const [label, color] = this.status();
+    const chg = (this.eq - CONFIG.start) / CONFIG.start * 100;
+    const eqEl = document.getElementById('hud-eq');
+    eqEl.textContent = fmt(this.eq); eqEl.style.color = color;
+    const chEl = document.getElementById('hud-chg');
+    chEl.textContent = (chg > 0 ? '+' : chg < 0 ? '−' : '') + Math.abs(chg).toFixed(1) + '%';
+    chEl.style.color = chg >= 0 ? 'var(--good)' : chg > -20 ? 'var(--warn)' : 'var(--bad)';
+    const st = document.getElementById('hud-status');
+    st.textContent = label; st.style.color = color;
+  },
+
+  ending(n) {
+    if (!this.done.includes(this.sc.id)) { this.done.push(this.sc.id); store.set('rss_done', this.done); }
+    const res = this.isPass(n.verdict) ? 'pass' : 'fail';
+    const prev = this.scores[this.sc.id];
+    this.scores[this.sc.id] = prev ? { first: prev.first, best: prev.best === 'pass' ? 'pass' : res } : { first: res, best: res };
+    store.set('rss_scores', this.scores);
+    document.getElementById('end-help').hidden = this.eq >= 50;
+    document.getElementById('btn-finish').hidden = !this.allPlayed();
+    const [label] = this.status();
+    const chg = (this.eq - CONFIG.start) / CONFIG.start * 100;
+    const outcomeClass = this.eq < 2500 ? 'bad' : this.eq < 6000 ? 'warn' : 'good';
+    const [vLabel, vClass] = VERDICTS[n.verdict] || VERDICTS.poor;
+    document.getElementById('end-badge').textContent = this.sc.title + ' · ' + this.sc.date;
+    document.getElementById('end-title').textContent = n.title;
+    document.getElementById('end-chips').innerHTML =
+      `<span class="chip ${outcomeClass}">${label}: ${fmt(this.eq)} (${chg >= 0 ? '+' : '−'}${Math.abs(chg).toFixed(1)}%)</span>
+       <span class="chip ${vClass}">${vLabel}</span>`;
+    this.art('end-art', n.art);
+    document.getElementById('end-summary').innerHTML = this.fill(n.summary);
+    document.getElementById('end-lesson').textContent = n.lesson;
+    document.getElementById('end-twist').textContent = this.sc.twist || '';
+    document.getElementById('end-twist-box').hidden = !this.sc.twist;
+    document.getElementById('end-risk').innerHTML = this.sc.risk || '';
+    document.getElementById('end-risk-box').hidden = !this.sc.risk;
+    document.getElementById('end-record-title').textContent = this.sc.recordTitle || 'What actually happened';
+    document.getElementById('end-record').innerHTML = this.sc.record;
+    document.getElementById('end-sources').textContent = this.sc.sources;
+    document.getElementById('btn-replay').onclick = () => this.start(this.sc.id);
+    this.show('screen-end');
+  }
+};
+document.getElementById('intro-best').textContent = '$' + CONFIG.tiers.first.price;
+document.getElementById('intro-full').textContent = '$' + CONFIG.fullPrice;
+</script>
+<script src="../qdb-games.js" data-game="retail-survival-simulator" data-title="Retail Survival Simulator"></script>
+<script>
+(function(){
+  function slot(screenId){
+    var scr = document.getElementById(screenId), s = scr.querySelector('.qdbg-slot');
+    if (!s){ s = document.createElement('div'); s.className = 'qdbg-slot'; scr.appendChild(s); }
+    s.innerHTML = ''; return s;
+  }
+  var _end = app.ending.bind(app);
+  app.ending = function(n){
+    _end(n);
+    var pass = app.isPass(n.verdict);
+    QDBGames.mount(slot('screen-end'), {text: (pass ? 'I survived ' : 'I got caught out by ') + app.sc.title + ' in the Retail Survival Simulator, finishing with ' + fmt(app.eq) + ' of $7,500. Would you have done better?'});
+    QDBGames.track('finish-rss-' + app.sc.id);
+  };
+  var _done = app.toComplete.bind(app);
+  app.toComplete = function(){
+    _done();
+    var passed = CORE.filter(function(s){ var x = app.scores[s.id]; return x && x.best === 'pass'; }).length;
+    QDBGames.mount(slot('screen-complete'), {text: 'I passed ' + passed + ' of ' + CORE.length + ' real market crises in the Retail Survival Simulator. How many would you survive?'});
+  };
+  ['toMenu','toIntro','toCommunity','start'].forEach(function(k){
+    var f = app[k].bind(app); app[k] = function(){ var r = f.apply(null, arguments); QDBGames.showFooter(); return r; };
+  });
+})();
+</script>
+</body>
+</html>
