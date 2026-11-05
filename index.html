@@ -315,8 +315,10 @@ td.lock a:hover{color:var(--accent)}
 
 /* responsive */
 .logo,.navlinks a,nav .btn{white-space:nowrap}
+nav .wrap{gap:28px}
 @media (max-width:1320px){.navlinks{gap:18px;font-size:15px}}
-@media (max-width:1280px){.navlinks a[href="#idea"],.navlinks a[href="#score"]{display:none}}
+.navlinks a[href="#idea"]{display:none}
+@media (max-width:1400px){.navlinks a[href="#score"]{display:none}}
 @media (max-width:980px){
   .prices{grid-template-columns:minmax(0,520px)}
   .hero-grid,.score-grid{grid-template-columns:1fr}
