@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Order Book Walls: find where the crowd went all in</title>
+<meta name="description" content="A free trading game from QDB. Read the order book, find the level where the crowd went all in, and see why price rebounds there. Learn why order book walls work best at daily and weekly supply and demand.">
+<link rel="canonical" href="https://quasidb.github.io/games/order-book-walls/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.github.io/games/order-book-walls/">
+<meta property="og:title" content="Order Book Walls: can you find where price will rebound?">
+<meta property="og:description" content="Read the crowd's orders and positions, tap the wall, and watch price hit it. Five charts. Can you read the order book?">
+<meta property="og:image" content="https://quasidb.github.io/games/order-book-walls/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Order Book Walls: can you find where price will rebound?">
+<meta name="twitter:description" content="Read the crowd's orders and positions, tap the wall, and watch price hit it. Five charts. Can you read the order book?">
+<meta name="twitter:image" content="https://quasidb.github.io/games/order-book-walls/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f17; --bg2:#101624; --panel:#141b2b; --line:#26324a; --text:#e8edf6; --muted:#a3afc5; --dim:#6b7892;
+  --buy:#22c55e; --sell:#ef4444; --accent:#f5b83d; --amber:#ffb000;
+  --ob-orange:#f59e0b; --ob-blue:#3b82f6; --wall:#fb923c;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:var(--accent)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+.muted{color:var(--muted)}
+.top{position:sticky;top:0;z-index:10;background:rgba(11,15,23,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;text-decoration:none;color:var(--text)}
+.brand img{width:30px;height:30px;border-radius:50%}
+.hud{display:flex;gap:8px;font-family:var(--mono);font-size:14px;flex-wrap:wrap}
+.hud span{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 10px;white-space:nowrap}
+.hud b{color:var(--accent)}
+main{padding:22px 0 10px}
+h1{font-size:clamp(38px,7vw,62px);line-height:1.04;letter-spacing:-.035em;font-weight:700}
+h1 em{font-style:normal;color:var(--wall)}
+h2{font-size:clamp(26px,4.4vw,36px);line-height:1.12;letter-spacing:-.02em}
+h3{font-size:20px;letter-spacing:-.01em}
+.lead{font-size:20px;color:var(--muted);margin:14px 0 0;max-width:42em}
+.lead b{color:var(--text)}
+.kick{font-family:var(--mono);color:var(--wall);font-size:14px;letter-spacing:.08em}
+.card{scroll-margin-top:78px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 22px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);font-weight:700;font-size:18px;text-decoration:none;color:var(--text)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1205}
+.btn[disabled]{opacity:.5;cursor:default}
+.btn.on{border-color:var(--wall);background:rgba(251,146,60,.14)}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.story{font-size:19px;margin:14px 0 0}
+.story b{color:var(--text)}
+.chartbox{margin-top:14px;background:#0a1220;border:1px solid var(--line);border-radius:16px;overflow:hidden;user-select:none;-webkit-user-select:none}
+.chartbox svg{display:block;width:100%;height:auto}
+.pick{cursor:pointer}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:stretch}
+.ctl{flex:1 1 260px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ctl .lab{font-size:15px;color:var(--muted)}
+.ctl .lab b{display:block;font-family:var(--mono);font-size:18px;color:var(--wall)}
+.ctl .nudge{display:flex;gap:6px}
+.ctl .nudge button{width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);font-size:22px;font-weight:700}
+.stamp{display:inline-block;font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;border:2px solid currentColor;border-radius:8px;padding:4px 10px;margin-bottom:10px}
+.stamp.g{color:var(--buy)} .stamp.o{color:var(--accent)} .stamp.b{color:var(--sell)}
+@media (prefers-reduced-motion:no-preference){.stamp{animation:thump .4s cubic-bezier(.2,1.6,.4,1) both}@keyframes thump{from{transform:scale(1.8);opacity:0}to{transform:scale(1);opacity:1}}}
+.rline{font-family:var(--mono);font-size:20px;font-weight:700;margin:2px 0 8px}
+.rline.g{color:var(--buy)} .rline.r{color:var(--sell)} .rline.n{color:var(--muted)}
+.note{margin-top:14px;border-left:4px solid var(--wall);background:rgba(251,146,60,.07);border-radius:0 12px 12px 0;padding:12px 16px}
+.note h4{font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--wall);margin-bottom:4px}
+.rules{display:grid;gap:10px;margin-top:18px}
+.rule{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.rule .n{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(251,146,60,.12);color:var(--wall);font-family:var(--mono);font-weight:700;font-size:18px}
+.rule b{display:block;font-size:18px}
+.rule span{color:var(--muted);font-size:17px}
+.ob{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center;margin-top:18px}
+@media (max-width:700px){.ob{grid-template-columns:1fr}}
+.ob svg{display:block;width:100%;height:auto}
+.ob p+p{margin-top:8px}
+.grade{font-family:var(--mono);font-weight:700;font-size:clamp(64px,16vw,110px);line-height:1;color:var(--wall);text-shadow:0 0 18px rgba(251,146,60,.35)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+.kpi span{display:block;font-size:14px;color:var(--muted)}
+.kpi b{font-family:var(--mono);font-size:26px}
+@media (max-width:560px){.kpis{grid-template-columns:1fr 1fr}}
+table{width:100%;border-collapse:collapse;font-size:16px}
+td,th{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+.cta{margin-top:18px;background:linear-gradient(135deg,rgba(251,146,60,.10),rgba(59,130,246,.10));border:1px solid rgba(251,146,60,.35);border-radius:18px;padding:22px}
+.cta p{color:var(--muted);margin-top:6px}
+.disc{font-size:13px;color:var(--dim);margin-top:10px}
+.foot{font-size:14px;color:var(--dim);margin:22px 0 0}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../?ref=game-order-book-walls"><img src="../../logo.png" alt="">QDB Games</a>
+    <div class="hud" id="hud" aria-live="polite"></div>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+
+<script>
+/* ======================= ROUNDS =======================
+   Every chart has 13 price rows (0 = bottom, 12 = top). Price paths are in row units.
+   pos  = the crowd's open positions per row: [sellers, buyers] as % of volume.
+   ord  = the crowd's pending orders per row: [side, kind, %]. kind "stop" = blue, "limit" = orange (limits and take profits).
+   wall = the row price rebounds from (null = no real wall: skip it).
+   marks = what happens at each row on the way: BOUNCE / REJECTED are walls, SLICED / PAUSE / ABSORBED are not. */
+const AFFILIATE="https://fxssi.com/plans?promocode=QUASIDB";
+const R=[
+{id:"allin",pair:"EURUSD",base:1.0760,step:0.001,dp:4,title:"The crowd went all in",
+ past:[5,4,3.2,3,3.4,5,6.5,8,9.5,11,10.2,9.4,9],after:[8,7,6,5,4,3.1,3.7,5,6.8,8.4,10],
+ zone:[2.4,3.5,"Daily demand"],
+ pos:{3:[2.3,0.4],7:[0.3,0.9],10:[0.5,0.8]},
+ ord:{6:[["sell","stop",1.2]],8:[["sell","stop",0.5]]},
+ wall:3,marks:[[6,"SLICED"],[3,"BOUNCE"]],
+ story:"EURUSD is dropping back. Last week the crowd sold the lows <b>all in</b>, right on daily demand, and then price ripped higher without them. Look at the <b>Positions</b> book on the right. Tap the price where you think the drop will rebound.",
+ lesson:"That huge bar of sellers at 1.0790 is the crowd's all-in short, still underwater. When price came back down, those traders rushed to close at breakeven, and closing a short means buying. Their buying, sitting right on daily demand, built the wall. The blue sell stops at 1.0820 didn't hold anything: hit stops add fuel."},
+{id:"fuel",pair:"GBPUSD",base:1.2600,step:0.001,dp:4,title:"Blue is fuel",
+ past:[4,5,6.5,7.2,6.6,7.8,9,10.4,11,10,8.6,8],after:[7.2,6.5,5.6,4.4,3.2,2.2,2.6,4,5.6,7],
+ zone:[1.5,2.6,"Weekly demand"],
+ pos:{2:[0.9,0.3],7:[0.3,0.7]},
+ ord:{6:[["sell","stop",2.4]],2:[["buy","limit",1.6]],10:[["sell","limit",0.4]]},
+ wall:2,marks:[[6,"SLICED"],[2,"BOUNCE"]],
+ story:"GBPUSD is falling. The tallest bar on the screen is in the <b>Orders</b> book: a stack of the crowd's stops just under the last swing low. Lower down, weekly demand. Which price holds?",
+ lesson:"Blue orders are stops. When they're hit they become market orders in the same direction, so the fattest blue bar was a launch ramp, not a floor. The orange buy limits at weekly demand absorbed the drop: orange slows price, blue speeds it up."},
+{id:"regret",pair:"XAUUSD",base:2340,step:5,dp:0,title:"The ceiling of regret",
+ past:[10.5,11,9.8,10,8.5,7,5.5,4.2,3,2.6,3.4,4],after:[5,6,7,7.6,8.6,9.6,10.1,9.4,8,6.6,5.4],
+ zone:[9.5,10.7,"Weekly supply"],
+ pos:{10:[0.3,2.2],7:[0.8,0.3],2:[0.3,0.6]},
+ ord:{8:[["buy","stop",1.3]],11:[["buy","stop",0.4]]},
+ wall:10,marks:[[8,"SLICED"],[10,"REJECTED"]],
+ story:"Gold is climbing back. Weeks ago the crowd bought the top, <b>all in</b>, at weekly supply, and has been sitting on the loss ever since. Tap the price where you think the rally stalls.",
+ lesson:"The crowd that bought the top at 2,390 spent weeks praying for breakeven. When it came, they sold to get out, and that wave of selling met weekly supply. The blue buy stops at 2,380 were the sellers' stops: they got hit and pushed price up into the wall, not away from it."},
+{id:"nolevel",pair:"USDJPY",base:151.00,step:0.1,dp:2,title:"No level, no wall",
+ past:[6,5.4,6.2,7.4,8,7.2,6,4.8,3.6,2.8,3.2,3],after:[4,5.2,6.4,7.4,8,7.6,8.4,9.6,10.8,11.6],
+ zone:null,
+ pos:{8:[0.3,2.0],4:[0.4,0.6]},
+ ord:{9:[["buy","stop",0.5]]},
+ wall:null,marks:[[8,"ABSORBED"]],
+ story:"USDJPY is rising. There's a big bar of trapped buyers at 151.80, but this time there's no daily or weekly supply anywhere near it. Is it a wall? Tap a price, or press <b>No wall here</b>.",
+ lesson:"Trapped traders closing at breakeven gave price a nudge at 151.80, then fresh buyers soaked it up and price kept going. An order book cluster on its own is a hint, not a wall. It works when it lines up with a strong daily or weekly level."},
+{id:"bumps",pair:"AUDUSD",base:0.6550,step:0.0005,dp:4,title:"Speed bumps and the real wall",
+ past:[3,4,5.2,6.4,7.2,8.6,10,11,10.4,9.6,9],after:[8.2,7.2,7.5,6.6,5.2,5.5,4.2,3,2.2,2.6,4,6,7.6],
+ zone:[1.4,2.6,"Daily demand"],
+ pos:{7:[0.9,0.3],2:[2.0,0.4],10:[0.3,0.7]},
+ ord:{5:[["buy","limit",1.0]],2:[["buy","limit",1.2]],4:[["sell","stop",0.6]]},
+ wall:2,marks:[[7,"PAUSE"],[5,"PAUSE"],[2,"BOUNCE"]],
+ story:"AUDUSD is sliding. There are three places the book says <i>maybe</i>: some trapped sellers, some buy limits, and one level with both, sitting on daily demand. Tap the one you'd trade from.",
+ lesson:"The small clusters were speed bumps: price paused, then carried on. The wall was where trapped sellers, buy limits and daily demand all lined up at 0.6560. When the order book and a strong level agree, that's the one to trade."}
+];
+
+/* ======================= HELPERS ======================= */
+const app=document.getElementById("app"), hudEl=document.getElementById("hud");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const REDUCED=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+function track(n){try{window.QDBGames&&QDBGames.track(n)}catch(e){}}
+const ROWS=13, clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const nowOf=r=>r.past[r.past.length-1];
+function fmt(r,row){const v=r.base+row*r.step;return r.dp===0?v.toLocaleString("en-US",{maximumFractionDigits:0}):v.toFixed(r.dp)}
+/* small background volume so the book looks alive; deterministic per round */
+function noise(r,row,k){let h=0;const s=r.id+row+k;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return 0.12+(h%100)/100*0.28}
+function book(r){
+  const now=nowOf(r), rows=[];
+  for(let i=0;i<ROWS;i++){
+    const p=r.pos[i]||[noise(r,i,"s"),noise(r,i,"b")];
+    let o=r.ord[i];
+    if(!o) o=i>now?[["buy","stop",noise(r,i,"o1")*.8],["sell","limit",noise(r,i,"o2")*.8]]:[["sell","stop",noise(r,i,"o1")*.8],["buy","limit",noise(r,i,"o2")*.8]];
+    rows.push({i,sell:p[0],buy:p[1],ord:o});
+  }
+  return rows;
+}
+
+let S=null, PICK=null;
+function hud(){
+  if(!S){hudEl.innerHTML="";return}
+  hudEl.innerHTML=`<span>Chart <b>${Math.min(S.i+1,R.length)}/${R.length}</b></span><span>Score <b>${S.pts}</b></span><span>Walls <b>${S.found}</b></span>`;
+}
+
+/* ======================= CHART + BOOKS ======================= */
+function compact(){return (app.clientWidth||600)<600}
+function geom(){
+  const C=compact(), W=C?560:960, H=C?700:500, T=C?64:56, B=H-(C?34:30);
+  const cL=8, cR=C?214:470, pX=C?216:474, oL=C?290:556, oR=C?422:750, qL=C?428:762, qR=W-6;
+  const rowH=(B-T)/ROWS, Y=row=>B-(row+.5)*rowH;
+  return {C,W,H,T,B,cL,cR,pX,oL,oR,qL,qR,rowH,Y,fs:C?20:15};
+}
+function chartSVG(r,o){
+  o=o||{}; const g=geom(), {W,H,T,B,cL,cR,pX,oL,oR,qL,qR,rowH,Y,fs}=g, now=nowOf(r);
+  const n=r.past.length-1+r.after.length, X=i=>cL+(cR-cL-10)*i/n;
+  const rows=book(r), MAX=2.6;
+  let s=`<svg id="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(r.pair)} chart with order book. ${r.zone?esc(r.zone[2])+" near "+fmt(r,(r.zone[0]+r.zone[1])/2)+".":"No daily or weekly level nearby."}">`;
+  s+=`<rect width="${W}" height="${H}" fill="#0a1220"/>`;
+  // headers
+  const oC=(oL+oR)/2, qC=(qL+qR)/2;
+  s+=`<text x="${oC}" y="${T-30}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="${g.C?fs-4:fs-1}" font-weight="700" fill="#e8edf6">ORDERS</text>`;
+  s+=`<text x="${qC}" y="${T-30}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="${g.C?fs-4:fs-1}" font-weight="700" fill="#e8edf6">POSITIONS</text>`;
+  [[oL,oC,oR],[qL,qC,qR]].forEach(([a,c,b])=>{
+    s+=`<text x="${c-6}" y="${T-10}" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="${fs-5}" fill="#fca5a5">SELL</text><text x="${c+6}" y="${T-10}" font-family="JetBrains Mono, monospace" font-size="${fs-5}" fill="#86efac">BUY</text>`;
+    s+=`<line x1="${c}" x2="${c}" y1="${T}" y2="${B}" stroke="#334155" stroke-width="1"/>`;
+  });
+  // zone across the chart
+  if(r.zone){
+    const zc=r.zone[2].includes("demand")?"34,197,94":"239,68,68", zy1=B-r.zone[1]*rowH-rowH/2, zy0=B-r.zone[0]*rowH-rowH/2;
+    s+=`<rect x="${cL}" y="${zy1}" width="${qR-cL}" height="${zy0-zy1}" fill="rgba(${zc},.12)" stroke="rgba(${zc},.45)" stroke-dasharray="6 4"/>`;
+    s+=`<text x="${cL+6}" y="${r.zone[2].includes("demand")?zy0+fs+2:zy1-6}" font-family="Space Grotesk, sans-serif" font-size="${fs-1}" font-weight="700" fill="rgb(${zc})" stroke="#0a1220" stroke-width="4" paint-order="stroke">${esc(r.zone[2])}</text>`;
+  }
+  // rows: price labels + bars
+  rows.forEach(rw=>{
+    const y=Y(rw.i), bh=Math.max(6,rowH*.62), sel=PICK===rw.i;
+    if(sel) s+=`<rect x="${cL}" y="${y-rowH/2}" width="${qR-cL}" height="${rowH}" fill="rgba(251,146,60,.16)" stroke="#fb923c" stroke-width="2"/>`;
+    s+=`<text x="${pX+(oL-pX)/2}" y="${y+fs*.35}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="${fs-3}" fill="${sel?"#fb923c":"#8b97ad"}" font-weight="${sel?700:400}">${fmt(r,rw.i)}</text>`;
+    // orders book
+    const half=(oR-oL)/2-4;
+    let used={sell:0,buy:0};
+    rw.ord.forEach(([side,kind,v])=>{
+      const w=Math.min(1,v/MAX)*half, col=kind==="stop"?"#3b82f6":"#f59e0b", st=used[side];
+      const x=side==="sell"?oC-st-w:oC+st; used[side]+=w;
+      s+=`<rect x="${x}" y="${y-bh/2}" width="${w}" height="${bh}" rx="2" fill="${col}"/>`;
+    });
+    // positions book: colour from where price is now (orange = in profit, blue = in loss)
+    const qh=(qR-qL)/2-4;
+    const sw=Math.min(1,rw.sell/MAX)*qh, bw=Math.min(1,rw.buy/MAX)*qh;
+    const sellCol=rw.i>now?"#f59e0b":"#3b82f6", buyCol=rw.i<now?"#f59e0b":"#3b82f6";
+    s+=`<rect x="${qC-sw}" y="${y-bh/2}" width="${sw}" height="${bh}" rx="2" fill="${sellCol}"/>`;
+    s+=`<rect x="${qC}" y="${y-bh/2}" width="${bw}" height="${bh}" rx="2" fill="${buyCol}"/>`;
+  });
+  // current price line across the books
+  const ny=B-now*rowH-rowH/2;
+  s+=`<line x1="${cL}" x2="${pX}" y1="${ny}" y2="${ny}" stroke="#f5b83d" stroke-width="1.5" stroke-dasharray="3 5"/><line x1="${oL}" x2="${qR}" y1="${ny}" y2="${ny}" stroke="#f5b83d" stroke-width="1.5" stroke-dasharray="3 5"/>`;
+  // price path
+  const PY=v=>B-v*rowH-rowH/2;
+  s+=`<path d="${r.past.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+PY(v).toFixed(1)).join(" ")}" fill="none" stroke="#e8edf6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  s+=`<path id="future" d="" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  s+=`<circle cx="${X(r.past.length-1)}" cy="${PY(now)}" r="6" fill="#f5b83d" stroke="#0b0f17" stroke-width="2"/>`;
+  s+=`<text x="${cL+4}" y="${T-10}" font-family="JetBrains Mono, monospace" font-size="${fs-3}" fill="#6b7892">${esc(r.pair)} · illustrative</text>`;
+  if(PICK!=null){const y=Y(PICK);s+=`<g><rect x="${cR-(g.C?96:104)}" y="${y-fs*.9}" width="${g.C?96:104}" height="${fs*1.8}" rx="7" fill="#fb923c"/><text x="${cR-(g.C?48:52)}" y="${y+fs*.32}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="${fs-3}" font-weight="700" fill="#0b0f17">YOUR WALL</text></g>`}
+  s+=`<g id="fx"></g>`;
+  // tap targets
+  if(!o.locked) for(let i=0;i<ROWS;i++) s+=`<rect class="pick" data-row="${i}" x="0" y="${Y(i)-rowH/2}" width="${W}" height="${rowH}" fill="transparent"/>`;
+  return s+"</svg>";
+}
+function bindPick(r){
+  document.querySelectorAll("#chart .pick").forEach(el=>el.addEventListener("click",()=>{S.skip=false;setPick(r,+el.dataset.row)}));
+}
+function setPick(r,row){
+  PICK=row==null?null:clamp(row,0,ROWS-1);
+  document.querySelector(".chartbox").innerHTML=chartSVG(r,{}); bindPick(r);
+  const v=document.getElementById("pickv"); if(v) v.textContent=PICK==null?"No wall here":fmt(r,PICK);
+  const sk=document.getElementById("skipBtn"); if(sk) sk.classList.toggle("on",PICK==null&&S.skip);
+  const rb=document.getElementById("runBtn"); if(rb) rb.disabled=(PICK==null&&!S.skip);
+}
+
+/* ======================= SCREENS ======================= */
+function explainerSVG(){
+  const W=460,H=330; let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Diagram of an order book: orders on the left, positions on the right, with a big bar of trapped sellers below price marked as a wall.">`;
+  s+=`<rect width="${W}" height="${H}" rx="14" fill="#0d1729"/>`;
+  s+=`<text x="120" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#e8edf6">ORDERS</text><text x="340" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#e8edf6">POSITIONS</text>`;
+  s+=`<text x="120" y="48" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#a3afc5">where they'll get out</text><text x="340" y="48" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#a3afc5">where they got in</text>`;
+  s+=`<line x1="120" x2="120" y1="60" y2="310" stroke="#334155"/><line x1="340" x2="340" y1="60" y2="310" stroke="#334155"/>`;
+  const rows=[[80,[18,10],[10,22]],[104,[14,8],[12,16]],[128,[26,0],[10,8]],[152,[8,10],[8,10]],[200,[30,0],[12,8]],[224,[10,8],[10,12]],[248,[8,20],[96,10]],[272,[6,10],[12,8]]];
+  rows.forEach(([y,[a,b],[c,d]],i)=>{
+    const above=y<176;
+    s+=`<rect x="${120-a}" y="${y-7}" width="${a}" height="14" rx="2" fill="${above?"#f59e0b":"#3b82f6"}"/><rect x="120" y="${y-7}" width="${b}" height="14" rx="2" fill="${above?"#3b82f6":"#f59e0b"}"/>`;
+    s+=`<rect x="${340-c}" y="${y-7}" width="${c}" height="14" rx="2" fill="${above?"#f59e0b":"#3b82f6"}"/><rect x="340" y="${y-7}" width="${d}" height="14" rx="2" fill="${above?"#3b82f6":"#f59e0b"}"/>`;
+  });
+  s+=`<line x1="14" x2="446" y1="176" y2="176" stroke="#f5b83d" stroke-width="2" stroke-dasharray="4 5"/><text x="18" y="170" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" fill="#f5b83d">PRICE NOW</text>`;
+  s+=`<rect x="236" y="236" width="118" height="24" rx="6" fill="none" stroke="#fb923c" stroke-width="2"/>`;
+  s+=`<text x="232" y="296" text-anchor="end" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="#fb923c">Crowd went all in short,</text><text x="232" y="312" text-anchor="end" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="#fb923c">now trapped: a wall</text>`;
+  return s+"</svg>";
+}
+
+function startScreen(){
+  S=null; PICK=null; hud(); window.scrollTo({top:0});
+  const best=store("obw_best");
+  app.innerHTML=`<p class="kick">A FREE QDB GAME · 5 CHARTS · ABOUT 5 MINUTES</p>
+  <h1 style="margin-top:8px">Order Book <em>Walls</em></h1>
+  <p class="lead">Price doesn't bounce off a level by magic. It bounces because of what the crowd did there. The order book shows you <b>where retail traders went all in</b>, and where they'll rush to get out. Your job: find the wall before price gets there.</p>
+  <div class="ob">
+    <div class="card" style="padding:10px">${explainerSVG()}</div>
+    <div>
+      <h3>How to read the order book</h3>
+      <p class="muted" style="margin-top:6px"><b style="color:var(--text)">Orders (left)</b> are the crowd's pending orders: mostly the stops and take profits where they'll get out, sometimes real limit orders. The crowd is impatient, so most of them got <i>in</i> at market.</p>
+      <p class="muted"><b style="color:var(--text)">Positions (right)</b> are the trades the crowd is holding right now, at the price they opened. A tall bar means the crowd went all in at that price.</p>
+      <p class="muted"><b style="color:#f59e0b">Orange</b> = limits, take profits and positions in profit. <b style="color:#60a5fa">Blue</b> = stops and positions in a loss.</p>
+    </div>
+  </div>
+  <div class="rules">
+    <div class="rule"><div class="n">1</div><div><b>Trapped crowds build walls</b><span>When price returns to where the crowd went all in and lost, they rush out at breakeven. Shorts closing means buying, so you get support. Longs closing means selling, so you get resistance.</span></div></div>
+    <div class="rule"><div class="n">2</div><div><b>Blue speeds price up, orange slows it down</b><span>A stack of stops is fuel: once hit, the stops become market orders. Limits and take profits soak price up.</span></div></div>
+    <div class="rule"><div class="n">3</div><div><b>Only trust a wall at a strong level</b><span>A cluster on its own is a hint. When it sits on daily or weekly demand or supply, it's usually very effective.</span></div></div>
+  </div>
+  <div class="row"><button class="btn primary" onclick="begin()">Find the walls</button><a class="btn" href="../">More games</a></div>
+  ${best?`<p class="muted" style="margin-top:12px;font-size:16px">Your best: ${best.pts} points (${esc(best.g)}).</p>`:""}
+  <p class="foot">Educational only, not financial advice. Charts and order books are illustrative, written to teach the idea, not real data.</p>`;
+}
+
+function begin(){S={i:0,pts:0,found:0,log:[],skip:false};track("start-order-book-walls");try{QDBGames.showFooter()}catch(e){}show()}
+
+function show(){
+  const r=R[S.i]; PICK=null; S.skip=false; hud(); window.scrollTo({top:0});
+  app.innerHTML=`<p class="kick">CHART ${S.i+1} OF ${R.length} · ${esc(r.pair)}</p>
+  <h2 style="margin:4px 0 4px">${esc(r.title)}</h2>
+  <p class="story">${r.story}</p>
+  <div class="chartbox"></div>
+  <div class="legend"><span><i style="background:#3b82f6"></i>Stops, or positions in a loss</span><span><i style="background:#f59e0b"></i>Limits and take profits, or positions in profit</span><span><i style="background:#f5b83d;height:3px"></i>Price now</span></div>
+  <div class="controls">
+    <div class="ctl"><div class="lab">Your wall (tap a row or nudge)<b id="pickv">Pick a price</b></div><div class="nudge"><button aria-label="Move your wall up a row" onclick="nudge(1)">▲</button><button aria-label="Move your wall down a row" onclick="nudge(-1)">▼</button></div></div>
+    <button class="btn" id="skipBtn" onclick="skip()">No wall here</button>
+  </div>
+  <div class="row"><button class="btn primary" id="runBtn" onclick="run()" disabled>Run the market</button></div>`;
+  document.querySelector(".chartbox").innerHTML=chartSVG(r,{}); bindPick(r);
+}
+function nudge(d){const r=R[S.i];S.skip=false;setPick(r,PICK==null?Math.round(nowOf(r))+d:PICK+d)}
+function skip(){S.skip=true;setPick(R[S.i],null)}
+
+function crossings(r){
+  const now=nowOf(r), path=[now].concat(r.after), out=[];
+  r.marks.forEach(([row,lab])=>{
+    for(let i=1;i<path.length;i++){const a=path[i-1],b=path[i];
+      const isWall=lab==="BOUNCE"||lab==="REJECTED";
+      // a wall is "touched" at the turning point closest to it; others where the path crosses the row
+      if(isWall){ if(Math.abs(b-row)<0.45&&i<path.length-1&&(path[i+1]-b)*(b-a)<0){out.push({row,lab,x:i});return} }
+      else if((a-row)*(b-row)<=0&&a!==b){out.push({row,lab,x:i-1+(row-a)/(b-a)});return}
+    }
+  });
+  return out.sort((a,b)=>a.x-b.x);
+}
+
+function run(){
+  const r=R[S.i], now=nowOf(r), path=[now].concat(r.after);
+  document.getElementById("runBtn").disabled=true;
+  document.querySelectorAll(".controls button").forEach(b=>b.disabled=true);
+  const box=document.querySelector(".chartbox"); box.innerHTML=chartSVG(r,{locked:true});
+  const g=geom(), n=r.past.length-1+r.after.length, X=i=>g.cL+(g.cR-g.cL-10)*i/n, PY=v=>g.B-v*g.rowH-g.rowH/2, k=r.past.length-1;
+  const fut=document.getElementById("future"), fx=document.getElementById("fx"), events=crossings(r), endX=path.length-1;
+  const pointAt=x=>{const i=Math.min(Math.floor(x),path.length-2),f=x-i;return path[i]+(path[i+1]-path[i])*f};
+  const draw=x=>{let d=`M${X(k)} ${PY(now)}`;for(let i=1;i<=Math.floor(x);i++)d+=` L${X(k+i)} ${PY(path[i])}`;d+=` L${X(k+x)} ${PY(pointAt(x))}`;fut.setAttribute("d",d)};
+  const mark=ev=>{
+    const isWall=ev.lab==="BOUNCE"||ev.lab==="REJECTED", col=isWall?"#fb923c":ev.lab==="SLICED"?"#60a5fa":"#a3afc5";
+    const y=g.Y(ev.row), el=document.createElementNS("http://www.w3.org/2000/svg","g");
+    el.innerHTML=(isWall?`<rect x="${g.cL}" y="${y-g.rowH/2}" width="${g.cR-g.cL}" height="${g.rowH}" fill="rgba(251,146,60,.16)"/><line x1="${g.cL}" x2="${g.cR}" y1="${y}" y2="${y}" stroke="#fb923c" stroke-width="4"/><rect x="${g.oL}" y="${y-g.rowH/2}" width="${g.qR-g.oL}" height="${g.rowH}" fill="none" stroke="#fb923c" stroke-width="3" rx="4"/>`:`<line x1="${g.cL}" x2="${g.cR}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="2" stroke-dasharray="5 5"/>`)
+      +`<text x="${isWall?g.cR-4:g.cL+4}" y="${y+(isWall?(ev.lab==="BOUNCE"?g.rowH/2+g.fs:-g.rowH/2-5):-6)}" text-anchor="${isWall?"end":"start"}" font-family="JetBrains Mono, monospace" font-size="${g.fs-1}" font-weight="700" fill="${col}" stroke="#0a1220" stroke-width="4" paint-order="stroke">${isWall?(g.C?"WALL":"WALL · "+ev.lab):ev.lab}</text>`;
+    fx.appendChild(el);
+  };
+  const finish=()=>{draw(endX);setTimeout(()=>result(r),REDUCED?0:450)};
+  if(REDUCED){events.forEach(mark);finish();return}
+  const total=Math.max(1600,endX*300), t0=performance.now(), done=new Set();
+  function frame(t){const x=Math.min(endX,(t-t0)/total*endX);draw(x);
+    events.forEach((ev,i)=>{if(!done.has(i)&&ev.x<=x){done.add(i);mark(ev)}});
+    if(x<endX)requestAnimationFrame(frame);else finish()}
+  requestAnimationFrame(frame);
+}
+
+function scoreOf(r,pick){
+  if(r.wall==null) return pick==null?[100,"right","Right to skip"]:[0,"wrong","No wall there"];
+  if(pick==null) return [0,"wrong","Missed the wall"];
+  const d=Math.abs(pick-r.wall);
+  if(d===0) return [100,"right","Wall found"];
+  if(d===1) return [50,"close","One row off"];
+  if(r.marks.some(([row,l])=>row===pick&&l==="PAUSE")) return [25,"close","Only a speed bump"];
+  if(r.marks.some(([row,l])=>row===pick&&l==="SLICED")) return [0,"wrong","Sliced straight through"];
+  return [0,"wrong","Missed the wall"];
+}
+function result(r){
+  const pick=PICK, [pts,kind,label]=scoreOf(r,pick);
+  S.pts+=pts; if(kind==="right")S.found++;
+  S.log.push({r,pick,pts,label}); hud();
+  const st=kind==="right"?"g":kind==="close"?"o":"b";
+  const where=r.wall==null?"There was no real wall on this chart.":`The wall was at ${fmt(r,r.wall)}${r.zone?", on "+r.zone[2].toLowerCase():""}.`;
+  const box=document.createElement("div");
+  box.innerHTML=`<div class="card" style="margin-top:14px">
+    <span class="stamp ${st}">${esc(label)}</span>
+    <div class="rline ${pts>0?"g":"n"}">+${pts} points</div>
+    <p>${pick==null?"You said no wall.":"You picked "+fmt(r,pick)+"."} ${esc(where)}</p>
+    <div class="note"><h4>Book reader's note</h4><p>${esc(r.lesson)}</p></div>
+    <div class="row"><button class="btn primary" onclick="next()">${S.i+1<R.length?"Next chart":"See your results"}</button></div>
+  </div>`;
+  document.querySelector(".controls").replaceWith(box);
+  const rb=document.getElementById("runBtn"); if(rb)rb.parentElement.remove();
+  box.scrollIntoView({behavior:REDUCED?"auto":"smooth",block:"start"});
+}
+function next(){S.i++; if(S.i<R.length) show(); else end()}
+
+function gradeOf(p){return p>=450?["Book reader","You saw where the crowd went all in and which levels would hold. That's how to read an order book."]
+  :p>=300?["Wall spotter","You found most of the walls. Watch for blue stacks: they're fuel, not floors."]
+  :p>=150?["Speed bump","Some of your picks only slowed price down. Look for the crowd's cluster sitting on a strong level."]
+  :["Through the wall","Price went straight through your picks. Replay with the three rules: trapped crowds, blue versus orange, strong levels."]}
+
+function end(){
+  const [g,msg]=gradeOf(S.pts);
+  const prev=store("obw_best"); if(!prev||S.pts>prev.pts) store("obw_best",{pts:S.pts,g});
+  hud(); window.scrollTo({top:0}); track("finish-order-book-walls");
+  app.innerHTML=`<p class="kick">YOUR READ</p>
+  <div class="grade" style="margin-top:6px">${S.pts}</div>
+  <h2 style="margin-top:6px">${esc(g)}</h2>
+  <p class="lead" style="margin-top:8px">${esc(msg)}</p>
+  <div class="kpis">
+    <div class="kpi"><span>Walls called right</span><b>${S.found}/${R.length}</b></div>
+    <div class="kpi"><span>Points</span><b>${S.pts}/${R.length*100}</b></div>
+    <div class="kpi"><span>Best</span><b>${Math.max(S.pts,(prev&&prev.pts)||0)}</b></div>
+  </div>
+  <div class="card" style="overflow-x:auto"><h3 style="margin-bottom:6px">Your charts</h3>
+  <table><tr><th>Chart</th><th>Your pick / the wall</th><th class="n" style="text-align:right">Points</th></tr>
+  ${S.log.map(x=>`<tr><td><b>${esc(x.r.pair)}</b><br><span class="muted" style="font-size:14px">${esc(x.r.title)}</span></td><td>${x.pick==null?"No wall":fmt(x.r,x.pick)} / ${x.r.wall==null?"No wall":fmt(x.r,x.r.wall)}<br><span class="muted" style="font-size:14px">${esc(x.label)}</span></td><td class="n">+${x.pts}</td></tr>`).join("")}
+  </table></div>
+  <div class="cta"><h3>Read the real order book</h3>
+    <p>The books in this game are illustrative. FXSSI's Order Book shows the crowd's real orders and positions, refreshed every 20 minutes, right on your MT4 or MT5 chart. QDB pairs it with the QDB Sheet and strong daily and weekly levels.</p>
+    <div class="row"><a class="btn primary" href="${AFFILIATE}" target="_blank" rel="sponsored noopener" onclick="track('affiliate-fxssi-order-book-walls')">Get FXSSI with code QUASIDB</a><a class="btn" href="../../?ref=game-order-book-walls#pricing">See the QDB Sheet</a><button class="btn" onclick="begin()">Play again</button></div>
+    <p class="disc">Affiliate link: if you buy through it, QDB earns a commission at no extra cost to you. FXSSI is an independent company and doesn't endorse this game.</p>
+  </div>
+  <div id="shareSlot"></div>
+  <p class="foot">Educational only, not financial advice. Charts and order books are illustrative, written to teach the idea, not real data.</p>`;
+  try{QDBGames.mount(document.getElementById("shareSlot"),{text:`I scored ${S.pts}/${R.length*100} on Order Book Walls and made ${g}: I called ${S.found} of ${R.length} walls. Can you read the order book?`})}catch(e){}
+}
+
+let rz; window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{if(S&&S.i<R.length&&document.querySelector("#chart .pick")){setPick(R[S.i],PICK)}},200)});
+startScreen();
+</script>
+<script src="../qdb-games.js" data-game="order-book-walls" data-title="Order Book Walls"></script>
+</body>
+</html>

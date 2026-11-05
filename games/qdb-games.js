@@ -12,6 +12,7 @@
   var LEADS_URL = 'https://script.google.com/macros/s/AKfycbyAeonI9tKb-jdRUWcstZHZQdvAWlon9e-53h631yk_EUoThfmYJGE1wiEnXAdkZXKW/exec';
 
   var GAMES = [
+    { slug: 'order-book-walls', name: 'Order Book Walls', blurb: 'Read the crowd\u2019s orders and positions, and find the wall before price gets there.' },
     { slug: 'stop-hunter', name: 'Stop Hunter', blurb: 'Drag your stop and take profit, then watch the big fish hunt the crowd\u2019s stop loss clusters.' },
     { slug: 'crowd-express', name: 'Crowd Express', blurb: 'Ride the retail sentiment train from Edinburgh to King’s Cross. Know when to board, and when it terminates.' },
     { slug: 'stick-to-the-plan', name: 'Stick to the Plan', blurb: 'Ten trades, one year, real-life bills. Does following a written plan get you funded?' },
