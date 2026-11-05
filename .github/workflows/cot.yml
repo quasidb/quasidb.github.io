@@ -1,0 +1,55 @@
+name: COT weekly update
+
+# CFTC publishes Commitments of Traders on Friday at 3:30pm US Eastern (Tuesday's positions).
+# Run Friday evening, with Saturday and Monday re-runs to catch holiday-delayed releases.
+on:
+  schedule:
+    - cron: "45 21 * * 5"   # Fri 21:45 UTC
+    - cron: "0 6 * * 6"     # Sat 06:00 UTC
+    - cron: "0 22 * * 1"    # Mon 22:00 UTC
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/cot.py"
+      - ".github/workflows/cot.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cot-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the CFTC feed (pull requests only, nothing is committed)
+        if: github.event_name == 'pull_request'
+        run: python3 scripts/cot.py --check
+
+      - name: Fetch and build data/cot.json
+        if: github.event_name != 'pull_request'
+        run: |
+          mkdir -p data
+          python3 scripts/cot.py --out data/cot.json
+
+      - name: Commit if the report changed
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "qdb-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Only commit when the report date or numbers moved (ignore the timestamp)
+          if git show HEAD:data/cot.json >/tmp/old.json 2>/dev/null && \
+             python3 -c "import json,sys;a=json.load(open('/tmp/old.json'));b=json.load(open('data/cot.json'));a.pop('updated');b.pop('updated');sys.exit(0 if a==b else 1)"; then
+            echo "No new COT data."; exit 0
+          fi
+          git add data/cot.json
+          git commit -m "COT update $(python3 -c "import json;print(json.load(open('data/cot.json'))['report_date'])")"
+          for i in 1 2 3 4; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep $((i*5))
+          done
+          exit 1
