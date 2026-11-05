@@ -11,8 +11,11 @@ For each market:
   index      COT index 0-100: where this week's net sits in its 3-year range
   z          z-score of this week's net against the same 3-year window
 
-USD has no clean futures contract (the ICE Dollar Index is thin), so its index is
-derived as 100 minus the average index of the seven other majors.
+USD has no clean futures contract (the ICE Dollar Index is thin), so it is built
+synthetically from the seven CME majors: every spec short in EUR, GBP, JPY, CHF,
+CAD, AUD or NZD futures is a long USD position, and vice versa. Each leg is
+converted to US dollars with the contract size and the latest FX rate, giving a
+USD net position in dollars, and its index and z-score use the same 3-year window.
 Each of the 28 pairs scores base index minus quote index (-100 to +100).
 
 Standard library only. Run: python3 scripts/cot.py [--out data/cot.json] [--check]
@@ -40,6 +43,11 @@ MARKETS = {
     "XAU": ("088691", "Gold"),
     "XAG": ("084691", "Silver"),
 }
+CONTRACT_SIZE = {"EUR": 125_000, "GBP": 62_500, "JPY": 12_500_000, "CHF": 125_000,
+                 "CAD": 100_000, "AUD": 100_000, "NZD": 100_000}
+# Fallback USD value of one unit of each currency, used only if the rate lookup fails
+FALLBACK_USD_PER_UNIT = {"EUR": 1.15, "GBP": 1.31, "JPY": 0.0066, "CHF": 1.24,
+                         "CAD": 0.71, "AUD": 0.65, "NZD": 0.57}
 FX = ["EUR", "GBP", "AUD", "NZD", "USD", "CAD", "CHF", "JPY"]  # market-convention base order
 
 
@@ -63,6 +71,40 @@ def fetch(code, limit=WEEKS + 2):
             "oi": int(float(row["open_interest_all"])),
         })
     return out  # newest first
+
+
+def usd_per_unit():
+    """Latest USD value of one unit of each major (ECB rates via frankfurter), with a static fallback."""
+    try:
+        q = "https://api.frankfurter.app/latest?from=USD&to=" + ",".join(CONTRACT_SIZE)
+        req = urllib.request.Request(q, headers={"User-Agent": "qdb-cot/1.0"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            rates = json.load(r)["rates"]
+        return {c: 1 / float(rates[c]) for c in CONTRACT_SIZE}, "ECB"
+    except Exception as e:  # noqa: BLE001 - any failure falls back to static rates
+        print("FX rate lookup failed, using fallback rates:", e)
+        return dict(FALLBACK_USD_PER_UNIT), "fallback"
+
+
+def synthetic_usd(raw, px):
+    """USD rows (newest first, in US dollars) from the seven majors' spec positions."""
+    by_date = {}
+    for c in CONTRACT_SIZE:
+        for r in raw[c]:
+            by_date.setdefault(r["date"], {})[c] = r
+    rows = []
+    for d in sorted(by_date, reverse=True):
+        legs = by_date[d]
+        if len(legs) != len(CONTRACT_SIZE):
+            continue
+        usd = {c: CONTRACT_SIZE[c] * px[c] for c in CONTRACT_SIZE}
+        rows.append({
+            "date": d,
+            "long": round(sum(legs[c]["short"] * usd[c] for c in legs)),   # short EUR = long USD
+            "short": round(sum(legs[c]["long"] * usd[c] for c in legs)),
+            "oi": round(sum(legs[c]["oi"] * usd[c] for c in legs)),
+        })
+    return rows
 
 
 def summarise(rows):
@@ -89,17 +131,18 @@ def summarise(rows):
     }
 
 
-def build(raw):
+def build(raw, px=None, px_source="fallback"):
     """raw: {sym: rows newest first} -> payload dict."""
+    px = px or FALLBACK_USD_PER_UNIT
     markets = {}
     for sym, (_code, name) in MARKETS.items():
         m = summarise(raw[sym])
         m["name"] = name
         markets[sym] = m
 
-    majors = [s for s in FX if s != "USD"]
-    usd_index = 100 - statistics.fmean(markets[s]["index"] for s in majors)
-    markets["USD"] = {"name": "US Dollar (derived)", "index": round(usd_index, 1), "derived": True}
+    usd = summarise(synthetic_usd(raw, px))
+    usd.update(name="US Dollar (synthetic)", derived=True, unit="USD", fx=px_source)
+    markets["USD"] = usd
 
     pairs = []
     for i, base in enumerate(FX):
@@ -135,10 +178,11 @@ def main():
         if len(rows) < 52:
             sys.exit(f"{sym} ({name}, {code}): only {len(rows)} weeks returned")
         raw[sym] = rows
-    data = build(raw)
+    px, src = usd_per_unit()
+    data = build(raw, px, src)
 
     for s, m in {**data["currencies"], **data["metals"]}.items():
-        extra = "" if m.get("derived") else f"  net {m['net']:>8}  chg {m['chg']:>7}  z {m['z']:>5}"
+        extra = f"  net {m['net']:>8}  chg {m['chg']:>7}  z {m['z']:>5}"
         print(f"{s}  index {m['index']:>5}{extra}")
     print("top pairs:", data["pairs"][:3], "bottom:", data["pairs"][-3:])
     print("report date:", data["report_date"], "stale:", data["stale"])
