@@ -21,7 +21,9 @@ Each of the 28 pairs scores base index minus quote index (-100 to +100).
 Standard library only. Run: python3 scripts/cot.py [--out data/cot.json] [--check]
 """
 import argparse
+import csv
 import json
+import os
 import statistics
 import sys
 import urllib.parse
@@ -191,6 +193,27 @@ def main():
         with open(a.out, "w") as f:
             json.dump(data, f, separators=(",", ":"))
             f.write("\n")
+        write_csvs(data, os.path.dirname(a.out) or ".")
+
+
+def write_csvs(data, folder):
+    """Flat CSVs for Google Sheets: =IMPORTDATA("https://quasidb.github.io/data/cot-markets.csv")."""
+    rd = data["report_date"]
+    with open(os.path.join(folder, "cot-markets.csv"), "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["market", "name", "report_date", "net", "week_change", "long_pct",
+                    "cot_index", "z_score", "extreme", "unit"])
+        for sym, m in {**data["currencies"], **data["metals"]}.items():
+            idx = m["index"]
+            w.writerow([sym, m["name"], m.get("date", rd), m.get("net", ""), m.get("chg", ""),
+                        m.get("long_pct", ""), idx, m.get("z", ""),
+                        "YES" if idx >= 90 or idx <= 10 else "", m.get("unit", "contracts")])
+    idx = {s: m["index"] for s, m in data["currencies"].items()}
+    with open(os.path.join(folder, "cot-pairs.csv"), "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["pair", "cot_score", "base_index", "quote_index", "report_date"])
+        for p in data["pairs"]:
+            w.writerow([p["pair"], p["score"], idx[p["pair"][:3]], idx[p["pair"][3:]], rd])
 
 
 if __name__ == "__main__":
