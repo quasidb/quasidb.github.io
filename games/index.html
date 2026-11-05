@@ -10,7 +10,7 @@
 <meta property="og:site_name" content="QDB Trading Desk">
 <meta property="og:url" content="https://quasidb.github.io/games/">
 <meta property="og:title" content="QDB Games: free trading games">
-<meta property="og:description" content="Ride the retail sentiment train, stick to a trading plan for a year, and survive real market crises. Free, in your browser.">
+<meta property="og:description" content="Hunt stop loss clusters, ride the retail sentiment train, stick to a trading plan for a year, and survive real market crises. Free, in your browser.">
 <meta property="og:image" content="https://quasidb.github.io/games/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -41,8 +41,8 @@ header{padding:56px 0 28px}
 .kicker{font-family:var(--mono);font-size:14px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
 h1{font-size:clamp(36px,6vw,58px);line-height:1.05;letter-spacing:-.035em;margin:10px 0 14px}
 .lead{font-size:20px;color:var(--muted);max-width:40em}
-.grid{display:grid;gap:18px;grid-template-columns:repeat(3,1fr);padding-bottom:20px}
-@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(2,1fr);padding-bottom:20px}
+@media (max-width:760px){.grid{grid-template-columns:1fr}}
 .game{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:border-color .2s,transform .2s}
 .game:hover{border-color:var(--accent);transform:translateY(-3px)}
 .game img{display:block;width:100%;aspect-ratio:1200/630;object-fit:cover;background:var(--bg2)}
@@ -64,7 +64,8 @@ h1{font-size:clamp(36px,6vw,58px);line-height:1.05;letter-spacing:-.035em;margin
     <p class="lead">Short games about the parts of trading that matter most: reading the crowd, managing risk, and sticking to the plan when it's hard. Play one, then share your score.</p>
   </header>
   <div class="grid">
-    <a class="game" href="crowd-express/"><img src="crowd-express/og.png" alt="Crowd Express: a train on the line from Edinburgh to King's Cross"><div class="b"><span class="tag new">NEW</span><h2>Crowd Express</h2><p>Retail sentiment runs like a train between Edinburgh (0% long) and King's Cross (100% long), over and over. Eight journeys: know when to board, and when it terminates.</p><span class="go">Ride the train →</span></div></a>
+    <a class="game" href="stop-hunter/"><img src="stop-hunter/og.png" alt="Stop Hunter: a fish hunting stop loss clusters"><div class="b"><span class="tag new">NEW</span><h2>Stop Hunter</h2><p>Drag your stop and take profit onto the chart, then watch the big fish hunt the crowd's stop loss clusters. Five trades: would your stop survive?</p><span class="go">Start hunting →</span></div></a>
+    <a class="game" href="crowd-express/"><img src="crowd-express/og.png" alt="Crowd Express: a train on the line from Edinburgh to King's Cross"><div class="b"><span class="tag">FREE</span><h2>Crowd Express</h2><p>Retail sentiment runs like a train between Edinburgh (0% long) and King's Cross (100% long), over and over. Eight journeys: know when to board, and when it terminates.</p><span class="go">Ride the train →</span></div></a>
     <a class="game" href="stick-to-the-plan/"><img src="stick-to-the-plan/og.png" alt="Stick to the Plan"><div class="b"><span class="tag">FREE</span><h2>Stick to the Plan</h2><p>Ten trades across one year, with rent, surprise bills and a prop challenge. Follow a written plan and see where it takes you, graded against the plan itself.</p><span class="go">Play the year →</span></div></a>
     <a class="game" href="retail-survival-simulator/"><img src="retail-survival-simulator/og.png" alt="Retail Survival Simulator"><div class="b"><span class="tag">FREE</span><h2>Retail Survival Simulator</h2><p>Manage a $7,500 account through real market crises: Lehman weekend, the SNB floor, Brexit night and more. Can you survive all of them?</p><span class="go">Face the crises →</span></div></a>
   </div>
