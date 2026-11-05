@@ -282,6 +282,14 @@ td.lock a:hover{color:var(--accent)}
 .live-note{font-size:15px;color:var(--dim)}
 @media (max-width:640px){.live{padding:8px 0 56px}.live-frame{padding:6px}.live-cta .btn{width:100%;justify-content:center}}
 
+/* games band */
+.games-band{padding:24px 0 72px}
+.game-card{display:flex;flex-direction:column;padding:0 0 24px;overflow:hidden}
+.game-card img{display:block;width:100%;aspect-ratio:1200/630;object-fit:cover;border-bottom:1px solid var(--line);margin-bottom:18px}
+.game-card .tag,.game-card h3,.game-card p{margin-left:24px;margin-right:24px}
+.game-card .tag{align-self:flex-start}
+.play-link{color:var(--accent)!important;font-weight:600;margin-top:10px}
+@media (max-width:980px){.games-band .grid3{grid-template-columns:1fr}}
 /* weekly report band */
 .weekly{padding:0 0 72px}
 .weekly-card{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;background:linear-gradient(135deg,rgba(34,197,94,.10),rgba(59,130,246,.10));border:1px solid rgba(34,197,94,.35);border-radius:22px;padding:40px 44px}
@@ -336,6 +344,7 @@ td.lock a:hover{color:var(--accent)}
       <a href="#idea">The idea</a>
       <a href="#inside">What's inside</a>
       <a href="#new">What's new</a>
+      <a href="games/">Games</a>
       <a href="#score">QDB Score</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
@@ -471,6 +480,21 @@ td.lock a:hover{color:var(--accent)}
         <div class="form-msg" id="weeklyMsg" role="status"></div>
         <p class="small">Free. One email a week. Unsubscribe any time with one click.</p>
       </form>
+    </div>
+  </div>
+</section>
+
+<section class="games-band" id="games">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Free games</div>
+      <h2>Learn it by playing it.</h2>
+      <p>Short browser games about reading the crowd, managing risk and sticking to the plan. No sign-up, and you can share your score at the end.</p>
+    </div>
+    <div class="grid3">
+      <a class="card game-card reveal" href="games/crowd-express/?ref=home"><img src="games/crowd-express/og.png" alt="Crowd Express: a train on the line from Edinburgh to King's Cross" loading="lazy"><span class="tag">New</span><h3>Crowd Express</h3><p>Retail sentiment runs like a train between 0% and 100% long. Know when to board, and when it terminates.</p><p class="play-link">Ride the train →</p></a>
+      <a class="card game-card reveal" href="games/stick-to-the-plan/?ref=home"><img src="games/stick-to-the-plan/og.png" alt="Stick to the Plan" loading="lazy"><span class="tag free">Free</span><h3>Stick to the Plan</h3><p>Ten trades, one year, real-life bills and a prop challenge. Does the plan get you funded?</p><p class="play-link">Play the year →</p></a>
+      <a class="card game-card reveal" href="games/retail-survival-simulator/?ref=home"><img src="games/retail-survival-simulator/og.png" alt="Retail Survival Simulator" loading="lazy"><span class="tag free">Free</span><h3>Retail Survival Simulator</h3><p>Lehman weekend, the SNB floor, Brexit night. Can a $7,500 account survive them all?</p><p class="play-link">Face the crises →</p></a>
     </div>
   </div>
 </section>
@@ -865,7 +889,7 @@ td.lock a:hover{color:var(--accent)}
       <div class="card reveal"><span class="tag">MT5</span><h3>Sentiment Delta indicator</h3><p>The daily bubbles on your MetaTrader 5 chart, showing sentiment change over time.</p></div>
       <div class="card reveal"><span class="tag">Discord</span><h3>SSI snapshots</h3><p>Colour-coded SSI posts each morning, before New York and at the close — per instrument channel.</p></div>
       <div class="card reveal"><span class="tag">Discord · Telegram</span><h3>Calendar bot</h3><p>High and medium impact news for the day, posted automatically so nothing catches you off guard.</p></div>
-      <div class="card reveal"><span class="tag free">Free</span><h3>Stick to the Plan</h3><p>A choose-your-own-adventure game about why small, consistent, rule-based wins beat the big swing.</p></div>
+      <a class="card reveal" href="games/stick-to-the-plan/?ref=toolkit"><span class="tag free">Free</span><h3>Stick to the Plan</h3><p>A choose-your-own-adventure game about why small, consistent, rule-based wins beat the big swing.</p><p class="play-link">Play it free →</p></a>
     </div>
   </div>
 </section>
@@ -1077,6 +1101,7 @@ td.lock a:hover{color:var(--accent)}
         <a href="https://t.me/quasidb" target="_blank" rel="noopener">Telegram</a>
         <a href="https://www.youtube.com/@quasidb" target="_blank" rel="noopener">YouTube</a>
         <a href="https://www.patreon.com/quasidb" target="_blank" rel="noopener">Patreon</a>
+        <a href="games/">Free games</a>
       </div>
     </div>
     <div class="risk">
