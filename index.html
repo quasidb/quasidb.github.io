@@ -311,18 +311,21 @@ td.lock a:hover{color:var(--accent)}
 
 /* COT non-commercial positioning */
 .cot{padding:0 0 80px}
-.cot-meta{font-family:var(--mono);font-size:14px;color:var(--dim);margin:-28px 0 22px}
+.cot-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-family:var(--mono);font-size:14px;color:var(--muted);margin:-28px 0 22px}
+.cot-meta .upd{color:var(--buy);font-weight:600}
+.cot-meta .upd::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--buy);margin-right:7px;vertical-align:1px}
 .cot-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:start}
 .cot-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
 .cot-card h3{font-size:19px;margin-bottom:4px}
 .cot-card .sub{font-size:14px;color:var(--dim);margin-bottom:14px}
 .cot-table td,.cot-table th{padding:9px 10px}
 .cot-table td:first-child small{display:block;font-family:var(--sans);font-weight:400;font-size:12px;color:var(--dim)}
-.cot-bar{position:relative;width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--sell-bg),rgba(147,160,184,.12) 50%,var(--buy-bg));margin-left:auto}
+.cot-bar{position:relative;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--sell-bg),rgba(147,160,184,.12) 50%,var(--buy-bg))}
 .cot-bar i{position:absolute;top:-4px;width:4px;height:16px;border-radius:2px;margin-left:-2px;background:var(--text)}
-.cot-idx{display:flex;align-items:center;justify-content:flex-end;gap:10px}
-.cot-idx b{min-width:30px;font-weight:600}
-.cot-ext{font-size:11px;padding:1px 6px;border-radius:5px;background:rgba(245,184,61,.14);color:var(--accent);margin-left:6px;vertical-align:1px}
+.cot-idx{display:grid;grid-template-columns:28px 120px 38px;align-items:center;justify-content:end;gap:10px}
+.cot-idx b{font-weight:600;text-align:right}
+.cot-ext{font-size:11px;padding:1px 6px;border-radius:5px;background:rgba(245,184,61,.14);color:var(--accent);vertical-align:1px}
+.cot-idx .cot-ext{justify-self:start}
 .cot-pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
 .cot-pair{border-radius:10px;padding:10px 8px;text-align:center;font-family:var(--mono);border:1px solid var(--line)}
 .cot-pair span{display:block;font-size:14px;font-weight:600;color:var(--text)}
@@ -331,7 +334,7 @@ td.lock a:hover{color:var(--accent)}
 .cot-read b{color:var(--text);font-weight:600}
 .cot-empty{color:var(--muted);font-size:16px}
 @media (max-width:980px){.cot-grid{grid-template-columns:1fr}}
-@media (max-width:640px){.cot{padding:0 0 56px}.cot-card{padding:16px 12px}.cot-bar{width:64px}.cot-meta{margin-top:-36px}}
+@media (max-width:640px){.cot{padding:0 0 56px}.cot-card{padding:16px 12px}.cot-idx{grid-template-columns:24px 60px 34px;gap:6px}.cot-meta{margin-top:-36px}}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
@@ -522,11 +525,11 @@ nav .wrap{gap:28px}
       <h2>What the big speculators are doing</h2>
       <p>Non-commercial positioning from the CFTC Commitments of Traders report: hedge funds and other large speculators in FX futures, Gold and Silver. The COT index shows where this week's net position sits in its 3-year range, from 0 (most short) to 100 (most long).</p>
     </div>
-    <p class="cot-meta" id="cotMeta">Loading the latest report…</p>
+    <p class="cot-meta"><span class="upd">Live data · updated each Friday</span><span id="cotMeta">Loading the latest report…</span></p>
     <div class="cot-grid">
       <div class="cot-card reveal">
         <h3>Net positioning by market</h3>
-        <p class="sub">Contracts held by non-commercials. USD is derived from the other seven majors.</p>
+        <p class="sub">Net contracts held by non-commercials. USD has no clean contract, so it is built from the seven majors and shown in US dollars.</p>
         <table class="cot-table">
           <thead><tr><th>Market</th><th>Net</th><th class="hide-sm">Week</th><th class="hide-sm">% long</th><th>COT index</th></tr></thead>
           <tbody id="cotRows"><tr><td colspan="5" class="cot-empty">Loading…</td></tr></tbody>
@@ -1387,19 +1390,21 @@ leadForm.addEventListener('submit', async ev => {
   const rowsEl=document.getElementById('cotRows'), pairsEl=document.getElementById('cotPairs'), metaEl=document.getElementById('cotMeta');
   if(!rowsEl) return;
   const fmt=n=>(n>0?'+':'')+n.toLocaleString('en-US');
+  const bn=n=>(n>0?'+':n<0?'−':'')+'$'+Math.abs(n/1e9).toFixed(1)+'bn';
   const flag=i=>(i>=90||i<=10)?'<span class="cot-ext">EXT</span>':'';
   const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const label={XAU:'GOLD',XAG:'SILVER'};
   fetch('data/cot.json?v='+Math.floor(Date.now()/3600000)).then(r=>{if(!r.ok)throw 0;return r.json();}).then(d=>{
     const dt=new Date(d.report_date+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
-    metaEl.textContent='CFTC report for '+dt+' · 3-year look-back';
+    metaEl.textContent='Latest CFTC report: positions on '+dt+' · 3-year look-back';
     const all=Object.assign({},d.currencies,d.metals);
     rowsEl.innerHTML=Object.keys(all).map(k=>{
       const m=all[k], idx=m.index;
-      const net=m.derived?'<td>—</td><td class="hide-sm">—</td><td class="hide-sm">—</td>'
-        :'<td class="'+(m.net>=0?'buy':'sell')+'">'+fmt(m.net)+'</td><td class="hide-sm '+(m.chg>=0?'buy':'sell')+'">'+fmt(m.chg)+'</td><td class="hide-sm">'+m.long_pct+'%</td>';
+      const f=m.unit==='USD'?bn:fmt;
+      const net=m.net==null?'<td>—</td><td class="hide-sm">—</td><td class="hide-sm">—</td>'
+        :'<td class="'+(m.net>=0?'buy':'sell')+'">'+f(m.net)+'</td><td class="hide-sm '+(m.chg>=0?'buy':'sell')+'">'+f(m.chg)+'</td><td class="hide-sm">'+m.long_pct+'%</td>';
       return '<tr><td>'+(label[k]||k)+(label[k]?'':'<small>'+esc(m.name)+'</small>')+'</td>'+net+
-        '<td><div class="cot-idx"><b>'+Math.round(idx)+'</b><div class="cot-bar" role="img" aria-label="COT index '+Math.round(idx)+' of 100"><i style="left:'+idx+'%"></i></div>'+flag(idx)+'</div></td></tr>';
+        '<td><div class="cot-idx"><b>'+Math.round(idx)+'</b><div class="cot-bar" role="img" aria-label="COT index '+Math.round(idx)+' of 100"><i style="left:'+idx+'%"></i></div><span>'+flag(idx)+'</span></div></td></tr>';
     }).join('');
     pairsEl.innerHTML=d.pairs.map(p=>{
       const a=Math.min(Math.abs(p.score)/100,1)*.55+.05, c=p.score>=0?'34,197,94':'239,68,68';
