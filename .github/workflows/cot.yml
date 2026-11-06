@@ -11,6 +11,7 @@ on:
   pull_request:
     paths:
       - "scripts/cot.py"
+      - "scripts/cot_page.py"
       - ".github/workflows/cot.yml"
 
 permissions:
@@ -28,13 +29,16 @@ jobs:
 
       - name: Check the CFTC feed (pull requests only, nothing is committed)
         if: github.event_name == 'pull_request'
-        run: python3 scripts/cot.py --check
+        run: |
+          python3 scripts/cot.py --check
+          python3 scripts/cot_page.py --out /tmp/cot.html --no-sitemap
 
       - name: Fetch and build data/cot.json
         if: github.event_name != 'pull_request'
         run: |
           mkdir -p data
           python3 scripts/cot.py --out data/cot.json
+          python3 scripts/cot_page.py
 
       - name: Commit if the report changed
         if: github.event_name != 'pull_request'
@@ -46,7 +50,7 @@ jobs:
              python3 -c "import json,sys;a=json.load(open('/tmp/old.json'));b=json.load(open('data/cot.json'));a.pop('updated');b.pop('updated');sys.exit(0 if a==b else 1)"; then
             echo "No new COT data."; exit 0
           fi
-          git add data/cot.json data/cot-markets.csv data/cot-pairs.csv
+          git add data/cot.json data/cot-markets.csv data/cot-pairs.csv cot/index.html sitemap.xml
           git commit -m "COT update $(python3 -c "import json;print(json.load(open('data/cot.json'))['report_date'])")"
           for i in 1 2 3 4; do
             git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
