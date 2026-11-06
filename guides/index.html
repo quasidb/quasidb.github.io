@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QDB Guides: plain-English trading guides and QDB Sheet videos</title>
+<meta name="description" content="Free, plain-English guides from QDB Trading Desk: read the order book with animated examples, and watch a video walkthrough of every tab of the QDB Sheet.">
+<link rel="canonical" href="https://quasidb.github.io/guides/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.github.io/guides/">
+<meta property="og:title" content="QDB Guides: trading tools explained in plain English">
+<meta property="og:description" content="Animated, plain-English guides to the order book and retail sentiment, plus video walkthroughs of the QDB Sheet.">
+<meta property="og:image" content="https://quasidb.github.io/guides/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QDB Guides: trading tools explained in plain English">
+<meta name="twitter:description" content="Animated, plain-English guides to the order book and retail sentiment, plus video walkthroughs of the QDB Sheet.">
+<meta name="twitter:image" content="https://quasidb.github.io/guides/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="guides.css">
+<style>
+.ggrid{display:grid;gap:18px;grid-template-columns:repeat(2,1fr);margin-top:18px}
+@media (max-width:760px){.ggrid{grid-template-columns:1fr}}
+.guide{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
+a.guide:hover{border-color:var(--accent);transform:translateY(-3px)}
+.guide img{display:block;width:100%;aspect-ratio:1200/630;object-fit:cover;background:var(--bg2)}
+.guide .b{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.guide p{color:var(--muted);font-size:17px;flex:1}
+.guide .go{font-weight:700;color:var(--accent)}
+.guide.soon{opacity:.75}
+.guide.soon .ph{aspect-ratio:1200/630;background:repeating-linear-gradient(135deg,#101624 0 14px,#0d1320 14px 28px);display:grid;place-items:center;font-family:var(--mono);color:var(--dim);font-size:14px;letter-spacing:.08em}
+.guide.feature{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr}
+.guide.feature img{height:100%}
+.guide.feature .b{justify-content:center;padding:24px 26px}
+@media (max-width:760px){.guide.feature{display:flex}}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../?ref=guides"><img src="../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="./" aria-current="page">Guides</a><a href="../games/?ref=guides">Games</a><a href="../?ref=guides#pricing">Pricing</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">Free · plain English · no sign-up</p>
+    <h1>QDB <em>Guides</em></h1>
+    <p class="lead">The tools behind QDB, explained without the jargon. Each guide uses animated examples so you can <b>watch</b> what the crowd does, not just read about it. One rule runs through all of them: <b>only trade the crowd's clusters at key, strong technical levels.</b></p>
+    <nav class="toc" aria-label="On this page"><a href="#guides">Guides</a><a href="#videos">QDB Sheet videos</a></nav>
+  </header>
+
+  <section class="sec" id="guides">
+    <h2>Guides</h2>
+    <div class="ggrid" id="guideGrid"></div>
+  </section>
+
+  <section class="sec" id="videos">
+    <h2>QDB Sheet video walkthroughs</h2>
+    <p class="muted">The QDB Sheet has a tab for each job: the crowd's positioning, how it's shifting, the QDB Score, and the day's setups. Each tab has its own short video showing what it does and how to use it.</p>
+    <div class="vgrid" id="videoGrid"></div>
+    <div class="row"><a class="btn primary" href="../?ref=guides-videos#pricing">Get the QDB Sheet</a><a class="btn" href="https://www.youtube.com/@quasidb" target="_blank" rel="noopener">More on YouTube</a></div>
+  </section>
+
+  <div class="cta">
+    <h3>Practise what you read</h3>
+    <p>Every guide has a free game to go with it. Play, get it wrong for free, and the lesson sticks.</p>
+    <div class="row"><a class="btn" href="../games/?ref=guides">Play the free games</a><a class="btn" href="../?ref=guides#weekly">Get the free weekly report</a></div>
+  </div>
+
+  <p class="foot">Educational only, not financial advice. Trading on margin carries a high level of risk. <a href="../">Back to QDB Trading Desk</a></p>
+</main>
+
+<script>
+/* ===== Add a guide: put it in GUIDES. live:false shows it as "coming soon". ===== */
+const GUIDES=[
+  {slug:"order-book",title:"The Order Book, made simple",tag:"Order Book",live:true,feature:true,
+   blurb:"What the two histograms mean, when they point to a buy or a sell, and why they only work at strong daily and weekly levels. Five animated examples you can step through.",go:"Read the guide"},
+  {slug:"stop-loss-clusters",title:"Stop loss clusters, made simple",tag:"SLC",live:false,
+   blurb:"Where the crowd hides its stops, why big players go hunting there, and where not to put yours."},
+  {slug:"retail-sentiment",title:"Retail sentiment: the crowd train",tag:"Sentiment",live:false,
+   blurb:"Why the crowd's long/short split runs like a train between 0% and 100%, and when to board."}
+];
+
+/* ===== QDB Sheet videos: paste the YouTube video ID (the part after v= or youtu.be/) into id. Empty id shows "coming soon". ===== */
+const VIDEOS=[
+  {title:"Retail sentiment table",blurb:"The long/short split for every pair, index and gold, with the day and week opens alongside.",id:""},
+  {title:"Daily & Weekly Bubbles",blurb:"How far sentiment has shifted since the day and week opened, and why the change says more than the level.",id:""},
+  {title:"QDB Score /12",blurb:"The 12-point check of price against pivots and opens, weighed against how the crowd is stacked.",id:""},
+  {title:"FXCM SSI Delta",blurb:"This week against last week's Speculative Sentiment Index, with extreme flags.",id:""},
+  {title:"Currency performance",blurb:"Pair strong against weak at a glance with weekly performance for the eight majors.",id:""},
+  {title:"Today's trade setups",blurb:"The day's strongest buy and sell candidates, already filtered by sentiment and bias.",id:""}
+];
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const track=n=>{try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:n,title:n,event:true})}catch(e){}};
+
+document.getElementById("guideGrid").innerHTML=GUIDES.map(g=>g.live
+  ?`<a class="guide${g.feature?" feature":""}" href="${g.slug}/"><img src="${g.slug}/og.png" alt="${esc(g.title)}" loading="lazy"><div class="b"><span class="tag">${esc(g.tag.toUpperCase())}</span><h3>${esc(g.title)}</h3><p>${esc(g.blurb)}</p><span class="go">${esc(g.go||"Read the guide")} →</span></div></a>`
+  :`<div class="guide soon"><div class="ph">COMING SOON</div><div class="b"><span class="tag soon">${esc(g.tag.toUpperCase())}</span><h3>${esc(g.title)}</h3><p>${esc(g.blurb)}</p></div></div>`).join("");
+
+const vg=document.getElementById("videoGrid");
+vg.innerHTML=VIDEOS.map((v,i)=>`<div class="vcard"><div class="v">${v.id
+  ?`<img src="https://i.ytimg.com/vi/${encodeURIComponent(v.id)}/hqdefault.jpg" alt="" loading="lazy"><button type="button" data-i="${i}" aria-label="Play the ${esc(v.title)} video"><span></span></button>`
+  :`<span class="soon">VIDEO COMING SOON</span>`}</div><div class="b"><span class="tag${v.id?"":" soon"}">QDB SHEET TAB</span><h3>${esc(v.title)}</h3><p>${esc(v.blurb)}</p></div></div>`).join("");
+vg.addEventListener("click",e=>{
+  const b=e.target.closest("button[data-i]"); if(!b) return;
+  const v=VIDEOS[+b.dataset.i], box=b.parentElement;
+  box.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?autoplay=1&rel=0" title="${esc(v.title)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  track("guide-video-"+v.title.toLowerCase().replace(/[^a-z0-9]+/g,"-"));
+});
+</script>
+</body>
+</html>

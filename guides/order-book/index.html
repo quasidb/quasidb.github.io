@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Order Book, made simple: when it says buy, when it says sell | QDB Guides</title>
+<meta name="description" content="A plain-English guide to the FXSSI Order Book with animated examples. What the left and right histograms mean, when the order book points to a buy or a sell, and why it only works at strong daily and weekly levels.">
+<link rel="canonical" href="https://quasidb.github.io/guides/order-book/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.github.io/guides/order-book/">
+<meta property="og:title" content="The Order Book, made simple">
+<meta property="og:description" content="Blue is fuel, orange is a brake, and lean against the bigger side. A plain-English order book guide with animated buy and sell examples.">
+<meta property="og:image" content="https://quasidb.github.io/guides/order-book/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Order Book, made simple">
+<meta name="twitter:description" content="Blue is fuel, orange is a brake, and lean against the bigger side. A plain-English order book guide with animated buy and sell examples.">
+<meta name="twitter:image" content="https://quasidb.github.io/guides/order-book/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../guides.css">
+<style>
+/* cheat sheet */
+.cheat{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media (max-width:760px){.cheat{grid-template-columns:1fr}}
+.cheat .card{border-top:4px solid}
+.cheat .buy{border-top-color:var(--buy)} .cheat .sell{border-top-color:var(--sell)}
+.cheat h3{font-family:var(--mono);letter-spacing:.04em}
+.cheat .buy h3{color:var(--buy)} .cheat .sell h3{color:var(--sell)}
+.cheat ol{margin:10px 0 0 22px;display:grid;gap:8px}
+.cheat li{font-size:17px}
+.cheat li b{color:var(--text)}
+.cheat .tgt{margin-top:12px;font-size:16px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+/* key */
+.key{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media (max-width:760px){.key{grid-template-columns:1fr}}
+.key .card p{font-size:17px;color:var(--muted);margin-top:6px}
+.key .card p b{color:var(--text)}
+.sw{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+/* scenes */
+.scene{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}
+.sc-head{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.sc-head b{font-size:19px}
+.sc-head span{font-family:var(--mono);font-size:13px;color:var(--dim)}
+.chartbox{background:#0a1220;border:1px solid var(--line);border-radius:14px;overflow:hidden;user-select:none;-webkit-user-select:none}
+.chartbox svg{display:block;width:100%;height:auto}
+.tot{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-top:10px;font-family:var(--mono);font-size:14px}
+.tot .bar{height:12px;border-radius:99px;overflow:hidden;display:flex;background:var(--bg2)}
+.tot .bar i{display:block;height:100%;transition:width .2s}
+.tot .s{color:#fca5a5} .tot .b{color:#86efac}
+.lean{margin-top:6px;font-size:15px;color:var(--muted);min-height:1.4em}
+.lean b{color:var(--text)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;color:var(--muted);margin-top:8px}
+.cap{margin-top:12px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:96px}
+.cap .sn{display:block;font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.cap p{font-size:17px}
+.sc-ctl{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.sc-ctl .dots{display:flex;gap:6px;align-items:center;margin-left:auto}
+.sc-ctl .dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.sc-ctl .dots i.on{background:var(--accent)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:14px}
+.seg button{border:0;background:var(--bg2);padding:10px 16px;font-weight:700;font-size:16px;min-height:46px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:rgba(251,146,60,.16);color:var(--text)}
+.slider{display:flex;align-items:center;gap:12px;margin-top:12px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.slider label{font-size:15px;color:var(--muted);white-space:nowrap}
+.slider input{flex:1;accent-color:var(--accent);min-height:32px}
+.slider output{font-family:var(--mono);font-weight:700;color:var(--accent);min-width:5.5em;text-align:right}
+/* rules table */
+.rt{width:100%;border-collapse:collapse;margin-top:14px;font-size:16px}
+.rt th,.rt td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.rt th{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+.rt td:first-child{color:var(--muted);font-style:italic;width:40%}
+.rt td b{color:var(--text)}
+.tblwrap{overflow-x:auto}
+.mistakes{display:grid;gap:10px;margin-top:14px}
+.mistake{display:grid;grid-template-columns:40px 1fr;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.mistake .x{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:rgba(239,68,68,.12);color:var(--sell);font-weight:700;font-size:20px}
+.mistake b{display:block}
+.mistake span{color:var(--muted);font-size:17px}
+.vslot{margin-top:16px}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../../?ref=guide-order-book"><img src="../../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../">Guides</a><a href="../../games/?ref=guide-order-book">Games</a><a href="../../?ref=guide-order-book#pricing">Pricing</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">QDB Guide · Order Book · about 10 minutes</p>
+    <h1>The Order Book, <em>made simple</em></h1>
+    <p class="lead">The order book shows you what the retail crowd is holding and where they plan to get out. It's powerful, and it's also easy to over-think. This guide boils it down to <b>a few plain rules</b>, then shows each one with an animated example you can step through.</p>
+    <nav class="toc" aria-label="On this page">
+      <a href="#short">The short version</a><a href="#read">How to read it</a><a href="#fuel">Blue vs orange</a><a href="#lean">Buy or sell?</a><a href="#levels">Strong levels</a><a href="#buy">Buy example</a><a href="#sell">Sell example</a><a href="#mistakes">Mistakes</a>
+    </nav>
+  </header>
+
+  <!-- 1. SHORT VERSION -->
+  <section class="sec" id="short">
+    <h2>The short version</h2>
+    <p class="muted">If you only read one part, read this. Every check has to pass, and the first one matters most.</p>
+    <div class="cheat">
+      <div class="card buy">
+        <h3>LOOK TO BUY WHEN</h3>
+        <ol>
+          <li><b>Price is at strong daily or weekly demand.</b> No level, no trade.</li>
+          <li><b>The right book is mostly sellers.</b> The crowd is short, and every short has to be bought back.</li>
+          <li><b>Orange buy limits sit on the level.</b> That's a floor of waiting buyers.</li>
+          <li><b>The blue stops below have been flushed</b>, or your own stop sits safely beyond them.</li>
+        </ol>
+        <p class="tgt">Take profit before the next big bar of trapped buyers or orange sell limits above.</p>
+      </div>
+      <div class="card sell">
+        <h3>LOOK TO SELL WHEN</h3>
+        <ol>
+          <li><b>Price is at strong daily or weekly supply.</b> No level, no trade.</li>
+          <li><b>The right book is mostly buyers.</b> The crowd is long, and every long has to be sold.</li>
+          <li><b>Orange sell limits sit on the level.</b> That's a ceiling of waiting sellers.</li>
+          <li><b>The blue stops above have been squeezed</b>, or your own stop sits safely beyond them.</li>
+        </ol>
+        <p class="tgt">Take profit before the next big bar of trapped sellers or orange buy limits below.</p>
+      </div>
+    </div>
+    <div class="note gold"><h4>The one rule</h4><p><b>Only trade the order book clusters at key, strong technical levels.</b> The book tells you who is trapped and where. The weekly or daily level tells you when it matters. The book on its own is a hint, not a trade.</p></div>
+  </section>
+
+  <!-- 2. HOW TO READ IT -->
+  <section class="sec" id="read">
+    <h2>What you're looking at</h2>
+    <p>The FXSSI Order Book puts two bar charts next to your price chart. Each bar is a price level, and its length is the share of the crowd's volume sitting there (usually 0 to 2%). A fresh snapshot arrives <b>every 20 minutes</b>, so think of it as a map that updates, not a live feed.</p>
+    <div class="key">
+      <div class="card"><h3>Left book: Orders</h3><p>The crowd's <b>pending orders</b>: stop losses, take profits and limit orders. Retail traders mostly get <i>in</i> at market, so this book is mainly <b>where they'll get out</b>.</p><p><span class="sw" style="background:#3b82f6"></span><b>Blue</b> = stop losses and stop orders. <span class="sw" style="background:#f59e0b;margin-left:6px"></span><b>Orange</b> = limits and take profits.</p></div>
+      <div class="card"><h3>Right book: Positions</h3><p>The trades the crowd is <b>holding right now</b>, at the price they opened them. A tall bar means a lot of people got in at that price.</p><p><span class="sw" style="background:#f59e0b"></span><b>Orange</b> = in profit. <span class="sw" style="background:#3b82f6;margin-left:6px"></span><b>Blue</b> = in a loss. Sells are on the left of each book, buys on the right.</p></div>
+    </div>
+    <p><b>Try it:</b> drag price up and down. Nothing about the trades changes, only who is winning. Buyers above price and sellers below it turn blue: they're in a loss and want out.</p>
+    <div id="anatomy"></div>
+  </section>
+
+  <!-- 3. FUEL VS BRAKE -->
+  <section class="sec" id="fuel">
+    <h2>Blue is fuel, orange is a brake</h2>
+    <p>This is the left book in one line. A <b>stop loss</b> is an order to get out at market, so when price hits a stack of blue stops they all fire at once and push price <b>further and faster</b>. An <b>orange limit</b> is someone waiting to trade at that price, so a stack of them <b>soaks up</b> the move and slows it down.</p>
+    <p class="muted">Blue stacks are also magnets: price is often drawn to them before it turns, because that's where the easy liquidity is. That's why you never sit your own stop inside one.</p>
+    <div class="seg" role="group" aria-label="Choose the example"><button type="button" data-v="fuel" aria-pressed="true">Into blue stops</button><button type="button" data-v="brake" aria-pressed="false">Into orange limits</button></div>
+    <div id="fuelScene"></div>
+  </section>
+
+  <!-- 4. LEAN -->
+  <section class="sec" id="lean">
+    <h2>So when does it say buy or sell?</h2>
+    <p>FXSSI lists four rules for buys and four mirror-image rules for sells (<a href="https://fxssi.com/fxssi-order-book-mt4" target="_blank" rel="noopener">source</a>). Here they are with what they actually mean.</p>
+    <div class="tblwrap"><table class="rt">
+      <tr><th>FXSSI's buy rule</th><th>In plain English</th></tr>
+      <tr><td>"Clusters of buyers' Stop Losses attract the price"</td><td>The buyers' blue stops below price are a <b>magnet</b>. Price often dips to flush them first. Buy <b>after</b> the flush, not before it.</td></tr>
+      <tr><td>"Dominant winning sellers pull the price up"</td><td>Lots of sellers in profit will <b>bank it</b>. Closing a short means buying.</td></tr>
+      <tr><td>"Clusters of Buy Limit orders act as support"</td><td>Orange below price is a <b>floor</b> of waiting buyers.</td></tr>
+      <tr><td>"Dominant losing sellers push the price up"</td><td>Lots of trapped sellers will <b>bail out</b> at breakeven or get stopped. Both are buys.</td></tr>
+    </table></div>
+    <p>The sell rules are the same thing flipped: sellers' stops above attract price, dominant buyers (winning or losing) push it down, and sell limits act as resistance.</p>
+    <div class="note"><h4>The big simplification</h4><p>Look at rules 2 and 4 together. Whether the sellers are winning or losing, <b>if sellers outnumber buyers, the pressure is up</b>. So the right book comes down to one line: <b>lean against the bigger side</b>. Mostly sellers? Look for a buy. Mostly buyers? Look for a sell. It's the same contrarian idea as retail sentiment, drawn at each price.</p></div>
+    <p class="muted">FXSSI adds a warning of its own: a cluster of winning buyers doesn't mean you sell straight away. That's where the next part comes in.</p>
+  </section>
+
+  <!-- 5. LEVELS -->
+  <section class="sec" id="levels">
+    <h2>Why strong levels matter most</h2>
+    <p>A trapped crowd only builds a wall when something else is already there to lean on. At a strong <b>weekly or daily demand or supply</b> level, the crowd's exits line up with real buyers or sellers, and the move turns. In the middle of nowhere, fresh traders simply swamp the cluster. Same book, no level, no wall:</p>
+    <div id="noLevelScene"></div>
+    <p class="muted">Also worth knowing: price does <b>not</b> have to go to the biggest cluster first. Big players don't simply chase the largest bar. Let the level choose the trade, and use the book to confirm it.</p>
+  </section>
+
+  <!-- 6. BUY -->
+  <section class="sec" id="buy">
+    <h2>Worked example: a buy</h2>
+    <p>Everything at once: a strong level, a crowd that's short, a floor of orange, and blue stops that get flushed first. Step through it.</p>
+    <div id="buyScene"></div>
+  </section>
+
+  <!-- 7. SELL -->
+  <section class="sec" id="sell">
+    <h2>Worked example: a sell</h2>
+    <p>The mirror image at weekly supply, with a crowd that bought the old top and has been waiting weeks to get its money back.</p>
+    <div id="sellScene"></div>
+  </section>
+
+  <!-- 8. MISTAKES -->
+  <section class="sec" id="mistakes">
+    <h2>Five mistakes to avoid</h2>
+    <div class="mistakes">
+      <div class="mistake"><div class="x">✕</div><div><b>Trading the book in the middle of nowhere</b><span>A big cluster with no daily or weekly level behind it is a hint. Wait for price to reach a strong level.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Treating a tall blue bar as support</b><span>Blue stops are fuel. When they're hit, they push price through, not back.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Putting your stop inside the crowd's stops</b><span>If price is drawn to that cluster, it's drawn to your stop too. Sit beyond it, or wait until it's been flushed.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Expecting price to go to the biggest cluster</b><span>It doesn't have to. Let the level pick the trade.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Reading one snapshot</b><span>The book refreshes every 20 minutes. Bars that grow fast at a level show interest there; bars that vanish show people getting out.</span></div></div>
+    </div>
+  </section>
+
+  <!-- 9. VIDEO SLOT (fill in VIDEO_ID below when there's a walkthrough) -->
+  <section class="sec" id="video" hidden>
+    <h2>Watch it on a real chart</h2>
+    <div class="vgrid vslot"><div class="vcard" style="grid-column:1/-1"><div class="v" id="videoBox"></div><div class="b"><p id="videoCap"></p></div></div></div>
+  </section>
+
+  <div class="cta">
+    <h3>Now try it for real</h3>
+    <p>Order Book Walls gives you five charts and asks you to find the wall before price gets there. It's the fastest way to make these rules stick.</p>
+    <div class="row"><a class="btn primary" href="../../games/order-book-walls/?ref=guide-order-book">Play Order Book Walls</a><a class="btn" href="../?ref=guide-order-book">More guides</a></div>
+  </div>
+  <div class="cta">
+    <h3>Get the real order book</h3>
+    <p>Everything here is illustrative. FXSSI's Order Book shows the crowd's real orders and positions on your MT4 or MT5 chart, every 20 minutes. QDB pairs it with the QDB Sheet and strong daily and weekly levels.</p>
+    <div class="row"><a class="btn primary" href="https://fxssi.com/plans?promocode=QUASIDB" target="_blank" rel="sponsored noopener" onclick="track('affiliate-fxssi-guide-order-book')">Get FXSSI with code QUASIDB</a><a class="btn" href="../../?ref=guide-order-book#pricing">See the QDB Sheet</a><a class="btn" href="../../?ref=guide-order-book#weekly">Free weekly report</a></div>
+    <p class="disc">Affiliate link: if you buy through it, QDB earns a commission at no extra cost to you. FXSSI is an independent company and doesn't endorse this guide. Rules quoted from FXSSI's Order Book page.</p>
+  </div>
+
+  <p class="foot">Educational only, not financial advice. Charts and order books are illustrative, written to teach the idea, not real data. Trading on margin carries a high level of risk. <a href="../">All guides</a> · <a href="../../">QDB Trading Desk</a></p>
+</main>
+
+<script>
+/* Optional walkthrough video for this guide: paste a YouTube video ID to show it. */
+const VIDEO_ID="", VIDEO_CAPTION="Dave reads the live order book on a real chart.";
+
+const REDUCED=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+const track=n=>{try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:n,title:n,event:true})}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ROWS=13, OR="#f59e0b", BL="#3b82f6", GREEN="#22c55e", RED="#ef4444", GOLD="#f5b83d", GREY="#a3afc5";
+const ease=f=>f<.5?2*f*f:1-Math.pow(-2*f+2,2)/2;
+function hash(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h}
+const nz=(c,row,k)=>0.1+(hash(c.id+row+k)%100)/100*0.25;
+function fmt(c,row){const v=c.base+row*c.step;return c.dp===0?Math.round(v).toLocaleString("en-US"):v.toFixed(c.dp)}
+function posAt(c,P,row){return P[row]||[nz(c,row,"s"),nz(c,row,"b")]}
+/* orders per row: ss = sell stops (buyers' stop losses), sl = sell limits (and buyers' take profits),
+   bs = buy stops (sellers' stop losses), bl = buy limits (and sellers' take profits) */
+function ordAt(c,O,row){if(O[row])return O[row];const k=.7;return row>c.p0?{bs:nz(c,row,"o1")*k,sl:nz(c,row,"o2")*k}:{ss:nz(c,row,"o1")*k,bl:nz(c,row,"o2")*k}}
+
+function geom(el){
+  const C=(el.clientWidth||600)<600, W=C?560:960, H=C?660:500, T=C?96:84, B=H-(C?14:14);
+  const cL=8, cR=C?214:470, pX=C?216:474, oL=C?290:556, oR=C?422:750, qL=C?428:762, qR=W-6;
+  const rowH=(B-T)/ROWS, Y=r=>B-(r+.5)*rowH;
+  return {C,W,H,T,B,cL,cR,pX,oL,oR,qL,qR,rowH,Y,fs:C?20:15};
+}
+
+/* Draw the chart + both books for a state {hist, pos, ord, gone, marks}. Returns svg and position totals. */
+function draw(c,st,el){
+  const g=geom(el), {W,H,T,B,cL,cR,pX,oL,oR,qL,qR,rowH,Y,fs,C}=g, MAX=2.4;
+  const price=st.hist[st.hist.length-1], n=Math.max(1,c.total-1), X=i=>cL+(cR-cL-14)*i/n, PY=v=>B-(v+.5)*rowH;
+  const mono='font-family="JetBrains Mono, monospace"', sans='font-family="Space Grotesk, sans-serif"';
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.alt||c.pair+" chart with the order book")}"><rect width="${W}" height="${H}" fill="#0a1220"/>`;
+  const oC=(oL+oR)/2, qC=(qL+qR)/2;
+  [[oC,"ORDERS",C?"the exits":"where they'll get out"],[qC,"POSITIONS",C?"the entries":"where they got in"]].forEach(([x,t,sub])=>{
+    s+=`<text x="${x}" y="${T-50}" text-anchor="middle" ${mono} font-size="${C?fs-4:fs-1}" font-weight="700" fill="#e8edf6">${t}</text>`;
+    s+=`<text x="${x}" y="${T-30}" text-anchor="middle" ${sans} font-size="${fs-4}" fill="#a3afc5">${sub}</text>`;
+    s+=`<text x="${x-6}" y="${T-8}" text-anchor="end" ${mono} font-size="${fs-5}" fill="#fca5a5">SELL</text><text x="${x+6}" y="${T-8}" ${mono} font-size="${fs-5}" fill="#86efac">BUY</text>`;
+    s+=`<line x1="${x}" x2="${x}" y1="${T}" y2="${B}" stroke="#334155"/>`;
+  });
+  s+=`<text x="${cL+4}" y="${T-50}" ${mono} font-size="${C?fs-4:fs-1}" font-weight="700" fill="#e8edf6">${esc(c.pair)}</text><text x="${cL+4}" y="${T-30}" ${sans} font-size="${fs-4}" fill="#6b7892">illustrative</text>`;
+  if(c.zone){
+    const dem=c.zone[2].toLowerCase().includes("demand"), zc=dem?"34,197,94":"239,68,68", y1=PY(c.zone[1]), y0=PY(c.zone[0]);
+    s+=`<rect x="${cL}" y="${y1}" width="${qR-cL}" height="${y0-y1}" fill="rgba(${zc},.12)" stroke="rgba(${zc},.5)" stroke-dasharray="6 4"/>`;
+    s+=`<text x="${cL+6}" y="${dem?y0+fs+2:y1-6}" ${sans} font-size="${fs-1}" font-weight="700" fill="rgb(${zc})" stroke="#0a1220" stroke-width="4" paint-order="stroke">${esc(c.zone[2])}</text>`;
+  }
+  const tot={s:0,b:0,sp:0,bp:0};
+  for(let r=0;r<ROWS;r++){
+    const y=Y(r), bh=Math.max(6,rowH*.62);
+    s+=`<text x="${pX+(oL-pX)/2}" y="${y+fs*.35}" text-anchor="middle" ${mono} font-size="${fs-3}" fill="#8b97ad">${fmt(c,r)}</text>`;
+    const o=st.ord[r]||ordAt(c,{},r), half=(oR-oL)/2-4, used={l:0,r:0};
+    [["ss","l",BL],["sl","l",OR],["bs","r",BL],["bl","r",OR]].forEach(([k,side,col])=>{
+      const v=o[k]; if(!v||st.gone[r+":"+k]) return;
+      const w=Math.min(1,v/MAX)*half, x=side==="l"?oC-used.l-w:oC+used.r; used[side]+=w;
+      s+=`<rect x="${x}" y="${y-bh/2}" width="${w}" height="${bh}" rx="2" fill="${col}"/>`;
+    });
+    const p=st.pos[r]||posAt(c,{},r), qh=(qR-qL)/2-4, sw=Math.min(1,p[0]/MAX)*qh, bw=Math.min(1,p[1]/MAX)*qh;
+    const sWin=r>price, bWin=r<price;
+    tot.s+=p[0]; tot.b+=p[1]; if(sWin)tot.sp+=p[0]; if(bWin)tot.bp+=p[1];
+    s+=`<rect x="${qC-sw}" y="${y-bh/2}" width="${sw}" height="${bh}" rx="2" fill="${sWin?OR:BL}"/><rect x="${qC}" y="${y-bh/2}" width="${bw}" height="${bh}" rx="2" fill="${bWin?OR:BL}"/>`;
+  }
+  (st.marks||[]).forEach(m=>{
+    const y=Y(m.row);
+    if(m.wall) s+=`<rect x="${cL}" y="${y-rowH/2}" width="${cR-cL}" height="${rowH}" fill="${m.color}" opacity=".14"/><line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${m.color}" stroke-width="4"/><rect x="${oL}" y="${y-rowH/2}" width="${qR-oL}" height="${rowH}" fill="none" stroke="${m.color}" stroke-width="2.5" rx="4"/>`;
+    else s+=`<line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${m.color}" stroke-width="2" stroke-dasharray="5 5"/>`;
+    s+=`<text x="${m.right?oL+2:m.wall?cR-6:cL+6}" y="${m.right?y+fs*.35:y-rowH/2-4}" text-anchor="${m.wall?"end":"start"}" ${mono} font-size="${m.right?fs-5:fs-2}" font-weight="700" fill="${m.color}" stroke="#0a1220" stroke-width="4" paint-order="stroke">${esc(C&&m.short?m.short:m.label)}</text>`;
+  });
+  const py=PY(price);
+  s+=`<line x1="${cL}" x2="${pX}" y1="${py}" y2="${py}" stroke="${GOLD}" stroke-width="1.5" stroke-dasharray="3 5"/><line x1="${oL}" x2="${qR}" y1="${py}" y2="${py}" stroke="${GOLD}" stroke-width="1.5" stroke-dasharray="3 5"/>`;
+  if(st.free){ s+=`<circle cx="${cR-24}" cy="${py}" r="9" fill="${GOLD}" stroke="#0b0f17" stroke-width="2"/><text x="${cR-40}" y="${py+fs*.35}" text-anchor="end" ${mono} font-size="${fs-2}" font-weight="700" fill="${GOLD}">PRICE ▸</text>`; }
+  else{
+    const k0=c.past.length-1, h=st.hist, line=(a,b)=>h.slice(a,b).map((v,i)=>(i?"L":"M")+X(a+i).toFixed(1)+" "+PY(v).toFixed(1)).join(" ");
+    s+=`<path d="${line(0,k0+1)}" fill="none" stroke="#e8edf6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+    if(h.length>k0+1) s+=`<path d="${line(k0,h.length)}" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+    s+=`<circle cx="${X(h.length-1)}" cy="${py}" r="6" fill="${GOLD}" stroke="#0b0f17" stroke-width="2"/>`;
+  }
+  return {svg:s+"</svg>",tot};
+}
+
+function totalsHTML(t,detail){
+  const S=t.s/(t.s+t.b)*100, Bv=100-S;
+  let lean=S>=57?`The crowd is <b>mostly short</b>: the book leans <b style="color:#86efac">buy</b>, if price is at strong demand.`
+    :Bv>=57?`The crowd is <b>mostly long</b>: the book leans <b style="color:#fca5a5">sell</b>, if price is at strong supply.`
+    :`The crowd is fairly balanced: no strong lean either way.`;
+  if(detail) lean=`Sellers in profit <b>${Math.round(t.sp/t.s*100)}%</b> · Buyers in profit <b>${Math.round(t.bp/t.b*100)}%</b>. `+lean;
+  return `<div class="tot"><span class="s">Sellers ${Math.round(S)}%</span><div class="bar" aria-hidden="true"><i style="width:${S}%;background:#ef4444"></i><i style="width:${Bv}%;background:#22c55e"></i></div><span class="b">${Math.round(Bv)}% Buyers</span></div><p class="lean">${lean}</p>`;
+}
+const LEGEND=`<div class="legend"><span><span class="sw" style="background:${BL}"></span>Stops, or positions in a loss</span><span><span class="sw" style="background:${OR}"></span>Limits and take profits, or positions in profit</span><span><span class="sw" style="background:${GOLD};height:3px"></span>Price now</span></div>`;
+
+/* A step-through animated example. */
+function Scene(host,c){
+  c.p0=c.past[c.past.length-1];
+  const steps=c.steps, N=steps.length, pts=c.past.slice(), start=[];
+  steps.forEach(st=>{start.push(pts.length-1);pts.push(...st.path)}); c.total=pts.length;
+  const PS=[c.pos], OS=[c.ord];
+  steps.forEach((st,i)=>{PS.push(Object.assign({},PS[i],st.pos||{}));OS.push(Object.assign({},OS[i],st.ord||{}))});
+  const ordRows=new Set(); OS.forEach(O=>Object.keys(O).forEach(r=>ordRows.add(+r)));
+  host.innerHTML=`<div class="scene"><div class="sc-head"><b>${esc(c.title)}</b><span>${esc(c.pair)}${c.zone?" · "+esc(c.zone[2]):" · no daily or weekly level nearby"}</span></div>
+    <div class="chartbox"></div><div class="totbox"></div>${LEGEND}
+    <div class="cap" aria-live="polite"><span class="sn"></span><p></p></div>
+    <div class="sc-ctl"><button type="button" class="btn" data-a="back">◀ Back</button><button type="button" class="btn primary" data-a="play"></button><span class="dots" aria-hidden="true">${steps.map(()=>"<i></i>").join("")}</span></div></div>`;
+  const box=host.querySelector(".chartbox"), totb=host.querySelector(".totbox"), sn=host.querySelector(".sn"), cp=host.querySelector(".cap p");
+  const bBack=host.querySelector('[data-a="back"]'), bPlay=host.querySelector('[data-a="play"]'), dots=host.querySelectorAll(".dots i");
+  let t=0, busy=false;
+  function lerpPos(A,Bp,e){const o={};for(let r=0;r<ROWS;r++){const a=posAt(c,A,r),b=posAt(c,Bp,r);o[r]=[a[0]+(b[0]-a[0])*e,a[1]+(b[1]-a[1])*e]}return o}
+  function lerpOrd(A,Bo,e){const o={};for(let r=0;r<ROWS;r++){const a=ordAt(c,A,r),b=ordAt(c,Bo,r),x={};["ss","sl","bs","bl"].forEach(k=>{x[k]=(a[k]||0)+((b[k]||0)-(a[k]||0))*e});o[r]=x}return o}
+  function state(tt){
+    let i=Math.min(Math.floor(tt),N-1), f=tt-i; if(tt>=N){i=N-1;f=1}
+    const idx=start[i]+f*steps[i].path.length, fi=Math.floor(idx), fr=idx-fi;
+    const hist=pts.slice(0,fi+1); if(fr>1e-6&&fi+1<pts.length) hist.push(pts[fi]+(pts[fi+1]-pts[fi])*fr);
+    const e=ease(f), pos=lerpPos(PS[i],PS[i+1],e), ord=lerpOrd(OS[i],OS[i+1],e);
+    const live=hist.slice(c.past.length-1), lo=Math.min(...live), hi=Math.max(...live), gone={}, marks=[];
+    ordRows.forEach(r=>{
+      const o=ordAt(c,OS[0],r);
+      if(o.ss>=0.8&&lo<=r+.2&&r<c.p0){gone[r+":ss"]=1;marks.push({row:r,label:"STOPS HIT",short:"HIT",color:"#60a5fa",right:true})}
+      if(o.bs>=0.8&&hi>=r-.2&&r>c.p0){gone[r+":bs"]=1;marks.push({row:r,label:"STOPS HIT",short:"HIT",color:"#60a5fa",right:true})}
+    });
+    steps.forEach((st,j)=>{if(st.mark&&(j<i||(j===i&&f>=1)))marks.push(st.mark)});
+    return {hist,pos,ord,gone,marks};
+  }
+  function render(){
+    const r=draw(c,state(t),box); box.innerHTML=r.svg; totb.innerHTML=totalsHTML(r.tot);
+    const k=Math.ceil(t-1e-6);
+    sn.textContent=k===0?"Setting the scene":`Step ${k} of ${N}`+(steps[k-1].name?" · "+steps[k-1].name:"");
+    cp.innerHTML=k===0?c.intro:steps[k-1].cap;
+    dots.forEach((d,j)=>d.classList.toggle("on",j<k));
+    bBack.disabled=busy||t<=0; bPlay.disabled=busy;
+    bPlay.textContent=t>=N?"↺ Replay":(t===0?"▶ Play step 1":`▶ Play step ${Math.floor(t)+1}`);
+  }
+  function play(){
+    if(busy) return;
+    if(t>=N){t=0;render();return}
+    const from=Math.floor(t), L=steps[from].path.length, dur=L*(c.speed||330);
+    track("guide-ob-"+c.id+"-step"+(from+1));
+    if(REDUCED){t=from+1;render();return}
+    busy=true; t=from+1e-6; render();
+    const t0=performance.now();
+    (function fr(now){const f=Math.min(1,(now-t0)/dur);t=from+f;if(f>=1){busy=false;t=from+1}render();if(busy)requestAnimationFrame(fr)})(t0);
+  }
+  bPlay.addEventListener("click",play);
+  bBack.addEventListener("click",()=>{if(busy)return;t=Math.max(0,Math.ceil(t)-1);render()});
+  let rz; window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{if(!busy)render()},150)});
+  render();
+}
+
+/* The drag-the-price explainer. */
+function Anatomy(host,c){
+  c.p0=6; c.total=1;
+  host.innerHTML=`<div class="scene"><div class="chartbox"></div><div class="slider"><label for="anaP">Drag price</label><input id="anaP" type="range" min="0" max="12" step="0.1" value="6"><output id="anaO"></output></div><div class="totbox"></div>${LEGEND}</div>`;
+  const box=host.querySelector(".chartbox"), totb=host.querySelector(".totbox"), inp=host.querySelector("input"), out=host.querySelector("output");
+  let moved=false;
+  function render(){const p=+inp.value;const r=draw(c,{hist:[p],pos:c.pos,ord:c.ord,gone:{},marks:[],free:true},box);box.innerHTML=r.svg;totb.innerHTML=totalsHTML(r.tot,true);out.textContent=fmt(c,p)}
+  inp.addEventListener("input",()=>{render();if(!moved){moved=true;track("guide-ob-anatomy-drag")}});
+  let rz; window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(render,150)});
+  render();
+}
+
+/* ======================= THE EXAMPLES ======================= */
+const ANATOMY={id:"anat",pair:"EURUSD",base:1.0700,step:0.001,dp:4,past:[6],alt:"Order book with buyers stacked high up and sellers stacked low down; drag price to see who is in profit.",
+  pos:{11:[.2,.7],10:[.3,1.5],9:[.4,1.2],8:[.4,.7],4:[.8,.3],3:[1.4,.3],2:[1.6,.4],1:[.7,.2]},
+  ord:{11:{bs:1.3,sl:.3},9:{bs:.3,sl:1.1},3:{ss:.3,bl:1.1},1:{ss:1.5,bl:.3}}};
+
+const FUEL={id:"fuel",title:"Into a stack of blue stops",pair:"GBPUSD",base:1.2600,step:0.001,dp:4,speed:300,
+  past:[10,10.6,9.8,9.4,9.9,9,8.4,8.8,8],zone:null,pos:{},ord:{5:{ss:2.2,bl:.2}},
+  intro:"Price is drifting lower. Below it, in the Orders book, a tall <b>blue</b> bar: the buyers' stop losses, all bunched under the same obvious low.",
+  steps:[{name:"The approach",path:[7.5,7,6.4,5.8,5.4],cap:"Price is drawn towards the blue stack. That's where the easy liquidity is."},
+    {name:"Fuel",path:[4.3,2.9,1.7,1.2],cap:"The stops fire. Each one is a market <b>sell</b>, so they shove price further and faster. The blue bar vanishes and price slices through. <b>Blue was fuel, not a floor.</b>"}]};
+const BRAKE={id:"brake",title:"Into a stack of orange limits",pair:"GBPUSD",base:1.2600,step:0.001,dp:4,speed:300,
+  past:[10,10.6,9.8,9.4,9.9,9,8.4,8.8,8],zone:null,pos:{},ord:{5:{ss:.2,bl:2.2}},
+  intro:"Same chart, but this time the tall bar below price is <b>orange</b>: buy limit orders and sellers' take profits, all waiting at the same price.",
+  steps:[{name:"The approach",path:[7.5,7,6.4,5.8,5.4],cap:"Price falls towards the orange stack."},
+    {name:"Brake",path:[5.1,5.3,5.0,5.5,6.2,6.9],mark:{row:5,label:"HELD",color:OR,wall:true},cap:"Every sell is met by a waiting buyer. The orange orders soak up the drop, price stalls and turns. <b>Orange is a brake.</b> On its own it's a small one, though: at a strong level it's far more reliable."}]};
+
+const NOLEVEL={id:"nolevel",title:"A big cluster, no level",pair:"USDJPY",base:151.00,step:0.1,dp:2,
+  past:[10.2,9.6,10,9,8.4,8.8,7.6,7,7.3,6.4,6],zone:null,
+  pos:{3:[1.9,.3],9:[.3,.8]},ord:{2:{ss:1.4,bl:.3}},
+  intro:"USDJPY is falling towards a big bar of sellers stuck in a loss at 151.30. It looks just like a buy setup. But check the chart: <b>no daily or weekly demand anywhere near it.</b>",
+  steps:[{name:"The approach",path:[5.4,4.6,4.9,4,3.4],cap:"Price reaches the trapped sellers."},
+    {name:"A pause",path:[3.1,3.5,3.2],mark:{row:3,label:"PAUSE",color:GREY},cap:"A few of them close at breakeven and give price a nudge up..."},
+    {name:"Sliced",path:[2.4,1.4,.9,.6],cap:"...then fresh sellers swamp them. Price takes out the blue stops below and keeps going. <b>A cluster without a strong level is a hint, not a trade.</b>"}]};
+
+const BUY={id:"buy",title:"A buy at daily demand",pair:"EURUSD",base:1.0700,step:0.001,dp:4,
+  past:[10.4,9.8,10.1,9.2,8.6,8.9,7.8,7.2,7.5,6.4,5.8],zone:[1.6,3.4,"Daily demand"],
+  pos:{10:[.3,1.1],9:[1.3,.3],8:[1.5,.4],7:[1.7,.3],6:[1.1,.3],5:[.6,.2]},
+  ord:{3:{ss:.2,bl:1.6},2:{ss:1.9,bl:.3},9:{bs:1.3,sl:.2},11:{bs:.2,sl:1.0}},
+  intro:"EURUSD has been falling for days, and the crowd has been selling all the way down. Daily demand sits below at 1.0720 to 1.0730.",
+  steps:[
+    {name:"Read the book",path:[5.2,4.4,4.8,3.9,3.4],cap:"Price reaches daily demand. <b>Right book:</b> the crowd is heavily short, and most of those sellers are in profit (orange). <b>Left book:</b> orange buy limits on the level, and a blue stack of buyers' stops just underneath."},
+    {name:"The flush",path:[2.6,1.9,1.7],pos:{2:[1.1,.2]},cap:"Price spikes into the blue stops and wipes them out. Late sellers jump in at the low, sure it's breaking. This is where most people sell, and it's usually the wrong moment."},
+    {name:"The floor holds",path:[2.4,2.1,2.9,3.3],mark:{row:2,label:"BUY ZONE",color:GREEN,wall:true},cap:"Orange buy limits soak up the selling and price snaps back above the flush. <b>This is the entry:</b> at daily demand, after the stops are gone, with your own stop below the flushed low, not inside the cluster."},
+    {name:"Sellers rush out",path:[4.1,4.9,5.8,6.6,7.6,8.6,9.3,9.8],pos:{9:[.6,.3],8:[.5,.4],7:[.6,.3],6:[.4,.3],5:[.3,.2],2:[.4,.2]},mark:{row:10,label:"TAKE PROFIT",color:GOLD},cap:"Sellers flip from profit to loss and bail. Every short that closes is a buy, and their stops at 1.0790 add fuel. Bank it before 1.0800, where trapped buyers wait to sell at breakeven."}]};
+
+const SELL={id:"sell",title:"A sell at weekly supply",pair:"XAUUSD",base:2300,step:5,dp:0,
+  past:[1.6,2.4,2,3.2,3.8,3.4,4.6,5.4,5,6.2,6.8],zone:[8.6,10.4,"Weekly supply"],
+  pos:{3:[.3,1.2],4:[.3,1.5],5:[.4,1.3],6:[.3,1],7:[.2,.6],10:[.3,1.7]},
+  ord:{9:{bs:.3,sl:1.5},10:{bs:1.8,sl:.2},5:{ss:1.2,bl:.2},1:{ss:.2,bl:.9}},
+  intro:"Gold is rallying back towards weekly supply, where it topped weeks ago. A lot of the crowd bought that top and is still holding it.",
+  steps:[
+    {name:"Read the book",path:[7.4,8.1,7.8,8.6,9.2],cap:"Price reaches weekly supply. <b>Right book:</b> the crowd is long, most buyers in profit, plus a tall blue bar of buyers from the old top at 2,350, still in a loss. <b>Left book:</b> orange sell limits on the level, blue sellers' stops just above."},
+    {name:"The squeeze",path:[9.9,10.6,10.9],pos:{11:[.2,.9]},cap:"Price pokes above the old high and takes out the sellers' stops. Breakout buyers pile in at the top."},
+    {name:"Rejected",path:[10.1,10.5,9.6,9.1],mark:{row:10,label:"SELL ZONE",color:RED,wall:true},cap:"The trapped buyers finally get breakeven and sell, the orange sell limits join in, and price falls back under the high. <b>This is the entry:</b> at weekly supply, after the squeeze, with your stop above the spike."},
+    {name:"Buyers bail",path:[8.2,7.4,6.5,5.6,4.8,4,3.2,2.5],pos:{3:[.3,.5],4:[.3,.6],5:[.3,.5],6:[.3,.4],10:[.3,.6],11:[.2,.3]},mark:{row:2,label:"TAKE PROFIT",color:GOLD},cap:"Buyers flip from profit to loss and get out. Every long that closes is a sell, and the buyers' stops at 2,325 add fuel. Bank it before the orange buy limits at 2,305."}]};
+
+Anatomy(document.getElementById("anatomy"),ANATOMY);
+Scene(document.getElementById("noLevelScene"),NOLEVEL);
+Scene(document.getElementById("buyScene"),BUY);
+Scene(document.getElementById("sellScene"),SELL);
+const fuelHost=document.getElementById("fuelScene");
+Scene(fuelHost,FUEL);
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));
+  Scene(fuelHost,b.dataset.v==="fuel"?FUEL:BRAKE);
+}));
+
+if(VIDEO_ID){
+  document.getElementById("video").hidden=false;
+  document.getElementById("videoCap").textContent=VIDEO_CAPTION;
+  const vb=document.getElementById("videoBox");
+  vb.innerHTML=`<img src="https://i.ytimg.com/vi/${encodeURIComponent(VIDEO_ID)}/hqdefault.jpg" alt="" loading="lazy"><button type="button" aria-label="Play the video"><span></span></button>`;
+  vb.querySelector("button").addEventListener("click",()=>{vb.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(VIDEO_ID)}?autoplay=1&rel=0" title="Order book walkthrough" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;track("guide-ob-video")});
+}
+</script>
+</body>
+</html>
