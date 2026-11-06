@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stop loss clusters, made simple: where stops hide and where to put yours | QDB Guides</title>
+<meta name="description" content="A plain-English guide to stop loss clusters with animated examples. Where the crowd hides its stops, why big players go hunting there, where not to put yours, and why sweeps only matter at strong daily and weekly levels.">
+<link rel="canonical" href="https://quasidb.github.io/guides/stop-loss-clusters/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.github.io/guides/stop-loss-clusters/">
+<meta property="og:title" content="Stop loss clusters, made simple">
+<meta property="og:description" content="Where the crowd hides its stops, why they get hunted, and where to put yours. Animated examples you can step through.">
+<meta property="og:image" content="https://quasidb.github.io/guides/stop-loss-clusters/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stop loss clusters, made simple">
+<meta name="twitter:description" content="Where the crowd hides its stops, why they get hunted, and where to put yours. Animated examples you can step through.">
+<meta name="twitter:image" content="https://quasidb.github.io/guides/stop-loss-clusters/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../guides.css">
+<style>
+.where{margin-top:8px;font-size:16px;color:var(--muted);min-height:1.4em}
+.where b{color:var(--text)}
+.slider input:disabled{opacity:.5}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../../?ref=guide-slc"><img src="../../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../">Guides</a><a href="../../games/?ref=guide-slc">Games</a><a href="../../?ref=guide-slc#pricing">Pricing</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">QDB Guide · Stop loss clusters · about 8 minutes</p>
+    <h1>Stop loss clusters, <em>made simple</em></h1>
+    <p class="lead">Every stop loss is an order waiting in the market. When lots of them bunch up at the same price, they form a <b>stop loss cluster</b>, and big players need that liquidity to fill their own orders. This guide shows where the crowd hides its stops, what happens when they're hunted, and <b>where to put yours</b>.</p>
+    <nav class="toc" aria-label="On this page">
+      <a href="#short">The short version</a><a href="#hide">Where stops hide</a><a href="#yours">Place your stop</a><a href="#bigger">Bigger isn't first</a><a href="#levels">Strong levels</a><a href="#mistakes">Mistakes</a>
+    </nav>
+  </header>
+
+  <section class="sec" id="short">
+    <h2>The short version</h2>
+    <p class="muted">Clusters above price are the stops of traders who are short: when hit, they become <b style="color:#86efac">buy</b> orders. Clusters below price are the stops of traders who are long: when hit, they become <b style="color:#fca5a5">sell</b> orders.</p>
+    <div class="cheat">
+      <div class="card buy">
+        <h3>LOOK TO BUY WHEN</h3>
+        <ol>
+          <li><b>Price is at strong daily or weekly demand.</b> No level, no trade.</li>
+          <li><b>The cluster under the obvious low has just been swept</b> and price has snapped back.</li>
+          <li><b>Your stop goes beyond the zone</b> and beyond the swept cluster, where few other stops sit.</li>
+        </ol>
+        <p class="tgt">Take profit at the next cluster above: it's the magnet.</p>
+      </div>
+      <div class="card sell">
+        <h3>LOOK TO SELL WHEN</h3>
+        <ol>
+          <li><b>Price is at strong daily or weekly supply.</b> No level, no trade.</li>
+          <li><b>The cluster over the obvious high has just been swept</b> and price has dropped back.</li>
+          <li><b>Your stop goes beyond the zone</b> and beyond the swept cluster, where few other stops sit.</li>
+        </ol>
+        <p class="tgt">Take profit at the next cluster below: it's the magnet.</p>
+      </div>
+    </div>
+    <div class="note gold"><h4>The one rule</h4><p><b>Only trade the SLCs at key, strong technical levels.</b> A sweep at weekly or daily demand or supply is a gift. A sweep in the middle of nowhere is just fuel for the move to carry on.</p></div>
+  </section>
+
+  <section class="sec" id="hide">
+    <h2>Where the crowd hides its stops</h2>
+    <p>Most traders are taught the same thing: put your stop just under the last swing low, or just over the last swing high. So that's where everyone's stop ends up. Watch the clusters grow as the obvious levels form.</p>
+    <div id="hideScene"></div>
+  </section>
+
+  <section class="sec" id="yours">
+    <h2>Place your stop</h2>
+    <p>You're long after a bounce from daily demand. The crowd's stops are bunched under the obvious swing low. <b>Drag your stop</b>, then play the market and see if it survives.</p>
+    <div id="yoursScene"></div>
+  </section>
+
+  <section class="sec" id="bigger">
+    <h2>Bigger isn't always first</h2>
+    <p>A common belief is that price makes a beeline for the biggest cluster. It doesn't have to. It often takes the smaller, nearer one first, and anyone relying on the big one being next gets caught.</p>
+    <div id="biggerScene"></div>
+  </section>
+
+  <section class="sec" id="levels">
+    <h2>No level, no trade</h2>
+    <p>A sweep only turns price when it happens at a strong level, where real buyers or sellers are waiting. Without one, the stops that get hit simply become market orders in the same direction, and the move carries on.</p>
+    <div id="noLevelScene"></div>
+  </section>
+
+  <section class="sec" id="mistakes">
+    <h2>Five mistakes to avoid</h2>
+    <div class="mistakes">
+      <div class="mistake"><div class="x">✕</div><div><b>Stop at the obvious swing high or low</b><span>That's where everyone's stop sits, and it's exactly what gets hunted.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Stop inside the crowd's cluster</b><span>A cluster is a target, not a shield. Sit beyond the level and beyond the cluster on it.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Betting on the biggest cluster being next</b><span>Price often takes the smaller, nearer one first. Never size up on a guess about which cluster gets hit.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Greedy take profits past the cluster</b><span>Clusters pull price towards them. Bank it at the magnet; past it, you're hoping.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Trading a sweep in the middle of nowhere</b><span>Without a strong daily or weekly level, swept stops are fuel, not a turning point.</span></div></div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <h3>Now try it for real</h3>
+    <p>Stop Hunter gives you five trades. Drag your stop and take profit, then watch the big fish hunt the crowd's clusters.</p>
+    <div class="row"><a class="btn primary" href="../../games/stop-hunter/?ref=guide-slc">Play Stop Hunter</a><a class="btn" href="../order-book/?ref=guide-slc">Next: the Order Book guide</a><a class="btn" href="../?ref=guide-slc">More guides</a></div>
+  </div>
+  <div class="cta">
+    <h3>See the real clusters</h3>
+    <p>Everything here is illustrative. FXSSI's stop loss clusters tool shows where the crowd's real stops are bunched, right on your chart. QDB pairs it with the QDB Sheet and strong daily and weekly levels.</p>
+    <div class="row"><a class="btn primary" href="https://fxssi.com/plans?promocode=QUASIDB" target="_blank" rel="sponsored noopener" onclick="QDBGuide.track('affiliate-fxssi-guide-slc')">Get FXSSI with code QUASIDB</a><a class="btn" href="../../?ref=guide-slc#pricing">See the QDB Sheet</a><a class="btn" href="../../?ref=guide-slc#weekly">Free weekly report</a></div>
+    <p class="disc">Affiliate link: if you buy through it, QDB earns a commission at no extra cost to you. FXSSI is an independent company and doesn't endorse this guide.</p>
+  </div>
+
+  <p class="foot">Educational only, not financial advice. Charts and clusters are illustrative, written to teach the idea, not real data. Trading on margin carries a high level of risk. <a href="../">All guides</a> · <a href="../../">QDB Trading Desk</a></p>
+</main>
+
+<script src="../stepper.js"></script>
+<script>
+const {Stepper,Path,esc,ease}=QDBGuide;
+const ROWS=14, PURPLE="#a78bfa", GREEN="#22c55e", RED="#ef4444", GOLD="#f5b83d", GREY="#8b97ad";
+function fmt(c,v){const x=c.base+v*c.step;return c.dp===0?Math.round(x).toLocaleString("en-US"):x.toFixed(c.dp)}
+function geom(el){
+  const C=(el.clientWidth||600)<600, W=C?560:960, H=C?560:440, T=C?62:52, B=H-12;
+  const cL=8, cR=C?372:744, pX=cR+4, pW=C?70:74, hL=pX+pW, hR=W-8, rowH=(B-T)/ROWS;
+  return {C,W,H,T,B,cL,cR,pX,pW,hL,hR,rowH,Y:v=>B-(v+.5)*rowH,fs:C?20:15};
+}
+/* growth of a cluster that appears during step `grow` (1-based) */
+function growK(cl,t){if(!cl.grow)return 1;const a=cl.grow-1;return t<=a?0:t>=cl.grow?1:ease(t-a)}
+
+function drawSLC(c,P,t,el,x){
+  x=x||{};
+  const g=geom(el),{C,W,H,T,B,cL,cR,pX,pW,hL,hR,rowH,Y,fs}=g, s0=P.at(t), h=s0.hist, price=h[h.length-1];
+  const n=Math.max(1,P.total-1), X=i=>cL+(cR-cL-18)*i/n, live=h.slice(P.k0), lo=Math.min(...live), hi=Math.max(...live);
+  const mono='font-family="JetBrains Mono, monospace"', sans='font-family="Space Grotesk, sans-serif"';
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.alt||c.pair+" chart with stop loss clusters")}"><rect width="${W}" height="${H}" fill="#0a1220"/>`;
+  s+=`<text x="${cL+4}" y="${T-30}" ${mono} font-size="${C?fs-4:fs-1}" font-weight="700" fill="#e8edf6">${esc(c.pair)}</text><text x="${cL+4}" y="${T-12}" ${sans} font-size="${fs-4}" fill="#6b7892">illustrative</text>`;
+  s+=`<text x="${(hL+hR)/2}" y="${T-30}" text-anchor="middle" ${mono} font-size="${C?fs-6:fs-3}" font-weight="700" fill="#e8edf6">STOPS</text><text x="${(hL+hR)/2}" y="${T-12}" text-anchor="middle" ${sans} font-size="${fs-6}" fill="#a3afc5">longer = more</text>`;
+  s+=`<line x1="${hL}" x2="${hL}" y1="${T}" y2="${B}" stroke="#334155"/>`;
+  if(c.zone){
+    const dem=/demand/i.test(c.zone[2]), zc=dem?"34,197,94":"239,68,68", y1=Y(c.zone[1]), y0=Y(c.zone[0]);
+    s+=`<rect x="${cL}" y="${y1}" width="${hR-cL}" height="${y0-y1}" fill="rgba(${zc},.12)" stroke="rgba(${zc},.5)" stroke-dasharray="6 4"/>`;
+    s+=`<text x="${cR-60}" y="${dem?y0+fs+2:y1-6}" text-anchor="end" ${sans} font-size="${fs-1}" font-weight="700" fill="rgb(${zc})" stroke="#0a1220" stroke-width="4" paint-order="stroke">${esc(c.zone[2])}</text>`;
+  }
+  for(let r=0;r<ROWS;r++) s+=`<text x="${pX+pW/2}" y="${Y(r)+fs*.35}" text-anchor="middle" ${mono} font-size="${fs-4}" fill="#6b7892">${fmt(c,r)}</text>`;
+  (c.clusters||[]).forEach(cl=>{
+    const k=growK(cl,t); if(k<=0) return;
+    const y=Y(cl.row), swept=k>=1&&(cl.side==="below"?lo<=cl.row+.15:hi>=cl.row-.15), MAX=2.4;
+    const w=Math.min(1,cl.size/MAX)*(hR-hL-6)*k;
+    if(swept){
+      s+=`<line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${GREY}" stroke-width="2" stroke-dasharray="4 6"/>`;
+      s+=`<rect x="${hL+2}" y="${y-5}" width="${w}" height="10" rx="3" fill="none" stroke="${GREY}" stroke-dasharray="3 3"/>`;
+      s+=`<text x="${cR-4}" y="${y+(cl.side==="below"?fs+4:-8)}" text-anchor="end" ${mono} font-size="${fs-3}" font-weight="700" fill="${GREY}" stroke="#0a1220" stroke-width="4" paint-order="stroke">SWEPT</text>`;
+    }else{
+      s+=`<line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${PURPLE}" stroke-width="${(2+cl.size*4)*k}" stroke-opacity=".55" stroke-linecap="round"/>`;
+      s+=`<rect x="${hL+2}" y="${y-6}" width="${w}" height="12" rx="3" fill="${PURPLE}"/>`;
+    }
+  });
+  (c.marks||[]).forEach(m=>{ if(t<m.at) return; const y=Y(m.row);
+    s+=`<text x="${m.x!=null?X(m.x):cL+6}" y="${y+(m.dy||0)}" ${m.x!=null?'text-anchor="middle"':""} ${mono} font-size="${fs-3}" font-weight="700" fill="${m.color||GREY}" stroke="#0a1220" stroke-width="4" paint-order="stroke">${esc(m.label)}</text>`; });
+  const line=(v,col,label,dash)=>{const y=Y(v);s+=`<line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="2.5" ${dash?'stroke-dasharray="8 5"':""}/><rect x="${cL+2}" y="${y-fs*.75}" width="${label.length*(fs*.62)+12}" height="${fs*1.5}" rx="5" fill="${col}"/><text x="${cL+8}" y="${y+fs*.32}" ${mono} font-size="${fs-4}" font-weight="700" fill="#0b0f17">${esc(label)}</text>`};
+  if(x.tp!=null) line(x.tp,GREEN,"TAKE PROFIT",true);
+  if(x.stop!=null){const hit=x.stopSide==="below"?lo<=x.stop:hi>=x.stop;line(x.stop,hit?"#64748b":RED,(hit?"STOPPED · ":"")+(x.stopLabel||"YOUR STOP"))}
+  const py=Y(price), k0=P.k0, path=(a,b)=>h.slice(a,b).map((v,i)=>(i?"L":"M")+X(a+i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ");
+  s+=`<line x1="${cL}" x2="${hR}" y1="${py}" y2="${py}" stroke="${GOLD}" stroke-width="1.2" stroke-dasharray="3 5" opacity=".7"/>`;
+  s+=`<path d="${path(0,k0+1)}" fill="none" stroke="#e8edf6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  if(h.length>k0+1) s+=`<path d="${path(k0,h.length)}" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  s+=`<circle cx="${X(h.length-1)}" cy="${py}" r="6" fill="${GOLD}" stroke="#0b0f17" stroke-width="2"/>`;
+  return s+"</svg>";
+}
+const LEGEND=`<div class="legend"><span><span class="sw" style="background:${PURPLE}"></span>Crowd's stop cluster (thicker = more stops)</span><span><span class="sw" style="background:${GREY}"></span>Swept: the stops were hit</span><span><span class="sw" style="background:${GOLD};height:3px"></span>Price now</span></div>`;
+function scene(id,c,extra){
+  const P=Path(c.past,c.steps);
+  return Stepper(document.getElementById(id),Object.assign({id:"slc-"+c.id,title:c.title,sub:c.pair+(c.zone?" · "+c.zone[2]:" · no daily or weekly level nearby"),intro:c.intro,steps:c.steps.map(s=>Object.assign({len:s.path.length},s)),legend:LEGEND,
+    draw:(t,box)=>({svg:drawSLC(c,P,t,box,extra&&extra.x?extra.x():{}),below:extra&&extra.below?extra.below(t,P):""})},extra||{}));
+}
+
+/* 1. Where stops hide */
+scene("hideScene",{id:"hide",title:"Watch the clusters form",pair:"EURUSD",base:1.0800,step:0.001,dp:4,zone:null,
+  past:[7,7.5,7.1,7.6],
+  clusters:[{row:3.5,size:1.7,side:"below",grow:1},{row:10.5,size:1.3,side:"above",grow:2}],
+  marks:[{at:1,row:4,x:12,dy:28,label:"OBVIOUS LOW",color:"#cbd5e1"},{at:2,row:10,x:16,dy:-14,label:"OBVIOUS HIGH",color:"#cbd5e1"}],
+  intro:"Price is drifting. No obvious levels yet, so the crowd's stops are spread out.",
+  steps:[
+    {name:"A swing low forms",path:[6.8,6,5.2,4.5,4,4.6,5.4,6.2],cap:"Price dips and bounces, leaving a clear swing low. Everyone who buys the bounce puts their stop <b>just under it</b>. A cluster of longs' stops builds there: future <b style='color:#fca5a5'>sell</b> orders."},
+    {name:"A swing high forms",path:[7.1,8,8.9,9.6,10,9.5,8.7,8],cap:"Now a swing high. Everyone who sells the drop puts their stop <b>just over it</b>. A second cluster: shorts' stops, future <b style='color:#86efac'>buy</b> orders. These two lines are exactly what big players can see, and need."}]});
+
+/* 2. Place your stop (interactive) */
+const YOURS={id:"yours",title:"Long from daily demand: where does your stop go?",pair:"GBPUSD",base:1.2600,step:0.001,dp:4,zone:[.9,2.6,"Daily demand"],
+  past:[1.8,2.4,2,3,4,5,4.6,4.1,4,4.7,5.6,6.6,7.2,6.7,6.2],
+  clusters:[{row:3.6,size:1.9,side:"below"},{row:10.7,size:1.2,side:"above"}],
+  marks:[{at:0,row:4,x:8,dy:30,label:"OBVIOUS LOW",color:"#cbd5e1"}],
+  intro:"You bought at 1.2662 after the bounce. Price is pulling back. The crowd's stops sit under the obvious low at 1.2640, and daily demand runs from 1.2609 to 1.2626. Set your stop with the slider, then press play.",
+  steps:[{name:"The probe",path:[5.6,4.8,4,3.2,2.3,1.5,1,1.7,2.8,4,5.2,6.5,7.7,8.9,9.9,10.6],cap:api=>yoursOutcome(api)}]};
+let STOP=3.8;
+const PROBE=1;
+function zoneOf(v){
+  if(v>=3.95) return "<b>at the obvious low</b>, where everyone's stop sits";
+  if(v>=3.2) return "<b>inside the crowd's cluster</b>";
+  if(v>=YOURS.zone[0]) return "<b>inside daily demand</b>, below the cluster";
+  if(v>=0.4) return "<b>just beyond daily demand</b>, below the cluster";
+  return "<b>far beyond daily demand</b>";
+}
+function yoursOutcome(api){
+  if(api.t()<1) return "Here comes the pullback...";
+  const hit=STOP>=PROBE;
+  if(hit&&STOP>=3.2) return "<b>Stopped out.</b> Your stop sat in the crowd's cluster at the obvious low. The probe took it, the big orders got filled, and price went on to the target without you. Drag your stop and replay.";
+  if(hit) return "<b>Stopped out.</b> You got below the cluster, but not beyond the level. The probe dug into daily demand before turning. The zone's far edge is your line. Drag your stop and replay.";
+  if(STOP>=YOURS.zone[0]) return "<b>You survived, just.</b> Your stop was inside daily demand and the probe came within a whisker of it. Just beyond the zone's far edge is the safer line.";
+  if(STOP<0.4) return "<b>You survived</b>, but your stop is a long way off. That means a smaller position for the same risk. Just beyond the zone is enough.";
+  return "<b>You survived.</b> Your stop sat beyond daily demand and beyond the crowd's cluster, where few other stops were. Price probed, turned, and ran to the cluster above: the magnet, and your take profit.";
+}
+const yoursHost=document.getElementById("yoursScene");
+const yoursApi=scene("yoursScene",YOURS,{
+  controls:`<div class="slider"><label for="slcStop">Your stop</label><input id="slcStop" type="range" min="0.2" max="5.6" step="0.1" value="3.8"><output id="slcOut"></output></div>`,
+  x:()=>({stop:STOP,stopSide:"below",tp:10.4}),
+  below:()=>`<p class="where">Your stop is ${zoneOf(STOP)}.</p>`
+});
+(function(){
+  const inp=document.getElementById("slcStop"), out=document.getElementById("slcOut"); let moved=false;
+  const sync=()=>{out.textContent=fmt(YOURS,STOP)}; sync();
+  inp.addEventListener("input",()=>{STOP=+inp.value;sync();if(!yoursApi.busy())yoursApi.render();if(!moved){moved=true;QDBGuide.track("guide-slc-stop-drag")}});
+})();
+
+/* 3. Bigger isn't always first */
+scene("biggerScene",{id:"bigger",title:"Short from daily supply",pair:"AUDUSD",base:0.6500,step:0.0005,dp:4,zone:[9.2,10.5,"Daily supply"],
+  past:[3,3.8,3.4,4.6,5.6,5.2,6.4,7.4,8.4,9.4,9.9,9.1,8.5],
+  clusters:[{row:11,size:.8,side:"above"},{row:2.4,size:2.3,side:"below"}],
+  intro:"You're short from daily supply. Above: a small cluster just over the zone. Below: a huge one. A friend says price always goes for the bigger cluster first, so a stop just above supply is safe.",
+  steps:[
+    {name:"The small one first",path:[9.1,9.8,10.5,11.2,10.6,9.8],cap:"Price pops up and takes the <b>small</b> cluster first. The friend's stop, tucked just above supply, goes with it."},
+    {name:"Then the big one",path:[9,8,7,6,5,4,3.2,2.3,2.8],cap:"Only then does price fall to the big cluster. The trade idea was right, but the stop was in the wrong place. <b>Keep your stop beyond the level and beyond any cluster sitting on top of it.</b>"}]},
+  {x:()=>({stop:10.8,stopSide:"above",stopLabel:"FRIEND'S STOP"})});
+
+/* 4. No level */
+scene("noLevelScene",{id:"nolevel",title:"A sweep with no level",pair:"USDJPY",base:150.00,step:0.1,dp:2,zone:null,
+  past:[12,11.4,11.8,10.6,10,10.4,9.2,8.6,9,8,7.4],
+  clusters:[{row:4,size:1.8,side:"below"}],
+  intro:"USDJPY is sliding towards a fat cluster of longs' stops at 150.40. Someone is waiting to buy the sweep. But there's <b>no daily or weekly demand</b> anywhere near it.",
+  steps:[
+    {name:"The approach",path:[6.8,6.2,5.6,5,4.6],cap:"Price reaches the cluster."},
+    {name:"Fuel",path:[3.6,2.7,1.8,1.1,.7],cap:"The stops fire. Each one is a market <b>sell</b>, and with no real buyers waiting at a strong level, they push price further. <b>Swept stops at no level are fuel, not a floor.</b>"}]});
+</script>
+</body>
+</html>

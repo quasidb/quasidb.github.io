@@ -302,7 +302,7 @@ function startScreen(){
     <div class="rule"><div class="n">3</div><div><b>Take profit at the magnet</b><span>Clusters pull price towards them. Bank your profit at the cluster in your direction, not past it.</span></div></div>
     <div class="rule"><div class="n">4</div><div><b>Bigger isn't always first</b><span>Don't assume price makes a beeline for the larger cluster. It often takes the smaller, nearer one first.</span></div></div>
   </div>
-  <div class="row"><button class="btn primary" onclick="begin()">Start hunting</button><a class="btn" href="../">More games</a></div>
+  <div class="row"><button class="btn primary" onclick="begin()">Start hunting</button><a class="btn" href="../../guides/stop-loss-clusters/?ref=game-stop-hunter">Read the guide first</a><a class="btn" href="../">More games</a></div>
   ${best?`<p class="muted" style="margin-top:12px;font-size:16px">Your best: ${best.pts} points (${esc(best.g)}).</p>`:""}
   <p class="foot">Educational only, not financial advice. Charts and clusters are illustrative, written to teach the idea, not real data.</p>`;
 }
@@ -401,7 +401,7 @@ function end(){
   <div class="grade" style="margin-top:6px">${S.pts}</div>
   <h2 style="margin-top:6px">${esc(g)}</h2>
   <p class="lead" style="margin-top:8px">${esc(msg)}</p>
-  <div class="note" style="margin-top:16px"><h4>In a nutshell</h4><p><b>Only trade the stop loss clusters at key strong technical levels</b>: weekly or daily demand and supply. A cluster on its own is a hint, not a trade.</p></div>
+  <div class="note" style="margin-top:16px"><h4>In a nutshell</h4><p><b>Only trade the stop loss clusters at key strong technical levels</b>: weekly or daily demand and supply. A cluster on its own is a hint, not a trade. Want the full picture? <a href="../../guides/stop-loss-clusters/?ref=game-stop-hunter-end">Read the stop loss clusters guide</a>.</p></div>
   <div class="kpis">
     <div class="kpi"><span>Stops survived</span><b>${S.survived}/${R.length}</b></div>
     <div class="kpi"><span>Total result</span><b style="color:${S.R>=0?"var(--buy)":"var(--sell)"}">${sR(S.R)}</b></div>

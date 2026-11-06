@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Retail sentiment, made simple: the crowd train | QDB Guides</title>
+<meta name="description" content="A plain-English guide to retail sentiment with animated examples. Why the crowd's long/short split runs like a train between 0% and 100% long, why direction matters more than the level, and why you only board at strong daily and weekly levels.">
+<link rel="canonical" href="https://quasidb.github.io/guides/retail-sentiment/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.github.io/guides/retail-sentiment/">
+<meta property="og:title" content="Retail sentiment: the crowd train">
+<meta property="og:description" content="The crowd's long/short split runs like a train from Edinburgh to King's Cross. Learn when to board, and when it terminates. Animated examples.">
+<meta property="og:image" content="https://quasidb.github.io/guides/retail-sentiment/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Retail sentiment: the crowd train">
+<meta name="twitter:description" content="The crowd's long/short split runs like a train from Edinburgh to King's Cross. Learn when to board, and when it terminates. Animated examples.">
+<meta name="twitter:image" content="https://quasidb.github.io/guides/retail-sentiment/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../guides.css">
+<style>
+.cheat3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+@media (max-width:860px){.cheat3{grid-template-columns:1fr}}
+.cheat3 .card{border-top:4px solid}
+.cheat3 .sell{border-top-color:var(--sell)} .cheat3 .buy{border-top-color:var(--buy)} .cheat3 .end{border-top-color:var(--accent)}
+.cheat3 h3{font-family:var(--mono);letter-spacing:.04em;font-size:18px}
+.cheat3 .sell h3{color:var(--sell)} .cheat3 .buy h3{color:var(--buy)} .cheat3 .end h3{color:var(--accent)}
+.cheat3 ol{margin:10px 0 0 22px;display:grid;gap:8px}
+.cheat3 li{font-size:17px}
+.cheat3 li b{color:var(--text)}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../../?ref=guide-sentiment"><img src="../../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../">Guides</a><a href="../../games/?ref=guide-sentiment">Games</a><a href="../../?ref=guide-sentiment#pricing">Pricing</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">QDB Guide · Retail sentiment · about 8 minutes</p>
+    <h1>Retail sentiment: <em>the crowd train</em></h1>
+    <p class="lead">Retail sentiment tells you what share of everyday traders are long. On its own it's just a number. Picture it as a <b>train</b> instead, running between Edinburgh (0% long) and London King's Cross (100% long), and it starts telling you <b>when to get on, which way, and when the line runs out</b>.</p>
+    <nav class="toc" aria-label="On this page">
+      <a href="#short">The short version</a><a href="#line">The line</a><a href="#journey">A full journey</a><a href="#direction">Direction beats level</a><a href="#station">Board at a station</a><a href="#mistakes">Mistakes</a>
+    </nav>
+  </header>
+
+  <section class="sec" id="short">
+    <h2>The short version</h2>
+    <p class="muted">The crowd is usually on the wrong side of the move, so you board going the <b>opposite way to the crowd's bets</b>. But only at a station: a strong weekly or daily level.</p>
+    <div class="cheat3">
+      <div class="card sell">
+        <h3>HEADING SOUTH: LOOK TO SELL</h3>
+        <ol>
+          <li><b>% long is rising</b>: the crowd keeps buying as price falls.</li>
+          <li><b>Price rallies into strong daily or weekly supply.</b> That's your station.</li>
+          <li><b>Plenty of track ahead</b>: not in the last few yards before 90%.</li>
+        </ol>
+      </div>
+      <div class="card buy">
+        <h3>HEADING NORTH: LOOK TO BUY</h3>
+        <ol>
+          <li><b>% long is falling</b>: the crowd keeps selling as price rises.</li>
+          <li><b>Price dips into strong daily or weekly demand.</b> That's your station.</li>
+          <li><b>Plenty of track ahead</b>: not in the last few yards before 10%.</li>
+        </ol>
+      </div>
+      <div class="card end">
+        <h3>AT THE BUFFERS: GET READY</h3>
+        <ol>
+          <li><b>90%+ or 10% and below</b> is a terminus. It can't reach 100% or 0%.</li>
+          <li><b>Stop fading the crowd.</b> The return journey is next.</li>
+          <li><b>Wait for the turn</b>, then board at a strong level.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="note gold"><h4>The one rule</h4><p><b>We always trade with strong levels, never on sentiment alone.</b> Sentiment tells you which way the train is going. The weekly or daily level tells you where to get on.</p></div>
+  </section>
+
+  <section class="sec" id="line">
+    <h2>The line</h2>
+    <p><b>Drag the slider</b> to move the train. Heading <b>south</b> towards King's Cross means the crowd is buying. Heading <b>north</b> towards Edinburgh means it's selling. The crowd hops on mid-journey, and at every station some passengers get stopped off: those are the stop-loss probes, and their orders are the fuel for the move.</p>
+    <div id="lineScene"></div>
+  </section>
+
+  <section class="sec" id="journey">
+    <h2>A full journey</h2>
+    <p>Watch one trip from start to finish: the crowd buying all the way down, a station stop, the terminus, and the return journey.</p>
+    <div id="journeyScene"></div>
+  </section>
+
+  <section class="sec" id="direction">
+    <h2>Direction beats level</h2>
+    <p>Two pairs, both <b>70% long</b>. A level-only reader treats them the same. A train reader doesn't: one is heading south with plenty of track ahead, the other has just left King's Cross and is heading north.</p>
+    <div class="seg" role="group" aria-label="Choose the example"><button type="button" data-v="south" aria-pressed="true">70% and rising</button><button type="button" data-v="north" aria-pressed="false">70% and falling</button></div>
+    <div id="dirScene"></div>
+  </section>
+
+  <section class="sec" id="station">
+    <h2>Board at a station</h2>
+    <p>You can be right about the direction and still get thrown off the train. Getting on between stations, in the middle of nowhere, puts your stop right where the next probe lands.</p>
+    <div id="stationScene"></div>
+  </section>
+
+  <section class="sec" id="mistakes">
+    <h2>Five mistakes to avoid</h2>
+    <div class="mistakes">
+      <div class="mistake"><div class="x">✕</div><div><b>Trading the number on its own</b><span>"80% long, so sell" is half a thought. Which way is it heading, and is price at a strong level?</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Fading the crowd at the buffers</b><span>At 90%+ or 10% and below there's little gas left. That's where the return journey starts, not where you pile in.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Boarding between stations</b><span>Right direction, wrong place: the next probe takes your stop. Wait for weekly or daily supply or demand.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Trading a train that's going nowhere</b><span>48, 53, 49, 52, 50% long is a train shunting around York. No journey, no trade.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Following the crowd's hot tips</b><span>The crowd reads the same tips you do. That's exactly who is on the train.</span></div></div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <h3>Now ride it yourself</h3>
+    <p>Crowd Express puts you on the platform with eight real-looking setups. Board, wait, or stay off, and see how the journey ends.</p>
+    <div class="row"><a class="btn primary" href="../../games/crowd-express/?ref=guide-sentiment">Play Crowd Express</a><a class="btn" href="../stop-loss-clusters/?ref=guide-sentiment">Next: stop loss clusters</a><a class="btn" href="../?ref=guide-sentiment">More guides</a></div>
+  </div>
+  <div class="cta">
+    <h3>See where the train is today</h3>
+    <p>The QDB Sheet tracks retail sentiment across FX, indices and gold, with the start-of-day and start-of-week readings so you can see the direction of travel at a glance. The free weekly report sums it up every Sunday.</p>
+    <div class="row"><a class="btn primary" href="../../?ref=guide-sentiment#pricing">Get the QDB Sheet</a><a class="btn" href="../../?ref=guide-sentiment#weekly">Free weekly report</a><a class="btn" href="../?ref=guide-sentiment#videos">Watch the sheet videos</a></div>
+  </div>
+
+  <p class="foot">Educational only, not financial advice. Charts and sentiment readings are illustrative, written to teach the idea, not real data. Trading on margin carries a high level of risk. <a href="../">All guides</a> · <a href="../../">QDB Trading Desk</a></p>
+</main>
+
+<script src="../stepper.js"></script>
+<script>
+const {Stepper,Path,esc}=QDBGuide;
+const ROWS=12, GREEN="#22c55e", RED="#ef4444", GOLD="#f5b83d", GREY="#8b97ad";
+function fmt(c,v){const x=c.base+v*c.step;return c.dp===0?Math.round(x).toLocaleString("en-US"):x.toFixed(c.dp)}
+function geom(el){
+  const C=(el.clientWidth||600)<600, W=C?560:960, TH=C?150:128, H=C?620:500, T=TH+44, B=H-12;
+  const cL=8, cR=C?472:870, pX=cR+4, rowH=(B-T)/ROWS;
+  return {C,W,H,TH,T,B,cL,cR,pX,rowH,Y:v=>B-(v+.5)*rowH,fs:C?20:15};
+}
+const STATIONS=[[0,"Edinburgh","Edinburgh"],[25,"Newcastle","Newcastle"],[50,"York","York"],[75,"Peterborough","P'borough"],[100,"King's Cross","King's X"]];
+
+function trackSVG(g,v,dir){
+  const {C,W,TH,fs}=g, x0=C?44:70, x1=W-(C?44:70), ty=TH*.68, X=p=>x0+(x1-x0)*p/100;
+  const mono='font-family="JetBrains Mono, monospace"', sans='font-family="Space Grotesk, sans-serif"';
+  let s=`<rect x="${X(0)-8}" y="${ty-26}" width="${X(10)-X(0)+8}" height="40" rx="6" fill="rgba(245,184,61,.10)"/><rect x="${X(90)}" y="${ty-26}" width="${X(100)-X(90)+8}" height="40" rx="6" fill="rgba(245,184,61,.10)"/>`;
+  s+=`<text x="${X(0)-4}" y="${C?24:22}" ${mono} font-size="${fs-4}" fill="#a3afc5">0% long${C?"":" · everyone short"}</text><text x="${X(100)+4}" y="${C?24:22}" text-anchor="end" ${mono} font-size="${fs-4}" fill="#a3afc5">${C?"":"everyone long · "}100% long</text>`;
+  s+=`<line x1="${X(0)}" x2="${X(100)}" y1="${ty}" y2="${ty}" stroke="#475569" stroke-width="6" stroke-linecap="round"/>`;
+  for(let p=0;p<=100;p+=5) s+=`<line x1="${X(p)}" x2="${X(p)}" y1="${ty-6}" y2="${ty+6}" stroke="#334155" stroke-width="2"/>`;
+  STATIONS.forEach(([p,name,short])=>{
+    s+=`<circle cx="${X(p)}" cy="${ty}" r="${p%100?7:9}" fill="#0a1220" stroke="#e8edf6" stroke-width="3"/>`;
+    s+=`<text x="${X(p)}" y="${ty+30}" text-anchor="${p===0?"start":p===100?"end":"middle"}" ${sans} font-size="${fs-4}" fill="#cbd5e1" ${p===0?`dx="-10"`:p===100?`dx="10"`:""}>${esc(C?short:name)}</text>`;
+  });
+  const tx=X(Math.max(0,Math.min(100,v))), tw=C?78:72, th=26, ty0=ty-th-14, south=dir>0, north=dir<0;
+  s+=`<g><rect x="${tx-tw/2}" y="${ty0}" width="${tw}" height="${th}" rx="8" fill="${GOLD}"/>`;
+  if(south) s+=`<path d="M${tx+tw/2-2} ${ty0} L${tx+tw/2+12} ${ty0+th/2} L${tx+tw/2-2} ${ty0+th} Z" fill="${GOLD}"/>`;
+  if(north) s+=`<path d="M${tx-tw/2+2} ${ty0} L${tx-tw/2-12} ${ty0+th/2} L${tx-tw/2+2} ${ty0+th} Z" fill="${GOLD}"/>`;
+  s+=`<text x="${tx}" y="${ty0+th/2+6}" text-anchor="middle" ${mono} font-size="${fs-2}" font-weight="700" fill="#1a1205">${Math.round(v)}%</text>`;
+  s+=`<line x1="${tx}" x2="${tx}" y1="${ty0+th}" y2="${ty-3}" stroke="${GOLD}" stroke-width="2"/></g>`;
+  const word=v>=90||v<=10?"AT THE BUFFERS":south?"HEADING SOUTH ▸ crowd buying":north?"◂ HEADING NORTH · crowd selling":"SHUNTING · no journey";
+  s+=`<text x="${W/2}" y="${C?52:48}" text-anchor="middle" ${mono} font-size="${fs-2}" font-weight="700" fill="${v>=90||v<=10?GOLD:south?"#fca5a5":north?"#86efac":GREY}">${esc(word)}</text>`;
+  return s;
+}
+
+function heading(h){
+  const n=h.length-1; if(n<1) return 0;
+  const back=h[Math.max(0,n-2)][1], d=h[n][1]-back;
+  return Math.abs(d)<1?0:Math.sign(d);
+}
+
+function drawTrain(c,P,t,el,x){
+  x=x||{};
+  const g=geom(el),{C,W,H,TH,T,B,cL,cR,pX,rowH,Y,fs}=g, s0=P.at(t), h=s0.hist, cur=h[h.length-1];
+  const n=Math.max(1,P.total-1), X=i=>cL+(cR-cL-16)*i/n, live=h.slice(P.k0).map(p=>p[0]), lo=Math.min(...live), hi=Math.max(...live);
+  const mono='font-family="JetBrains Mono, monospace"', sans='font-family="Space Grotesk, sans-serif"';
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.alt||c.pair+" price chart with the crowd train showing % long")}"><rect width="${W}" height="${H}" fill="#0a1220"/>`;
+  s+=trackSVG(g,cur[1],heading(h));
+  s+=`<line x1="0" x2="${W}" y1="${TH+8}" y2="${TH+8}" stroke="#26324a"/>`;
+  s+=`<text x="${cL+4}" y="${T-14}" ${mono} font-size="${C?fs-4:fs-2}" font-weight="700" fill="#e8edf6">${esc(c.pair)}</text><text x="${cL+(C?90:96)}" y="${T-14}" ${sans} font-size="${fs-4}" fill="#6b7892">illustrative</text>`;
+  if(c.zones) c.zones.forEach(z=>{
+    const dem=/demand/i.test(z[2]), zc=dem?"34,197,94":"239,68,68", y1=Y(z[1]), y0=Y(z[0]);
+    s+=`<rect x="${cL}" y="${y1}" width="${W-8-cL}" height="${y0-y1}" fill="rgba(${zc},.12)" stroke="rgba(${zc},.5)" stroke-dasharray="6 4"/>`;
+    s+=`<text x="${cR-8}" y="${dem?y0+fs+2:y1-6}" text-anchor="end" ${sans} font-size="${fs-1}" font-weight="700" fill="rgb(${zc})" stroke="#0a1220" stroke-width="4" paint-order="stroke">${esc(z[2])}</text>`;
+  });
+  for(let r=0;r<ROWS;r+=2) s+=`<text x="${(pX+W-6)/2}" y="${Y(r)+fs*.35}" text-anchor="middle" ${mono} font-size="${fs-4}" fill="#6b7892">${fmt(c,r)}</text>`;
+  (c.marks||[]).forEach(m=>{ if(t<m.at) return;
+    s+=`<text x="${X(m.x)}" y="${Y(m.row)+(m.dy||0)}" text-anchor="middle" ${mono} font-size="${fs-3}" font-weight="700" fill="${m.color||GREY}" stroke="#0a1220" stroke-width="4" paint-order="stroke">${esc(m.label)}</text>`; });
+  const line=(v,col,label,dash)=>{const y=Y(v);s+=`<line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="2.5" ${dash?'stroke-dasharray="8 5"':""}/><rect x="${cR-label.length*(fs*.62)-14}" y="${y-fs*.75}" width="${label.length*(fs*.62)+12}" height="${fs*1.5}" rx="5" fill="${col}"/><text x="${cR-8}" y="${y+fs*.32}" text-anchor="end" ${mono} font-size="${fs-4}" font-weight="700" fill="#0b0f17">${esc(label)}</text>`};
+  (c.lines||[]).forEach(L=>{ if(t<L.at) return;
+    const hit=L.stopAbove!=null&&hi>=L.stopAbove; line(L.row,hit?"#64748b":L.color,(hit?"STOPPED · ":"")+L.label,L.dash); });
+  const py=Y(cur[0]), k0=P.k0, path=(a,b)=>h.slice(a,b).map((v,i)=>(i?"L":"M")+X(a+i).toFixed(1)+" "+Y(v[0]).toFixed(1)).join(" ");
+  s+=`<path d="${path(0,k0+1)}" fill="none" stroke="#e8edf6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  if(h.length>k0+1) s+=`<path d="${path(k0,h.length)}" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  s+=`<circle cx="${X(h.length-1)}" cy="${py}" r="6" fill="${GOLD}" stroke="#0b0f17" stroke-width="2"/>`;
+  return s+"</svg>";
+}
+const LEGEND=`<div class="legend"><span><span class="sw" style="background:${GOLD}"></span>The train: the crowd's % long</span><span><span class="sw" style="background:#e8edf6;height:3px"></span>Price so far</span><span><span class="sw" style="background:#7dd3fc;height:3px"></span>What happens next</span></div>`;
+function scene(host,c){
+  const P=Path(c.past,c.steps);
+  return Stepper(typeof host==="string"?document.getElementById(host):host,{id:"sent-"+c.id,title:c.title,sub:c.pair+" · "+(c.zones?c.zones.map(z=>z[2]).join(", "):"no strong level"),intro:c.intro,beat:c.beat||300,
+    steps:c.steps.map(s=>Object.assign({len:s.path.length},s)),legend:LEGEND,draw:(t,box)=>({svg:drawTrain(c,P,t,box)})});
+}
+
+/* 1. The line (slider) */
+(function(){
+  const host=document.getElementById("lineScene");
+  host.innerHTML=`<div class="scene"><div class="chartbox"></div><div class="slider"><label for="lineP">% long</label><input id="lineP" type="range" min="2" max="98" step="1" value="50"><output></output></div><p class="lean" id="lineRead"></p></div>`;
+  const box=host.querySelector(".chartbox"), inp=host.querySelector("input"), out=host.querySelector("output"), rd=host.querySelector("#lineRead");
+  let last=50, dir=0, moved=false;
+  function read(v){
+    if(v>=90) return "<b>King's Cross.</b> Almost everyone is long. It can't reach 100%, or there'd be no market. Little gas left: get ready for the return journey north.";
+    if(v<=10) return "<b>Edinburgh Waverley.</b> Almost everyone is short. The other terminus: get ready for the return journey south.";
+    if(dir>0) return "<b>Heading south:</b> the crowd is buying. Board the other way: look to <b style='color:#fca5a5'>sell</b>, at strong supply.";
+    if(dir<0) return "<b>Heading north:</b> the crowd is selling. Board the other way: look to <b style='color:#86efac'>buy</b>, at strong demand.";
+    return "Move the train to see which way it's heading.";
+  }
+  function render(){
+    const g=geom(box), v=+inp.value;
+    box.innerHTML=`<svg viewBox="0 0 ${g.W} ${g.TH+10}" role="img" aria-label="Train line from Edinburgh at 0% long to King's Cross at 100% long, train at ${v}%"><rect width="${g.W}" height="${g.TH+10}" fill="#0a1220"/>${trackSVG(g,v,dir)}</svg>`;
+    out.textContent=v+"% long"; rd.innerHTML=read(v);
+  }
+  inp.addEventListener("input",()=>{const v=+inp.value;if(v!==last){dir=Math.sign(v-last);last=v}render();if(!moved){moved=true;QDBGuide.track("guide-sentiment-line-drag")}});
+  let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(render,150)});
+  render();
+})();
+
+/* 2. A full journey */
+scene("journeyScene",{id:"journey",title:"One trip, start to finish",pair:"EURGBP",base:0.8500,step:0.001,dp:4,zones:[[.6,2.2,"Weekly demand"]],
+  past:[[10.6,30],[10.9,29],[10.2,33],[9.6,37],[9.9,36],[9.1,40]],
+  marks:[{at:2,x:15,row:4.4,dy:30,label:"STOPS PROBED",color:"#cbd5e1"}],
+  intro:"EURGBP has started to slide, and the crowd has started buying it. The train has just left Edinburgh at about 30% long.",
+  steps:[
+    {name:"Heading south",path:[[8.6,44],[8.9,43],[8,48],[7.4,52],[7.7,51],[6.8,56],[6.2,60]],cap:"The crowd buys every dip, so % long climbs as price falls. The train is heading <b>south</b> towards King's Cross, with plenty of track ahead. The trade is the other way: <b>sell</b> the rallies at strong supply."},
+    {name:"A station stop",path:[[5.4,64],[4.4,59],[5,61],[4.2,66],[3.6,71]],cap:"A sharp dip takes out some of the longs' stops: passengers getting off at a station. % long blips down, then the crowd buys again. Those stops were fuel for the move."},
+    {name:"King's Cross",path:[[3,77],[3.3,79],[2.4,85],[1.8,90],[1.4,94],[1.6,96]],cap:"<b>96% long</b>, and price has fallen into weekly demand. It can't go to 100%. There's no gas left in the tank. This is not the place to sell: <b>get ready for the return journey.</b>"},
+    {name:"The return journey",path:[[2.2,93],[1.9,92],[2.8,88],[3.6,84],[3.2,85],[4.4,79],[5.4,74],[6.4,68]],cap:"The train turns: 96, 93, 88, 84. Price climbs out of weekly demand while the crowd sells into the rally. Over 80% long still sounds bearish, but the train is <b>heading north</b>. Where the train is heading matters more than where it is."}]});
+
+/* 3. Direction beats level (toggle) */
+const SOUTH={id:"south",title:"70% long and rising",pair:"GBPUSD",base:1.2600,step:0.001,dp:4,zones:[[8.6,10,"Daily supply"]],
+  past:[[10.8,48],[10.2,51],[10.5,50],[9.2,55],[8.4,59],[8.8,58],[7.4,63],[6.6,66],[7.2,66],[8.2,68],[9,69]],
+  marks:[{at:1,x:11,row:10.2,dy:-6,label:"BOARD: SELL",color:"#fca5a5"}],
+  intro:"GBPUSD has rallied back into daily supply. The crowd is <b>70% long and still rising</b>: it bought the drop and is buying the rally too. The train is heading south with 20 points of track before the buffers.",
+  steps:[{name:"Sell at the station",path:[[9.4,70],[8.8,71],[7.8,74],[8.2,73],[7,77],[6,80],[5.2,83]],cap:"Price turns lower from daily supply and the crowd keeps buying. The train runs south and the sell pays. <b>Heading south + strong supply + track ahead = sell.</b>"}]};
+const NORTH={id:"north",title:"70% long and falling",pair:"GBPUSD",base:1.2600,step:0.001,dp:4,zones:[[1.4,3,"Daily demand"]],
+  past:[[1.2,93],[1.6,92],[2.6,88],[3.6,84],[3.2,85],[4.6,80],[5.6,76],[6.4,73],[5.4,72],[4.2,71],[3.4,70]],
+  marks:[{at:1,x:11,row:1.2,dy:24,label:"BOARD: BUY",color:"#86efac"}],
+  intro:"Same reading, <b>70% long</b>, but this train left King's Cross a while ago: 93, 88, 84, 80, 76, 72, 70. Price has pulled back into daily demand.",
+  steps:[{name:"Buy at the station",path:[[3,70],[3.6,67],[4.6,63],[4.2,64],[5.4,59],[6.6,55],[7.6,51]],cap:"Price bounces from daily demand and the crowd keeps selling into it. The train runs north and the buy pays. A level-only reader would have sold \"because 70% are long\". <b>Direction beats level.</b>"}]};
+const dirHost=document.getElementById("dirScene");
+scene(dirHost,SOUTH);
+document.querySelectorAll("#direction .seg button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#direction .seg button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));
+  scene(dirHost,b.dataset.v==="south"?SOUTH:NORTH);
+}));
+
+/* 4. Board at a station */
+scene("stationScene",{id:"station",title:"Right direction, wrong place",pair:"AUDUSD",base:0.6500,step:0.001,dp:4,zones:[[8.8,10.2,"Daily supply"]],
+  past:[[10,40],[9.4,43],[9.8,42],[8.6,46],[7.8,49],[8.2,48],[7,52],[6.2,55],[6.6,55],[5.6,58]],
+  lines:[{at:0,row:5.6,label:"IMPATIENT SHORT",color:GOLD,dash:true},{at:0,row:7.4,label:"THEIR STOP",color:RED,stopAbove:7.4},{at:1,row:9.4,label:"BOARD HERE: SELL",color:"#fca5a5"}],
+  intro:"The AUDUSD crowd is getting longer, <b>44% to 58%</b>, as price slides. The direction says sell, so someone sells right now, with a stop 18 pips above. But price is in the middle of nowhere: the nearest strong level is daily supply, about 40 pips higher.",
+  steps:[
+    {name:"The probe",path:[[6.4,56],[7.2,54],[6.8,55],[8,52],[8.8,51],[9.4,50]],cap:"Price rallies to the station before carrying on. The impatient short's stop is taken on the way. The crowd sold the rally too, so % long dipped: passengers getting off."},
+    {name:"The journey resumes",path:[[8.8,52],[9.2,52],[8,56],[7,60],[6,63],[5,66],[4,69],[3.2,71]],cap:"From daily supply the train heads south again and price falls hard. Same direction, same idea, but only the trader who <b>waited for the station</b> is on board."}]});
+</script>
+</body>
+</html>

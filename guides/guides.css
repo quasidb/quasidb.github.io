@@ -68,3 +68,63 @@ section.sec>p b{color:var(--text)}
 .vcard .v .soon{font-family:var(--mono);font-size:13px;color:var(--dim);letter-spacing:.08em;text-align:center;padding:0 12px}
 .vcard .b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px}
 .vcard .b p{font-size:16px;color:var(--muted)}
+
+/* ===== shared guide components (cheat sheet, scenes, mistakes) ===== */
+/* cheat sheet */
+.cheat{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media (max-width:760px){.cheat{grid-template-columns:1fr}}
+.cheat .card{border-top:4px solid}
+.cheat .buy{border-top-color:var(--buy)} .cheat .sell{border-top-color:var(--sell)}
+.cheat h3{font-family:var(--mono);letter-spacing:.04em}
+.cheat .buy h3{color:var(--buy)} .cheat .sell h3{color:var(--sell)}
+.cheat ol{margin:10px 0 0 22px;display:grid;gap:8px}
+.cheat li{font-size:17px}
+.cheat li b{color:var(--text)}
+.cheat .tgt{margin-top:12px;font-size:16px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+/* key */
+.key{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media (max-width:760px){.key{grid-template-columns:1fr}}
+.key .card p{font-size:17px;color:var(--muted);margin-top:6px}
+.key .card p b{color:var(--text)}
+.sw{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+/* scenes */
+.scene{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}
+.sc-head{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.sc-head b{font-size:19px}
+.sc-head span{font-family:var(--mono);font-size:13px;color:var(--dim)}
+.chartbox{background:#0a1220;border:1px solid var(--line);border-radius:14px;overflow:hidden;user-select:none;-webkit-user-select:none}
+.chartbox svg{display:block;width:100%;height:auto}
+.tot{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-top:10px;font-family:var(--mono);font-size:14px}
+.tot .bar{height:12px;border-radius:99px;overflow:hidden;display:flex;background:var(--bg2)}
+.tot .bar i{display:block;height:100%;transition:width .2s}
+.tot .s{color:#fca5a5} .tot .b{color:#86efac}
+.lean{margin-top:6px;font-size:15px;color:var(--muted);min-height:1.4em}
+.lean b{color:var(--text)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;color:var(--muted);margin-top:8px}
+.cap{margin-top:12px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:96px}
+.cap .sn{display:block;font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.cap p{font-size:17px}
+.sc-ctl{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.sc-ctl .dots{display:flex;gap:6px;align-items:center;margin-left:auto}
+.sc-ctl .dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.sc-ctl .dots i.on{background:var(--accent)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:14px}
+.seg button{border:0;background:var(--bg2);padding:10px 16px;font-weight:700;font-size:16px;min-height:46px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:rgba(251,146,60,.16);color:var(--text)}
+.slider{display:flex;align-items:center;gap:12px;margin-top:12px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.slider label{font-size:15px;color:var(--muted);white-space:nowrap}
+.slider input{flex:1;accent-color:var(--accent);min-height:32px}
+.slider output{font-family:var(--mono);font-weight:700;color:var(--accent);min-width:5.5em;text-align:right}
+/* rules table */
+.rt{width:100%;border-collapse:collapse;margin-top:14px;font-size:16px}
+.rt th,.rt td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.rt th{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+.rt td:first-child{color:var(--muted);font-style:italic;width:40%}
+.rt td b{color:var(--text)}
+.tblwrap{overflow-x:auto}
+.mistakes{display:grid;gap:10px;margin-top:14px}
+.mistake{display:grid;grid-template-columns:40px 1fr;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.mistake .x{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:rgba(239,68,68,.12);color:var(--sell);font-weight:700;font-size:20px}
+.mistake b{display:block}
+.mistake span{color:var(--muted);font-size:17px}
+.vslot{margin-top:16px}
