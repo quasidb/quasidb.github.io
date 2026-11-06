@@ -139,7 +139,7 @@
       <div class="card"><h3>Left book: Orders</h3><p>The crowd's <b>pending orders</b>: stop losses, take profits and limit orders. Retail traders mostly get <i>in</i> at market, so this book is mainly <b>where they'll get out</b>.</p><p><span class="sw" style="background:#3b82f6"></span><b>Blue</b> = stop losses and stop orders. <span class="sw" style="background:#f59e0b;margin-left:6px"></span><b>Orange</b> = limits and take profits.</p></div>
       <div class="card"><h3>Right book: Positions</h3><p>The trades the crowd is <b>holding right now</b>, at the price they opened them. A tall bar means a lot of people got in at that price.</p><p><span class="sw" style="background:#f59e0b"></span><b>Orange</b> = in profit. <span class="sw" style="background:#3b82f6;margin-left:6px"></span><b>Blue</b> = in a loss. Sells are on the left of each book, buys on the right.</p></div>
     </div>
-    <p><b>Try it:</b> drag price up and down and watch both books change colour. On the <b>right</b>, nothing about the trades changes, only who is winning: buyers above price and sellers below it turn blue, because they're in a loss and want out. On the <b>left</b>, the same orders change job: a sell order below price is a stop (blue), but above price it's a limit or take profit (orange), and the other way round for buy orders.</p>
+    <p><b>Try it:</b> drag price up and down and watch both books change colour. On the <b>right</b>, nothing about the trades changes, only who is winning: buyers above price and sellers below it turn blue, because they're in a loss and want out. On the <b>left</b>, the same orders change job: a sell order below price is a stop (blue), but above price it's a limit or take profit (orange), and the other way round for buy orders. And when price trades through an order, it's used up: stops get chomped, limits get filled into new positions.</p>
     <div id="anatomy"></div>
   </section>
 
@@ -287,13 +287,14 @@ function draw(c,st,el){
   }
   (st.marks||[]).forEach(m=>{
     const y=Y(m.row);
+    if(m.lab){s+=`<text x="${pX-8}" y="${y+fs*.35-(Math.abs(m.row-price)<.7?rowH*.55:0)}" text-anchor="end" ${mono} font-size="${fs-3}" font-weight="700" fill="${m.color}" stroke="#0a1220" stroke-width="4" paint-order="stroke">◂ ${esc(C?m.short:m.label)}</text>`;return}
     if(m.wall) s+=`<rect x="${cL}" y="${y-rowH/2}" width="${cR-cL}" height="${rowH}" fill="${m.color}" opacity=".14"/><line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${m.color}" stroke-width="4"/><rect x="${oL}" y="${y-rowH/2}" width="${qR-oL}" height="${rowH}" fill="none" stroke="${m.color}" stroke-width="2.5" rx="4"/>`;
-    else s+=`<line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${m.color}" stroke-width="2" stroke-dasharray="5 5"/>`;
+    else if(!m.noLine) s+=`<line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${m.color}" stroke-width="2" stroke-dasharray="5 5"/>`;
     s+=`<text x="${m.right?oL+2:m.wall?cR-6:cL+6}" y="${m.right?y+fs*.35:y-rowH/2-4}" text-anchor="${m.wall?"end":"start"}" ${mono} font-size="${m.right?fs-5:fs-2}" font-weight="700" fill="${m.color}" stroke="#0a1220" stroke-width="4" paint-order="stroke">${esc(C&&m.short?m.short:m.label)}</text>`;
   });
   const py=PY(price);
   s+=`<line x1="${cL}" x2="${pX}" y1="${py}" y2="${py}" stroke="${GOLD}" stroke-width="1.5" stroke-dasharray="3 5"/><line x1="${oL}" x2="${qR}" y1="${py}" y2="${py}" stroke="${GOLD}" stroke-width="1.5" stroke-dasharray="3 5"/>`;
-  if(st.free){ s+=`<circle cx="${cR-24}" cy="${py}" r="9" fill="${GOLD}" stroke="#0b0f17" stroke-width="2"/><text x="${cR-40}" y="${py+fs*.35}" text-anchor="end" ${mono} font-size="${fs-2}" font-weight="700" fill="${GOLD}">PRICE ▸</text>`; }
+  if(st.free){ s+=`<circle cx="${cL+16}" cy="${py}" r="9" fill="${GOLD}" stroke="#0b0f17" stroke-width="2"/><text x="${cL+32}" y="${py+fs*.35}" ${mono} font-size="${fs-2}" font-weight="700" fill="${GOLD}" stroke="#0a1220" stroke-width="4" paint-order="stroke">PRICE</text>`; }
   else{
     const k0=c.past.length-1, h=st.hist, line=(a,b)=>h.slice(a,b).map((v,i)=>(i?"L":"M")+X(a+i).toFixed(1)+" "+PY(v).toFixed(1)).join(" ");
     s+=`<path d="${line(0,k0+1)}" fill="none" stroke="#e8edf6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
@@ -372,13 +373,71 @@ function Scene(host,c){
 /* The drag-the-price explainer. */
 function Anatomy(host,c){
   c.p0=6; c.total=1;
-  host.innerHTML=`<div class="scene"><div class="chartbox"></div><div class="slider"><label for="anaP">Drag price</label><input id="anaP" type="range" min="0" max="12" step="0.1" value="6"><output id="anaO"></output></div><div class="totbox"></div>${LEGEND}</div>`;
-  const box=host.querySelector(".chartbox"), totb=host.querySelector(".totbox"), inp=host.querySelector("input"), out=host.querySelector("output");
-  let moved=false;
-  function render(){const p=+inp.value;const r=draw(c,{hist:[p],pos:c.pos,ord:c.ord,gone:{},marks:[],free:true},box);box.innerHTML=r.svg;totb.innerHTML=totalsHTML(r.tot,true);out.textContent=fmt(c,p)}
-  inp.addEventListener("input",()=>{render();if(!moved){moved=true;track("guide-ob-anatomy-drag")}});
+  host.innerHTML=`<div class="scene"><div class="chartbox"></div><div class="slider"><label for="anaP">Drag price</label><input id="anaP" type="range" min="0" max="12" step="0.1" value="6"><output id="anaO"></output></div><div class="totbox"></div><p class="lean" id="anaEv"></p>${LEGEND}<div class="sc-ctl"><button type="button" class="btn" id="anaReset">↺ Reset the book</button></div></div>`;
+  const box=host.querySelector(".chartbox"), totb=host.querySelector(".totbox"), inp=host.querySelector("input"), out=host.querySelector("output"), ev=host.querySelector("#anaEv");
+  let moved=false, last=6, ORD, POS, shown, marks=[], anim=null;
+  /* the book as plain numbers: per row, sell-side and buy-side orders, sellers' and buyers' positions */
+  function reset(){
+    ORD={};POS={};
+    for(let r=0;r<ROWS;r++){const o=ordAt(c,c.ord,r), q=posAt(c,c.pos,r);ORD[r]={s:(o.ss||0)+(o.sl||0),b:(o.bs||0)+(o.bl||0)};POS[r]=[q[0],q[1]]}
+    shown=JSON.parse(JSON.stringify({ORD,POS})); marks=[]; ev.innerHTML="Drag price through the bars and watch the orders get used up.";
+  }
+  function state(p){
+    const ord={},pos={};
+    for(let r=0;r<ROWS;r++){
+      const o=shown.ORD[r]; ord[r]=r<p?{ss:o.s,bl:o.b}:{sl:o.s,bs:o.b};
+      pos[r]=shown.POS[r];
+    }
+    return {hist:[p],pos,ord,gone:{},marks,free:true};
+  }
+  function render(){const p=+inp.value;const r=draw(c,state(p),box);box.innerHTML=r.svg;totb.innerHTML=totalsHTML(r.tot,true);out.textContent=fmt(c,p)}
+  function tween(){
+    if(anim) cancelAnimationFrame(anim);
+    const from=JSON.parse(JSON.stringify(shown)), t0=performance.now(), D=REDUCED?0:450;
+    (function fr(now){
+      const f=D?Math.min(1,(now-t0)/D):1, e=ease(f);
+      for(let r=0;r<ROWS;r++){
+        shown.ORD[r].s=from.ORD[r].s+(ORD[r].s-from.ORD[r].s)*e; shown.ORD[r].b=from.ORD[r].b+(ORD[r].b-from.ORD[r].b)*e;
+        shown.POS[r]=[0,1].map(k=>from.POS[r][k]+(POS[r][k]-from.POS[r][k])*e);
+      }
+      render(); if(f<1) anim=requestAnimationFrame(fr); else anim=null;
+    })(t0);
+  }
+  /* price moved from a to b: every order it passes through is executed */
+  function cross(a,b){
+    const lo=Math.min(a,b), hi=Math.max(a,b), down=b<a, hits=[]; let stops=0, fills=0;
+    for(let r=Math.ceil(lo);r<=Math.floor(hi);r++){
+      if(r===a) continue;
+      const o=ORD[r], stop=down?o.s:o.b, lim=down?o.b:o.s;
+      if(stop>0.25){
+        /* stops fire: those traders are out, so their positions shrink (buyers above if falling, sellers below if rising) */
+        let left=stop*.8; const side=down?1:0;
+        for(let k=down?r+1:r-1;left>0.01&&k>=0&&k<ROWS;k+=down?1:-1){const take=Math.min(left,POS[k][side]*.45);POS[k][side]-=take;left-=take}
+        hits.push({row:r,label:"STOPS CHOMPED",short:"CHOMPED",color:"#60a5fa",lab:true}); stops++;
+      }
+      if(lim>0.25){
+        /* limits fill: new positions open at this price */
+        POS[r][down?1:0]+=lim*.8;
+        const both=hits.length&&hits[hits.length-1].row===r;
+        if(both) Object.assign(hits[hits.length-1],{label:"STOPS CHOMPED + LIMITS FILLED",short:"CHOMPED + FILLED",color:"#e8edf6"});
+        else hits.push({row:r,label:"LIMITS FILLED",short:"FILLED",color:"#f59e0b",lab:true}); fills++;
+      }
+      if(down){o.s*=.15;o.b*=.15}else{o.s*=.15;o.b*=.15}
+    }
+    if(hits.length){
+      const now=performance.now(); hits.forEach(h=>h.t=now);
+      marks=marks.filter(m=>!hits.some(h=>h.row===m.row&&h.label===m.label)).concat(hits);
+      clearTimeout(cross.tm); cross.tm=setTimeout(()=>{marks=[];render()},2200);
+    }
+    if(stops||fills) ev.innerHTML=(stops?`<b style="color:#60a5fa">Stops chomped:</b> those traders were forced out at market, so their open positions shrank. `:"")+(fills?`<b style="color:#f59e0b">Limits filled:</b> those orders became new positions at that price. `:"")+"Either way, the order is used up and its bar shrinks.";
+  }
+  inp.addEventListener("input",()=>{
+    const p=+inp.value; cross(last,p); last=p; tween();
+    if(!moved){moved=true;track("guide-ob-anatomy-drag")}
+  });
+  host.querySelector("#anaReset").addEventListener("click",()=>{inp.value=6;last=6;reset();render()});
   let rz; window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(render,150)});
-  render();
+  reset(); render();
 }
 
 /* ======================= THE EXAMPLES ======================= */
