@@ -139,7 +139,7 @@
       <div class="card"><h3>Left book: Orders</h3><p>The crowd's <b>pending orders</b>: stop losses, take profits and limit orders. Retail traders mostly get <i>in</i> at market, so this book is mainly <b>where they'll get out</b>.</p><p><span class="sw" style="background:#3b82f6"></span><b>Blue</b> = stop losses and stop orders. <span class="sw" style="background:#f59e0b;margin-left:6px"></span><b>Orange</b> = limits and take profits.</p></div>
       <div class="card"><h3>Right book: Positions</h3><p>The trades the crowd is <b>holding right now</b>, at the price they opened them. A tall bar means a lot of people got in at that price.</p><p><span class="sw" style="background:#f59e0b"></span><b>Orange</b> = in profit. <span class="sw" style="background:#3b82f6;margin-left:6px"></span><b>Blue</b> = in a loss. Sells are on the left of each book, buys on the right.</p></div>
     </div>
-    <p><b>Try it:</b> drag price up and down. Nothing about the trades changes, only who is winning. Buyers above price and sellers below it turn blue: they're in a loss and want out.</p>
+    <p><b>Try it:</b> drag price up and down and watch both books change colour. On the <b>right</b>, nothing about the trades changes, only who is winning: buyers above price and sellers below it turn blue, because they're in a loss and want out. On the <b>left</b>, the same orders change job: a sell order below price is a stop (blue), but above price it's a limit or take profit (orange), and the other way round for buy orders.</p>
     <div id="anatomy"></div>
   </section>
 
@@ -271,8 +271,12 @@ function draw(c,st,el){
     const y=Y(r), bh=Math.max(6,rowH*.62);
     s+=`<text x="${pX+(oL-pX)/2}" y="${y+fs*.35}" text-anchor="middle" ${mono} font-size="${fs-3}" fill="#8b97ad">${fmt(c,r)}</text>`;
     const o=st.ord[r]||ordAt(c,{},r), half=(oR-oL)/2-4, used={l:0,r:0};
-    [["ss","l",BL],["sl","l",OR],["bs","r",BL],["bl","r",OR]].forEach(([k,side,col])=>{
-      const v=o[k]; if(!v||st.gone[r+":"+k]) return;
+    /* free (drag) mode: colour each side by where it sits against price, the way FXSSI's quadrants work.
+       Sell orders below price are stops (blue), above it limits (orange); buy orders the other way round. */
+    const parts=st.free?[["sell","l",r<price?BL:OR,(o.ss||0)+(o.sl||0)],["buy","r",r>price?BL:OR,(o.bs||0)+(o.bl||0)]]
+      :[["ss","l",BL],["sl","l",OR],["bs","r",BL],["bl","r",OR]].map(([k,side,col])=>[k,side,col,o[k]]);
+    parts.forEach(([k,side,col,v])=>{
+      if(!v||st.gone[r+":"+k]) return;
       const w=Math.min(1,v/MAX)*half, x=side==="l"?oC-used.l-w:oC+used.r; used[side]+=w;
       s+=`<rect x="${x}" y="${y-bh/2}" width="${w}" height="${bh}" rx="2" fill="${col}"/>`;
     });
