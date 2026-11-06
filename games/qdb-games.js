@@ -1,4 +1,4 @@
-/* QDB Games kit: share links + Weekly Report signup, shared by every game page.
+/* QDB Games kit: share links + free weekly COT / Telegram links, shared by every game page.
    Usage on a game page:
      <script src="../qdb-games.js" data-game="crowd-express" data-title="Crowd Express"></script>
      QDBGames.mount(element, {text: "I scored 7/8 on Crowd Express"})   // result-specific panel
@@ -9,7 +9,6 @@
   var TITLE = (me && me.dataset.title) || 'QDB Games';
   var SITE = 'https://quasidb.github.io/';
   var URL_ = SITE + 'games/' + (GAME === 'games' ? '' : GAME + '/');
-  var LEADS_URL = 'https://script.google.com/macros/s/AKfycbyAeonI9tKb-jdRUWcstZHZQdvAWlon9e-53h631yk_EUoThfmYJGE1wiEnXAdkZXKW/exec';
 
   var GAMES = [
     { slug: 'stick-to-the-plan', name: 'Stick to the Plan', blurb: 'Ten trades, one year, real-life bills. Does following a written plan get you funded?' },
@@ -35,6 +34,7 @@
     '.qdbg .qshare a,.qdbg .qshare button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:9px 14px;border-radius:10px;border:1px solid var(--ql);' +
     'background:var(--qb);color:var(--qt);font-family:inherit;font-weight:600;font-size:15px;line-height:1;text-decoration:none;cursor:pointer}' +
     '.qdbg .qshare a:hover,.qdbg .qshare button:hover{border-color:var(--qa)}' +
+    '.qdbg .qshare a.qcta{background:var(--qa);border-color:var(--qa);color:#1a1205}' +
     '.qdbg .qshare svg{width:18px;height:18px;flex:none;fill:currentColor}' +
     '.qdbg .qsep{height:1px;background:var(--ql);margin:18px 0}' +
     '.qdbg .qtag{display:inline-block;font:600 12px/1 ui-monospace,"JetBrains Mono",monospace;letter-spacing:.06em;color:var(--qg);background:rgba(34,197,94,.13);padding:5px 10px;border-radius:99px;margin-bottom:10px}' +
@@ -94,17 +94,11 @@
       (opts.text ? '<div class="qres">' + esc(text) + '</div>' : '<p>Know a trader who would enjoy this? Send it their way.</p>') +
       '<div class="qshare">' + btns + '</div>' +
       '<div class="qsep"></div>' +
-      '<span class="qtag">FREE · EVERY SUNDAY</span>' +
-      '<h3>Get the QDB Weekly Sentiment Report</h3>' +
-      '<p>Where the retail crowd is stacked across FX, indices and gold, and the week’s biggest positioning shifts. One email a week.</p>' +
-      '<form novalidate>' +
-      '<input type="text" name="name" placeholder="First name" autocomplete="given-name" maxlength="80" aria-label="First name">' +
-      '<input type="email" name="email" placeholder="Your email address" autocomplete="email" required aria-label="Email address">' +
-      '<input type="hidden" name="source" value="weekly"><input type="hidden" name="ref" value="game-' + esc(GAME) + '">' +
-      '<label class="qhp" aria-hidden="true">Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>' +
-      '<button class="qbtn" type="submit">Send me the report</button>' +
-      '<div class="qmsg" role="status"></div></form>' +
-      '<p class="qsmall">Free. Unsubscribe any time with one click.</p>' +
+      '<span class="qtag">FREE · EVERY FRIDAY</span>' +
+      '<h3>This week\u2019s COT report, in plain English</h3>' +
+      '<p>What the big speculators hold in FX, Gold and Silver, updated every Friday. No sign-up needed.</p>' +
+      '<div class="qshare"><a class="qcta" href="' + SITE + 'cot/?ref=game-' + esc(GAME) + '" data-go="cot">See the COT report</a>' +
+      '<a href="https://t.me/quasidb" target="_blank" rel="noopener" data-go="telegram">' + ICON.telegram + 'Follow on Telegram</a></div>' +
       (others ? '<div class="qsep"></div><h3>More free games</h3><div class="qmore">' + others + '</div>' : '') +
       '<a class="qhome" href="' + SITE + '?ref=game-' + esc(GAME) + '">See the full QDB Sheet →</a>';
   }
@@ -126,18 +120,8 @@
       navigator.share({ title: TITLE, text: text, url: link('native') }).catch(function () {});
       gc('share-native-' + GAME);
     });
-    var f = box.querySelector('form'), msg = box.querySelector('.qmsg');
-    f.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var fd = new FormData(f), show = function (c, t) { msg.className = 'qmsg ' + c; msg.textContent = t; };
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(fd.get('email')).trim())) return show('err', 'That email address doesn’t look quite right.');
-      var b = f.querySelector('button'); b.disabled = true; b.textContent = 'Signing you up…';
-      fetch(LEADS_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(fd) }).then(function () {
-        f.querySelectorAll('input[type=text],input[type=email]').forEach(function (i) { i.value = ''; });
-        show('ok', 'You’re in! Check your inbox for a welcome email (and your spam folder, just in case).');
-        gc('signup-weekly-game-' + GAME);
-      }, function () { show('err', 'Something went wrong. Please try again, or message @quasi_db on Telegram.'); })
-        .then(function () { b.disabled = false; b.textContent = 'Send me the report'; });
+    box.querySelectorAll('[data-go]').forEach(function (a) {
+      a.addEventListener('click', function () { gc('game-' + a.dataset.go + '-' + GAME); });
     });
   }
 
@@ -146,7 +130,7 @@
     if (typeof el === 'string') el = document.querySelector(el);
     if (!el) return null;
     var box = document.createElement('section');
-    box.className = 'qdbg'; box.setAttribute('aria-label', 'Share and sign up');
+    box.className = 'qdbg'; box.setAttribute('aria-label', 'Share and more');
     box.innerHTML = panelHTML(opts);
     el.appendChild(box); wire(box, opts.text || ('Try ' + TITLE));
     if (opts.text && FOOT) FOOT.style.display = 'none';

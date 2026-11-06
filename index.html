@@ -292,23 +292,6 @@ td.lock a:hover{color:var(--accent)}
 .play-link{color:var(--accent)!important;font-weight:600;margin-top:10px}
 .games-band .games-grid{grid-template-columns:repeat(2,1fr)}
 @media (max-width:980px){.games-band .grid3{grid-template-columns:1fr}}
-/* weekly report band */
-.weekly{padding:0 0 72px}
-.weekly-card{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;background:linear-gradient(135deg,rgba(34,197,94,.10),rgba(59,130,246,.10));border:1px solid rgba(34,197,94,.35);border-radius:22px;padding:40px 44px}
-.weekly .tagfree{display:inline-block;font-family:var(--mono);font-size:14px;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--buy-bg);color:var(--buy);margin-bottom:14px}
-.weekly h2{font-size:clamp(28px,3.2vw,38px);margin-bottom:12px}
-.weekly p{color:var(--muted);font-size:18px}
-.weekly ul{list-style:none;margin-top:16px;display:grid;gap:8px}
-.weekly li{padding-left:28px;position:relative;color:var(--muted);font-size:17px}
-.weekly li::before{content:"✓";position:absolute;left:0;color:var(--buy);font-weight:700}
-.wform{display:grid;gap:12px}
-.wform input{font:inherit;font-size:18px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:15px 16px;width:100%}
-.wform input:focus{outline:none;border-color:var(--accent)}
-.wform button{border:0;cursor:pointer;font-family:inherit;justify-content:center;font-size:18px}
-.wform button:disabled{opacity:.6;cursor:wait}
-.wform .small{font-size:14px;color:var(--dim)}
-.wform .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-@media (max-width:980px){.weekly-card{grid-template-columns:1fr;padding:30px 24px}}
 
 /* COT non-commercial positioning */
 .cot{padding:0 0 80px}
@@ -421,7 +404,7 @@ nav .wrap{gap:28px}
       <p class="lead">The QDB Sheet pulls retail sentiment across FX, indices and gold into one place, tracks how it shifts day to day and week to week, and scores where price and crowd positioning line up against each other.</p>
       <div class="cta-row">
         <a href="#pricing" class="btn btn-primary">Get sheet access</a>
-        <a href="#weekly" class="btn btn-ghost">Free weekly report →</a>
+        <a href="cot/?ref=home-hero" class="btn btn-ghost" data-goatcounter-click="hero-cot">Free weekly COT report →</a>
       </div>
       <div class="hero-stats">
         <div><strong>28+</strong>instruments tracked</div>
@@ -491,32 +474,6 @@ nav .wrap{gap:28px}
       <a href="#pricing" class="btn btn-primary" data-goatcounter-click="live-basket-pricing">Get the full QDB Sheet →</a>
       <a href="https://t.me/quasidb" target="_blank" rel="noopener" class="btn btn-ghost" data-goatcounter-click="live-basket-telegram">Free updates on Telegram</a>
       <span class="live-note">Sentiment is one input, not a signal on its own. Not financial advice.</span>
-    </div>
-  </div>
-</section>
-
-<section class="weekly" id="weekly">
-  <div class="wrap">
-    <div class="weekly-card reveal">
-      <div>
-        <span class="tagfree">FREE · EVERY SUNDAY</span>
-        <h2>Get the QDB Weekly Sentiment Report</h2>
-        <p>A weekly version of the report Premium members get every evening, straight to your inbox before the new week opens.</p>
-        <ul>
-          <li>Where the retail crowd is stacked across FX, indices &amp; gold</li>
-          <li>The week's biggest positioning shifts</li>
-          <li>Top QDB Scores going into Monday</li>
-        </ul>
-      </div>
-      <form class="wform" id="weeklyForm" novalidate>
-        <input type="text" name="name" placeholder="First name" autocomplete="given-name" maxlength="80" aria-label="First name">
-        <input type="email" name="email" placeholder="Your email address" autocomplete="email" required aria-label="Email address">
-        <input type="hidden" name="source" value="weekly">
-        <label class="hp" aria-hidden="true">Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
-        <button type="submit" class="btn btn-primary">Send me the weekly report →</button>
-        <div class="form-msg" id="weeklyMsg" role="status"></div>
-        <p class="small">Free. One email a week. Unsubscribe any time with one click.</p>
-      </form>
     </div>
   </div>
 </section>
@@ -1421,23 +1378,8 @@ leadForm.addEventListener('submit', async ev => {
   });
 })();
 
-// ---- Weekly report sign-up (same Apps Script as the contact form) ----
+// ---- GoatCounter custom events ----
 function gcEvent(name){ try{ window.goatcounter && goatcounter.count && goatcounter.count({path:name, title:name, event:true}); }catch(e){} }
-const weeklyForm=document.getElementById('weeklyForm'), weeklyMsg=document.getElementById('weeklyMsg');
-weeklyForm.addEventListener('submit', async ev=>{
-  ev.preventDefault();
-  const fd=new FormData(weeklyForm);
-  const show=(cls,txt)=>{ weeklyMsg.className='form-msg '+cls; weeklyMsg.textContent=txt; };
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(fd.get('email')).trim())) return show('err','That email address doesn\'t look quite right.');
-  const btn=weeklyForm.querySelector('button'); btn.disabled=true; btn.textContent='Signing you up…';
-  try{
-    await fetch(LEADS_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(fd)});
-    weeklyForm.querySelectorAll('input[type=text],input[type=email]').forEach(el=>el.value='');
-    show('ok','You\'re in! Check your inbox for a welcome email (and your spam folder, just in case).');
-    gcEvent('signup-weekly');
-  }catch(e){ show('err','Something went wrong. Please try again, or message @quasi_db on Telegram.'); }
-  btn.disabled=false; btn.textContent='Send me the weekly report →';
-});
 
 // ---- Launch offer: Basic = everything until 31 Dec 2026 (switches off automatically) ----
 (function(){
