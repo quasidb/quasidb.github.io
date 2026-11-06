@@ -304,12 +304,30 @@ function draw(c,st,el){
   return {svg:s+"</svg>",tot};
 }
 
+function sizeLean(S){
+  const B=100-S;
+  if(S>=60) return `By size the crowd is <b>mostly short</b> (${Math.round(S)}%): the book leans <b style="color:#86efac">buy</b>, if price is at strong demand.`;
+  if(B>=60) return `By size the crowd is <b>mostly long</b> (${Math.round(B)}%): the book leans <b style="color:#fca5a5">sell</b>, if price is at strong supply.`;
+  if(S>=55) return `By size the crowd is <b>leaning short</b> (${Math.round(S)}%): a mild buy lean, only worth anything at strong demand.`;
+  if(B>=55) return `By size the crowd is <b>leaning long</b> (${Math.round(B)}%): a mild sell lean, only worth anything at strong supply.`;
+  return `By size the crowd is <b>balanced</b> (${Math.round(S)}/${Math.round(B)}): no lean either way from size alone.`;
+}
+function pnlNote(sp,bp){
+  if(bp>=60&&sp<=40) return `<b>Buyers are winning, sellers are trapped.</b> Price is above where most of the crowd got in. Winning buyers will bank profits (selling), so rallies can stall; the trapped sellers' stops above are fuel if price pushes on.`;
+  if(sp>=60&&bp<=40) return `<b>Sellers are winning, buyers are trapped.</b> Price is below where most of the crowd got in. Winning sellers will bank profits (buying), so drops can stall; the trapped buyers' stops below are fuel if price pushes on.`;
+  if(sp<40&&bp<40) return `<b>Both sides are trapped.</b> Price is caught between the buyers' entries above and the sellers' entries below. Whichever way it moves, the trapped side there will rush out at breakeven.`;
+  if(sp>=60&&bp>=60) return `<b>Both sides are in profit.</b> Price is sitting between the two crowds' entries, so expect profit-taking from both: choppy until one side gives way.`;
+  return `<b>Winners and losers are mixed on both sides</b>, so profit and loss give no clear push either way.`;
+}
 function totalsHTML(t,detail){
   const S=t.s/(t.s+t.b)*100, Bv=100-S;
   let lean=S>=57?`The crowd is <b>mostly short</b>: the book leans <b style="color:#86efac">buy</b>, if price is at strong demand.`
     :Bv>=57?`The crowd is <b>mostly long</b>: the book leans <b style="color:#fca5a5">sell</b>, if price is at strong supply.`
     :`The crowd is fairly balanced: no strong lean either way.`;
-  if(detail) lean=`Sellers in profit <b>${Math.round(t.sp/t.s*100)}%</b> · Buyers in profit <b>${Math.round(t.bp/t.b*100)}%</b>. `+lean;
+  if(detail){
+    const sp=Math.round(t.sp/t.s*100), bp=Math.round(t.bp/t.b*100);
+    lean=`Sellers in profit <b>${sp}%</b> · Buyers in profit <b>${bp}%</b>.<br>${pnlNote(sp,bp)}<br>${sizeLean(S)}`;
+  }
   return `<div class="tot"><span class="s">Sellers ${Math.round(S)}%</span><div class="bar" aria-hidden="true"><i style="width:${S}%;background:#ef4444"></i><i style="width:${Bv}%;background:#22c55e"></i></div><span class="b">${Math.round(Bv)}% Buyers</span></div><p class="lean">${lean}</p>`;
 }
 const LEGEND=`<div class="legend"><span><span class="sw" style="background:${BL}"></span>Stops, or positions in a loss</span><span><span class="sw" style="background:${OR}"></span>Limits and take profits, or positions in profit</span><span><span class="sw" style="background:${GOLD};height:3px"></span>Price now</span></div>`;
