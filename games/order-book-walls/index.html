@@ -307,7 +307,8 @@ function startScreen(){
     <div class="rule"><div class="n">2</div><div><b>Blue speeds price up, orange slows it down</b><span>A stack of stops is fuel: once hit, the stops become market orders. Limits and take profits soak price up.</span></div></div>
     <div class="rule"><div class="n">3</div><div><b>Only trust a wall at a strong level</b><span>A cluster on its own is a hint. When it sits on daily or weekly demand or supply, it's usually very effective.</span></div></div>
   </div>
-  <div class="row"><button class="btn primary" onclick="begin()">Find the walls</button><a class="btn" href="../">More games</a></div>
+  <div class="note"><h4>New to the order book?</h4><p>This one is tricky. Read <a href="../../guides/order-book/?ref=game-order-book-walls" onclick="track('guide-from-order-book-walls')">The Order Book, made simple</a> first: plain-English buy and sell rules with animated examples, about 10 minutes.</p></div>
+  <div class="row"><button class="btn primary" onclick="begin()">Find the walls</button><a class="btn" href="../../guides/order-book/?ref=game-order-book-walls">Read the guide first</a><a class="btn" href="../">More games</a></div>
   ${best?`<p class="muted" style="margin-top:12px;font-size:16px">Your best: ${best.pts} points (${esc(best.g)}).</p>`:""}
   <p class="foot">Educational only, not financial advice. Charts and order books are illustrative, written to teach the idea, not real data.</p>`;
 }
@@ -412,7 +413,7 @@ function end(){
   <div class="grade" style="margin-top:6px">${S.pts}</div>
   <h2 style="margin-top:6px">${esc(g)}</h2>
   <p class="lead" style="margin-top:8px">${esc(msg)}</p>
-  <div class="note" style="margin-top:16px"><h4>In a nutshell</h4><p><b>Only trade the order book clusters at key strong technical levels</b>: weekly or daily demand and supply. A cluster on its own is a hint, not a trade.</p></div>
+  <div class="note" style="margin-top:16px"><h4>In a nutshell</h4><p><b>Only trade the order book clusters at key strong technical levels</b>: weekly or daily demand and supply. A cluster on its own is a hint, not a trade. Want the full picture? <a href="../../guides/order-book/?ref=game-order-book-walls-end">Read the Order Book guide</a>.</p></div>
   <div class="kpis">
     <div class="kpi"><span>Walls called right</span><b>${S.found}/${R.length}</b></div>
     <div class="kpi"><span>Points</span><b>${S.pts}/${R.length*100}</b></div>
