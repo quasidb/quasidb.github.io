@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Beat the Crowd: the daily retail sentiment puzzle</title>
+<meta name="description" content="A free daily trading puzzle from QDB. Five real pairs, where the retail crowd really stood, and how price moved next. Call each one, then see if you beat the crowd. New puzzle every weekday.">
+<link rel="canonical" href="https://quasidb.github.io/games/beat-the-crowd/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.github.io/games/beat-the-crowd/">
+<meta property="og:title" content="Beat the Crowd: can you out-trade the retail crowd today?">
+<meta property="og:description" content="Five real pairs. Where the crowd stood, and where price went next. A new puzzle every weekday.">
+<meta property="og:image" content="https://quasidb.github.io/games/beat-the-crowd/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Beat the Crowd: can you out-trade the retail crowd today?">
+<meta name="twitter:description" content="Five real pairs. Where the crowd stood, and where price went next. A new puzzle every weekday.">
+<meta name="twitter:image" content="https://quasidb.github.io/games/beat-the-crowd/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f17; --bg2:#101624; --panel:#141b2b; --line:#26324a; --text:#e8edf6; --muted:#a3afc5; --dim:#6b7892;
+  --buy:#22c55e; --buy-bg:rgba(34,197,94,.13); --sell:#ef4444; --sell-bg:rgba(239,68,68,.13);
+  --accent:#f5b83d; --amber:#ffb000; --blue:#3b82f6;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:var(--accent)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+.mono{font-family:var(--mono)}
+.muted{color:var(--muted)}
+.hidden{display:none!important}
+
+.top{position:sticky;top:0;z-index:10;background:rgba(11,15,23,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;text-decoration:none;color:var(--text)}
+.brand img{width:30px;height:30px;border-radius:50%}
+.hud{display:flex;gap:8px;font-family:var(--mono);font-size:14px}
+.hud span{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 10px;white-space:nowrap}
+.hud b{color:var(--accent)}
+
+main{padding:22px 0 10px}
+.kicker{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--buy)}
+h1{font-size:clamp(36px,7vw,56px);line-height:1.04;letter-spacing:-.035em;font-weight:700;margin-top:6px}
+h1 em{font-style:normal;color:var(--amber)}
+h2{font-size:clamp(24px,4.4vw,32px);line-height:1.15;letter-spacing:-.02em}
+h3{font-size:20px;letter-spacing:-.01em}
+.lead{font-size:19px;color:var(--muted);margin:12px 0 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 22px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);font-weight:700;font-size:18px;text-decoration:none;color:var(--text)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1205}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+
+/* progress squares */
+.dots{display:flex;gap:6px;margin-top:16px}
+.dots i{width:34px;height:10px;border-radius:4px;background:var(--line)}
+.dots i.g{background:var(--buy)} .dots i.r{background:var(--sell)} .dots i.now{background:var(--accent)}
+
+/* round */
+.pair{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pair b{font-family:var(--mono);font-size:clamp(34px,8vw,48px);letter-spacing:.02em}
+.pair span{font-family:var(--mono);color:var(--dim);font-size:14px}
+.meter{display:flex;height:34px;border-radius:10px;overflow:hidden;margin-top:14px;font-family:var(--mono);font-weight:700;font-size:15px}
+.meter div{display:flex;align-items:center;padding:0 10px;white-space:nowrap;min-width:0}
+.meter .l{background:var(--buy);color:#04210f}
+.meter .s{background:var(--sell);color:#2a0606;justify-content:flex-end}
+.says{margin-top:12px;font-size:19px}
+.says b.up{color:var(--buy)} .says b.dn{color:var(--sell)}
+.ask{margin-top:18px;font-size:19px;font-weight:600}
+.calls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.call{min-height:72px;border-radius:14px;border:2px solid var(--line);background:var(--bg2);font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
+.call.up:hover{border-color:var(--buy);background:var(--buy-bg)}
+.call.dn:hover{border-color:var(--sell);background:var(--sell-bg)}
+.call.up .a{color:var(--buy)} .call.dn .a{color:var(--sell)}
+.call[disabled]{cursor:default;opacity:.45}
+.call.picked{opacity:1;border-color:var(--accent)}
+
+/* reveal */
+.reveal{margin-top:18px;border-top:1px dashed var(--line);padding-top:16px}
+.move{font-family:var(--mono);font-size:clamp(30px,7vw,40px);font-weight:700;line-height:1.1}
+.move.up{color:var(--buy)} .move.dn{color:var(--sell)}
+.px{font-family:var(--mono);color:var(--muted);font-size:15px;margin-top:4px}
+.verdicts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:14px}
+.v{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.v span{display:block;font-size:14px;color:var(--muted)}
+.v b{font-size:18px}
+.v b.ok{color:var(--buy)} .v b.no{color:var(--sell)} .v b.na{color:var(--muted)}
+.lesson{margin-top:14px;border-left:4px solid var(--amber);background:rgba(255,176,0,.07);border-radius:0 12px 12px 0;padding:12px 16px;font-size:17px}
+@media (prefers-reduced-motion:no-preference){.reveal{animation:pop .35s ease-out both}@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}}
+
+/* end */
+.score{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.score div{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.score span{display:block;color:var(--muted);font-size:15px}
+.score b{font-family:var(--mono);font-size:clamp(40px,10vw,60px);line-height:1.1}
+.score .me b{color:var(--amber)}
+.grid{font-size:30px;letter-spacing:4px;margin-top:14px;text-align:center}
+.stamp{display:inline-block;font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;border:2px solid currentColor;border-radius:8px;padding:4px 10px}
+.stamp.win{color:var(--buy)} .stamp.draw{color:var(--accent)} .stamp.lose{color:var(--sell)}
+table{width:100%;border-collapse:collapse;font-size:16px;margin-top:10px}
+td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+td.n{font-family:var(--mono);white-space:nowrap}
+.up{color:var(--buy)} .dn{color:var(--sell)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.stats div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.stats b{display:block;font-family:var(--mono);font-size:26px}
+.stats span{font-size:13px;color:var(--muted)}
+@media (max-width:520px){.stats{grid-template-columns:1fr 1fr}}
+.dist{margin-top:14px;display:grid;gap:4px}
+.dist div{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:center;font-family:var(--mono);font-size:14px}
+.dist i{display:block;height:20px;background:var(--line);border-radius:4px;min-width:22px;color:var(--text);font-style:normal;text-align:right;padding-right:6px;font-size:13px;line-height:20px}
+.dist i.me{background:var(--accent);color:#1a1205}
+.next{font-family:var(--mono);font-size:22px;color:var(--amber)}
+.teaser{display:grid;gap:8px;margin-top:10px}
+.teaser div{display:flex;justify-content:space-between;gap:10px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-family:var(--mono)}
+.cta{margin-top:18px;background:linear-gradient(135deg,rgba(34,197,94,.10),rgba(59,130,246,.10));border:1px solid rgba(34,197,94,.35);border-radius:18px;padding:22px}
+.cta p{color:var(--muted);margin-top:6px}
+.foot{font-size:14px;color:var(--dim);margin:22px 0 0}
+.rules{margin:14px 0 0 1.1em;color:var(--muted)}
+.rules li{margin-top:4px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../?ref=game-beat-the-crowd"><img src="../../logo.png" alt="">QDB Games</a>
+    <div class="hud" id="hud" aria-live="polite"></div>
+  </div>
+</header>
+
+<main class="wrap" id="app"><p class="muted" style="padding:40px 0">Loading today's puzzle…</p></main>
+<div class="wrap" id="share"></div>
+
+<div class="wrap">
+  <p class="foot">The crowd's % long comes from the QDB Sheet's daily snapshot (about 5pm UK). Price moves use ECB reference rates from one snapshot day to the next, so they can differ a little from your broker's daily candle. A teaching game, not financial advice.</p>
+</div>
+
+<script>
+(function(){
+const DATA = '../../data/daily.json';
+const KEY = 'qdb-btc-v1';
+const app = document.getElementById('app'), hud = document.getElementById('hud');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const gc = n => { try { window.goatcounter && goatcounter.count && goatcounter.count({path:n, title:n, event:true}); } catch(e){} };
+function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {days:{}}; } catch(e){ return {days:{}}; } }
+function save(s){ try { localStorage.setItem(KEY, JSON.stringify(s)); } catch(e){} }
+const fmtPair = s => s.length === 6 ? s.slice(0,3) + '/' + s.slice(3) : s;
+const signed = v => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(2) + '%';
+const crowdUp = r => r.long >= 50;
+const scoreSide = sc => sc == null ? null : sc >= 7 ? 'up' : sc <= 3 ? 'dn' : null;
+const dayName = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'short', timeZone:'UTC'});
+
+let S = load(), P = null, T = null, state = null;
+
+function streaks(){
+  const ns = Object.keys(S.days).map(Number).sort((a,b) => a-b);
+  let best = 0, run = 0, prev = null;
+  for (const n of ns){ run = (prev !== null && n === prev + 1) ? run + 1 : 1; best = Math.max(best, run); prev = n; }
+  const cur = (prev !== null && P && (prev === P.n || prev === P.n - 1)) ? run : 0;
+  return {cur, best};
+}
+function drawHud(){
+  const st = streaks();
+  hud.innerHTML = (P ? `<span>Puzzle <b>#${P.n}</b></span>` : '') + `<span>Streak <b>${st.cur}</b>🔥</span>`;
+}
+
+function nextPuzzleText(){
+  // the snapshot runs at 16:30 UTC on weekdays; allow for delays
+  const now = new Date();
+  let d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 17, 0));
+  const today = now.toISOString().slice(0,10);
+  if (P && P.date === today || now > d) d = new Date(d.getTime() + 864e5);
+  while ([0,6].includes(d.getUTCDay())) d = new Date(d.getTime() + 864e5);
+  const h = Math.max(0, Math.round((d - now) / 36e5));
+  return h < 1 ? 'any minute now' : h < 24 ? `in about ${h} hour${h === 1 ? '' : 's'}` : dayName(d.toISOString().slice(0,10)) + ', about 5pm UK';
+}
+
+function teaserHTML(){
+  if (!T || !T.length) return '';
+  return `<div class="card"><h3>The crowd right now</h3>
+    <p class="muted" style="margin-top:4px">Where retail leans hardest today. Will they be wrong? Some of these could turn up in the next puzzle.</p>
+    <div class="teaser">${T.map(t => { const up = t.long >= 50, l = Math.round(t.long); return `<div><b>${esc(fmtPair(t.sym))}</b><span class="${up ? 'up' : 'dn'}">${up ? l + '% long' : (100 - l) + '% short'}</span></div>`; }).join('')}</div>
+    <p class="muted" style="margin-top:12px;font-size:16px">Next puzzle: <span class="next">${nextPuzzleText()}</span></p></div>`;
+}
+
+function intro(){
+  const done = S.days[P.n];
+  app.innerHTML = `
+    <div class="kicker">Daily puzzle · ${esc(dayName(P.date))}</div>
+    <h1>Beat the <em>Crowd</em> #${P.n}</h1>
+    <p class="lead">Five real pairs. You see where the retail crowd stood at the last snapshot. Call where price went next, then find out if you beat the crowd.</p>
+    <ul class="rules"><li>The crowd bets on its side: mostly long means it needs price <b class="up">up</b>.</li><li>Every call reveals the real move straight away.</li><li>One puzzle a day. Come back each weekday to keep your streak.</li></ul>
+    <div class="row"><button class="btn primary" id="go">${done ? 'See my result' : 'Start today’s puzzle'}</button>
+    <a class="btn" href="../../guides/retail-sentiment/?ref=beat-the-crowd">How the crowd works</a></div>`;
+  document.getElementById('go').onclick = () => { if (done) end(); else { gc('btc-start'); state = {i:0, picks:[]}; round(); } };
+}
+
+function meter(r){
+  const l = Math.round(r.long), s = 100 - l;
+  return `<div class="meter" role="img" aria-label="${l}% long, ${s}% short"><div class="l" style="width:${l}%">${l >= 18 ? l + '% long' : ''}</div><div class="s" style="width:${s}%">${s >= 18 ? s + '% short' : ''}</div></div>`;
+}
+function dots(){
+  return `<div class="dots" aria-hidden="true">${P.rounds.map((r, i) => {
+    const p = state.picks[i];
+    if (p === undefined) return `<i class="${i === state.i ? 'now' : ''}"></i>`;
+    return `<i class="${(p === 'up') === (r.move > 0) ? 'g' : 'r'}"></i>`;
+  }).join('')}</div>`;
+}
+
+function round(){
+  const r = P.rounds[state.i], cu = crowdUp(r);
+  if (state.i) window.scrollTo(0, 0);
+  app.innerHTML = `
+    <div class="kicker">Pair ${state.i + 1} of ${P.rounds.length}</div>
+    ${dots()}
+    <div class="card">
+      <div class="pair"><b>${esc(fmtPair(r.sym))}</b><span>crowd at ${esc(dayName(P.from))}</span></div>
+      ${meter(r)}
+      <p class="says">The crowd is betting <b class="${cu ? 'up' : 'dn'}">${cu ? 'UP ▲' : 'DOWN ▼'}</b>.</p>
+      <p class="ask">Where did ${esc(fmtPair(r.sym))} go by ${esc(dayName(P.to).split(',')[0])}?</p>
+      <div class="calls"><button class="call up" data-c="up"><span class="a">▲</span> Up</button><button class="call dn" data-c="dn"><span class="a">▼</span> Down</button></div>
+      <div id="rv"></div>
+    </div>`;
+  app.querySelectorAll('.call').forEach(b => b.onclick = () => pick(b.dataset.c, b));
+  app.querySelector('.call').focus({preventScroll:true});
+}
+
+function pick(c, btn){
+  const r = P.rounds[state.i], went = r.move > 0 ? 'up' : 'dn';
+  state.picks[state.i] = c;
+  app.querySelectorAll('.call').forEach(b => { b.disabled = true; });
+  btn.classList.add('picked');
+  const me = c === went, crowd = (crowdUp(r) ? 'up' : 'dn') === went, ss = scoreSide(r.score);
+  const lesson = crowd
+    ? (Math.abs(r.long - 50) >= 25 ? 'The crowd got this one. Even a crowd leaning hard can be right for a day, which is why sentiment works best at strong levels, not on its own.' : 'The crowd got this one. A mild lean is a weak signal either way.')
+    : `The crowd was ${Math.round(Math.max(r.long, 100 - r.long))}% on the wrong side. That is the fuel a contrarian looks for.`;
+  document.getElementById('rv').innerHTML = `
+    <div class="reveal" aria-live="polite">
+      <div class="move ${went}">${went === 'up' ? '▲' : '▼'} ${signed(r.move)}</div>
+      <div class="px">${r.p0} → ${r.p1}</div>
+      <div class="verdicts">
+        <div class="v"><span>You</span><b class="${me ? 'ok' : 'no'}">${me ? '✓ Right' : '✗ Wrong'}</b></div>
+        <div class="v"><span>The crowd</span><b class="${crowd ? 'ok' : 'no'}">${crowd ? '✓ Right' : '✗ Wrong'}</b></div>
+        ${r.score != null ? `<div class="v"><span>QDB Score ${r.score}/12</span><b class="${ss ? (ss === went ? 'ok' : 'no') : 'na'}">${ss ? (ss === went ? '✓ Called it' : '✗ Missed') : '– No call'}</b></div>` : ''}
+      </div>
+      <p class="lesson">${lesson}</p>
+      <div class="row"><button class="btn primary" id="nx">${state.i + 1 < P.rounds.length ? 'Next pair →' : 'See my result →'}</button></div>
+    </div>`;
+  const nx = document.getElementById('nx'); nx.focus({preventScroll:true});
+  nx.scrollIntoView({behavior:'smooth', block:'nearest'});
+  nx.onclick = () => {
+    if (++state.i < P.rounds.length) return round();
+    const res = tally(state.picks);
+    S.days[P.n] = {picks: state.picks, me: res.me, crowd: res.crowd, qdb: res.qdb, date: P.date};
+    save(S); gc('btc-finish-' + res.me); end();
+  };
+}
+
+function tally(picks){
+  let me = 0, crowd = 0, qdb = 0, qn = 0;
+  P.rounds.forEach((r, i) => {
+    const went = r.move > 0 ? 'up' : 'dn';
+    if (picks[i] === went) me++;
+    if ((crowdUp(r) ? 'up' : 'dn') === went) crowd++;
+    const ss = scoreSide(r.score); if (ss){ qn++; if (ss === went) qdb++; }
+  });
+  return {me, crowd, qdb, qn};
+}
+
+function end(){
+  window.scrollTo(0, 0);
+  const d = S.days[P.n], res = tally(d.picks);
+  const grid = P.rounds.map((r, i) => d.picks[i] === (r.move > 0 ? 'up' : 'dn') ? '🟩' : '🟥').join('');
+  const out = res.me > res.crowd ? ['win', 'You beat the crowd'] : res.me === res.crowd ? ['draw', 'Dead heat with the crowd'] : ['lose', 'The crowd won today'];
+  const st = streaks(), all = Object.values(S.days), wins = all.filter(x => x.me > x.crowd).length;
+  const dist = [0,1,2,3,4,5].map(k => all.filter(x => x.me === k).length), mx = Math.max(1, ...dist);
+  drawHud();
+  app.innerHTML = `
+    <div class="kicker">Beat the Crowd #${P.n} · ${esc(dayName(P.date))}</div>
+    <h1 style="margin-top:10px"><span class="stamp ${out[0]}">${out[1]}</span></h1>
+    <div class="score"><div class="me"><span>You</span><b>${res.me}/${P.rounds.length}</b></div><div><span>The crowd</span><b>${res.crowd}/${P.rounds.length}</b></div></div>
+    <div class="grid" aria-label="Your calls">${grid}</div>
+    <div class="card">
+      <h3>Today's pairs</h3>
+      <table><thead><tr><th>Pair</th><th>Crowd</th><th>Moved</th><th>You</th></tr></thead><tbody>
+      ${P.rounds.map((r, i) => { const w = r.move > 0 ? 'up' : 'dn'; return `<tr><td class="n"><b>${esc(fmtPair(r.sym))}</b></td><td class="n">${Math.round(r.long)}% long</td><td class="n ${w}">${signed(r.move)}</td><td>${d.picks[i] === w ? '✓' : '✗'}</td></tr>`; }).join('')}
+      </tbody></table>
+      ${res.qn ? `<p class="muted" style="margin-top:12px;font-size:16px">The <b style="color:var(--text)">QDB Score</b> made a call on ${res.qn} of these and got <b style="color:var(--text)">${res.qdb}</b> right.</p>` : ''}
+    </div>
+    <div class="card">
+      <h3>Your stats</h3>
+      <div class="stats"><div><b>${all.length}</b><span>Played</span></div><div><b>${all.length ? Math.round(wins / all.length * 100) : 0}%</b><span>Beat the crowd</span></div><div><b>${st.cur}</b><span>Streak</span></div><div><b>${st.best}</b><span>Best streak</span></div></div>
+      <div class="dist">${dist.map((c, k) => `<div><span>${k}</span><i class="${k === res.me ? 'me' : ''}" style="width:${Math.max(6, c / mx * 100)}%">${c}</i></div>`).join('')}</div>
+    </div>
+    ${teaserHTML()}
+    <div class="cta">
+      <h3>See the crowd every 15 minutes, not once a day</h3>
+      <p>Members get the live crowd, the QDB Score for every pair and the Basket board in the QDB Sheet, plus Discord.</p>
+      <div class="row"><a class="btn primary" href="../../?ref=beat-the-crowd#pricing">See the QDB Sheet →</a><a class="btn" href="../../guides/retail-sentiment/?ref=beat-the-crowd">Read the crowd guide</a></div>
+    </div>`;
+  const share = document.getElementById('share'); share.innerHTML = '';
+  const text = `Beat the Crowd #${P.n}: me ${res.me}/${P.rounds.length}, the crowd ${res.crowd}/${P.rounds.length}\n${grid}`;
+  window.QDBGames && QDBGames.mount(share, {text, heading: 'Share your result'});
+}
+
+function empty(){
+  app.innerHTML = `
+    <div class="kicker">Daily puzzle</div>
+    <h1>Beat the <em>Crowd</em></h1>
+    <p class="lead">Every weekday: five real pairs, where the retail crowd stood, and where price went next. Call each one and see if you beat the crowd.</p>
+    <div class="card"><h3>The first puzzle is on its way</h3><p class="muted" style="margin-top:6px">It needs two daily snapshots of the crowd, one each weekday afternoon. Here is where the crowd stands meanwhile.</p></div>
+    ${teaserHTML()}`;
+}
+
+fetch(DATA + '?v=' + Math.floor(Date.now() / 6e5), {cache:'no-store'})
+  .then(r => { if (!r.ok) throw 0; return r.json(); })
+  .then(d => { P = d.puzzle; T = d.teaser; drawHud(); P && P.rounds && P.rounds.length ? intro() : empty(); })
+  .catch(() => { drawHud(); empty(); });
+})();
+</script>
+<script src="../qdb-games.js" data-game="beat-the-crowd" data-title="Beat the Crowd"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+name: Daily crowd snapshot
+
+# Each weekday after the ECB reference rates are published (about 15:00 UTC):
+# snapshot the retail crowd from the QDB Sheet and build the Beat the Crowd puzzle.
+on:
+  schedule:
+    - cron: "30 16 * * 1-5"   # Mon-Fri 16:30 UTC (about 5pm UK)
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/crowd.py"
+      - ".github/workflows/crowd.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: crowd-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Check the sheet and rates (pull requests only, nothing is committed)
+        if: github.event_name == 'pull_request'
+        run: python3 scripts/crowd.py --check
+
+      - name: Snapshot and build the daily puzzle
+        if: github.event_name != 'pull_request'
+        run: python3 scripts/crowd.py
+
+      - name: Commit
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "qdb-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/crowd-history.json data/daily.json
+          git diff --cached --quiet && { echo "Nothing changed."; exit 0; }
+          git commit -m "Crowd snapshot $(date -u +%F)"
+          for i in 1 2 3 4; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep $((i*5))
+          done
+          exit 1
