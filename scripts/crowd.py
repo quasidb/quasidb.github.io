@@ -144,6 +144,26 @@ def build_puzzle(prev, cur, n):
             "from_rates": prev["rates_date"], "to_rates": cur["rates_date"], "rounds": rounds}
 
 
+def pick_forecast(cur):
+    """Tomorrow's bonus question: will the crowd be more or less long on this pair at the next snapshot?"""
+    rows = sorted(s for s, c in cur["pairs"].items() if "long" in c and 5 <= c["long"] <= 95)
+    if not rows:
+        return None
+    s = random.Random("fc" + cur["date"]).choice(rows)
+    return {"id": cur["date"], "sym": s, "long": cur["pairs"][s]["long"], "at": cur["at"]}
+
+
+def resolve_forecast(fc, cur):
+    """Compare yesterday's question with the crowd now. answer: more / less / same."""
+    if not fc or fc.get("id") == cur["date"]:
+        return None
+    now = cur["pairs"].get(fc["sym"], {}).get("long")
+    if now is None:
+        return None
+    ans = "more" if now > fc["long"] else "less" if now < fc["long"] else "same"
+    return {"id": fc["id"], "sym": fc["sym"], "from": fc["long"], "to": now, "answer": ans, "at": cur["at"]}
+
+
 def teaser(cur, k=3):
     rows = sorted(((s, c) for s, c in cur["pairs"].items() if "long" in c), key=lambda kv: (-lean(kv[1]["long"]), kv[0]))
     return [{"sym": s, "long": c["long"], "score": c.get("score")} for s, c in rows[:k]]
@@ -189,12 +209,15 @@ def main():
         if puzzle and not same_day:
             hist["puzzles"] = n
     if a.check:
-        print(json.dumps({"puzzle": puzzle, "teaser": teaser(snap)}, indent=1))
+        print(json.dumps({"puzzle": puzzle, "teaser": teaser(snap), "forecast": pick_forecast(snap)}, indent=1))
         print("SNAPSHOT " + json.dumps(snap, separators=(",", ":")))
         return
 
+    prev_fc = daily.get("forecast")
+    fc_result = resolve_forecast(prev_fc, snap) if (prev_fc or {}).get("id") != snap["date"] else daily.get("forecast_result")
     out = {"updated": snap["at"], "puzzle": puzzle or daily.get("puzzle"), "teaser": teaser(snap),
-           "teaser_at": snap["at"]}
+           "teaser_at": snap["at"], "forecast": pick_forecast(snap),
+           "forecast_result": fc_result or daily.get("forecast_result")}
     os.makedirs("data", exist_ok=True)
     with open(HISTORY, "w") as f:
         json.dump(hist, f, separators=(",", ":"))
