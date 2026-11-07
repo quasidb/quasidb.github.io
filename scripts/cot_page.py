@@ -16,7 +16,7 @@ import re
 import urllib.parse
 from datetime import date
 
-SITE = "https://quasidb.github.io"
+SITE = "https://quasidb.com"
 URL = SITE + "/cot/"
 LABEL = {"XAU": "Gold", "XAG": "Silver"}
 EXT_HI, EXT_LO = 90, 10

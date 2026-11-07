@@ -4,7 +4,7 @@
 //   node record.js                 record every game into ./out
 //   node record.js stop-hunter     record one game
 //   node record.js --list          list the games
-//   options: --base <url>   play the live site instead of this checkout (e.g. https://quasidb.github.io)
+//   options: --base <url>   play the live site instead of this checkout (e.g. https://quasidb.com)
 //            --out <dir>    output folder (default ./out)
 //            --music <file> background music, mixed quietly under the clip
 //            --preview      quick low-quality draft

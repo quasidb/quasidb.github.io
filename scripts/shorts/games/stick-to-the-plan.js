@@ -19,7 +19,7 @@ module.exports = {
     description: [
       'Ten trades, one year, real-life bills. Watch what happens when you size up on a "perfect" setup, when rent goes up, and when NFP drops in ten minutes.',
       '',
-      '🎮 Play Stick to the Plan free: https://quasidb.github.io/games/stick-to-the-plan/?ref=yt-shorts',
+      '🎮 Play Stick to the Plan free: https://quasidb.com/games/stick-to-the-plan/?ref=yt-shorts',
       '',
       'Educational only, not financial advice.',
       '#trading #forex #propfirm #fundedtrader #riskmanagement #tradingpsychology',

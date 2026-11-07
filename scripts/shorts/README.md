@@ -35,7 +35,7 @@ node record.js                     # every game -> out/*.mp4
 node record.js stop-hunter         # one game
 node record.js --preview all       # quick lower-quality drafts
 node record.js stop-hunter --music ~/Music/track.mp3   # quiet background music
-node record.js --base https://quasidb.github.io        # record the live site instead of this checkout
+node record.js --base https://quasidb.com        # record the live site instead of this checkout
 ```
 
 ## Uploading to YouTube

@@ -7,7 +7,7 @@
   var me = document.currentScript;
   var GAME = (me && me.dataset.game) || 'games';
   var TITLE = (me && me.dataset.title) || 'QDB Games';
-  var SITE = 'https://quasidb.github.io/';
+  var SITE = 'https://quasidb.com/';
   var URL_ = SITE + 'games/' + (GAME === 'games' ? '' : GAME + '/');
 
   var GAMES = [
