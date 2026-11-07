@@ -143,8 +143,8 @@ def pair_cells(d):
         a = min(abs(sc) / 100, 1) * .55 + .05
         c = "34,197,94" if sc >= 0 else "239,68,68"
         nm = p["pair"][:3] + "/" + p["pair"][3:]
-        out.append(f'<div class="pair" style="background:rgba({c},{a:.2f})">'
-                   f'<span>{nm}</span><b>{fmt_num(round(sc))}</b></div>')
+        out.append(f'<a class="pair" href="../sentiment/{p["pair"].lower()}/?ref=cot" style="background:rgba({c},{a:.2f})">'
+                   f'<span>{nm}</span><b>{fmt_num(round(sc))}</b></a>')
     return "\n".join(out)
 
 
@@ -232,7 +232,7 @@ def render(d):
 .ext{{font-size:11px;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:1px 4px}}
 .scroll{{overflow-x:auto;-webkit-overflow-scrolling:touch}}
 .pairs{{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin-top:14px}}
-.pair{{display:flex;justify-content:space-between;gap:6px;border-radius:10px;padding:9px 11px;font-family:var(--mono);font-size:14px;border:1px solid rgba(255,255,255,.05)}}
+.pair{{color:var(--text);text-decoration:none;display:flex;justify-content:space-between;gap:6px;border-radius:10px;padding:9px 11px;font-family:var(--mono);font-size:14px;border:1px solid rgba(255,255,255,.05)}}
 .faq details{{border-bottom:1px solid var(--line);padding:12px 0;max-width:48em}}
 .faq summary{{cursor:pointer;font-weight:600}}
 .faq p{{color:var(--muted);margin-top:8px}}
@@ -243,7 +243,7 @@ def render(d):
 <body>
 <nav class="top"><div class="wrap">
   <a class="brand" href="../?ref=cot"><img src="../logo.png" alt="">QDB Trading Desk</a>
-  <div class="navl"><a href="./" aria-current="page">COT</a><a href="../guides/?ref=cot">Guides</a><a href="../games/?ref=cot">Games</a><a href="../?ref=cot#pricing">Pricing</a></div>
+  <div class="navl"><a href="./" aria-current="page">COT</a><a href="../guides/?ref=cot">Guides</a><a href="../games/?ref=cot">Games</a><a href="../sentiment/?ref=cot">Sentiment</a><a href="../downloads/?ref=cot">Downloads</a><a href="../?ref=cot#pricing">Pricing</a></div>
 </div></nav>
 
 <main class="wrap">
@@ -279,7 +279,7 @@ def render(d):
 
   <section class="sec" id="pairs">
     <h2>The 28 pairs, ranked</h2>
-    <p class="muted">Base currency index minus quote currency index. Green means speculators back the base currency over the quote, red the other way round. Strongest bias first.</p>
+    <p class="muted">Tap a pair for its daily sentiment page. Base currency index minus quote currency index. Green means speculators back the base currency over the quote, red the other way round. Strongest bias first.</p>
     <div class="pairs">
 {pair_cells(d)}
     </div>

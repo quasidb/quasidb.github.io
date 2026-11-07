@@ -297,7 +297,7 @@ function end(){
     <div class="card">
       <h3>Today's pairs</h3>
       <table><thead><tr><th>Pair</th><th>Crowd</th><th>Moved</th><th>You</th></tr></thead><tbody>
-      ${P.rounds.map((r, i) => { const w = r.move > 0 ? 'up' : 'dn'; return `<tr><td class="n"><b>${esc(fmtPair(r.sym))}</b></td><td class="n">${Math.round(r.long)}% long</td><td class="n ${w}">${signed(r.move)}</td><td>${d.picks[i] === w ? '✓' : '✗'}</td></tr>`; }).join('')}
+      ${P.rounds.map((r, i) => { const w = r.move > 0 ? 'up' : 'dn'; return `<tr><td class="n"><a href="../../sentiment/${esc(r.sym.toLowerCase())}/?ref=beat-the-crowd" style="color:var(--text)"><b>${esc(fmtPair(r.sym))}</b></a></td><td class="n">${Math.round(r.long)}% long</td><td class="n ${w}">${signed(r.move)}</td><td>${d.picks[i] === w ? '✓' : '✗'}</td></tr>`; }).join('')}
       </tbody></table>
       ${res.qn ? `<p class="muted" style="margin-top:12px;font-size:16px">The <b style="color:var(--text)">QDB Score</b> made a call on ${res.qn} of these and got <b style="color:var(--text)">${res.qdb}</b> right.</p>` : ''}
     </div>
