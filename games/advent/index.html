@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Trader's Advent Calendar: 24 days of trading challenges | QDB</title>
+<meta name="description" content="A free advent calendar for traders. One short challenge behind each door from 1 to 24 December: reading the crowd, stops, COT, risk maths and guessing the real retail crowd. Collect stars and share your progress.">
+<link rel="canonical" href="https://quasidb.github.io/games/advent/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.github.io/games/advent/">
+<meta property="og:title" content="The Trader's Advent Calendar: a new trading challenge every day to Christmas">
+<meta property="og:description" content="24 doors, 24 two-minute challenges. Reading the crowd, stop hunts, COT, risk maths and the real retail crowd. Free, from QDB.">
+<meta property="og:image" content="https://quasidb.github.io/games/advent/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Trader's Advent Calendar: a new trading challenge every day to Christmas">
+<meta name="twitter:description" content="24 doors, 24 two-minute challenges. Free, from QDB.">
+<meta name="twitter:image" content="https://quasidb.github.io/games/advent/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f17; --bg2:#101624; --panel:#141b2b; --line:#26324a; --text:#e8edf6; --muted:#a3afc5; --dim:#6b7892;
+  --buy:#22c55e; --buy-bg:rgba(34,197,94,.13); --sell:#ef4444; --sell-bg:rgba(239,68,68,.13);
+  --accent:#f5b83d; --amber:#ffb000; --red:#c2263a; --green:#1f6f4a;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(1200px 500px at 50% -120px,#1a2440,var(--bg) 70%);background-color:var(--bg);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:var(--accent)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+.muted{color:var(--muted)}
+.top{position:sticky;top:0;z-index:10;background:rgba(11,15,23,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;text-decoration:none;color:var(--text)}
+.brand img{width:30px;height:30px;border-radius:50%}
+.hud{display:flex;gap:8px;font-family:var(--mono);font-size:14px}
+.hud span{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 10px;white-space:nowrap}
+.hud b{color:var(--accent)}
+header.hero{padding:30px 0 6px;text-align:center}
+.kicker{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--buy)}
+h1{font-size:clamp(36px,7vw,60px);line-height:1.04;letter-spacing:-.035em;font-weight:700;margin-top:8px}
+h1 em{font-style:normal;color:var(--amber)}
+h2{font-size:clamp(24px,4.4vw,32px);line-height:1.15;letter-spacing:-.02em}
+h3{font-size:20px;letter-spacing:-.01em}
+.lead{font-size:19px;color:var(--muted);margin:12px auto 0;max-width:36em}
+.status{margin-top:14px;font-family:var(--mono);font-size:15px;color:var(--amber)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:11px 20px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);font-weight:700;font-size:17px;text-decoration:none;color:var(--text)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1205}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:24px 0 10px}
+@media (max-width:640px){.cal{grid-template-columns:repeat(4,1fr);gap:8px}}
+.door{position:relative;aspect-ratio:1/1.1;border-radius:14px;border:2px solid rgba(255,255,255,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font-family:var(--mono);font-weight:700;font-size:clamp(22px,5vw,30px);color:#fff;background:linear-gradient(160deg,#a71d31,#6d1220);box-shadow:inset 0 0 0 4px rgba(0,0,0,.12)}
+.door:nth-child(3n){background:linear-gradient(160deg,#1f6f4a,#12422c)}
+.door:nth-child(4n+1){background:linear-gradient(160deg,#20335c,#141f3a)}
+.door::before{content:"";position:absolute;inset:8px;border:1px dashed rgba(255,255,255,.18);border-radius:8px;pointer-events:none}
+.door small{font-size:12px;font-weight:600;color:rgba(255,255,255,.75);letter-spacing:.04em}
+.door.locked{filter:saturate(.6) brightness(.72);cursor:not-allowed}
+.door.today{border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,176,0,.25),0 0 22px rgba(255,176,0,.35)}
+.door.done{background:var(--panel)!important;color:var(--amber);border-color:var(--line)}
+.door.done small{color:var(--muted)}
+.door:not(.locked):hover{transform:translateY(-2px)}
+@media (prefers-reduced-motion:no-preference){.door{transition:transform .15s}.door.today{animation:glow 1.8s ease-in-out infinite alternate}@keyframes glow{to{box-shadow:0 0 0 3px rgba(255,176,0,.45),0 0 30px rgba(255,176,0,.55)}}}
+
+/* door panel */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:18px;scroll-margin-top:76px}
+.panel .day{font-family:var(--mono);color:var(--amber);font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.q{margin-top:18px}
+.q p.qq{font-size:19px;font-weight:600}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{text-align:left;min-height:52px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);font-size:17px;line-height:1.4}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt[disabled]{cursor:default}
+.opt.right{border-color:var(--buy);background:var(--buy-bg)}
+.opt.wrong{border-color:var(--sell);background:var(--sell-bg)}
+.why{margin-top:10px;border-left:4px solid var(--amber);background:rgba(255,176,0,.07);border-radius:0 12px 12px 0;padding:10px 14px;font-size:16px;color:var(--muted)}
+.why b{color:var(--text)}
+.stars{font-size:30px;letter-spacing:4px;margin-top:8px}
+.result{margin-top:18px;border-top:1px dashed var(--line);padding-top:16px}
+.slider{width:100%;margin:18px 0 6px;accent-color:var(--amber);height:34px}
+.guess{font-family:var(--mono);font-size:40px;font-weight:700;color:var(--amber);text-align:center}
+.meter{display:flex;height:36px;border-radius:10px;overflow:hidden;margin-top:12px;font-family:var(--mono);font-weight:700;font-size:15px}
+.meter div{display:flex;align-items:center;padding:0 10px;white-space:nowrap;min-width:0}
+.meter .l{background:var(--buy);color:#04210f}
+.meter .s{background:var(--sell);color:#2a0606;justify-content:flex-end}
+.gift{margin-top:18px;background:linear-gradient(135deg,rgba(194,38,58,.18),rgba(31,111,74,.18));border:1px solid rgba(255,176,0,.4);border-radius:18px;padding:22px}
+.gift p{color:var(--muted);margin-top:6px}
+.offer{margin-top:22px;text-align:center;font-size:16px;color:var(--muted)}
+.offer b{color:var(--text)}
+.foot{font-size:14px;color:var(--dim);margin:22px 0 0}
+.hidden{display:none!important}
+
+/* snow */
+.snow{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.snow i{position:absolute;top:-10px;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.5)}
+@media (prefers-reduced-motion:no-preference){.snow i{animation:fall linear infinite}@keyframes fall{to{transform:translate3d(30px,105vh,0)}}}
+@media (prefers-reduced-motion:reduce){.snow{display:none}}
+main,header,footer{position:relative;z-index:1}
+</style>
+</head>
+<body>
+<div class="snow" aria-hidden="true" id="snow"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../?ref=advent"><img src="../../logo.png" alt="">QDB Games</a>
+    <div class="hud" id="hud" aria-live="polite"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="kicker">Free · 1 to 24 December · no sign-up</div>
+    <h1>The Trader's <em>Advent Calendar</em></h1>
+    <p class="lead">One door a day until Christmas. Behind each one is a two-minute trading challenge: reading the crowd, stop hunts, COT, risk maths, and guessing where the real retail crowd stands. Collect stars and share your progress.</p>
+    <p class="status" id="status"></p>
+  </header>
+
+  <div class="cal" id="cal" role="list" aria-label="Advent calendar doors"></div>
+  <div id="door"></div>
+  <p class="offer" id="offer"></p>
+  <div id="share"></div>
+  <p class="foot">Missed a day? Every door you've unlocked stays open, so you can catch up. Your stars are saved in this browser. Educational only, not financial advice.</p>
+</main>
+
+<script src="doors.js"></script>
+<script>
+(function(){
+const YEAR = 2026, KEY = 'qdb-advent-' + YEAR;
+const DOORS = window.ADVENT_DOORS || [];
+const ORDER = [7,15,2,21,10,18,4,12,24,1,9,16,20,5,13,22,3,11,17,8,23,6,14,19];  // door positions on the board
+const params = new URLSearchParams(location.search), PREVIEW = params.has('preview');
+const cal = document.getElementById('cal'), box = document.getElementById('door'), hud = document.getElementById('hud');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const gc = n => { try { window.goatcounter && goatcounter.count && goatcounter.count({path:n, title:n, event:true}); } catch(e){} };
+function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+let S = load();
+
+const now = new Date();
+const today = (now.getFullYear() === YEAR && now.getMonth() === 11) ? now.getDate() : 0;
+const after = now > new Date(YEAR, 11, 24, 23, 59) ;
+const unlocked = d => PREVIEW || after || d <= today;
+const starsOf = d => (S[d] && S[d].stars) || 0;
+const total = () => Object.values(S).reduce((a, x) => a + (x.stars || 0), 0);
+const opened = () => Object.keys(S).length;
+const starStr = n => '★'.repeat(n) + '☆'.repeat(3 - n);
+
+function drawHud(){
+  hud.innerHTML = `<span>Doors <b>${opened()}</b>/24</span><span>Stars <b>${total()}</b>/72</span>`;
+}
+function status(){
+  const st = document.getElementById('status');
+  if (PREVIEW) st.textContent = 'Preview mode: every door is unlocked.';
+  else if (after) st.textContent = 'All 24 doors are open. Catch up on any you missed.';
+  else if (today) st.textContent = `Today is ${today} December: door ${today} is open.`;
+  else {
+    const days = Math.ceil((new Date(YEAR, 11, 1) - now) / 864e5);
+    st.textContent = `Door 1 opens on 1 December${days > 0 ? `, in ${days} day${days === 1 ? '' : 's'}` : ''}. Bookmark this page.`;
+  }
+  document.getElementById('offer').innerHTML = '🎁 Until 31 December the QDB <b>Basic plan ($20)</b> includes everything. <a href="../../?ref=advent#pricing">See the plans →</a>';
+}
+
+function drawCal(){
+  cal.innerHTML = ORDER.map(d => {
+    const done = S[d], open = unlocked(d), isToday = d === today && !PREVIEW;
+    const cls = ['door', open ? '' : 'locked', done ? 'done' : '', isToday ? 'today' : ''].join(' ');
+    const label = done ? `Door ${d}, done, ${starsOf(d)} of 3 stars` : open ? `Door ${d}, open` : `Door ${d}, locked until ${d} December`;
+    return `<button class="${cls}" data-d="${d}" role="listitem" aria-label="${label}" ${open ? '' : 'aria-disabled="true"'}>${d}${done ? `<small>${starStr(starsOf(d))}</small>` : open ? '<small>OPEN</small>' : '<small>🔒</small>'}</button>`;
+  }).join('');
+  cal.querySelectorAll('.door').forEach(b => b.onclick = () => {
+    const d = +b.dataset.d;
+    if (!unlocked(d)) { b.animate && b.animate([{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'none'}], {duration:250}); return; }
+    openDoor(d);
+  });
+  drawHud();
+}
+
+function finish(d, stars, extra){
+  S[d] = Object.assign({stars}, extra || {}); save();
+  gc('advent-door-' + d + '-' + stars);
+  drawCal();
+  const share = document.getElementById('share'); share.innerHTML = '';
+  window.QDBGames && QDBGames.mount(share, {
+    text: `I've opened ${opened()}/24 doors of the QDB Trader's Advent Calendar and collected ${total()}⭐ so far 🎄`,
+    heading: 'Share your progress'
+  });
+}
+
+function resultHTML(door, stars){
+  const link = door.link ? `<a class="btn" href="../../${door.link[0]}?ref=advent-${door.day}">${esc(door.link[1])}</a>` : '';
+  const next = door.day < 24 ? (unlocked(door.day + 1) ? `<button class="btn primary" data-next="${door.day + 1}">Open door ${door.day + 1} →</button>` : `<span class="muted" style="align-self:center">Door ${door.day + 1} opens on ${door.day + 1} December.</span>`) : '';
+  const gift = door.gift ? `<div class="gift"><h3>🎄 Merry Christmas from QDB</h3><p>You made it to the last door. Until 31 December, the Basic plan ($20 instead of $30) gets you everything: the full QDB Sheet with live crowd data every 15 minutes, the QDB Score for every pair, the Basket board and Discord.</p><div class="row"><a class="btn primary" href="../../?ref=advent-24#pricing">Claim the launch offer</a><a class="btn" href="../beat-the-crowd/?ref=advent-24">Play Beat the Crowd</a></div></div>` : '';
+  return `<div class="result"><h3>${stars === 3 ? 'Perfect!' : stars ? 'Nice work.' : 'Tomorrow’s another door.'}</h3><div class="stars" aria-label="${stars} of 3 stars">${starStr(stars)}</div><div class="row">${next}${link}</div>${gift}</div>`;
+}
+function wireNext(){ box.querySelectorAll('[data-next]').forEach(b => b.onclick = () => openDoor(+b.dataset.next)); }
+
+function openDoor(d){
+  const door = DOORS.find(x => x.day === d); if (!door) return;
+  gc('advent-open-' + d);
+  if (door.type === 'crowd') crowdDoor(door); else quizDoor(door);
+  box.firstElementChild.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start'});
+}
+
+function quizDoor(door){
+  const prev = S[door.day];
+  box.innerHTML = `<section class="panel" aria-label="Door ${door.day}"><div class="day">Door ${door.day} · ${door.day} December</div><h2>${esc(door.title)}</h2>
+    ${door.qs.map((q, i) => `<div class="q" data-i="${i}"><p class="qq">${i + 1}. ${esc(q.q)}</p><div class="opts">${q.a.map((a, j) => `<button class="opt" data-j="${j}">${esc(a)}</button>`).join('')}</div><div class="w"></div></div>`).join('')}
+    <div id="res"></div></section>`;
+  let right = 0, answered = 0;
+  const show = (qel, q, j) => {
+    qel.querySelectorAll('.opt').forEach(o => { o.disabled = true; const k = +o.dataset.j; if (k === q.c) o.classList.add('right'); else if (k === j) o.classList.add('wrong'); });
+    qel.querySelector('.w').innerHTML = `<p class="why"><b>${j === q.c ? '✓ Right.' : '✗ Not quite.'}</b> ${esc(q.why)}</p>`;
+  };
+  box.querySelectorAll('.q').forEach(qel => {
+    const q = door.qs[+qel.dataset.i];
+    qel.querySelectorAll('.opt').forEach(o => o.onclick = () => {
+      const j = +o.dataset.j; show(qel, q, j); answered++; if (j === q.c) right++;
+      if (answered === door.qs.length){
+        const stars = Math.min(3, right);
+        if (!prev || stars > prev.stars) finish(door.day, stars); else drawCal();
+        document.getElementById('res').innerHTML = resultHTML(door, stars) + (prev ? `<p class="muted" style="margin-top:8px;font-size:15px">Your best on this door: ${starStr(Math.max(prev.stars, stars))}</p>` : '');
+        wireNext();
+      }
+    });
+  });
+}
+
+let CROWD = null;
+function getCrowd(){
+  if (CROWD) return Promise.resolve(CROWD);
+  return fetch('../../data/daily.json?v=' + Math.floor(Date.now() / 6e5), {cache:'no-store'}).then(r => r.ok ? r.json() : null).then(d => {
+    const t = d && d.teaser && d.teaser[0]; CROWD = t ? {sym: t.sym, long: Math.round(t.long), at: d.teaser_at || d.updated} : null; return CROWD;
+  }).catch(() => null);
+}
+const pairName = s => s.length === 6 ? s.slice(0,3) + '/' + s.slice(3) : s;
+function crowdDoor(door){
+  box.innerHTML = `<section class="panel" aria-label="Door ${door.day}"><div class="day">Door ${door.day} · ${door.day} December</div><h2>${esc(door.title)}</h2><p class="muted" style="margin-top:8px">Loading today's crowd…</p></section>`;
+  getCrowd().then(c => {
+    const p = box.querySelector('.panel');
+    if (!c){ p.innerHTML += '<p>The crowd data is updating. Try again in a few minutes.</p>'; return; }
+    p.innerHTML = `<div class="day">Door ${door.day} · ${door.day} December</div><h2>Guess the crowd: ${esc(pairName(c.sym))}</h2>
+      <p class="muted" style="margin-top:8px">This is the pair where retail traders lean hardest today, from the QDB Sheet's latest daily snapshot. What % of the crowd is <b style="color:var(--buy)">long</b>?</p>
+      <div class="guess" id="gv">50%</div>
+      <input class="slider" id="gs" type="range" min="0" max="100" value="50" aria-label="Your guess, % of the crowd long">
+      <div class="row"><button class="btn primary" id="lock">Lock in my guess</button></div><div id="res"></div>`;
+    const gs = p.querySelector('#gs'), gv = p.querySelector('#gv');
+    gs.oninput = () => { gv.textContent = gs.value + '%'; };
+    p.querySelector('#lock').onclick = () => {
+      const g = +gs.value, off = Math.abs(g - c.long), stars = off <= 5 ? 3 : off <= 10 ? 2 : off <= 20 ? 1 : 0;
+      gs.disabled = true; p.querySelector('#lock').disabled = true;
+      const read = c.long >= 50 ? `<b class="sell" style="color:var(--sell)">bearish</b>: ${c.long}% of the crowd needs price to go up` : `<b style="color:var(--buy)">bullish</b>: ${100 - c.long}% of the crowd needs price to go down`;
+      const prev = S[door.day];
+      if (!prev || stars > prev.stars) finish(door.day, stars); else drawCal();
+      p.querySelector('#res').innerHTML = `<div class="meter" role="img" aria-label="${c.long}% long"><div class="l" style="width:${c.long}%">${c.long >= 18 ? c.long + '% long' : ''}</div><div class="s" style="width:${100 - c.long}%">${100 - c.long >= 18 ? (100 - c.long) + '% short' : ''}</div></div>
+        <p class="why"><b>You guessed ${g}%, the crowd is ${c.long}% long${off ? `, ${off} points away` : '. Spot on!'}.</b> The contrarian lean is ${read}. <a href="../../sentiment/${c.sym.toLowerCase()}/?ref=advent-${door.day}">See the full ${esc(pairName(c.sym))} page →</a></p>` + resultHTML(Object.assign({}, door, {link: ['games/beat-the-crowd/', 'Play Beat the Crowd']}), stars);
+      wireNext();
+    };
+  });
+}
+
+// a little snow
+const snow = document.getElementById('snow');
+snow.innerHTML = Array.from({length: 40}, (_, i) => `<i style="left:${(i * 37) % 100}%;animation-duration:${8 + (i * 7) % 10}s;animation-delay:-${(i * 3) % 12}s;opacity:${.25 + (i % 5) / 10}"></i>`).join('');
+
+status(); drawCal();
+})();
+</script>
+<script src="../qdb-games.js" data-game="advent" data-title="The Trader's Advent Calendar"></script>
+</body>
+</html>
