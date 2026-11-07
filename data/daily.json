@@ -18,5 +18,12 @@
    "score": 5
   }
  ],
- "teaser_at": "2026-11-07T22:01Z"
+ "teaser_at": "2026-11-07T22:01Z",
+ "forecast": {
+  "id": "2026-11-07",
+  "sym": "GBPUSD",
+  "long": 49.0,
+  "at": "2026-11-07T22:01Z"
+ },
+ "forecast_result": null
 }
