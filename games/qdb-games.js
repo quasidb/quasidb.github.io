@@ -15,7 +15,8 @@
     { slug: 'retail-survival-simulator', name: 'Retail Survival Simulator', blurb: 'Survive real market crises: Lehman, the SNB floor, Brexit night and more.' },
     { slug: 'crowd-express', name: 'Crowd Express', blurb: 'Ride the retail sentiment train from Edinburgh to King’s Cross. Know when to board, and when it terminates.' },
     { slug: 'stop-hunter', name: 'Stop Hunter', blurb: 'Drag your stop and take profit, then watch the big fish hunt the crowd\u2019s stop loss clusters.' },
-    { slug: 'order-book-walls', name: 'Order Book Walls', blurb: 'Read the crowd\u2019s orders and positions, and find the wall before price gets there.' }
+    { slug: 'order-book-walls', name: 'Order Book Walls', blurb: 'Read the crowd\u2019s orders and positions, and find the wall before price gets there.' },
+    { slug: 'beat-the-crowd', name: 'Beat the Crowd (daily)', blurb: 'A new puzzle every weekday: five real pairs, where the crowd stood, and where price went next.' }
   ];
 
   function gc(name) { try { window.goatcounter && goatcounter.count && goatcounter.count({ path: name, title: name, event: true }); } catch (e) {} }
