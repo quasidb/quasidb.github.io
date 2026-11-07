@@ -11,7 +11,7 @@ module.exports = {
     description: [
       'September 2008. You’re long the S&P 500 at 10:1 on a $7,500 account, and Lehman Brothers is being decided behind closed doors. Hope says hold. Watch what hope costs.',
       '',
-      '🎮 Can you survive 10 real market crises? Play free: https://quasidb.github.io/games/retail-survival-simulator/?ref=yt-shorts',
+      '🎮 Can you survive 10 real market crises? Play free: https://quasidb.com/games/retail-survival-simulator/?ref=yt-shorts',
       '',
       'Educational only, not financial advice.',
       '#trading #stockmarket #2008crash #lehmanbrothers #riskmanagement #leverage',

@@ -11,8 +11,8 @@ module.exports = {
     description: [
       'Blue is fuel, orange is the wall. Watch a trapped all-in crowd build a wall on daily demand, then the tallest bar in the book (the crowd’s stops) get sliced straight through.',
       '',
-      '🎮 Play Order Book Walls free: https://quasidb.github.io/games/order-book-walls/?ref=yt-shorts',
-      '📖 The order book, made simple: https://quasidb.github.io/guides/order-book/?ref=yt-shorts',
+      '🎮 Play Order Book Walls free: https://quasidb.com/games/order-book-walls/?ref=yt-shorts',
+      '📖 The order book, made simple: https://quasidb.com/guides/order-book/?ref=yt-shorts',
       '📊 Read the live FXSSI Order Book (use code QUASIDB): ' + AFF,
       '',
       'Affiliate link: QDB earns a commission at no extra cost to you. Educational only, not financial advice.',

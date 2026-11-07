@@ -249,7 +249,7 @@ function introCard(kick, titleHtml, hook) {
 }
 function outroCard(name, slug, line) {
   return `<div class="k">FREE · NO SIGN-UP · 5 MINUTES</div><h1>Play <em>${name}</em></h1>` +
-    `<p>${line}</p><div class="url">quasidb.github.io/games</div><div class="small">Link in the description</div>`;
+    `<p>${line}</p><div class="url">quasidb.com/games</div><div class="small">Link in the description</div>`;
 }
 
 module.exports = { Director, introCard, outroCard, VIEW_W, VIEW_H };

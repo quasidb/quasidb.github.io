@@ -19,7 +19,7 @@ import os
 import re
 from datetime import date
 
-SITE = "https://quasidb.github.io"
+SITE = "https://quasidb.com"
 FX = ["EUR", "GBP", "AUD", "NZD", "USD", "CAD", "CHF", "JPY"]   # market-convention base order
 PAIRS = [a + b for i, a in enumerate(FX) for b in FX[i + 1:]]      # the 28 pairs
 NAMES = {"EUR": "Euro", "GBP": "British pound", "AUD": "Australian dollar", "NZD": "New Zealand dollar",

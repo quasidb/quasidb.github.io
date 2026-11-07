@@ -29,7 +29,7 @@ module.exports = {
       '',
       'Only trade the SLCs at key strong technical levels.',
       '',
-      '🎮 Play Stop Hunter free: https://quasidb.github.io/games/stop-hunter/?ref=yt-shorts',
+      '🎮 Play Stop Hunter free: https://quasidb.com/games/stop-hunter/?ref=yt-shorts',
       '📊 See the real stop loss clusters with FXSSI (use code QUASIDB): ' + AFF,
       '',
       'Affiliate link: QDB earns a commission at no extra cost to you. Educational only, not financial advice.',

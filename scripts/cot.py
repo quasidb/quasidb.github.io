@@ -197,7 +197,7 @@ def main():
 
 
 def write_csvs(data, folder):
-    """Flat CSVs for Google Sheets: =IMPORTDATA("https://quasidb.github.io/data/cot-markets.csv")."""
+    """Flat CSVs for Google Sheets: =IMPORTDATA("https://quasidb.com/data/cot-markets.csv")."""
     rd = data["report_date"]
     with open(os.path.join(folder, "cot-markets.csv"), "w", newline="") as f:
         w = csv.writer(f)

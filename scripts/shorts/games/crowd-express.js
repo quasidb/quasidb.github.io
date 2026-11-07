@@ -13,8 +13,8 @@ module.exports = {
     description: [
       'The retail crowd keeps buying the dips all the way down. Ride the sentiment train from Edinburgh (0% long) to King’s Cross (100% long): board early at a strong level, against the crowd, and never jump on between stations.',
       '',
-      '🎮 Play Crowd Express free: https://quasidb.github.io/games/crowd-express/?ref=yt-shorts',
-      '📖 Retail sentiment, explained: https://quasidb.github.io/guides/retail-sentiment/?ref=yt-shorts',
+      '🎮 Play Crowd Express free: https://quasidb.com/games/crowd-express/?ref=yt-shorts',
+      '📖 Retail sentiment, explained: https://quasidb.com/guides/retail-sentiment/?ref=yt-shorts',
       '',
       'Educational only, not financial advice.',
       '#forex #trading #sentiment #retailsentiment #contrarian #daytrading',
