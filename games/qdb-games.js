@@ -16,7 +16,8 @@
     { slug: 'crowd-express', name: 'Crowd Express', blurb: 'Ride the retail sentiment train from Edinburgh to King’s Cross. Know when to board, and when it terminates.' },
     { slug: 'stop-hunter', name: 'Stop Hunter', blurb: 'Drag your stop and take profit, then watch the big fish hunt the crowd\u2019s stop loss clusters.' },
     { slug: 'order-book-walls', name: 'Order Book Walls', blurb: 'Read the crowd\u2019s orders and positions, and find the wall before price gets there.' },
-    { slug: 'beat-the-crowd', name: 'Beat the Crowd (daily)', blurb: 'A new puzzle every weekday: five real pairs, where the crowd stood, and where price went next.' }
+    { slug: 'beat-the-crowd', name: 'Beat the Crowd (daily)', blurb: 'A new puzzle every weekday: five real pairs, where the crowd stood, and where price went next.' },
+    { slug: 'advent', name: 'The Trader\u2019s Advent Calendar', blurb: 'One two-minute trading challenge behind each door, 1 to 24 December. Collect all 72 stars.' }
   ];
 
   function gc(name) { try { window.goatcounter && goatcounter.count && goatcounter.count({ path: name, title: name, event: true }); } catch (e) {} }
