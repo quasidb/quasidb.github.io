@@ -1,0 +1,13 @@
+{
+  "name": "qdb-shorts",
+  "private": true,
+  "description": "Records the QDB games as vertical YouTube Shorts and (optionally) uploads them.",
+  "scripts": {
+    "record": "node record.js",
+    "auth": "node upload.js auth",
+    "upload": "node upload.js"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

@@ -1,0 +1,74 @@
+name: Record YouTube Shorts
+
+# Run by hand from the Actions tab. Records the chosen game(s) as 1080x1920 clips,
+# attaches them to the run as a download, and (only if you tick "upload") posts
+# them to YouTube. Uploads are private unless you pick another privacy setting.
+on:
+  workflow_dispatch:
+    inputs:
+      game:
+        description: Which game to record
+        type: choice
+        default: all
+        options: [all, stop-hunter, order-book-walls, crowd-express, stick-to-the-plan, retail-survival-simulator]
+      upload:
+        description: Upload to YouTube after recording
+        type: boolean
+        default: false
+      privacy:
+        description: YouTube privacy for uploads (private = only you can see it until you publish it in YouTube Studio)
+        type: choice
+        default: private
+        options: [private, unlisted, public]
+      publish_at:
+        description: Optional. Schedule the upload to go public at this UTC time, e.g. 2026-11-14T17:00:00Z (overrides privacy)
+        type: string
+        default: ""
+  pull_request:
+    paths:
+      - "scripts/shorts/**"
+      - ".github/workflows/shorts.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: scripts/shorts
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright and Chromium
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+          sudo apt-get install -y ffmpeg fonts-noto-color-emoji >/dev/null
+
+      - name: Record
+        run: node record.js ${{ github.event_name == 'pull_request' && 'stop-hunter --preview' || inputs.game }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shorts
+          path: |
+            scripts/shorts/out/*.mp4
+            scripts/shorts/out/*.txt
+          retention-days: 14
+
+      - name: Upload to YouTube
+        if: github.event_name == 'workflow_dispatch' && inputs.upload
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          PRIVACY: ${{ inputs.privacy }}
+          PUBLISH_AT: ${{ inputs.publish_at }}
+        run: node upload.js out/*.mp4 --privacy "$PRIVACY" ${PUBLISH_AT:+--publish-at "$PUBLISH_AT"}
