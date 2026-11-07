@@ -1,7 +1,8 @@
 name: Daily crowd snapshot
 
 # Each weekday after the ECB reference rates are published (about 15:00 UTC):
-# snapshot the retail crowd from the QDB Sheet and build the Beat the Crowd puzzle.
+# snapshot the retail crowd from the QDB Sheet, build the Beat the Crowd puzzle
+# and rebuild the per-pair sentiment pages (/sentiment/).
 on:
   schedule:
     - cron: "30 16 * * 1-5"   # Mon-Fri 16:30 UTC (about 5pm UK)
@@ -9,6 +10,7 @@ on:
   pull_request:
     paths:
       - "scripts/crowd.py"
+      - "scripts/pair_pages.py"
       - ".github/workflows/crowd.yml"
 
 permissions:
@@ -26,18 +28,22 @@ jobs:
 
       - name: Check the sheet and rates (pull requests only, nothing is committed)
         if: github.event_name == 'pull_request'
-        run: python3 scripts/crowd.py --check
+        run: |
+          python3 scripts/crowd.py --check
+          python3 scripts/pair_pages.py --out /tmp/sentiment --no-sitemap
 
       - name: Snapshot and build the daily puzzle
         if: github.event_name != 'pull_request'
-        run: python3 scripts/crowd.py
+        run: |
+          python3 scripts/crowd.py
+          python3 scripts/pair_pages.py
 
       - name: Commit
         if: github.event_name != 'pull_request'
         run: |
           git config user.name "qdb-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/crowd-history.json data/daily.json
+          git add data/crowd-history.json data/daily.json sentiment sitemap.xml
           git diff --cached --quiet && { echo "Nothing changed."; exit 0; }
           git commit -m "Crowd snapshot $(date -u +%F)"
           for i in 1 2 3 4; do

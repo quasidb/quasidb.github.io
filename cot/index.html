@@ -47,7 +47,7 @@
 .ext{font-size:11px;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:1px 4px}
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin-top:14px}
-.pair{display:flex;justify-content:space-between;gap:6px;border-radius:10px;padding:9px 11px;font-family:var(--mono);font-size:14px;border:1px solid rgba(255,255,255,.05)}
+.pair{color:var(--text);text-decoration:none;display:flex;justify-content:space-between;gap:6px;border-radius:10px;padding:9px 11px;font-family:var(--mono);font-size:14px;border:1px solid rgba(255,255,255,.05)}
 .faq details{border-bottom:1px solid var(--line);padding:12px 0;max-width:48em}
 .faq summary{cursor:pointer;font-weight:600}
 .faq p{color:var(--muted);margin-top:8px}
@@ -58,7 +58,7 @@
 <body>
 <nav class="top"><div class="wrap">
   <a class="brand" href="../?ref=cot"><img src="../logo.png" alt="">QDB Trading Desk</a>
-  <div class="navl"><a href="./" aria-current="page">COT</a><a href="../guides/?ref=cot">Guides</a><a href="../games/?ref=cot">Games</a><a href="../downloads/?ref=cot">Downloads</a><a href="../?ref=cot#pricing">Pricing</a></div>
+  <div class="navl"><a href="./" aria-current="page">COT</a><a href="../guides/?ref=cot">Guides</a><a href="../games/?ref=cot">Games</a><a href="../sentiment/?ref=cot">Sentiment</a><a href="../downloads/?ref=cot">Downloads</a><a href="../?ref=cot#pricing">Pricing</a></div>
 </div></nav>
 
 <main class="wrap">
@@ -108,36 +108,36 @@
 
   <section class="sec" id="pairs">
     <h2>The 28 pairs, ranked</h2>
-    <p class="muted">Base currency index minus quote currency index. Green means speculators back the base currency over the quote, red the other way round. Strongest bias first.</p>
+    <p class="muted">Tap a pair for its daily sentiment page. Base currency index minus quote currency index. Green means speculators back the base currency over the quote, red the other way round. Strongest bias first.</p>
     <div class="pairs">
-<div class="pair" style="background:rgba(34,197,94,0.15)"><span>GBP/AUD</span><b>+19</b></div>
-<div class="pair" style="background:rgba(34,197,94,0.12)"><span>GBP/NZD</span><b>+14</b></div>
-<div class="pair" style="background:rgba(34,197,94,0.12)"><span>USD/CAD</span><b>+12</b></div>
-<div class="pair" style="background:rgba(34,197,94,0.09)"><span>USD/CHF</span><b>+7</b></div>
-<div class="pair" style="background:rgba(34,197,94,0.05)"><span>USD/JPY</span><b>0</b></div>
-<div class="pair" style="background:rgba(34,197,94,0.05)"><span>EUR/AUD</span><b>0</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.08)"><span>CAD/CHF</span><b>−5</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.08)"><span>EUR/NZD</span><b>−5</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.08)"><span>AUD/NZD</span><b>−5</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.09)"><span>CHF/JPY</span><b>−7</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.12)"><span>CAD/JPY</span><b>−12</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.15)"><span>EUR/GBP</span><b>−19</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.31)"><span>GBP/CAD</span><b>−48</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.34)"><span>GBP/CHF</span><b>−53</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.38)"><span>GBP/JPY</span><b>−60</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.38)"><span>GBP/USD</span><b>−60</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.39)"><span>NZD/CAD</span><b>−61</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.41)"><span>NZD/CHF</span><b>−66</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.42)"><span>EUR/CAD</span><b>−66</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.42)"><span>AUD/CAD</span><b>−66</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.44)"><span>EUR/CHF</span><b>−72</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.44)"><span>AUD/CHF</span><b>−72</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.45)"><span>NZD/JPY</span><b>−73</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.45)"><span>NZD/USD</span><b>−74</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.48)"><span>EUR/JPY</span><b>−79</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.48)"><span>AUD/JPY</span><b>−79</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.48)"><span>EUR/USD</span><b>−79</b></div>
-<div class="pair" style="background:rgba(239,68,68,0.48)"><span>AUD/USD</span><b>−79</b></div>
+<a class="pair" href="../sentiment/gbpaud/?ref=cot" style="background:rgba(34,197,94,0.15)"><span>GBP/AUD</span><b>+19</b></a>
+<a class="pair" href="../sentiment/gbpnzd/?ref=cot" style="background:rgba(34,197,94,0.12)"><span>GBP/NZD</span><b>+14</b></a>
+<a class="pair" href="../sentiment/usdcad/?ref=cot" style="background:rgba(34,197,94,0.12)"><span>USD/CAD</span><b>+12</b></a>
+<a class="pair" href="../sentiment/usdchf/?ref=cot" style="background:rgba(34,197,94,0.09)"><span>USD/CHF</span><b>+7</b></a>
+<a class="pair" href="../sentiment/usdjpy/?ref=cot" style="background:rgba(34,197,94,0.05)"><span>USD/JPY</span><b>0</b></a>
+<a class="pair" href="../sentiment/euraud/?ref=cot" style="background:rgba(34,197,94,0.05)"><span>EUR/AUD</span><b>0</b></a>
+<a class="pair" href="../sentiment/cadchf/?ref=cot" style="background:rgba(239,68,68,0.08)"><span>CAD/CHF</span><b>−5</b></a>
+<a class="pair" href="../sentiment/eurnzd/?ref=cot" style="background:rgba(239,68,68,0.08)"><span>EUR/NZD</span><b>−5</b></a>
+<a class="pair" href="../sentiment/audnzd/?ref=cot" style="background:rgba(239,68,68,0.08)"><span>AUD/NZD</span><b>−5</b></a>
+<a class="pair" href="../sentiment/chfjpy/?ref=cot" style="background:rgba(239,68,68,0.09)"><span>CHF/JPY</span><b>−7</b></a>
+<a class="pair" href="../sentiment/cadjpy/?ref=cot" style="background:rgba(239,68,68,0.12)"><span>CAD/JPY</span><b>−12</b></a>
+<a class="pair" href="../sentiment/eurgbp/?ref=cot" style="background:rgba(239,68,68,0.15)"><span>EUR/GBP</span><b>−19</b></a>
+<a class="pair" href="../sentiment/gbpcad/?ref=cot" style="background:rgba(239,68,68,0.31)"><span>GBP/CAD</span><b>−48</b></a>
+<a class="pair" href="../sentiment/gbpchf/?ref=cot" style="background:rgba(239,68,68,0.34)"><span>GBP/CHF</span><b>−53</b></a>
+<a class="pair" href="../sentiment/gbpjpy/?ref=cot" style="background:rgba(239,68,68,0.38)"><span>GBP/JPY</span><b>−60</b></a>
+<a class="pair" href="../sentiment/gbpusd/?ref=cot" style="background:rgba(239,68,68,0.38)"><span>GBP/USD</span><b>−60</b></a>
+<a class="pair" href="../sentiment/nzdcad/?ref=cot" style="background:rgba(239,68,68,0.39)"><span>NZD/CAD</span><b>−61</b></a>
+<a class="pair" href="../sentiment/nzdchf/?ref=cot" style="background:rgba(239,68,68,0.41)"><span>NZD/CHF</span><b>−66</b></a>
+<a class="pair" href="../sentiment/eurcad/?ref=cot" style="background:rgba(239,68,68,0.42)"><span>EUR/CAD</span><b>−66</b></a>
+<a class="pair" href="../sentiment/audcad/?ref=cot" style="background:rgba(239,68,68,0.42)"><span>AUD/CAD</span><b>−66</b></a>
+<a class="pair" href="../sentiment/eurchf/?ref=cot" style="background:rgba(239,68,68,0.44)"><span>EUR/CHF</span><b>−72</b></a>
+<a class="pair" href="../sentiment/audchf/?ref=cot" style="background:rgba(239,68,68,0.44)"><span>AUD/CHF</span><b>−72</b></a>
+<a class="pair" href="../sentiment/nzdjpy/?ref=cot" style="background:rgba(239,68,68,0.45)"><span>NZD/JPY</span><b>−73</b></a>
+<a class="pair" href="../sentiment/nzdusd/?ref=cot" style="background:rgba(239,68,68,0.45)"><span>NZD/USD</span><b>−74</b></a>
+<a class="pair" href="../sentiment/eurjpy/?ref=cot" style="background:rgba(239,68,68,0.48)"><span>EUR/JPY</span><b>−79</b></a>
+<a class="pair" href="../sentiment/audjpy/?ref=cot" style="background:rgba(239,68,68,0.48)"><span>AUD/JPY</span><b>−79</b></a>
+<a class="pair" href="../sentiment/eurusd/?ref=cot" style="background:rgba(239,68,68,0.48)"><span>EUR/USD</span><b>−79</b></a>
+<a class="pair" href="../sentiment/audusd/?ref=cot" style="background:rgba(239,68,68,0.48)"><span>AUD/USD</span><b>−79</b></a>
     </div>
   </section>
 

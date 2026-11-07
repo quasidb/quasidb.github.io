@@ -82,7 +82,7 @@ def read_crowd():
                 d["wc"] = round(num(r[3]), 3)
     except Exception as e:  # noqa: BLE001 - scores are a bonus; the crowd % is what matters
         print("Scores tab not read:", e)
-    return {k: v for k, v in out.items() if "long" in v}
+    return out
 
 
 def read_rates():
@@ -117,6 +117,8 @@ def build_puzzle(prev, cur, n):
         return None
     pool = []
     for s, c in prev["pairs"].items():
+        if "long" not in c:
+            continue
         p0, p1 = price(s, prev["rates"]), price(s, cur["rates"])
         if p0 is None or p1 is None:
             continue
@@ -143,7 +145,7 @@ def build_puzzle(prev, cur, n):
 
 
 def teaser(cur, k=3):
-    rows = sorted(cur["pairs"].items(), key=lambda kv: (-lean(kv[1]["long"]), kv[0]))
+    rows = sorted(((s, c) for s, c in cur["pairs"].items() if "long" in c), key=lambda kv: (-lean(kv[1]["long"]), kv[0]))
     return [{"sym": s, "long": c["long"], "score": c.get("score")} for s, c in rows[:k]]
 
 
@@ -165,8 +167,8 @@ def main():
     rates_date, rates = read_rates()
     print(f"Read {len(pairs)} symbols from the sheet; ECB rates for {rates_date} ({len(rates)} currencies)")
     for s, c in sorted(pairs.items()):
-        print(f"  {s:8} {c['long']:5.1f}% long  score={c.get('score')}  price={price(s, rates)}")
-    if len(pairs) < ROUNDS:
+        print(f"  {s:8} {c.get('long', '-'):>5}% long  score={c.get('score')}  price={price(s, rates)}")
+    if sum("long" in c for c in pairs.values()) < ROUNDS:
         sys.exit("Too few symbols read from the sheet; nothing written.")
 
     snap = {"date": now.strftime("%Y-%m-%d"), "at": now.strftime("%Y-%m-%dT%H:%MZ"),
@@ -188,6 +190,7 @@ def main():
             hist["puzzles"] = n
     if a.check:
         print(json.dumps({"puzzle": puzzle, "teaser": teaser(snap)}, indent=1))
+        print("SNAPSHOT " + json.dumps(snap, separators=(",", ":")))
         return
 
     out = {"updated": snap["at"], "puzzle": puzzle or daily.get("puzzle"), "teaser": teaser(snap),
