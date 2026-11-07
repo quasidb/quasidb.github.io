@@ -1,0 +1,22 @@
+{
+ "updated": "2026-11-07T22:01Z",
+ "puzzle": null,
+ "teaser": [
+  {
+   "sym": "EURUSD",
+   "long": 85.0,
+   "score": 3
+  },
+  {
+   "sym": "EURCAD",
+   "long": 80.0,
+   "score": 7
+  },
+  {
+   "sym": "AUDNZD",
+   "long": 25.0,
+   "score": 5
+  }
+ ],
+ "teaser_at": "2026-11-07T22:01Z"
+}

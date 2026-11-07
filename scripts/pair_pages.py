@@ -42,6 +42,11 @@ def nice(iso):
     return f"{d.strftime('%A')} {d.day} {d.strftime('%B %Y')}"
 
 
+def stamp(at):
+    """'2026-11-07T22:01Z' -> 'Saturday 7 November 2026, 22:01 UTC'"""
+    return nice(at) + (f", {at[11:16]} UTC" if len(at) >= 16 else "")
+
+
 def short(iso):
     d = date.fromisoformat(iso[:10])
     return f"{d.day} {d.strftime('%b')}"
@@ -241,7 +246,7 @@ def pair_page(pair, snap, hist, cot):
     ks, kscore, ksent = cot_read(pair, cot)
     v, vsent = verdict([cs, ss, ks])
     vl, vc = LABEL[v]
-    asof = nice(snap["at"]) if snap else None
+    asof = stamp(snap["at"]) if snap else None
     nick = f" ({NICK[pair]})" if pair in NICK else ""
 
     lg = round(c["long"]) if c and "long" in c else None
@@ -311,7 +316,7 @@ def pair_page(pair, snap, hist, cot):
             {"@type": "Question", "name": "How do you trade retail sentiment?",
              "acceptedAnswer": {"@type": "Answer", "text": "Contrarian: when most retail traders are on one side, look the other way, but only at strong daily or weekly supply and demand levels, never on sentiment alone."}}]}]}
 
-    upd = f'<span class="upd">Snapshot {e(asof)}, about 5pm UK</span>' if asof else '<span>First snapshot coming soon</span>'
+    upd = f'<span class="upd">Snapshot {e(asof)}</span>' if asof else '<span>First snapshot coming soon</span>'
     return head(title, desc, url, 2, ld, og_title) + f"""
 <main class="wrap">
   <header class="hero">
@@ -391,7 +396,7 @@ def hub_page(snap, cot):
                    f'<td class="hide-sm {"buy" if (ksc or 0) >= COT_EDGE else "sell" if (ksc or 0) <= -COT_EDGE else ""}">{"" if ksc is None else f"{ksc:+.0f}"}</td>'
                    f'<td><span class="pill {vc}" style="font-size:11px;padding:2px 6px;border-width:1px">{vl}</span></td></tr>')
     top = [r for r in rows if r[3] is not None][:3]
-    asof = nice(snap["at"]) if snap else None
+    asof = stamp(snap["at"]) if snap else None
     title = "Forex Retail Sentiment Today: 28 pairs, crowd positioning and COT | QDB"
     desc = ("Free daily forex sentiment for the 28 major pairs: retail crowd % long, QDB Score and COT positioning, "
             "read the contrarian way. " + ("Most crowded today: " + ", ".join(f"{slash(r[1])} {r[3]}% long" for r in top) + "." if top else ""))
@@ -399,7 +404,7 @@ def hub_page(snap, cot):
           "description": desc, "inLanguage": "en", "dateModified": (snap or {}).get("at", "")[:10] or None,
           "isPartOf": {"@type": "WebSite", "name": "QDB Trading Desk", "url": SITE + "/"},
           "hasPart": [{"@type": "WebPage", "url": f"{url}{p.lower()}/", "name": f"{slash(p)} sentiment"} for p in PAIRS]}
-    upd = f'<span class="upd">Snapshot {e(asof)}, about 5pm UK</span>' if asof else '<span>First snapshot coming soon</span>'
+    upd = f'<span class="upd">Snapshot {e(asof)}</span>' if asof else '<span>First snapshot coming soon</span>'
     return head(title, desc, url, 1, ld, "Forex sentiment today: where the retail crowd is wrong") + f"""
 <main class="wrap">
   <header class="hero">
