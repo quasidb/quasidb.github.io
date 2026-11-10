@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What Kind of Trader Are You? A 3-minute personality quiz | QDB</title>
+<meta name="description" content="Twelve everyday dilemmas and thought experiments, no charts needed. Find out if you're a Thrill-Seeker, a Guardian or something in between, and what it means for your trading. Free, private, no sign-up.">
+<link rel="canonical" href="https://quasidb.com/games/trader-type/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/games/trader-type/">
+<meta property="og:title" content="What kind of trader are you?">
+<meta property="og:description" content="Twelve everyday dilemmas, no charts needed. Are you a Thrill-Seeker, a Guardian or a Calculated Risk-Taker? Free and private.">
+<meta property="og:image" content="https://quasidb.com/games/trader-type/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What kind of trader are you?">
+<meta name="twitter:description" content="Twelve everyday dilemmas, no charts needed. Free and private, from QDB.">
+<meta name="twitter:image" content="https://quasidb.com/games/trader-type/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f17; --bg2:#101624; --panel:#141b2b; --line:#26324a; --text:#e8edf6; --muted:#a3afc5; --dim:#6b7892;
+  --buy:#22c55e; --buy-bg:rgba(34,197,94,.13); --sell:#ef4444; --sell-bg:rgba(239,68,68,.13);
+  --accent:#f5b83d; --amber:#ffb000; --blue:#60a5fa;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(1200px 500px at 50% -120px,#1a2440,var(--bg) 70%);background-color:var(--bg);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:var(--accent)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px}
+.muted{color:var(--muted)}
+.top{position:sticky;top:0;z-index:10;background:rgba(11,15,23,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding-top:6px;padding-bottom:6px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;text-decoration:none;color:var(--text)}
+.brand img{width:30px;height:30px;border-radius:50%}
+.hud{font-family:var(--mono);font-size:14px;color:var(--muted)}
+.hud b{color:var(--accent)}
+header.hero{padding:34px 0 6px;text-align:center}
+.kicker{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--buy)}
+h1{font-size:clamp(36px,7vw,60px);line-height:1.04;letter-spacing:-.035em;font-weight:700;margin-top:8px}
+h1 em{font-style:normal;color:var(--amber)}
+h2{font-size:clamp(24px,4.4vw,32px);line-height:1.15;letter-spacing:-.02em}
+h3{font-size:20px;letter-spacing:-.01em}
+.lead{font-size:19px;color:var(--muted);margin:12px auto 0;max-width:34em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:11px 20px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);font-weight:700;font-size:17px;text-decoration:none;color:var(--text)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1205}
+.btn.link{background:none;border-color:transparent;color:var(--muted);font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.center{justify-content:center}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:18px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 4px}
+.facts div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;font-size:15px;color:var(--muted)}
+.facts b{display:block;font-size:22px;color:var(--text)}
+@media (max-width:520px){.facts{grid-template-columns:1fr}}
+.private{font-size:15px;color:var(--muted);text-align:center;margin-top:14px}
+
+/* question */
+.bar{height:8px;border-radius:99px;background:var(--bg2);border:1px solid var(--line);overflow:hidden;margin-top:22px}
+.bar i{display:block;height:100%;background:var(--accent);width:0}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s}.qcard{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(8px)}}}
+.qnum{font-family:var(--mono);font-size:14px;color:var(--amber);letter-spacing:.06em;text-transform:uppercase}
+.qtext{font-size:20px;margin-top:8px;font-weight:500}
+.qtext:focus{outline:none}
+.opts{display:grid;gap:10px;margin-top:16px}
+.opt{text-align:left;min-height:56px;padding:13px 16px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);font-size:17px;line-height:1.4}
+.opt:hover{border-color:var(--accent)}
+.opt.picked{border-color:var(--accent);background:rgba(245,184,61,.12)}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:12px;min-height:44px}
+
+/* results */
+.type{text-align:center;padding:10px 0 0}
+.type .emo{font-size:64px;line-height:1}
+.type h2{margin-top:6px;font-size:clamp(30px,6vw,44px)}
+.type .tag{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:14px;color:var(--amber);letter-spacing:.04em}
+.type p{color:var(--muted);max-width:32em;margin:12px auto 0}
+.meters{display:grid;gap:16px;margin-top:6px}
+.meter .lab{display:flex;justify-content:space-between;font-size:15px;color:var(--muted);gap:10px}
+.meter .lab b{color:var(--text);font-weight:600}
+.track{position:relative;height:14px;border-radius:99px;background:linear-gradient(90deg,var(--blue),#2a3550 50%,var(--amber));margin-top:6px}
+.track i{position:absolute;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:var(--text);border:4px solid var(--bg);box-shadow:0 0 0 2px var(--text)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:620px){.cols{grid-template-columns:1fr}}
+.cols ul,.tips{list-style:none;margin-top:8px;display:grid;gap:8px;font-size:16px;color:var(--muted)}
+.cols li,.tips li{padding-left:26px;position:relative}
+.cols li::before,.tips li::before{position:absolute;left:0;top:0;font-weight:700}
+.good li::before{content:"✓";color:var(--buy)}
+.watch li::before{content:"!";color:var(--amber);left:6px}
+.tips li::before{content:"→";color:var(--accent)}
+.note{border-left:4px solid var(--amber);background:rgba(255,176,0,.07);border-radius:0 12px 12px 0;padding:12px 16px;margin-top:14px;font-size:16px;color:var(--muted)}
+.note b{color:var(--text)}
+details.echoes{margin:0}
+#quiz,#result,#intro{scroll-margin-top:70px}
+details.echoes summary{cursor:pointer;font-weight:700;font-size:18px;min-height:44px;display:flex;align-items:center}
+.echo{border-top:1px dashed var(--line);padding:14px 0}
+.echo h4{font-size:16px}
+.echo .you{font-size:15px;color:var(--amber);margin-top:4px}
+.echo p{font-size:15px;color:var(--muted);margin-top:4px}
+.next a{display:block;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);color:var(--text);text-decoration:none;margin-top:10px}
+.next a:hover{border-color:var(--accent)}
+.next b{display:block}.next span{font-size:15px;color:var(--muted)}
+.foot{font-size:14px;color:var(--dim);margin:22px 0 40px}
+.hidden{display:none!important}
+
+@media print{
+  body{background:#fff;color:#111;font-size:14px}
+  .top,.noprint,.qdbg,#share,.row{display:none!important}
+  .panel{background:#fff;border:1px solid #ccc;break-inside:avoid}
+  .muted,.type p,.cols ul,.tips,.note,.echo p,.meter .lab{color:#333}
+  .meter .lab b,.echo h4{color:#111}
+  details.echoes>*{display:block}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../?ref=trader-type"><img src="../../logo.png" alt="">QDB Games</a>
+    <div class="hud" id="hud" aria-live="polite"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="intro">
+    <header class="hero">
+      <div class="kicker">Free · about 3 minutes · no sign-up</div>
+      <h1>What kind of <em>trader</em> are you?</h1>
+      <p class="lead">Twelve everyday dilemmas and thought experiments. No charts, no right or wrong answers. Just pick what you'd honestly do, and find out what it says about how you handle risk, pressure and the crowd.</p>
+    </header>
+    <div class="facts">
+      <div><b>12</b>quick scenarios</div>
+      <div><b>3</b>traits measured</div>
+      <div><b>5</b>trader types</div>
+    </div>
+    <div class="row center"><button class="btn primary" id="start">Start the quiz</button></div>
+    <p class="private">🔒 Your answers stay in your browser. Nothing is sent or stored anywhere.</p>
+  </section>
+
+  <section id="quiz" class="hidden" aria-live="polite"></section>
+  <section id="result" class="hidden"></section>
+  <div id="share" class="noprint"></div>
+
+  <p class="foot">For fun and self-reflection only. This isn't a clinical personality test or financial advice. The scenarios are original, some loosely inspired by well-known thought experiments such as the trolley problem and Ulysses and the sirens.</p>
+</main>
+
+<script src="questions.js"></script>
+<script>
+(function(){
+const QS = window.TT_QUESTIONS, TYPES = window.TT_TYPES;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const gc = n => { try { window.goatcounter && goatcounter.count && goatcounter.count({path:n, title:n, event:true}); } catch(e){} };
+const smooth = () => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const intro = $('intro'), quiz = $('quiz'), result = $('result'), hud = $('hud');
+let answers = [], cur = 0;
+
+// Each trait is scaled 0-100: 50 is neutral, 0 and 100 are the most extreme totals possible.
+const AX = ['r', 'c', 'h'];
+const range = {};
+AX.forEach(k => {
+  let lo = 0, hi = 0;
+  QS.forEach(q => { const v = q.a.map(a => a[k] || 0); lo += Math.min(...v); hi += Math.max(...v); });
+  range[k] = [lo, hi];
+});
+function scores(){
+  const s = {};
+  AX.forEach(k => {
+    const sum = answers.reduce((t, j, i) => t + (QS[i].a[j][k] || 0), 0);
+    const [lo, hi] = range[k];   // 0 = a neutral total, scaled so each side reaches 0 or 100
+    s[k] = Math.round(50 + 50 * (sum >= 0 ? sum / hi : sum / -lo));
+  });
+  return s;
+}
+function typeOf(s){
+  if (Math.abs(s.r - 50) < 10 && Math.abs(s.c - 50) < 10) return 'balanced';
+  if (s.r >= 50) return s.c >= 50 ? 'calculated' : 'thrill';
+  return s.c >= 50 ? 'guardian' : 'second';
+}
+
+function start(){
+  answers = []; cur = 0;
+  intro.classList.add('hidden'); result.classList.add('hidden'); $('share').innerHTML = '';
+  quiz.classList.remove('hidden');
+  gc('trader-type-start');
+  ask();
+}
+
+function ask(){
+  const q = QS[cur];
+  hud.innerHTML = `Question <b>${cur + 1}</b> of ${QS.length}`;
+  quiz.innerHTML = `<div class="bar" aria-hidden="true"><i style="width:${cur / QS.length * 100}%"></i></div>
+    <div class="panel qcard"><div class="qnum">${cur + 1} · ${esc(q.t)}</div>
+    <p class="qtext" id="qtext" tabindex="-1">${esc(q.q)}</p>
+    <div class="opts" role="group" aria-labelledby="qtext">${q.a.map((a, j) => `<button class="opt${answers[cur] === j ? ' picked' : ''}" data-j="${j}">${esc(a.x)}</button>`).join('')}</div>
+    <div class="qnav">${cur ? '<button class="btn link" id="back">← Back</button>' : '<span></span>'}<span class="muted" style="font-size:14px">Go with your gut</span></div></div>`;
+  quiz.querySelectorAll('.opt').forEach(b => b.onclick = () => {
+    answers[cur] = +b.dataset.j;
+    b.classList.add('picked');
+    setTimeout(() => { cur++; cur < QS.length ? ask() : finish(); }, 160);
+  });
+  const back = $('back'); if (back) back.onclick = () => { cur--; ask(); };
+  if (cur) $('qtext').focus({preventScroll:true});   // move screen readers and keyboard users to the new question
+  quiz.scrollIntoView({behavior:smooth(), block:'start'});
+}
+
+function meter(label, left, right, v){
+  const side = v >= 50 ? right : left;
+  return `<div class="meter"><div class="lab"><span>${left}</span><b>${label}: ${side}${Math.abs(v - 50) < 8 ? ' (just)' : ''}</b><span>${right}</span></div>
+    <div class="track" role="img" aria-label="${label}: ${v} out of 100, from ${left} to ${right}"><i style="left:${v}%"></i></div></div>`;
+}
+
+function crowdNote(h){
+  if (h >= 60) return `<b>You lean towards the crowd.</b> That's human: we look to others when we're unsure. In markets, though, the crowd is usually on the wrong side at turning points. It's worth knowing where retail traders are positioned so you can tell when you're queueing with everyone else. <a href="../../guides/retail-sentiment/?ref=trader-type">How retail sentiment works →</a>`;
+  if (h <= 40) return `<b>You think for yourself.</b> You're happy to walk into the quiet restaurant, which is the start of a contrarian mindset. Just remember that going against the crowd isn't a trade on its own. Wait for price to reach a strong weekly or daily level before you act on it. <a href="../../guides/retail-sentiment/?ref=trader-type">How retail sentiment works →</a>`;
+  return `<b>You sit in the middle on the crowd.</b> You'll follow the queue sometimes and ignore it at other times. Knowing where retail traders actually stand helps you decide which, especially at strong technical levels. <a href="../../guides/retail-sentiment/?ref=trader-type">How retail sentiment works →</a>`;
+}
+
+function finish(){
+  const s = scores(), key = typeOf(s), T = TYPES[key];
+  quiz.classList.add('hidden'); result.classList.remove('hidden');
+  hud.innerHTML = `You're <b>${esc(T.name.replace(/^The /, ''))}</b>`;
+  gc('trader-type-result-' + key);   // anonymous count of which type came up; answers are never sent
+
+  const report = reportText(T, s);
+  result.innerHTML = `
+    <div class="panel type"><div class="kicker">Your trader type</div><div class="emo" aria-hidden="true">${T.emoji}</div>
+      <h2>${esc(T.name)}</h2><span class="tag">${esc(T.tag)}</span><p>${esc(T.line)}</p></div>
+    <div class="panel"><h3>Your three traits</h3><div class="meters" style="margin-top:14px">
+      ${meter('Risk', 'Cautious', 'Bold', s.r)}
+      ${meter('Under pressure', 'Reactive', 'Steady', s.c)}
+      ${meter('Crowd', 'Independent', 'Follows the crowd', s.h)}
+    </div><p class="note">${crowdNote(s.h)}</p></div>
+    <div class="panel cols">
+      <div><h3>Your strengths</h3><ul class="good">${T.good.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
+      <div><h3>Watch out for</h3><ul class="watch">${T.watch.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
+    </div>
+    <div class="panel"><h3>Three habits for your type</h3><ul class="tips">${T.tips.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      ${key === 'guardian' || key === 'second' ? '<p class="note"><b>No risk, no reward.</b> Being careful is a real strength, and most blown accounts belong to the opposite type. But a trade with zero risk doesn\'t exist. The goal is risk you\'ve chosen and sized, not no risk at all.</p>' : ''}
+      ${key === 'thrill' ? '<p class="note"><b>Did that surprise you?</b> Most Thrill-Seekers don\'t think of themselves as gamblers. The good news is that the fix isn\'t to lose your nerve, it\'s to decide your risk before the trade, while you\'re calm.</p>' : ''}
+      <div class="next noprint"><a href="../${T.next[0]}/?ref=trader-type-${key}"><b>Try next: ${esc(T.next[1])}</b><span>${esc(T.next[2])}</span></a></div>
+    </div>
+    <div class="panel"><details class="echoes"><summary>What each scenario was really about</summary>
+      ${QS.map((q, i) => `<div class="echo"><h4>${i + 1}. ${esc(q.t)}</h4><div class="you">You chose: ${esc(q.a[answers[i]].x)}</div><p>${esc(q.echo)}</p></div>`).join('')}
+    </details></div>
+    <div class="panel noprint"><h3>Keep a copy</h3><p class="muted" style="font-size:16px;margin-top:4px">Save your result as a PDF, or email it to yourself from your own email app. We don't see it either way.</p>
+      <div class="row"><button class="btn" id="print">Save as PDF</button>
+      <a class="btn" id="mail" href="mailto:?subject=${encodeURIComponent('My trader type: ' + T.name)}&body=${encodeURIComponent(report)}">Email it to myself</a>
+      <button class="btn link" id="again">Take it again</button></div></div>
+    <div class="panel noprint" style="text-align:center"><h3>Built for traders who manage risk first</h3>
+      <p class="muted" style="font-size:16px;margin-top:6px">Whatever your type, the QDB Sheet gives you a second opinion before you enter: where the retail crowd stands, stop clusters and COT, as context for your own plan. A decision aid, not a signal service.</p>
+      <div class="row center"><a class="btn primary" href="../../?ref=trader-type-${key}#who">See if QDB fits you</a></div></div>`;
+
+  $('print').onclick = () => { gc('trader-type-pdf'); window.print(); };
+  $('mail').onclick = () => gc('trader-type-email');
+  $('again').onclick = () => { intro.classList.remove('hidden'); result.classList.add('hidden'); $('share').innerHTML = ''; hud.innerHTML = ''; intro.scrollIntoView({behavior:smooth()}); };
+
+  window.QDBGames && QDBGames.mount($('share'), {
+    text: `I'm ${T.name} ${T.emoji} What kind of trader are you? Twelve everyday dilemmas, no charts needed.`,
+    heading: 'Share your type (only if you want to)'
+  });
+  result.scrollIntoView({behavior:smooth(), block:'start'});
+}
+
+function reportText(T, s){
+  const lvl = v => v >= 50 ? v : 100 - v;
+  return [
+    `My trader type: ${T.name}`, T.tag, '', T.line, '',
+    `Risk: ${s.r >= 50 ? 'Bold' : 'Cautious'} (${lvl(s.r)}%)`,
+    `Under pressure: ${s.c >= 50 ? 'Steady' : 'Reactive'} (${lvl(s.c)}%)`,
+    `Crowd: ${s.h >= 50 ? 'Follows the crowd' : 'Independent'} (${lvl(s.h)}%)`, '',
+    'Strengths:', ...T.good.map(x => '- ' + x), '',
+    'Watch out for:', ...T.watch.map(x => '- ' + x), '',
+    'Three habits for my type:', ...T.tips.map(x => '- ' + x), '',
+    'Take the quiz: https://quasidb.com/games/trader-type/'
+  ].join('\n');
+}
+
+$('start').onclick = start;
+})();
+</script>
+<script src="../qdb-games.js" data-game="trader-type" data-title="What Kind of Trader Are You?"></script>
+</body>
+</html>
