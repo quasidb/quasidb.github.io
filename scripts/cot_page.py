@@ -302,6 +302,7 @@ def render(d):
 
   <p class="foot">Source: CFTC Commitments of Traders, Legacy futures-only report. Educational only, not financial advice. Trading on margin carries a high level of risk. <a href="../">Back to QDB Trading Desk</a></p>
 </main>
+<script src="/chat/chat.js" defer></script>
 </body>
 </html>
 """

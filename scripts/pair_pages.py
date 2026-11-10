@@ -368,6 +368,7 @@ def pair_page(pair, snap, hist, cot):
 
   <p class="foot">Crowd data: QDB Sheet daily snapshot. COT: CFTC Commitments of Traders, Legacy futures-only. Educational only, not financial advice. Trading on margin carries a high level of risk. <a href="../../">Back to QDB Trading Desk</a></p>
 </main>
+<script src="/chat/chat.js" defer></script>
 </body>
 </html>
 """
@@ -429,6 +430,7 @@ def hub_page(snap, cot):
   </div>
   <p class="foot">Crowd data: QDB Sheet daily snapshot. COT: CFTC Commitments of Traders. Educational only, not financial advice. <a href="../">Back to QDB Trading Desk</a></p>
 </main>
+<script src="/chat/chat.js" defer></script>
 </body>
 </html>
 """
