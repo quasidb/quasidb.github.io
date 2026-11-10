@@ -178,6 +178,12 @@ h2{font-size:clamp(32px,4vw,46px);line-height:1.1;letter-spacing:-.03em;margin-b
 .fit li{color:var(--muted);padding-left:26px;position:relative}
 .fit .yes li::before{content:"✓";position:absolute;left:0;color:var(--buy);font-weight:700}
 .fit .no li::before{content:"✕";position:absolute;left:0;color:var(--sell);font-weight:700}
+.quiz-cta{display:flex;align-items:center;gap:16px;margin-top:24px;text-decoration:none;color:var(--text)}
+.quiz-cta:hover{border-color:var(--accent)}
+.quiz-cta .qi{font-size:34px;line-height:1}
+.quiz-cta b{display:block;font-size:18px}
+.quiz-cta b+span{color:var(--muted);font-size:16px}
+.quiz-cta .go{margin-left:auto;font-size:24px;color:var(--accent)}
 
 /* pricing */
 .prices{display:grid;grid-template-columns:repeat(3,minmax(0,360px));gap:24px;justify-content:center;align-items:stretch}
@@ -921,7 +927,7 @@ nav .wrap{gap:28px}
   </div>
 </section>
 
-<section class="alt">
+<section class="alt" id="who">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">Who it's for</div>
@@ -948,6 +954,7 @@ nav .wrap{gap:28px}
         </ul>
       </div>
     </div>
+    <a class="quiz-cta card reveal" href="games/trader-type/?ref=home-who"><span class="qi" aria-hidden="true">🧭</span><span><b>Not sure which side you're on?</b><span>Take the 3-minute "What kind of trader are you?" quiz. Twelve everyday dilemmas, no charts, and your answers stay private.</span></span><span class="go" aria-hidden="true">→</span></a>
   </div>
 </section>
 
