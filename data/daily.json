@@ -1,29 +1,85 @@
 {
- "updated": "2026-11-07T22:01Z",
- "puzzle": null,
+ "updated": "2026-11-10T00:20Z",
+ "puzzle": {
+  "n": 1,
+  "date": "2026-11-10",
+  "from": "2026-11-07",
+  "to": "2026-11-10",
+  "from_rates": "2026-11-06",
+  "to_rates": "2026-11-09",
+  "rounds": [
+   {
+    "sym": "GBPUSD",
+    "long": 49.0,
+    "score": 7,
+    "p0": 1.33849,
+    "p1": 1.3416,
+    "move": 0.23
+   },
+   {
+    "sym": "AUDUSD",
+    "long": 72.0,
+    "score": 3,
+    "p0": 0.68708,
+    "p1": 0.68939,
+    "move": 0.34
+   },
+   {
+    "sym": "AUDCAD",
+    "long": 57.0,
+    "score": 3,
+    "p0": 0.96646,
+    "p1": 0.97222,
+    "move": 0.6
+   },
+   {
+    "sym": "EURCAD",
+    "long": 80.0,
+    "score": 7,
+    "p0": 1.5705,
+    "p1": 1.5785,
+    "move": 0.51
+   },
+   {
+    "sym": "AUDJPY",
+    "long": 63.0,
+    "score": 3,
+    "p0": 108.782,
+    "p1": 108.888,
+    "move": 0.1
+   }
+  ]
+ },
  "teaser": [
   {
-   "sym": "EURUSD",
-   "long": 85.0,
+   "sym": "USDCAD",
+   "long": 23.0,
+   "score": 10
+  },
+  {
+   "sym": "CADJPY",
+   "long": 76.0,
    "score": 3
   },
   {
-   "sym": "EURCAD",
-   "long": 80.0,
-   "score": 7
-  },
-  {
-   "sym": "AUDNZD",
-   "long": 25.0,
-   "score": 5
+   "sym": "AUDCAD",
+   "long": 26.0,
+   "score": 8
   }
  ],
- "teaser_at": "2026-11-07T22:01Z",
+ "teaser_at": "2026-11-10T00:20Z",
  "forecast": {
+  "id": "2026-11-10",
+  "sym": "CADJPY",
+  "long": 76.0,
+  "at": "2026-11-10T00:20Z"
+ },
+ "forecast_result": {
   "id": "2026-11-07",
   "sym": "GBPUSD",
-  "long": 49.0,
-  "at": "2026-11-07T22:01Z"
- },
- "forecast_result": null
+  "from": 49.0,
+  "to": 38.0,
+  "answer": "less",
+  "at": "2026-11-10T00:20Z"
+ }
 }
