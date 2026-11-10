@@ -71,6 +71,57 @@ h3{font-size:20px;letter-spacing:-.01em}
 @media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s}.qcard{animation:in .25s ease-out}@keyframes in{from{opacity:0;transform:translateY(8px)}}}
 .qnum{font-family:var(--mono);font-size:14px;color:var(--amber);letter-spacing:.06em;text-transform:uppercase}
 .qtext{font-size:20px;margin-top:8px;font-weight:500}
+/* scenario illustrations (scenes.js) */
+.scene{display:block;width:100%;height:auto;margin:14px 0 6px;border:1px solid var(--line);border-radius:14px}
+.scene text{user-select:none}
+@media (prefers-reduced-motion:no-preference){
+  .scene .a-rain{animation:tt-rain 1.2s linear infinite}
+  .scene .a-glow{animation:tt-fade 2.4s ease-in-out infinite alternate}
+  .scene .a-flip{transform-box:fill-box;transform-origin:center;animation:tt-flip 1.8s ease-in-out infinite}
+  .scene .a-shadow{transform-box:fill-box;transform-origin:center;animation:tt-shadow 1.8s ease-in-out infinite}
+  .scene .a-cardflip{animation:tt-card 3.2s ease-in-out infinite}
+  .scene .a-float{transform-box:fill-box;animation:tt-float 3s ease-in-out infinite}
+  .scene .a-train{animation:tt-train 5s cubic-bezier(.3,0,.6,1) infinite}
+  .scene .a-blink{animation:tt-fade .5s steps(2) infinite}
+  .scene .a-lever{animation:tt-lever 2.5s ease-in-out infinite alternate}
+  .scene .a-wave{transform-box:fill-box;animation:tt-hop .7s ease-in-out infinite alternate}
+  .scene .a-bob{transform-box:fill-box;transform-origin:center;animation:tt-bob 3s ease-in-out infinite}
+  .scene .a-wave2{animation:tt-sea 3s linear infinite}
+  .scene .a-shuffle{transform-box:fill-box;animation:tt-hop .9s ease-in-out infinite alternate}
+  .scene .a-twinkle{animation:tt-fade 1.4s ease-in-out infinite alternate}
+  .scene .a-sandtop{transform-box:fill-box;transform-origin:50% 100%;animation:tt-drain 6s linear infinite}
+  .scene .a-sandbot{transform-box:fill-box;transform-origin:50% 100%;animation:tt-fill 6s linear infinite}
+  .scene .a-stream{animation:tt-dash .6s linear infinite}
+  .scene .a-bolt{animation:tt-bolt 4s linear infinite}
+  .scene .a-cloud{animation:tt-cloud 5s ease-in-out infinite alternate}
+  .scene .a-climb{animation:tt-climb 4s ease-in-out infinite alternate}
+  .scene .a-draw{stroke-dasharray:100;animation:tt-draw 4s ease-out infinite}
+  .scene .a-gallop{animation:tt-gallop 1.6s ease-in-out infinite alternate}
+  .scene .a-legs{transform-box:fill-box;transform-origin:50% 0;animation:tt-legs .3s ease-in-out infinite alternate}
+  .scene .a-wind{stroke-dasharray:22 14;animation:tt-dash 1s linear infinite}
+  .scene .a-blow{transform-box:fill-box;transform-origin:center;animation:tt-blow 3.4s ease-in-out infinite alternate}
+}
+@keyframes tt-rain{to{transform:translate(-16px,185px)}}
+@keyframes tt-fade{from{opacity:1}to{opacity:.35}}
+@keyframes tt-flip{0%,100%{transform:translateY(40px) scaleY(1)}20%{transform:translateY(0) scaleY(-1)}40%{transform:translateY(-22px) scaleY(1)}60%{transform:translateY(-22px) scaleY(-1)}80%{transform:translateY(0) scaleY(1)}}
+@keyframes tt-shadow{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.45);opacity:.4}}
+@keyframes tt-card{0%,40%{transform:scaleX(1)}50%{transform:scaleX(0)}60%,100%{transform:scaleX(1)}}
+@keyframes tt-float{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(-8px);opacity:.6}}
+@keyframes tt-train{0%{transform:translateX(-90px);opacity:0}10%{opacity:1}75%{transform:translateX(105px);opacity:1}90%,100%{transform:translateX(105px);opacity:0}}
+@keyframes tt-lever{from{transform:rotate(-25deg)}to{transform:rotate(35deg)}}
+@keyframes tt-hop{to{transform:translateY(-3px)}}
+@keyframes tt-bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(5px) rotate(2deg)}}
+@keyframes tt-sea{to{transform:translateX(-40px)}}
+@keyframes tt-drain{from{transform:scaleY(1)}to{transform:scaleY(.1)}}
+@keyframes tt-fill{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+@keyframes tt-dash{to{stroke-dashoffset:-36}}
+@keyframes tt-bolt{0%,84%,90%,94%,100%{opacity:0}86%,92%{opacity:1}}
+@keyframes tt-cloud{from{transform:translateX(40px)}to{transform:translateX(-10px)}}
+@keyframes tt-climb{to{transform:translate(16px,-12px)}}
+@keyframes tt-draw{from{stroke-dashoffset:100}60%,100%{stroke-dashoffset:0}}
+@keyframes tt-gallop{from{transform:translate(-30px,0)}to{transform:translate(40px,-4px)}}
+@keyframes tt-legs{from{transform:skewX(14deg)}to{transform:skewX(-14deg)}}
+@keyframes tt-blow{from{transform:translate(0,0) rotate(0)}to{transform:translate(30px,-36px) rotate(18deg)}}
 .qtext:focus{outline:none}
 .opts{display:grid;gap:10px;margin-top:16px}
 .opt{text-align:left;min-height:56px;padding:13px 16px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);font-size:17px;line-height:1.4}
@@ -154,6 +205,7 @@ details.echoes summary{cursor:pointer;font-weight:700;font-size:18px;min-height:
 </main>
 
 <script src="questions.js"></script>
+<script src="scenes.js"></script>
 <script>
 (function(){
 const QS = window.TT_QUESTIONS, TYPES = window.TT_TYPES;
@@ -200,6 +252,7 @@ function ask(){
   hud.innerHTML = `Question <b>${cur + 1}</b> of ${QS.length}`;
   quiz.innerHTML = `<div class="bar" aria-hidden="true"><i style="width:${cur / QS.length * 100}%"></i></div>
     <div class="panel qcard"><div class="qnum">${cur + 1} · ${esc(q.t)}</div>
+    ${(window.TT_SCENES || [])[cur] || ''}
     <p class="qtext" id="qtext" tabindex="-1">${esc(q.q)}</p>
     <div class="opts" role="group" aria-labelledby="qtext">${q.a.map((a, j) => `<button class="opt${answers[cur] === j ? ' picked' : ''}" data-j="${j}">${esc(a.x)}</button>`).join('')}</div>
     <div class="qnav">${cur ? '<button class="btn link" id="back">← Back</button>' : '<span></span>'}<span class="muted" style="font-size:14px">Go with your gut</span></div></div>`;
