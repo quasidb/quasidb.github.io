@@ -1,85 +1,85 @@
 {
- "updated": "2026-11-11T22:53Z",
+ "updated": "2026-11-12T22:21Z",
  "puzzle": {
-  "n": 2,
-  "date": "2026-11-11",
-  "from": "2026-11-10",
-  "to": "2026-11-11",
-  "from_rates": "2026-11-10",
-  "to_rates": "2026-11-11",
+  "n": 3,
+  "date": "2026-11-12",
+  "from": "2026-11-11",
+  "to": "2026-11-12",
+  "from_rates": "2026-11-11",
+  "to_rates": "2026-11-12",
   "rounds": [
    {
     "sym": "AUDNZD",
-    "long": 39.0,
+    "long": 30.0,
     "score": 6,
-    "p0": 1.22661,
-    "p1": 1.22846,
-    "move": 0.15
-   },
-   {
-    "sym": "EURCAD",
-    "long": 57.0,
-    "score": 9,
-    "p0": 1.5852,
-    "p1": 1.5839,
+    "p0": 1.22846,
+    "p1": 1.2275,
     "move": -0.08
    },
    {
-    "sym": "EURJPY",
-    "long": 54.0,
-    "score": 9,
-    "p0": 177.38,
-    "p1": 177.18,
-    "move": -0.11
+    "sym": "USDCAD",
+    "long": 12.0,
+    "score": 11,
+    "p0": 1.42347,
+    "p1": 1.42487,
+    "move": 0.1
    },
    {
-    "sym": "EURAUD",
-    "long": 52.0,
-    "score": 8,
-    "p0": 1.6244,
-    "p1": 1.6222,
-    "move": -0.14
+    "sym": "CADJPY",
+    "long": 75.0,
+    "score": 4,
+    "p0": 111.863,
+    "p1": 112.078,
+    "move": 0.19
+   },
+   {
+    "sym": "EURCAD",
+    "long": 69.0,
+    "score": 7,
+    "p0": 1.5839,
+    "p1": 1.5789,
+    "move": -0.32
    },
    {
     "sym": "AUDUSD",
     "long": 70.0,
-    "score": 8,
-    "p0": 0.69035,
-    "p1": 0.68592,
-    "move": -0.64
+    "score": 4,
+    "p0": 0.68592,
+    "p1": 0.68208,
+    "move": -0.56
    }
   ]
  },
  "teaser": [
+  {
+   "sym": "USDCAD",
+   "long": 11.0,
+   "score": 11
+  },
   {
    "sym": "EURUSD",
    "long": 88.0,
    "score": 3
   },
   {
-   "sym": "USDCAD",
-   "long": 12.0,
-   "score": 11
-  },
-  {
-   "sym": "CADJPY",
-   "long": 75.0,
-   "score": 4
+   "sym": "EURCAD",
+   "long": 78.0,
+   "score": 7
   }
  ],
- "teaser_at": "2026-11-11T22:53Z",
+ "teaser_at": "2026-11-12T22:21Z",
  "forecast": {
-  "id": "2026-11-11",
-  "sym": "USDCAD",
-  "long": 12.0,
-  "at": "2026-11-11T22:53Z"
+  "id": "2026-11-12",
+  "sym": "GBPJPY",
+  "long": 52.0,
+  "at": "2026-11-12T22:21Z"
  },
  "forecast_result": {
-  "id": "2026-11-10",
-  "sym": "CADJPY",
-  "from": 74.0,
-  "to": 75.0,
-  "answer": "more",
-  "at": "2026-11-11T22:53Z"
+  "id": "2026-11-11",
+  "sym": "USDCAD",
+  "from": 12.0,
+  "to": 11.0,
+  "answer": "less",
+  "at": "2026-11-12T22:21Z"
  }
 }
