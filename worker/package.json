@@ -1,0 +1,17 @@
+{
+  "name": "qdb-chat",
+  "version": "1.0.0",
+  "scripts": {
+    "build-knowledge": "python3 ../scripts/chat_knowledge.py",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.7.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.160.0"
+  },
+  "type": "module",
+  "private": true
+}

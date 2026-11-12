@@ -1,0 +1,29 @@
+# Cloudflare Worker for the quasidb.com chat assistant.
+# Deployed by .github/workflows/chat-worker.yml. See worker/README.md.
+name = "qdb-chat"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Served at https://qdb-chat.<your-account>.workers.dev
+workers_dev = true
+
+# Visitor privacy: no request logs or traces are kept by Cloudflare for this Worker.
+[observability]
+enabled = false
+
+[vars]
+# Claude model. "claude-opus-5-5" (default, best judgement) or
+# "claude-haiku-5-5" (much cheaper). See worker/README.md for costs.
+MODEL = "claude-opus-5-5"
+EFFORT = "low"
+# Set to "false" to switch the assistant off without removing it from the site.
+CHAT_ENABLED = "true"
+# Only these sites may use the assistant.
+ALLOWED_ORIGINS = "https://quasidb.com,https://www.quasidb.com"
+
+# At most 6 questions per visitor (IP address) per minute.
+[[ratelimits]]
+name = "CHAT_LIMITER"
+namespace_id = "7301"
+simple = { limit = 6, period = 60 }

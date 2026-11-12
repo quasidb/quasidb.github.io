@@ -1,0 +1,5 @@
+node_modules/
+.dev.vars
+.wrangler/
+# Built by scripts/chat_knowledge.py on every deploy
+src/knowledge.js

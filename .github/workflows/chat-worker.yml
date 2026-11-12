@@ -1,0 +1,75 @@
+name: Chat assistant
+
+# Builds the QDB Assistant's knowledge from the site's pages and deploys the
+# qdb-chat Cloudflare Worker (worker/). Runs when the Worker or the pages it
+# learns from change, or by hand from the Actions tab.
+#
+# Needs three repository secrets (Settings > Secrets and variables > Actions):
+#   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, ANTHROPIC_API_KEY
+# Until they exist the deploy step is skipped. See worker/README.md.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "worker/**"
+      - "scripts/chat_knowledge.py"
+      - "index.html"
+      - "guides/**"
+      - "games/index.html"
+      - "games/trader-type/index.html"
+      - "downloads/**"
+      - ".github/workflows/chat-worker.yml"
+  pull_request:
+    paths:
+      - "worker/**"
+      - "scripts/chat_knowledge.py"
+      - "chat/**"
+      - ".github/workflows/chat-worker.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: chat-worker
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Install
+        working-directory: worker
+        run: npm ci
+
+      - name: Build the assistant's knowledge from the site
+        run: python3 scripts/chat_knowledge.py
+
+      - name: Check the Worker builds (pull requests, or before the secrets are set)
+        if: github.event_name == 'pull_request' || env.CLOUDFLARE_API_TOKEN == ''
+        working-directory: worker
+        run: |
+          npx wrangler deploy --dry-run --outdir /tmp/qdb-chat
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] && [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "::notice::Chat assistant not deployed: add the CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and ANTHROPIC_API_KEY secrets (see worker/README.md)."
+          fi
+
+      - name: Deploy to Cloudflare
+        if: github.event_name != 'pull_request' && env.CLOUDFLARE_API_TOKEN != '' && env.ANTHROPIC_API_KEY != ''
+        working-directory: worker
+        run: |
+          npx wrangler deploy | tee /tmp/deploy.log
+          printf '%s' "$ANTHROPIC_API_KEY" | npx wrangler secret put ANTHROPIC_API_KEY
+          url=$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' /tmp/deploy.log | head -1)
+          echo "Chat assistant deployed: $url" >> "$GITHUB_STEP_SUMMARY"
+          echo "Status check: $url/status" >> "$GITHUB_STEP_SUMMARY"
