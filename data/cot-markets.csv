@@ -1,11 +1,11 @@
 market,name,report_date,net,week_change,long_pct,cot_index,z_score,extreme,unit
-EUR,Euro FX,2026-11-03,-157791,-13897,37.2,0.0,-2.72,YES,contracts
-GBP,British Pound,2026-11-03,-59821,19593,34.0,18.9,-1.06,,contracts
-AUD,Australian Dollar,2026-11-03,-129457,-1142,30.5,0.0,-1.83,YES,contracts
-NZD,New Zealand Dollar,2026-11-03,-60015,-2325,19.0,5.4,-1.7,YES,contracts
-USD,US Dollar (synthetic),2026-11-03,36257564152,-1795374621,59.8,79.0,1.53,,USD
-CAD,Canadian Dollar,2026-11-03,-41775,24649,41.3,66.5,0.91,,contracts
-CHF,Swiss Franc,2026-11-03,-16589,3460,39.0,71.6,1.27,,contracts
-JPY,Japanese Yen,2026-11-03,102321,730,64.5,78.8,1.17,,contracts
-XAU,Gold,2026-11-03,179548,-6903,84.3,26.3,-0.88,,contracts
-XAG,Silver,2026-11-03,21251,1548,70.1,16.1,-1.31,,contracts
+EUR,Euro FX,2026-11-10,-136396,21395,38.5,6.3,-2.38,YES,contracts
+GBP,British Pound,2026-11-10,-43216,16605,37.1,25.6,-0.75,,contracts
+AUD,Australian Dollar,2026-11-10,-151753,-22296,28.2,0.0,-2.23,YES,contracts
+NZD,New Zealand Dollar,2026-11-10,-55366,4649,19.6,10.2,-1.47,,contracts
+USD,US Dollar (synthetic),2026-11-10,29652612165,-6443953471,58.2,69.5,1.14,,USD
+CAD,Canadian Dollar,2026-11-10,-32592,9183,43.4,70.4,1.07,,contracts
+CHF,Swiss Franc,2026-11-10,-9153,7436,43.8,87.7,1.96,,contracts
+JPY,Japanese Yen,2026-11-10,123113,20792,66.4,84.6,1.37,,contracts
+XAU,Gold,2026-11-10,190107,10559,86.2,32.0,-0.64,,contracts
+XAG,Silver,2026-11-10,19364,-1887,68.3,12.7,-1.44,,contracts
