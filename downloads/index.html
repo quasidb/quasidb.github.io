@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Free Downloads: free MT5 indicators from QDB Trading Desk</title>
-<meta name="description" content="Free MT5 technical indicators from QDB Trading Desk, shared in the free-tools channel of the QDB Discord. Join the Discord to grab them.">
+<meta name="description" content="Free MT5 technical indicators and a free version of the QDB Sheet from QDB Trading Desk. Open the sheet in Google Sheets, or join the Discord to grab the indicators.">
 <link rel="canonical" href="https://quasidb.com/downloads/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="QDB Trading Desk">
@@ -23,6 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../guides/guides.css">
+<link rel="stylesheet" href="../free-sheet.css">
 <style>
 .dl{display:grid;gap:18px;grid-template-columns:repeat(2,1fr);margin-top:18px}
 @media (max-width:760px){.dl{grid-template-columns:1fr}}
@@ -36,6 +37,9 @@
 .steps b{color:var(--text)}
 .btn.discord{background:#5865f2;border-color:#5865f2;color:#fff}
 .btn.discord:hover{border-color:#fff}
+.fs-card{margin-top:18px;border-color:rgba(34,197,94,.45)}
+.fs-card p{color:var(--muted);font-size:17px;margin-top:6px;max-width:46em}
+.fs-card p b{color:var(--text)}
 </style>
 </head>
 <body>
@@ -53,6 +57,17 @@
       <a class="btn discord" href="https://discord.gg/2Ccf67favj" target="_blank" rel="noopener" data-goatcounter-click="downloads-discord-join">Join the QDB Discord</a>
     </div>
   </header>
+
+  <section class="sec" id="free-sheet">
+    <h2>Free QDB Sheet</h2>
+    <div class="card fs-card">
+      <span class="tag">FREE · NO SIGN-UP</span>
+      <h3 style="margin-top:10px">QDB Sheet: free version</h3>
+      <p>A free version of the QDB Sheet that opens straight in Google Sheets. Every FX pair <b>ranked by its QDB Score</b>, the crowd's <b>long and short split</b>, the <b>Crowd Pulse</b> and the five most one-sided pairs right now. No Discord needed.</p>
+      <div class="row"><a class="btn primary" href="https://docs.google.com/spreadsheets/d/1eadMwwqwrhFx60OIGhQx3nadVFSjmD4gAKGY_DHznO0/edit?usp=sharing" target="_blank" rel="noopener" data-goatcounter-click="free-sheet-open-downloads">Open the free sheet</a><a class="btn" href="../?ref=downloads-sheet#pricing" data-goatcounter-click="free-sheet-plans-downloads">See the full sheet</a></div>
+      <div class="fs-share" data-fs-share="downloads"></div>
+    </div>
+  </section>
 
   <section class="sec" id="how">
     <h2>How to get them</h2>
@@ -93,5 +108,6 @@
 
   <p class="foot">Indicators are tools to support your own analysis, not signals. Educational only, not financial advice. Trading on margin carries a high level of risk. <a href="../">Back to QDB Trading Desk</a></p>
 </main>
+<script src="../free-sheet.js" defer></script>
 </body>
 </html>

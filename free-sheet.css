@@ -1,0 +1,40 @@
+/* Free teaser QDB Sheet: share buttons (all pages) and the homepage preview.
+   Uses each page's own colour tokens (--panel, --line, --accent, --buy, --sell...). */
+.fs-share{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+.fs-share .fs-lbl{width:100%;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.fs-share button{display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font:600 15px/1 var(--sans,inherit);cursor:pointer;transition:border-color .15s}
+.fs-share button:hover,.fs-share button:focus-visible{border-color:var(--accent)}
+.fs-share svg{width:17px;height:17px;fill:currentColor;flex:none}
+.fs-share button.done{border-color:var(--buy);color:var(--buy)}
+@media (max-width:640px){.fs-share button{flex:1 1 calc(50% - 8px);justify-content:center}}
+
+/* Homepage section */
+.free-sheet{padding:72px 0 24px}
+.fs-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center}
+.fs-grid h2{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
+.fs-grid h2 em{font-style:normal;color:var(--accent)}
+.fs-grid .fs-lead{color:var(--muted);font-size:19px}
+.fs-list{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}
+.fs-list li{padding-left:28px;position:relative;color:var(--muted);font-size:17px}
+.fs-list li:before{content:"✓";position:absolute;left:0;top:0;color:var(--buy);font-weight:700}
+.fs-list li b{color:var(--text)}
+.fs-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.fs-up{margin-top:14px;font-size:15px;color:var(--dim)}
+.fs-up a{color:var(--accent)}
+.fs-prev{display:block;color:inherit;text-decoration:none}
+.fs-prev .sheet-bar .fs-free{font-family:var(--mono);font-size:12px;padding:3px 9px;border-radius:6px;background:var(--buy-bg);color:var(--buy);letter-spacing:.04em}
+.fs-prev .fs-cap{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);padding:14px 18px 6px}
+.fs-prev table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:14px}
+.fs-prev th{text-align:left;font-weight:600;color:var(--dim);font-size:12px;padding:6px 18px;border-bottom:1px solid var(--line)}
+.fs-prev td{padding:8px 18px;border-bottom:1px solid var(--line)}
+.fs-prev td.sc{font-weight:700}
+.fs-prev .buy{color:var(--buy)} .fs-prev .sell{color:var(--sell)}
+/* Contrarian colours, as everywhere on the site: the long share is red, the short share green. */
+.fs-prev .split{display:flex;height:8px;border-radius:4px;overflow:hidden;min-width:90px;background:var(--buy)}
+.fs-prev .split i{display:block;background:var(--sell)}
+.fs-prev .pulse{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;background:var(--bg2);font-family:var(--mono);font-size:13px;color:var(--muted)}
+.fs-prev .pulse b{color:var(--text);font-size:16px;display:block}
+.fs-prev .open{display:block;text-align:center;padding:12px;font-weight:600;color:var(--accent);border-top:1px solid var(--line)}
+.fs-prev:hover .open{background:rgba(245,184,61,.08)}
+@media (max-width:980px){.fs-grid{grid-template-columns:1fr;gap:32px}}
+@media (max-width:640px){.free-sheet{padding:48px 0 8px}.fs-prev td,.fs-prev th{padding-left:12px;padding-right:12px}.fs-prev .hide-xs{display:none}.fs-cta .btn{width:100%;justify-content:center}}
