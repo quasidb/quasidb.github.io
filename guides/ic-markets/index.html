@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Get QDB free with IC Markets: the step-by-step setup | QDB Guides</title>
+<meta name="description" content="Open or link an IC Markets live account under QDB's campaign and get the QDB Sheet and the Discord Super User role free. Two simple paths, animated step by step.">
+<link rel="canonical" href="https://quasidb.com/guides/ic-markets/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/guides/ic-markets/">
+<meta property="og:title" content="Get QDB free with IC Markets">
+<meta property="og:description" content="Link a live IC Markets account to QDB's campaign and get the QDB Sheet and Discord Super User role free. Two simple paths, step by step.">
+<meta property="og:image" content="https://quasidb.com/guides/ic-markets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Get QDB free with IC Markets">
+<meta name="twitter:description" content="Link a live IC Markets account to QDB's campaign and get the QDB Sheet and Discord Super User role free. Two simple paths, step by step.">
+<meta name="twitter:image" content="https://quasidb.com/guides/ic-markets/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../guides.css">
+<style>
+.riskbar{margin-top:18px;font-size:15px;color:var(--muted);border:1px solid rgba(239,68,68,.45);background:rgba(239,68,68,.07);border-radius:12px;padding:10px 14px;max-width:46em}
+.riskbar b{color:#fca5a5}
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+@media (max-width:760px){.paths{grid-template-columns:1fr}}
+.path{text-align:left;background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s,transform .2s}
+.path:hover{border-color:var(--accent)}
+.path[aria-pressed="true"]{border-color:var(--accent);background:rgba(245,184,61,.08)}
+.path .ic{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:24px;background:var(--bg2);border:1px solid var(--line)}
+.path b{display:block;font-size:19px}
+.path span{display:block;color:var(--muted);font-size:16px;margin-top:2px}
+.steps{list-style:none;display:grid;gap:12px;margin-top:18px;counter-reset:st}
+.step{counter-increment:st;display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.step:before{content:counter(st);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:20px;background:rgba(245,184,61,.14);color:var(--accent);border:1px solid rgba(245,184,61,.4)}
+.step[hidden]{display:none}
+.step .btn{overflow-wrap:anywhere;text-align:center}
+@media (max-width:600px){.step{grid-template-columns:1fr;gap:4px}.step:before{width:40px;height:40px;font-size:17px}}
+.step h3{margin-top:8px}
+.step p{color:var(--muted);font-size:17px;margin-top:6px}
+.step p b{color:var(--text)}
+.either{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-left:8px;white-space:nowrap}
+.qrrow{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:12px}
+.qrrow img{width:150px;height:150px;border-radius:12px;background:#fff;image-rendering:pixelated}
+.qrrow small{display:block;color:var(--dim);font-size:14px;margin-top:6px}
+.say{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.say q{flex:1 1 260px;display:block;quotes:none;font-family:var(--mono);font-size:16px;line-height:1.5;color:var(--text);background:#0a1220;border:1px dashed var(--accent);border-radius:12px;padding:12px 14px}
+.say .btn{min-height:auto}
+.copied{color:var(--buy)!important;border-color:var(--buy)!important}
+.perks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media (max-width:760px){.perks{grid-template-columns:1fr}}
+.perks .card{border-top:4px solid var(--accent)}
+.perks .card.ic{border-top-color:var(--ob-blue)}
+.perks h3{font-family:var(--mono);letter-spacing:.04em;font-size:18px}
+.perks .card.qdb h3{color:var(--accent)} .perks .card.ic h3{color:#93c5fd}
+.perks ul{list-style:none;margin-top:10px;display:grid;gap:10px}
+.perks li{font-size:17px;color:var(--muted);padding-left:28px;position:relative}
+.perks li:before{content:"✓";position:absolute;left:0;top:0;color:var(--buy);font-weight:700}
+.perks li b{color:var(--text)}
+.free{display:inline-block;margin-left:6px;font-family:var(--mono);font-size:12px;padding:2px 8px;border-radius:6px;background:rgba(34,197,94,.15);color:var(--buy);vertical-align:middle}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.stats div:last-child{grid-column:1/-1}}
+.stats div{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
+.stats b{display:block;font-family:var(--mono);font-size:clamp(24px,3.4vw,30px);color:#93c5fd;letter-spacing:-.02em}
+.stats span{display:block;font-size:14px;color:var(--muted);margin-top:2px;line-height:1.35}
+.src{font-size:13px;color:var(--dim);margin-top:8px}
+.faq{display:grid;gap:10px;margin-top:14px}
+.faq details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.faq summary{cursor:pointer;font-weight:700}
+.faq p{color:var(--muted);font-size:17px;margin-top:8px}
+.risk{margin-top:18px;border:1px solid rgba(239,68,68,.5);background:rgba(239,68,68,.07);border-radius:16px;padding:16px 18px}
+.risk h3{font-family:var(--mono);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#fca5a5}
+.risk p{color:var(--muted);font-size:16px;margin-top:8px}
+.risk p b{color:var(--text)}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../../?ref=guide-ic"><img src="../../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../">Guides</a><a href="../../games/?ref=guide-ic">Games</a><a href="../../?ref=guide-ic#pricing">Pricing</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">QDB Guide · IC Markets · about 4 minutes</p>
+    <h1>Get QDB free with <em>IC Markets</em></h1>
+    <p class="lead">Trade with a live IC Markets account under QDB's campaign and you get <b>the QDB Sheet and the Discord Super User role, free</b>. It takes a handful of simple steps, a quick chat with IC's support team and one email. This guide walks you through every one.</p>
+    <p class="riskbar"><b>Risk warning:</b> CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. Most retail investor accounts lose money when trading CFDs. Only trade money you can afford to lose. <a href="#risk">Read the full warning</a>.</p>
+    <nav class="toc" aria-label="On this page">
+      <a href="#path">Pick your path</a><a href="#journey">Watch the journey</a><a href="#steps">The steps</a><a href="#perks">What you get</a><a href="#faq">Questions</a><a href="#risk">Risk warning</a>
+    </nav>
+  </header>
+
+  <section class="sec" id="path">
+    <h2>Which one are you?</h2>
+    <p>There are two ways in. They meet in the middle and finish the same way.</p>
+    <div class="paths" role="group" aria-label="Choose your path">
+      <button type="button" class="path" data-path="new" aria-pressed="true"><span class="ic" aria-hidden="true">✨</span><span><b>I'm new to IC Markets</b><span>No account yet. Sign up through QDB's link, open a live account, then follow the rest.</span></span></button>
+      <button type="button" class="path" data-path="existing" aria-pressed="false"><span class="ic" aria-hidden="true">👋</span><span><b>I already have an IC Markets account</b><span>Skip the sign-up. Make sure it's a live account, then go straight to support.</span></span></button>
+    </div>
+  </section>
+
+  <section class="sec" id="journey">
+    <h2>Watch the journey</h2>
+    <p class="muted" id="journeyLead">Press play and follow the gold dot. Each step is one small thing to do.</p>
+    <div id="journeyScene"></div>
+  </section>
+
+  <section class="sec" id="steps">
+    <h2>The steps, in full</h2>
+    <p class="muted" id="stepsLead"></p>
+    <ol class="steps">
+      <li class="step" data-for="new"><div>
+        <h3>Sign up through QDB's link</h3>
+        <p>Open <b>ic.com</b> with QDB's campaign link, or scan the QR code with your phone. Using this link is what ties your account to QDB.</p>
+        <div class="qrrow">
+          <img src="qr.png" alt="QR code for ic.com with QDB's campaign 55485" width="150" height="150">
+          <div><a class="btn primary" href="https://www.ic.com/en/?camp=55485" target="_blank" rel="sponsored noopener" onclick="QDBGuide.track('affiliate-ic-guide-signup')">Sign up at IC Markets</a><small>Campaign ID 55485 · opens ic.com in a new tab</small></div>
+        </div>
+      </div></li>
+      <li class="step" data-for="new"><div>
+        <h3>Open a LIVE account</h3>
+        <p>Inside your IC Markets client area, open a <b>live</b> trading account. A demo account can't be linked to the campaign, so it doesn't count for this.</p>
+      </div></li>
+      <li class="step" data-for="existing"><div>
+        <h3>Check you have a LIVE account</h3>
+        <p>Log in to your IC Markets client area. If you've only ever used a <b>demo</b> account, open a <b>live</b> one there first. It's the live account that gets linked.</p>
+      </div></li>
+      <li class="step"><div>
+        <h3>Fund your live account <span class="either">either order</span></h3>
+        <p>Add real funds to the live account, using any deposit method IC Markets offers where you live. You can do this before or after the chat in the next step.</p>
+      </div></li>
+      <li class="step"><div>
+        <h3>Ask support to merge your account <span class="either">either order</span></h3>
+        <p>On ic.com, press the <b>"Can I help you"</b> chat button in the bottom right corner and send this message:</p>
+        <div class="say"><q id="mergeMsg">Can you please MERGE my live account with Campaign ID 55485</q><button type="button" class="btn" id="copyMsg">Copy message</button></div>
+      </div></li>
+      <li class="step"><div>
+        <h3>Confirm it by email</h3>
+        <p>Support will log your request and ask you to <b>email the support desk</b>, which makes it formal. Send that email, then wait for IC Markets to <b>confirm by email</b> that the merge is done.</p>
+      </div></li>
+      <li class="step"><div>
+        <h3>Tell Dave, and you're in</h3>
+        <p>Once you have IC's confirmation, send Dave two things: <b>your Gmail address</b>, so he can add you to the QDB Sheet access list, and <b>your Discord ID</b>, so he can give you the <b>Super User</b> role. Forwarding IC's confirmation email helps too.</p>
+        <div class="row"><a class="btn primary" id="mailDave" href="#" onclick="QDBGuide.track('guide-ic-email-dave')">Email davidianbennett@gmail.com</a><a class="btn" href="https://t.me/quasi_db" target="_blank" rel="noopener" onclick="QDBGuide.track('guide-ic-telegram-dave')">Message @quasi_db on Telegram</a></div>
+        <p style="font-size:15px">Finding your Discord ID: in Discord, open <b>Settings → Advanced</b> and switch on <b>Developer Mode</b>, then right-click (or long-press) your name and choose <b>Copy User ID</b>.</p>
+      </div></li>
+    </ol>
+  </section>
+
+  <section class="sec" id="perks">
+    <h2>What you get</h2>
+    <p>Two things in one: a broker built for active traders, and the full QDB toolkit on top.</p>
+    <div class="perks">
+      <div class="card qdb">
+        <h3>FROM QDB <span class="free">FREE</span></h3>
+        <ul>
+          <li><b>The QDB Sheet:</b> the retail crowd's positioning across FX, indices and gold, with the Sentiment Heatmap, Crowd Extremes, Bubbles and more.</li>
+          <li><b>QDB Scores and Today's Trade Setups:</b> the 12-point check and the day's strongest candidates, already filtered by sentiment.</li>
+          <li><b>Risk and planning tabs:</b> position sizing, the pair risk matrix and the stop and take profit planner.</li>
+          <li><b>Discord Super User role:</b> live setups and the community chat, with traders who read the crowd the same way.</li>
+        </ul>
+        <div class="row"><a class="btn" href="../?ref=guide-ic#videos">Watch the QDB Sheet videos</a></div>
+      </div>
+      <div class="card ic">
+        <h3>FROM IC MARKETS</h3>
+        <ul>
+          <li><b>Raw spreads from 0.0 pips</b> on Raw Spread accounts.</li>
+          <li><b>Fast execution:</b> IC Markets quotes average execution speeds of under 40ms.</li>
+          <li><b>Deep liquidity</b> from a diverse mix of providers, to keep spreads tight 24/5.</li>
+          <li><b>Easy deposits:</b> cards, bank transfer, PayPal, Skrill and Neteller. Methods vary by country.</li>
+        </ul>
+      </div>
+    </div>
+    <h3 style="margin-top:26px">IC Markets' strength is in the numbers</h3>
+    <p class="muted" style="margin-top:6px">One of the largest forex CFD providers in the world by trading volume.</p>
+    <div class="stats" id="stats">
+      <div><b data-to="192" data-fmt="{n}+">192+</b><span>countries covered</span></div>
+      <div><b data-to="19" data-fmt="{n}+">19+</b><span>years' industry experience</span></div>
+      <div><b data-to="10000" data-fmt="{n}+">10,000+</b><span>CFD assets</span></div>
+      <div><b data-to="14.3" data-dp="1" data-fmt="{n}M">14.3M</b><span>accounts</span></div>
+      <div><b data-to="2.1" data-dp="1" data-fmt="${n}T">$2.1T</b><span>monthly trading volume, March 2026</span></div>
+    </div>
+    <p class="src">Figures as stated on ic.com in November 2026. Product range, spreads and payment methods depend on the IC Markets entity that serves your country.</p>
+  </section>
+
+  <section class="sec" id="faq">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details><summary>I only have a demo account. Which path am I?</summary><p>Choose "I already have an IC Markets account". Open a live account in the same client area, then carry on from funding. Demo accounts can't be linked.</p></details>
+      <details><summary>Do I fund first or chat first?</summary><p>Either. Funding the live account and asking support to merge it can happen in any order. You need both done before the email confirmation counts.</p></details>
+      <details><summary>Why do I have to email support as well as chat?</summary><p>The chat logs the request. The email makes it formal and binding on IC's side, and their reply is your proof that the merge is done.</p></details>
+      <details><summary>What if support doesn't understand the request?</summary><p>Paste the exact message from step "Ask support to merge" and quote Campaign ID 55485. If you're still stuck, message Dave on Telegram at @quasi_db and he'll help.</p></details>
+      <details><summary>How does QDB make this free?</summary><p>IC Markets pays QDB for clients who join through its campaign. That's what covers your QDB Sheet and Discord access.</p></details>
+    </div>
+  </section>
+
+  <div class="risk" id="risk">
+    <h3>Risk warning</h3>
+    <p><b>CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. Most retail investor accounts lose money when trading CFDs. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.</b></p>
+    <p>IC Markets' services aren't available in every country, and the protections you get depend on the IC Markets entity and regulator that serve where you live. Check this before you open an account. Nothing on this page is financial advice or a recommendation to trade.</p>
+    <p>Affiliate disclosure: QDB receives a commission from IC Markets for clients who join through campaign 55485. IC Markets is an independent company and doesn't endorse this guide.</p>
+  </div>
+
+  <div class="cta">
+    <h3>While you wait for the confirmation</h3>
+    <p>Get a head start: learn how the crowd behaves, and practise with the free games.</p>
+    <div class="row"><a class="btn primary" href="../retail-sentiment/?ref=guide-ic">Read the crowd train guide</a><a class="btn" href="../../games/?ref=guide-ic">Play the free games</a><a class="btn" href="../?ref=guide-ic">More guides</a></div>
+  </div>
+
+  <p class="foot">Educational only, not financial advice. Trading on margin carries a high level of risk. <a href="../">All guides</a> · <a href="../../">QDB Trading Desk</a></p>
+</main>
+
+<script src="../stepper.js"></script>
+<script>
+const {Stepper,esc,ease,track,REDUCED}=QDBGuide;
+const GOLD="#f5b83d", GREEN="#22c55e", BLUE="#3b82f6", TXT="#e8edf6", MUT="#a3afc5", DIM="#6b7892", LINE="#26324a", PANEL="#141b2b";
+const mono='font-family="JetBrains Mono, monospace"', sans='font-family="Space Grotesk, sans-serif"';
+const MSG=document.getElementById("mergeMsg").textContent;
+const clamp=v=>Math.max(0,Math.min(1,v));
+const seg=(g,a,b)=>clamp((g-a)/(b-a));
+
+/* ===== the little illustrations, one per step. g runs 0..1 as the step plays ===== */
+const ART={
+  signup(g,cx,cy,s){
+    let o=`<rect x="${cx-80*s}" y="${cy-120*s}" width="${160*s}" height="${240*s}" rx="${18*s}" fill="#0f172a" stroke="${MUT}" stroke-width="3"/>`;
+    o+=`<image href="qr.png" x="${cx-52*s}" y="${cy-92*s}" width="${104*s}" height="${104*s}"/>`;
+    if(g<.65){const y=cy-92*s+104*s*seg(g,0,.6);o+=`<line x1="${cx-58*s}" x2="${cx+58*s}" y1="${y}" y2="${y}" stroke="${GOLD}" stroke-width="3" opacity=".9"/>`}
+    const k=ease(seg(g,.6,.85));
+    o+=`<g opacity="${k}"><circle cx="${cx}" cy="${cy+55*s}" r="${22*s*(.6+.4*k)}" fill="${GREEN}"/><path d="M${cx-10*s} ${cy+55*s} l${7*s} ${8*s} l${13*s} -${16*s}" fill="none" stroke="#0b0f17" stroke-width="${4*s}" stroke-linecap="round" stroke-linejoin="round"/></g>`;
+    o+=`<text x="${cx}" y="${cy+100*s}" text-anchor="middle" ${mono} font-size="${11*s}" fill="${MUT}">ic.com/?camp=55485</text>`;
+    return o;
+  },
+  live(g,cx,cy,s,existing){
+    const k=ease(seg(g,.1,.6)), w=220*s, h=64*s, x=cx-w/2, y=cy-60*s;
+    let o=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h/2}" fill="#0f172a" stroke="${LINE}" stroke-width="2"/>`;
+    o+=`<rect x="${x+4+k*(w/2-4)}" y="${y+4}" width="${w/2-4}" height="${h-8}" rx="${(h-8)/2}" fill="${k>.5?GREEN:"#475569"}"/>`;
+    o+=`<text x="${x+w/4}" y="${y+h/2+7*s}" text-anchor="middle" ${mono} font-size="${18*s}" font-weight="700" fill="${k>.5?DIM:TXT}">DEMO</text>`;
+    o+=`<text x="${x+3*w/4}" y="${y+h/2+7*s}" text-anchor="middle" ${mono} font-size="${18*s}" font-weight="700" fill="${k>.5?"#0b0f17":DIM}">LIVE</text>`;
+    const m=seg(g,.65,.9);
+    o+=`<text x="${cx}" y="${cy+40*s}" text-anchor="middle" ${sans} font-size="${22*s}" font-weight="700" fill="${GREEN}" opacity="${m}">✓ Live account ${existing?"ready":"opened"}</text>`;
+    o+=`<text x="${cx}" y="${cy+72*s}" text-anchor="middle" ${sans} font-size="${16*s}" fill="${MUT}" opacity="${m}">Demo accounts can't be linked</text>`;
+    return o;
+  },
+  fund(g,cx,cy,s){
+    let o=`<rect x="${cx-90*s}" y="${cy-10*s}" width="${180*s}" height="${100*s}" rx="${16*s}" fill="#1e293b" stroke="${MUT}" stroke-width="3"/><rect x="${cx+40*s}" y="${cy+25*s}" width="${55*s}" height="${30*s}" rx="${8*s}" fill="#0f172a" stroke="${MUT}" stroke-width="2"/><circle cx="${cx+58*s}" cy="${cy+40*s}" r="${5*s}" fill="${GOLD}"/>`;
+    for(let i=0;i<3;i++){const c=seg(g,.08+i*.16,.3+i*.16); if(c<=0||c>=1) continue;
+      const y=cy-120*s+c*130*s, x=cx-30*s+i*30*s;
+      o+=`<circle cx="${x}" cy="${y}" r="${16*s}" fill="${GOLD}" stroke="#b45309" stroke-width="2"/><text x="${x}" y="${y+6*s}" text-anchor="middle" ${mono} font-size="${16*s}" font-weight="700" fill="#1a1205">$</text>`}
+    const f=seg(g,.15,.8);
+    o+=`<rect x="${cx-70*s}" y="${cy+68*s}" width="${100*s}" height="${8*s}" rx="${4*s}" fill="#0f172a"/><rect x="${cx-70*s}" y="${cy+68*s}" width="${100*s*f}" height="${8*s}" rx="${4*s}" fill="${GREEN}"/>`;
+    o+=`<text x="${cx}" y="${cy-30*s}" text-anchor="middle" ${sans} font-size="${22*s}" font-weight="700" fill="${GREEN}" opacity="${seg(g,.8,.95)}">✓ Live funds added</text>`;
+    return o;
+  },
+  chat(g,cx,cy,s,_e,W){
+    const w=Math.min(W-40,520*s), x=cx-w/2, y=cy-125*s, h=250*s;
+    let o=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${16*s}" fill="#0f172a" stroke="${LINE}" stroke-width="2"/><rect x="${x}" y="${y}" width="${w}" height="${40*s}" rx="${16*s}" fill="#1e3a8a"/><rect x="${x}" y="${y+24*s}" width="${w}" height="${16*s}" fill="#1e3a8a"/>`;
+    o+=`<circle cx="${x+22*s}" cy="${y+20*s}" r="${6*s}" fill="${GREEN}"/><text x="${x+36*s}" y="${y+26*s}" ${sans} font-size="${16*s}" font-weight="700" fill="${TXT}">IC Markets Support</text>`;
+    const n=Math.round(MSG.length*seg(g,.08,.55)), txt=MSG.slice(0,n);
+    if(n>0){
+      const words=txt.split(" "), lines=[""], max=Math.floor((w*.72)/(9.6*s));
+      words.forEach(wd=>{const L=lines[lines.length-1]; if((L+" "+wd).trim().length>max) lines.push(wd); else lines[lines.length-1]=(L+" "+wd).trim()});
+      const bw=w*.76, bh=(lines.length*22+18)*s, bx=x+w-bw-14*s, by=y+56*s;
+      o+=`<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="${14*s}" fill="${GOLD}"/>`;
+      lines.forEach((L,i)=>o+=`<text x="${bx+14*s}" y="${by+(28+i*22)*s}" ${mono} font-size="${15*s}" font-weight="600" fill="#1a1205">${esc(L)}${i===lines.length-1&&g<.55?"▍":""}</text>`);
+    }
+    const r=seg(g,.65,.8);
+    if(r>0){
+      const by=y+h-78*s;
+      o+=`<g opacity="${r}"><rect x="${x+14*s}" y="${by}" width="${w*.78}" height="${62*s}" rx="${14*s}" fill="#1e293b" stroke="${LINE}"/>`;
+      o+=`<text x="${x+28*s}" y="${by+26*s}" ${sans} font-size="${Math.min(15*s,w/30)}" fill="${TXT}">Thanks! We've logged that. Please email</text><text x="${x+28*s}" y="${by+48*s}" ${sans} font-size="${Math.min(15*s,w/30)}" fill="${TXT}">our support desk to confirm the request.</text></g>`;
+    }
+    if(g<.12) o+=`<g opacity="${1-seg(g,.06,.12)}"><rect x="${x+w-170*s}" y="${y+h-50*s}" width="${156*s}" height="${36*s}" rx="${18*s}" fill="${BLUE}"/><text x="${x+w-92*s}" y="${y+h-26*s}" text-anchor="middle" ${sans} font-size="${15*s}" font-weight="700" fill="#fff">Can I help you?</text></g>`;
+    return o;
+  },
+  email(g,cx,cy,s){
+    const L=cx-170*s, R=cx+170*s;
+    let o=`<text x="${L}" y="${cy+70*s}" text-anchor="middle" ${sans} font-size="${16*s}" fill="${MUT}">You</text><text x="${R}" y="${cy+70*s}" text-anchor="middle" ${sans} font-size="${16*s}" fill="${MUT}">IC Support</text>`;
+    o+=`<circle cx="${L}" cy="${cy+20*s}" r="${26*s}" fill="#1e293b" stroke="${GOLD}" stroke-width="2"/><text x="${L}" y="${cy+29*s}" text-anchor="middle" font-size="${24*s}">🙂</text>`;
+    o+=`<circle cx="${R}" cy="${cy+20*s}" r="${26*s}" fill="#1e293b" stroke="${BLUE}" stroke-width="2"/><text x="${R}" y="${cy+29*s}" text-anchor="middle" font-size="${22*s}">🎧</text>`;
+    const env=(x,y,col,stamp)=>`<g transform="translate(${x} ${y})"><rect x="${-36*s}" y="${-24*s}" width="${72*s}" height="${48*s}" rx="${6*s}" fill="${col}" stroke="#0b0f17" stroke-width="2"/><path d="M${-36*s} ${-24*s} L0 ${4*s} L${36*s} ${-24*s}" fill="none" stroke="#0b0f17" stroke-width="2"/>${stamp?`<circle cx="${28*s}" cy="${16*s}" r="${14*s}" fill="${GREEN}" stroke="#0b0f17" stroke-width="2"/><path d="M${21*s} ${16*s} l${5*s} ${5*s} l${9*s} -${10*s}" fill="none" stroke="#0b0f17" stroke-width="${3*s}" stroke-linecap="round"/>`:""}</g>`;
+    const a=ease(seg(g,.05,.42)), b=ease(seg(g,.5,.85));
+    if(g<.45) o+=env(L+(R-L)*a,cy-50*s-Math.sin(a*Math.PI)*40*s,"#e2e8f0",false);
+    if(g>=.5) o+=env(R-(R-L)*b,cy-50*s-Math.sin(b*Math.PI)*40*s,"#fde68a",b>.2);
+    o+=`<text x="${cx}" y="${cy+115*s}" text-anchor="middle" ${sans} font-size="${22*s}" font-weight="700" fill="${GREEN}" opacity="${seg(g,.85,.97)}">✓ Merge confirmed by email</text>`;
+    return o;
+  },
+  dave(g,cx,cy,s,_e,W){
+    const tx=cx, ty=cy-40*s, co=Math.min(170*s,W/2-80*s-10), bo=Math.min(120*s,W/2-95*s-8);
+    let o=`<circle cx="${tx}" cy="${ty}" r="${42*s}" fill="#1e293b" stroke="${GOLD}" stroke-width="3"/><text x="${tx}" y="${ty+8*s}" text-anchor="middle" ${sans} font-size="${22*s}" font-weight="700" fill="${GOLD}">Dave</text>`;
+    const card=(lbl,x0,a)=>{const k=ease(a),x=x0+(tx-x0)*k,y=cy+40*s+(ty-cy-40*s)*k;return a>=1?"":`<g opacity="${1-k*k}"><rect x="${x-80*s}" y="${y-20*s}" width="${160*s}" height="${40*s}" rx="${10*s}" fill="${PANEL}" stroke="${MUT}"/><text x="${x}" y="${y+6*s}" text-anchor="middle" ${mono} font-size="${14*s}" font-weight="700" fill="${TXT}">${lbl}</text></g>`};
+    o+=card("Gmail address",cx-co,seg(g,.05,.4));
+    o+=card("Discord ID",cx+co,seg(g,.15,.5));
+    const u=seg(g,.55,.8);
+    if(u>0){
+      const b1=cx-bo,b2=cx+bo,by=cy+70*s;
+      o+=`<g opacity="${u}" transform="translate(0 ${(1-ease(u))*20*s})"><rect x="${b1-95*s}" y="${by-24*s}" width="${190*s}" height="${48*s}" rx="${24*s}" fill="rgba(34,197,94,.16)" stroke="${GREEN}"/><text x="${b1}" y="${by+7*s}" text-anchor="middle" ${sans} font-size="${17*s}" font-weight="700" fill="${GREEN}">✓ QDB Sheet</text>`;
+      o+=`<rect x="${b2-95*s}" y="${by-24*s}" width="${190*s}" height="${48*s}" rx="${24*s}" fill="rgba(34,197,94,.16)" stroke="${GREEN}"/><text x="${b2}" y="${by+7*s}" text-anchor="middle" ${sans} font-size="${17*s}" font-weight="700" fill="${GREEN}">✓ Super User</text></g>`;
+    }
+    const c=seg(g,.75,1);
+    if(c>0&&c<1){const cols=[GOLD,GREEN,BLUE,"#f472b6","#fb923c"];for(let i=0;i<22;i++){const an=i*2.4,d=(60+i%5*24)*s*ease(c);o+=`<rect x="${tx+Math.cos(an)*d}" y="${ty+Math.sin(an)*d+c*c*60*s}" width="${7*s}" height="${7*s}" rx="2" fill="${cols[i%5]}" opacity="${1-c}" transform="rotate(${i*40+c*200} ${tx+Math.cos(an)*d} ${ty+Math.sin(an)*d+c*c*60*s})"/>`}}
+    o+=`<text x="${cx}" y="${cy+125*s}" text-anchor="middle" ${sans} font-size="${20*s}" font-weight="700" fill="${TXT}" opacity="${seg(g,.8,.95)}">All of QDB, free. Welcome aboard.</text>`;
+    return o;
+  },
+  welcome(g,cx,cy,s,existing){
+    return `<text x="${cx}" y="${cy-10*s}" text-anchor="middle" ${sans} font-size="${28*s}" font-weight="700" fill="${TXT}">${existing?"Five":"Six"} small steps</text><text x="${cx}" y="${cy+26*s}" text-anchor="middle" ${sans} font-size="${18*s}" fill="${MUT}">${existing?"You've done the sign-up already.":"Most of it is a few clicks."}</text><text x="${cx}" y="${cy+56*s}" text-anchor="middle" ${sans} font-size="${18*s}" fill="${MUT}">Press play to start.</text>`;
+  }
+};
+
+/* ===== the two paths ===== */
+const STEP={
+  signup:{name:"Sign up",art:"signup",short:"Sign up",cap:"Open <b>ic.com</b> through QDB's link, or scan the QR code. That link is what ties your new account to QDB."},
+  live:{name:"Open a live account",art:"live",short:"Live",cap:"In the client area, open a <b>live</b> account. Demo accounts can't be linked to the campaign."},
+  check:{name:"Check it's live",art:"live",short:"Live",cap:"Log in to your client area. Only had a demo? Open a <b>live</b> account there first. It's the live one that gets linked."},
+  fund:{name:"Fund it",art:"fund",short:"Fund",cap:"Add real funds to your live account. You can do this before or after the chat. <b>The order doesn't matter.</b>"},
+  chat:{name:"Ask support to merge",art:"chat",short:"Chat",cap:"Press <b>\"Can I help you\"</b> in the bottom right of ic.com and send the message. Support logs it and asks you to email them."},
+  email:{name:"Confirm by email",art:"email",short:"Email",cap:"Email the support desk to make it formal. When IC Markets <b>emails back to confirm</b>, the hard part's done."},
+  dave:{name:"Tell Dave",art:"dave",short:"Dave",cap:"Send Dave your <b>Gmail address</b> and <b>Discord ID</b> by email or Telegram. He adds you to the QDB Sheet and gives you the <b>Super User</b> role. Done!"}
+};
+const PATHS={new:["signup","live","fund","chat","email","dave"],existing:["check","fund","chat","email","dave"]};
+
+function drawJourney(keys,existing,t,el){
+  const C=(el.clientWidth||600)<600, W=C?560:960, H=C?620:460, s=C?1.3:1.05, N=keys.length;
+  const top=C?62:56, padX=C?36:70, nodes=[{short:"You"}].concat(keys.map(k=>STEP[k]));
+  const X=i=>padX+(W-2*padX)*i/N;
+  const i=t<=0?0:Math.min(Math.ceil(t-1e-9)-1,N-1), f=t<=0?0:t-i, move=t<=0?0:ease(seg(f,0,.3)), g=t<=0?0:seg(f,.3,1);
+  const at=t<=0?0:i+move, done=t<=0?0:(f>=1?i+1:i);
+  let o=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc((existing?"Existing":"New")+" IC Markets account: "+keys.map(k=>STEP[k].name).join(", "))}"><rect width="${W}" height="${H}" fill="#0a1220"/>`;
+  o+=`<line x1="${X(0)}" x2="${X(N)}" y1="${top}" y2="${top}" stroke="${LINE}" stroke-width="6" stroke-linecap="round"/>`;
+  o+=`<line x1="${X(0)}" x2="${X(at)}" y1="${top}" y2="${top}" stroke="${GOLD}" stroke-width="6" stroke-linecap="round"/>`;
+  nodes.forEach((n,j)=>{
+    const ok=j<=done, cur=t>0&&j===i+1, r=C?18:18;
+    o+=`<circle cx="${X(j)}" cy="${top}" r="${r}" fill="${ok?(j===0?GOLD:GREEN):"#0f172a"}" stroke="${ok?"#0b0f17":(cur?GOLD:LINE)}" stroke-width="3"/>`;
+    o+=j===0?`<text x="${X(j)}" y="${top+5}" text-anchor="middle" ${mono} font-size="12" font-weight="700" fill="#1a1205">GO</text>`
+      :(ok?`<path d="M${X(j)-6} ${top} l4 5 l8 -10" fill="none" stroke="#0b0f17" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`
+        :`<text x="${X(j)}" y="${top+5}" text-anchor="middle" ${mono} font-size="${C?16:14}" font-weight="700" fill="${cur?GOLD:DIM}">${j}</text>`);
+    o+=`<text x="${X(j)}" y="${top+(C?44:42)}" text-anchor="middle" ${sans} font-size="${C?18:15}" font-weight="${cur?700:500}" fill="${cur?TXT:MUT}">${esc(n.short)}</text>`;
+  });
+  o+=`<circle cx="${X(at)}" cy="${top-(C?26:30)-Math.abs(Math.sin(move*Math.PI))*8}" r="${C?8:9}" fill="${GOLD}" stroke="#0b0f17" stroke-width="2"/>`;
+  const cx=W/2, cy=C?370:270;
+  o+=t<=0?ART.welcome(0,cx,cy,s,existing):ART[STEP[keys[i]].art](g,cx,cy,s,existing,W);
+  return o+"</svg>";
+}
+
+let PATH="new", api=null;
+const host=document.getElementById("journeyScene");
+function build(){
+  const keys=PATHS[PATH], existing=PATH==="existing";
+  api=Stepper(host,{id:"ic-"+PATH,title:existing?"I already have an IC Markets account":"I'm new to IC Markets",sub:keys.length+" steps · about 4 minutes of reading",
+    intro:existing?"You can skip the sign-up. Make sure your account is live, then it's funding, a quick chat and one email.":"From a brand-new sign-up to free QDB access. Follow the gold dot.",
+    steps:keys.map(k=>({name:STEP[k].name,cap:STEP[k].cap,len:k==="chat"?9:k==="dave"?7:6})),beat:420,
+    draw:(t,box)=>({svg:drawJourney(keys,existing,t,box)})});
+}
+function setPath(p,user){
+  PATH=p;
+  document.querySelectorAll(".path").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.path===p)));
+  document.querySelectorAll(".step[data-for]").forEach(li=>li.hidden=li.dataset.for!==p);
+  document.getElementById("stepsLead").textContent=p==="new"
+    ?"New to IC Markets: all six steps. Steps 3 and 4 can be done in either order."
+    :"Already with IC Markets: five steps. Steps 2 and 3 can be done in either order.";
+  build();
+  if(user) track("guide-ic-path-"+p);
+}
+document.querySelectorAll(".path").forEach(b=>b.addEventListener("click",()=>{if(api&&api.busy())return;setPath(b.dataset.path,true)}));
+const startPath=/existing/.test(location.hash)?"existing":"new";
+setPath(startPath,false);
+
+/* copy the merge message */
+document.getElementById("copyMsg").addEventListener("click",e=>{
+  const b=e.currentTarget, done=()=>{b.textContent="Copied ✓";b.classList.add("copied");setTimeout(()=>{b.textContent="Copy message";b.classList.remove("copied")},2200)};
+  track("guide-ic-copy-message");
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(MSG).then(done,()=>fallback());
+  else fallback();
+  function fallback(){const r=document.createRange();r.selectNodeContents(document.getElementById("mergeMsg"));const s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand("copy");done()}catch(_){}}
+});
+
+/* email Dave with a ready-made message */
+document.getElementById("mailDave").href="mailto:davidianbennett@gmail.com?subject="+encodeURIComponent("IC Markets merge confirmed: QDB access")+
+  "&body="+encodeURIComponent("Hi Dave,\n\nIC Markets has confirmed by email that my live account is merged with Campaign ID 55485.\n\nMy Gmail address (for the QDB Sheet): \nMy Discord ID: \n\nThanks!");
+
+/* count the stats up when they scroll into view */
+(function(){
+  const els=[...document.querySelectorAll("#stats b")];
+  const show=(el,v)=>{const dp=+(el.dataset.dp||0);el.textContent=el.dataset.fmt.replace("{n}",dp?v.toFixed(dp):Math.round(v).toLocaleString("en-US"))};
+  if(REDUCED||!("IntersectionObserver" in window)) return;
+  els.forEach(el=>show(el,0));
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;io.unobserve(en.target);const el=en.target,to=+el.dataset.to,t0=performance.now();
+    (function fr(now){const k=Math.min(1,(now-t0)/1400);show(el,to*ease(k));if(k<1)requestAnimationFrame(fr)})(t0)}),{threshold:.6});
+  els.forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>
