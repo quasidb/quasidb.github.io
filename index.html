@@ -25,6 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="free-sheet.css">
 <style>
 :root{
   --bg:#0b0f17; --bg2:#101624; --panel:#141b2b; --line:#232d42;
@@ -363,6 +364,7 @@ nav .wrap{gap:28px}
   <div class="wrap">
     <a href="#" class="logo"><span class="logo-mark" role="img" aria-label="QDB logo"></span>QDB Trading Desk</a>
     <div class="navlinks">
+      <a href="#free-sheet">Free sheet</a>
       <a href="#live">Basket board</a>
       <a href="#cot">COT</a>
       <a href="#new">What's new</a>
@@ -453,6 +455,44 @@ nav .wrap{gap:28px}
     </div>
   </div>
 </header>
+
+<section class="free-sheet" id="free-sheet">
+  <div class="wrap fs-grid">
+    <div class="reveal">
+      <div class="kicker">Free · no sign-up</div>
+      <h2>Try the QDB Sheet <em>free</em>.</h2>
+      <p class="fs-lead">A free version of the QDB Sheet that anyone can open in Google Sheets. Every pair ranked by its QDB Score, with the retail crowd's long and short split beside it.</p>
+      <ul class="fs-list">
+        <li><b>Retail sentiment ranked by QDB Score</b> across the major and cross FX pairs.</li>
+        <li><b>Crowd Pulse:</b> how many positions are tracked and how long the whole crowd is.</li>
+        <li><b>Crowd Extremes:</b> the five most one-sided pairs right now.</li>
+      </ul>
+      <div class="fs-cta">
+        <a class="btn btn-primary" href="https://docs.google.com/spreadsheets/d/1eadMwwqwrhFx60OIGhQx3nadVFSjmD4gAKGY_DHznO0/edit?usp=sharing" target="_blank" rel="noopener" data-goatcounter-click="free-sheet-open-home">Open the free sheet →</a>
+        <a class="btn btn-ghost" href="#pricing" data-goatcounter-click="free-sheet-plans-home">See the full sheet</a>
+      </div>
+      <div class="fs-share" data-fs-share="home"></div>
+      <p class="fs-up">Know a trader who'd find it useful? Pass it on. Want pivots, the FXCM SSI and today's trade setups too? They're in the <a href="#pricing">full QDB Sheet</a>.</p>
+    </div>
+    <a class="sheet fs-prev reveal" href="https://docs.google.com/spreadsheets/d/1eadMwwqwrhFx60OIGhQx3nadVFSjmD4gAKGY_DHznO0/edit?usp=sharing" target="_blank" rel="noopener" data-goatcounter-click="free-sheet-preview-home" aria-label="Open the free QDB Sheet in Google Sheets">
+      <div class="sheet-bar">
+        <div class="lights"><i></i><i></i><i></i></div>
+        <span class="t">QDB Data · Lite</span>
+        <span class="fs-free">FREE</span>
+      </div>
+      <div class="fs-cap">Retail sentiment ranked by QDB Score</div>
+      <table>
+        <thead><tr><th>Symbol</th><th>QDB Score</th><th>Long %</th><th class="hide-xs">◀ Long | Short ▶</th></tr></thead>
+        <tbody>
+          <tr><td>GBPCHF</td><td class="sc buy">10</td><td>31%</td><td class="hide-xs"><span class="split"><i style="width:31%"></i></span></td></tr><tr><td>USDCHF</td><td class="sc buy">10</td><td>34%</td><td class="hide-xs"><span class="split"><i style="width:34%"></i></span></td></tr><tr><td>GBPAUD</td><td class="sc buy">9</td><td>7%</td><td class="hide-xs"><span class="split"><i style="width:7%"></i></span></td></tr><tr><td>USDJPY</td><td class="sc buy">9</td><td>43%</td><td class="hide-xs"><span class="split"><i style="width:43%"></i></span></td></tr><tr><td>EURGBP</td><td class="sc ">4</td><td>96%</td><td class="hide-xs"><span class="split"><i style="width:96%"></i></span></td></tr><tr><td>NZDUSD</td><td class="sc sell">3</td><td>94%</td><td class="hide-xs"><span class="split"><i style="width:94%"></i></span></td></tr>
+        </tbody>
+      </table>
+      <div class="pulse"><span><b>201,528</b>positions tracked</span><span><b>64%</b>crowd long overall</span></div>
+      <span class="open">Example rows · open the sheet for today's live numbers →</span>
+    </a>
+  </div>
+</section>
+
 
 <section class="live" id="live">
   <div class="wrap">
@@ -1397,5 +1437,6 @@ function gcEvent(name){ try{ window.goatcounter && goatcounter.count && goatcoun
          p.querySelector('.btn').className='btn btn-paypal'; }
 })();
 </script>
+<script src="free-sheet.js" defer></script>
 </body>
 </html>
