@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Get QDB free with IC Markets: the step-by-step setup | QDB Guides</title>
-<meta name="description" content="Open or link an IC Markets live account under QDB's campaign and get the QDB Sheet and the Discord Super User role free. Two simple paths, animated step by step.">
+<meta name="description" content="Open or link an IC Markets live account under QDB's campaign and get the QDB Sheet, the Discord Super User role and the sentiment EAs (in testing) free. Two simple paths, animated step by step.">
 <link rel="canonical" href="https://quasidb.com/guides/ic-markets/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="QDB Trading Desk">
@@ -74,6 +74,14 @@
 .faq details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
 .faq summary{cursor:pointer;font-weight:700}
 .faq p{color:var(--muted);font-size:17px;margin-top:8px}
+.bot{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media (max-width:760px){.bot{grid-template-columns:1fr}}
+.bot .card{border-top:4px solid #a78bfa}
+.bot h3{font-family:var(--mono);letter-spacing:.04em;font-size:18px;color:#c4b5fd}
+.bot ol{margin:10px 0 0 22px;display:grid;gap:8px}
+.bot li,.bot .card p{font-size:17px;color:var(--muted)}
+.bot li b,.bot .card p b{color:var(--text)}
+.beta{display:inline-block;margin-left:6px;font-family:var(--mono);font-size:12px;padding:2px 8px;border-radius:6px;background:rgba(167,139,250,.16);color:#c4b5fd;vertical-align:middle}
 .risk{margin-top:18px;border:1px solid rgba(239,68,68,.5);background:rgba(239,68,68,.07);border-radius:16px;padding:16px 18px}
 .risk h3{font-family:var(--mono);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#fca5a5}
 .risk p{color:var(--muted);font-size:16px;margin-top:8px}
@@ -90,10 +98,10 @@
   <header class="hero">
     <p class="kick">QDB Guide · IC Markets · about 4 minutes</p>
     <h1>Get QDB free with <em>IC Markets</em></h1>
-    <p class="lead">Trade with a live IC Markets account under QDB's campaign and you get <b>the QDB Sheet and the Discord Super User role, free</b>. It takes a handful of simple steps, a quick chat with IC's support team and one email. This guide walks you through every one.</p>
-    <p class="riskbar"><b>Risk warning:</b> CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. Most retail investor accounts lose money when trading CFDs. Only trade money you can afford to lose. <a href="#risk">Read the full warning</a>.</p>
+    <p class="lead">Trade with a live IC Markets account under QDB's campaign and you get <b>the QDB Sheet, the Discord Super User role, ongoing support and access to the automated sentiment EAs, free</b>. It takes a handful of simple steps, a quick chat with IC's support team and one email. This guide walks you through every one.</p>
+    <p class="riskbar"><b>Risk warning:</b> CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. Most retail investor accounts lose money when trading CFDs. The sentiment EAs are still in testing. Only trade money you can afford to lose: you're responsible for your own trades and any losses. <a href="#risk">Read the full warning</a>.</p>
     <nav class="toc" aria-label="On this page">
-      <a href="#path">Pick your path</a><a href="#journey">Watch the journey</a><a href="#steps">The steps</a><a href="#perks">What you get</a><a href="#faq">Questions</a><a href="#risk">Risk warning</a>
+      <a href="#path">Pick your path</a><a href="#journey">Watch the journey</a><a href="#steps">The steps</a><a href="#perks">What you get</a><a href="#bot">Sentiment EAs</a><a href="#faq">Questions</a><a href="#risk">Risk warning</a>
     </nav>
   </header>
 
@@ -144,6 +152,7 @@
       <li class="step"><div>
         <h3>Confirm it by email</h3>
         <p>Support will log your request and ask you to <b>email the support desk</b>, which makes it formal. Send that email, then wait for IC Markets to <b>confirm by email</b> that the merge is done.</p>
+        <p><b>Use the wait:</b> set up a free <a href="https://www.fxblue.com/" target="_blank" rel="noopener" onclick="QDBGuide.track('guide-ic-fxblue')">FX Blue</a> account. The sentiment EAs are shared through FX Blue's <b>Trade Mirror</b>, so you'll be ready to connect once you're in. <a href="#bot">How the EAs work</a>.</p>
       </div></li>
       <li class="step"><div>
         <h3>Tell Dave, and you're in</h3>
@@ -165,6 +174,8 @@
           <li><b>QDB Scores and Today's Trade Setups:</b> the 12-point check and the day's strongest candidates, already filtered by sentiment.</li>
           <li><b>Risk and planning tabs:</b> position sizing, the pair risk matrix and the stop and take profit planner.</li>
           <li><b>Discord Super User role:</b> live setups and the community chat, with traders who read the crowd the same way.</li>
+          <li><b>Automated sentiment EAs</b><span class="beta">IN TESTING</span><b>:</b> Dave's sentiment-driven setups, mirrored to your account through FX Blue's Trade Mirror. <a href="#bot">More below</a>.</li>
+          <li><b>Ongoing support:</b> help from Dave on Discord, Telegram or email, and the sheet keeps improving, with every change in its Event Logger.</li>
         </ul>
         <div class="row"><a class="btn" href="../?ref=guide-ic#videos">Watch the QDB Sheet videos</a></div>
       </div>
@@ -190,6 +201,28 @@
     <p class="src">Figures as stated on ic.com in November 2026. Product range, spreads and payment methods depend on the IC Markets entity that serves your country.</p>
   </section>
 
+  <section class="sec" id="bot">
+    <h2>The automated sentiment EAs <span class="beta">IN TESTING</span></h2>
+    <p>The EAs trade Dave's sentiment setups automatically. They are shared through <b>FX Blue's Trade Mirror</b>, so the trades placed on Dave's account are copied to yours.</p>
+    <div class="note gold"><h4>Still in development</h4><p>This is a <b>test phase</b>. The EAs are being built and tuned right now, and things will change. Dave is looking forward to your <b>test results</b>: tell him how they behave on your account, on Discord or by email.</p></div>
+    <div class="bot">
+      <div class="card">
+        <h3>HOW TO CONNECT</h3>
+        <ol>
+          <li><b>Set up a free FX Blue account.</b> Do it while you wait for IC Markets' confirmation email.</li>
+          <li><b>Connect your trading account to FX Blue.</b></li>
+          <li><b>Follow Dave's Trade Mirror.</b> Dave will share the details once you have the Super User role.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>IC MARKETS OR ANOTHER BROKER?</h3>
+        <p>You <b>don't have to use IC Markets</b> to follow the Trade Mirror.</p>
+        <p style="margin-top:8px">But <b>with IC Markets you mirror Dave's setups exactly</b>, because you trade with the same broker as Dave. The only lag is a short delay, usually milliseconds, from the FX Blue connection. With another broker, prices, spreads and symbols can differ, so your results can too.</p>
+      </div>
+    </div>
+    <div class="note"><h4>Before you switch it on</h4><p>Automated and copied trades carry the same risk as trades you place yourself, plus their own: software bugs, lost connections, delays and slippage can all cause losses or missed exits. Start small, watch it closely, and keep sentiment paired with strong technical levels. You decide whether to follow, and how much to risk.</p></div>
+  </section>
+
   <section class="sec" id="faq">
     <h2>Questions</h2>
     <div class="faq">
@@ -197,14 +230,18 @@
       <details><summary>Do I fund first or chat first?</summary><p>Either. Funding the live account and asking support to merge it can happen in any order. You need both done before the email confirmation counts.</p></details>
       <details><summary>Why do I have to email support as well as chat?</summary><p>The chat logs the request. The email makes it formal and binding on IC's side, and their reply is your proof that the merge is done.</p></details>
       <details><summary>What if support doesn't understand the request?</summary><p>Paste the exact message from step "Ask support to merge" and quote Campaign ID 55485. If you're still stuck, message Dave on Telegram at @quasi_db and he'll help.</p></details>
-      <details><summary>How does QDB make this free?</summary><p>IC Markets pays QDB for clients who join through its campaign. That's what covers your QDB Sheet and Discord access.</p></details>
+      <details><summary>Do I need IC Markets to use the sentiment EAs?</summary><p>No. Anyone with an FX Blue-connected account can follow the Trade Mirror. With IC Markets you mirror Dave's setups exactly, with only a short connection delay. With another broker, prices and spreads can differ.</p></details>
+      <details><summary>Are the EAs finished?</summary><p>Not yet. They're in a test phase and will keep changing. Your test results help shape them, so please share what you see.</p></details>
+      <details><summary>How does QDB make this free?</summary><p>IC Markets pays QDB for clients who join through its campaign. That's what covers your QDB Sheet, Discord access, the EAs and support.</p></details>
     </div>
   </section>
 
   <div class="risk" id="risk">
     <h3>Risk warning</h3>
     <p><b>CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. Most retail investor accounts lose money when trading CFDs. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.</b></p>
-    <p>IC Markets' services aren't available in every country, and the protections you get depend on the IC Markets entity and regulator that serve where you live. Check this before you open an account. Nothing on this page is financial advice or a recommendation to trade.</p>
+    <p>IC Markets' services aren't available in every country, and the protections you get depend on the IC Markets entity and regulator that serve where you live. Check this before you open an account.</p>
+    <p><b>Automated trading and trade copying:</b> the sentiment EAs and the Trade Mirror are in development and provided for testing, as they are, with no guarantee of results or availability. Past or mirrored performance is no guide to future results. Delays, connection problems, software errors, different broker prices and slippage can all make your results differ from Dave's or cause losses.</p>
+    <p><b>Your responsibility:</b> every trade on your account, placed by you or by an EA, is your decision and your responsibility. <b>Dave and QDB are not responsible for any losses you make.</b> Only trade money you can afford to lose. Nothing on this page is financial advice, a recommendation to trade, or a promise of profit.</p>
     <p>Affiliate disclosure: QDB receives a commission from IC Markets for clients who join through campaign 55485. IC Markets is an independent company and doesn't endorse this guide.</p>
   </div>
 
@@ -320,8 +357,8 @@ const STEP={
   check:{name:"Check it's live",art:"live",short:"Live",cap:"Log in to your client area. Only had a demo? Open a <b>live</b> account there first. It's the live one that gets linked."},
   fund:{name:"Fund it",art:"fund",short:"Fund",cap:"Add real funds to your live account. You can do this before or after the chat. <b>The order doesn't matter.</b>"},
   chat:{name:"Ask support to merge",art:"chat",short:"Chat",cap:"Press <b>\"Can I help you\"</b> in the bottom right of ic.com and send the message. Support logs it and asks you to email them."},
-  email:{name:"Confirm by email",art:"email",short:"Email",cap:"Email the support desk to make it formal. When IC Markets <b>emails back to confirm</b>, the hard part's done."},
-  dave:{name:"Tell Dave",art:"dave",short:"Dave",cap:"Send Dave your <b>Gmail address</b> and <b>Discord ID</b> by email or Telegram. He adds you to the QDB Sheet and gives you the <b>Super User</b> role. Done!"}
+  email:{name:"Confirm by email",art:"email",short:"Email",cap:"Email the support desk to make it formal. When IC Markets <b>emails back to confirm</b>, the hard part's done. While you wait, set up a free <b>FX Blue</b> account for the sentiment EAs."},
+  dave:{name:"Tell Dave",art:"dave",short:"Dave",cap:"Send Dave your <b>Gmail address</b> and <b>Discord ID</b> by email or Telegram. He adds you to the QDB Sheet, gives you the <b>Super User</b> role and shares the Trade Mirror for the sentiment EAs. Done!"}
 };
 const PATHS={new:["signup","live","fund","chat","email","dave"],existing:["check","fund","chat","email","dave"]};
 
