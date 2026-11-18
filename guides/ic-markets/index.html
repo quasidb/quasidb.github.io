@@ -81,6 +81,8 @@
 .bot ol{margin:10px 0 0 22px;display:grid;gap:8px}
 .bot li,.bot .card p{font-size:17px;color:var(--muted)}
 .bot li b,.bot .card p b{color:var(--text)}
+.fxsteps{margin-top:12px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.fxsteps summary{cursor:pointer;font-weight:700;color:var(--accent)}
 .beta{display:inline-block;margin-left:6px;font-family:var(--mono);font-size:12px;padding:2px 8px;border-radius:6px;background:rgba(167,139,250,.16);color:#c4b5fd;vertical-align:middle}
 .risk{margin-top:18px;border:1px solid rgba(239,68,68,.5);background:rgba(239,68,68,.07);border-radius:16px;padding:16px 18px}
 .risk h3{font-family:var(--mono);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#fca5a5}
@@ -152,7 +154,7 @@
       <li class="step"><div>
         <h3>Confirm it by email</h3>
         <p>Support will log your request and ask you to <b>email the support desk</b>, which makes it formal. Send that email, then wait for IC Markets to <b>confirm by email</b> that the merge is done.</p>
-        <p><b>Use the wait:</b> set up a free <a href="https://www.fxblue.com/" target="_blank" rel="noopener" onclick="QDBGuide.track('guide-ic-fxblue')">FX Blue</a> account. The sentiment EAs are shared through FX Blue's <b>Trade Mirror</b>, so you'll be ready to connect once you're in. <a href="#bot">How the EAs work</a>.</p>
+        <p><b>Use the wait:</b> set up a free <a href="https://www.fxblue.com/" target="_blank" rel="noopener" onclick="QDBGuide.track('guide-ic-fxblue')">FX Blue</a> account. The sentiment EAs are shared through FX Blue's <b>Trade Mirror</b>, so you'll be ready to connect once you're in. There's a <a href="#bot">short setup video</a>.</p>
       </div></li>
       <li class="step"><div>
         <h3>Tell Dave, and you're in</h3>
@@ -208,11 +210,17 @@
     <div class="bot">
       <div class="card">
         <h3>HOW TO CONNECT</h3>
-        <ol>
-          <li><b>Set up a free FX Blue account.</b> Do it while you wait for IC Markets' confirmation email.</li>
-          <li><b>Connect your trading account to FX Blue.</b></li>
-          <li><b>Follow Dave's Trade Mirror.</b> Dave will share the details once you have the Super User role.</li>
-        </ol>
+        <p>It takes a few minutes. Dave's short video shows every click.</p>
+        <div class="vcard" style="margin-top:12px"><div class="v"><img src="https://i.ytimg.com/vi/D9lRh8B6xeM/hqdefault.jpg" alt="" loading="lazy"><button type="button" id="fxbVideo" aria-label="Play the FX Blue Trade Mirror setup video"><span></span></button></div></div>
+        <details class="fxsteps"><summary>Prefer reading? Show the 5 steps</summary>
+          <ol>
+            <li><b>Create a free <a href="https://www.fxblue.com/" target="_blank" rel="noopener">FX Blue</a> account</b>, if you haven't already. You can do this while you wait for IC Markets' email.</li>
+            <li><b>Download the <a href="https://www.fxblue.com/tools-for-download/fx-blue-internet-trade-mirror" target="_blank" rel="noopener" onclick="QDBGuide.track('guide-ic-fxblue-download')">FX Blue Trade Mirror Receiver</a></b> for <b>MT4 or MT5</b>. There's a download for each, so pick the one you trade on and add it to that platform.</li>
+            <li><b>Open the Receiver's settings</b>, enter your FX Blue ID and password, and set <b>Channel = quasireality</b>.</li>
+            <li><b>Send Dave your FX Blue User ID</b> on Discord, Telegram or by email.</li>
+            <li><b>Leave MT4 or MT5 running</b>, so it keeps receiving the heartbeat from Dave's terminal. If it's closed, no trades come through.</li>
+          </ol>
+        </details>
       </div>
       <div class="card">
         <h3>IC MARKETS OR ANOTHER BROKER?</h3>
@@ -420,6 +428,12 @@ document.getElementById("copyMsg").addEventListener("click",e=>{
 /* email Dave with a ready-made message */
 document.getElementById("mailDave").href="mailto:davidianbennett@gmail.com?subject="+encodeURIComponent("IC Markets merge confirmed: QDB access")+
   "&body="+encodeURIComponent("Hi Dave,\n\nIC Markets has confirmed by email that my live account is merged with Campaign ID 55485.\n\nMy Gmail address (for the QDB Sheet): \nMy Discord ID: \n\nThanks!");
+
+/* FX Blue setup video: load YouTube only when played */
+document.getElementById("fxbVideo").addEventListener("click",e=>{
+  e.currentTarget.parentElement.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/D9lRh8B6xeM?autoplay=1&rel=0" title="FX Blue Trade Mirror setup" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  track("guide-ic-fxblue-video");
+});
 
 /* count the stats up when they scroll into view */
 (function(){
