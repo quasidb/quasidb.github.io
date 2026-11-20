@@ -279,7 +279,13 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
 
 /* live hero board */
 .pill.m{background:rgba(245,158,11,.14);color:#f59e0b}
-.board-badge{font-family:var(--mono);font-size:13px;color:var(--dim)}
+/* live data arriving: fade the rows in and grow the bars, without moving anything */
+@keyframes boardIn{from{opacity:0}to{opacity:1}}
+@keyframes barGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#boardBody.fresh td{animation:boardIn .6s ease both}
+#boardBody.fresh .bar i{transform-origin:left center;animation:barGrow .9s cubic-bezier(.2,.7,.2,1) .15s both}
+@media (prefers-reduced-motion:reduce){#boardBody.fresh td,#boardBody.fresh .bar i{animation:none}}
+.board-badge{font-family:var(--mono);font-size:13px;color:var(--dim);min-width:4.6em;text-align:right;white-space:nowrap}
 .board-badge.onair{color:var(--buy)}
 .board-badge.onair::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--buy);margin-right:6px;vertical-align:1px;animation:pulse 2s infinite}
 td.lock a{font-size:12px;color:var(--muted);white-space:nowrap}
@@ -450,6 +456,7 @@ nav .wrap{gap:28px}
           <tr><td>USDJPY</td><td><span class="bar"><i style="width:29%"></i></span>29%</td><td class="hide-sm buy">−2.4</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
           <tr><td>US500</td><td><span class="bar"><i style="width:31%"></i></span>31%</td><td class="hide-sm buy">−1.7</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
           <tr><td>AUDUSD</td><td><span class="bar"><i style="width:26%"></i></span>26%</td><td class="hide-sm buy">−5.5</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
+          <tr><td>USDCAD</td><td><span class="bar"><i style="width:38%"></i></span>38%</td><td class="hide-sm buy">−3.0</td><td class="lock"><a href="#pricing">🔒 Members</a></td><td class="lock"><a href="#pricing">🔒 Members</a></td></tr>
         </tbody>
       </table>
       </div>
@@ -1266,7 +1273,7 @@ const HEADS={
   ssi:'<tr><th>Instrument</th><th class="hide-sm">Last week</th><th>This week</th><th>Change</th><th>Lean</th></tr>'
 };
 const FOOTS={
-  sent:t=>`Live retail positioning · checked ${t} UK time · most crowded pairs first`,
+  sent:t=>`Live · most crowded first · ${t} UK`,   // kept to one line so the board doesn't change height when live data arrives
   scores:t=>`Live QDB Scores · highest to lowest: strongest bullish at the top, strongest bearish at the bottom · scroll for all pairs · checked ${t} UK time · members get the full 12-check breakdown`,
   ssi:(t,day)=>`FXCM Speculative Sentiment Index · ${day} snapshot vs last week · biggest changes first · checked ${t} UK time · positive = crowd net long`,
   setups:()=>'Trade setups refresh through the day in the QDB Sheet'
@@ -1288,7 +1295,8 @@ function showTab(tab){
     foot.textContent=''; return;
   }
   document.getElementById('boardHead').innerHTML=HEADS[tab];
-  document.getElementById('boardBody').innerHTML=d.rows;
+  const tb=document.getElementById('boardBody');
+  tb.classList.remove('fresh'); tb.innerHTML=d.rows; void tb.offsetWidth; tb.classList.add('fresh');   // replay the fade-in each time rows change
   foot.textContent=FOOTS[tab](d.at, d.day);
   badge.textContent='LIVE'; badge.classList.add('onair');
 }
