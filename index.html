@@ -344,7 +344,7 @@ td.lock a:hover{color:var(--accent)}
 /* reveal */
 /* sentiment + price confirm strip */
 .confirm{padding:16px 0 72px}
-.confirm-grid{display:grid;grid-template-columns:minmax(0,1fr) 289px;gap:28px;align-items:stretch}
+.confirm-grid{display:grid;grid-template-columns:minmax(0,1fr) 291px;gap:28px;align-items:stretch}
 .fr-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;display:flex;flex-direction:column;gap:14px}
 .fr-top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 28px}
 .fr-big{font-family:var(--mono);font-weight:700;font-size:clamp(52px,7vw,72px);line-height:1;letter-spacing:-.03em;color:var(--muted)}
@@ -359,7 +359,7 @@ td.lock a:hover{color:var(--accent)}
 .fr-verdict.ok{border-color:rgba(34,197,94,.45);background:var(--buy-bg)} .fr-verdict.bad{border-color:rgba(239,68,68,.45);background:var(--sell-bg)}
 .fr-note{font-size:15px;color:var(--dim)}
 .ic-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:8px;display:flex;flex-direction:column;align-items:center;gap:8px}
-.ic-box iframe{display:block;border:0;border-radius:10px;width:273px;max-width:100%;height:480px;background:#000}
+.ic-box iframe{display:block;border:0;border-radius:10px;width:275px;max-width:100%;height:470px;background:#000;overflow:hidden}
 .ic-box small{font-size:13px;color:var(--dim);text-align:center;padding:0 6px 6px}
 @media (max-width:860px){.confirm-grid{grid-template-columns:1fr}.ic-box{justify-self:center;width:100%;max-width:340px}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
@@ -512,7 +512,7 @@ nav .wrap{gap:28px}
         <p class="fr-note" id="frNote">From the QDB Sheet's Myfxbook data, refreshed through the trading day. Not financial advice.</p>
       </div>
       <div class="ic-box reveal">
-        <iframe src="https://secure.ic.com/Partner/Widget/PriceWidget/55485" title="Live IC Markets prices and spreads" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe scrolling="no" src="https://secure.ic.com/Partner/Widget/PriceWidget/55485" title="Live IC Markets prices and spreads" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <small>Live prices from IC Markets, QDB's broker. <a href="guides/ic-markets/?ref=home-widget" style="text-decoration:underline" data-goatcounter-click="home-widget-guide">Get QDB free with IC</a>. Affiliate link.</small>
       </div>
     </div>
