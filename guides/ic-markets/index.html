@@ -53,6 +53,9 @@
 .say q{flex:1 1 260px;display:block;quotes:none;font-family:var(--mono);font-size:16px;line-height:1.5;color:var(--text);background:#0a1220;border:1px dashed var(--accent);border-radius:12px;padding:12px 14px}
 .say .btn{min-height:auto}
 .copied{color:var(--buy)!important;border-color:var(--buy)!important}
+.icw{margin-top:16px}
+.icw p{font-size:16px;margin:0 0 10px}
+.icw iframe{display:block;border:0;border-radius:12px;max-width:100%;background:#000}
 .perks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
 @media (max-width:760px){.perks{grid-template-columns:1fr}}
 .perks .card{border-top:4px solid var(--accent)}
@@ -132,6 +135,10 @@
         <div class="qrrow">
           <img src="qr.png" alt="QR code for ic.com with QDB's campaign 55485" width="150" height="150">
           <div><a class="btn primary" href="https://secure.ic.com/en/Account/Register?camp=55485" target="_blank" rel="sponsored noopener" onclick="QDBGuide.track('affiliate-ic-guide-signup')">Sign up at IC Markets</a><small>Campaign ID 55485 · opens the ic.com sign-up form in a new tab</small></div>
+        </div>
+        <div class="icw">
+          <p>Live IC Markets prices and spreads, straight from IC. The buttons underneath also use QDB's campaign.</p>
+          <iframe src="https://secure.ic.com/Partner/Widget/PriceWidget/55485" title="Live IC Markets prices and spreads" width="273" height="480" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div></li>
       <li class="step" data-for="new"><div>
