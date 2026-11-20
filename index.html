@@ -342,6 +342,26 @@ td.lock a:hover{color:var(--accent)}
 @media (max-width:640px){.cot{padding:0 0 56px}.cot-card{padding:16px 12px}.cot-idx{grid-template-columns:24px 60px 34px;gap:6px}.cot-meta{margin-top:-36px}}
 
 /* reveal */
+/* sentiment + price confirm strip */
+.confirm{padding:16px 0 72px}
+.confirm-grid{display:grid;grid-template-columns:minmax(0,1fr) 289px;gap:28px;align-items:stretch}
+.fr-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;display:flex;flex-direction:column;gap:14px}
+.fr-top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 28px}
+.fr-big{font-family:var(--mono);font-weight:700;font-size:clamp(52px,7vw,72px);line-height:1;letter-spacing:-.03em;color:var(--muted)}
+.fr-big.ok{color:var(--buy)} .fr-big.bad{color:var(--sell)}
+.fr-sub{font-size:17px;color:var(--muted);line-height:1.5}
+.fr-sub b{color:var(--text)}
+.fr-meter{position:relative;height:14px;border-radius:8px;background:linear-gradient(90deg,rgba(239,68,68,.35) 0 50%,rgba(34,197,94,.35) 50% 100%);margin-top:4px}
+.fr-meter i{position:absolute;top:-5px;width:4px;height:24px;border-radius:2px;background:var(--text);left:50%;transition:left .6s ease}
+.fr-meter b{position:absolute;top:-5px;width:2px;height:24px;background:var(--accent);left:50%;opacity:.9}
+.fr-scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:13px;color:var(--dim)}
+.fr-verdict{font-size:19px;font-weight:600;padding:12px 16px;border-radius:12px;background:var(--bg2);border:1px solid var(--line)}
+.fr-verdict.ok{border-color:rgba(34,197,94,.45);background:var(--buy-bg)} .fr-verdict.bad{border-color:rgba(239,68,68,.45);background:var(--sell-bg)}
+.fr-note{font-size:15px;color:var(--dim)}
+.ic-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:8px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.ic-box iframe{display:block;border:0;border-radius:10px;width:273px;max-width:100%;height:480px;background:#000}
+.ic-box small{font-size:13px;color:var(--dim);text-align:center;padding:0 6px 6px}
+@media (max-width:860px){.confirm-grid{grid-template-columns:1fr}.ic-box{justify-self:center;width:100%;max-width:340px}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
@@ -470,6 +490,34 @@ nav .wrap{gap:28px}
     </div>
   </div>
 </header>
+
+<section class="confirm" id="confirm">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Sentiment, then price</div>
+      <h2>The crowd tells you where to look. Price tells you when.</h2>
+      <p>Retail positioning on its own is only half the read. The edge comes when price confirms it, and when the crowd is actually on the wrong side today. Check both, live.</p>
+    </div>
+    <div class="confirm-grid">
+      <div class="fr-card reveal">
+        <div class="kicker" style="margin:0">Crowd Failure Rate · today</div>
+        <div class="fr-top">
+          <div class="fr-big" id="frBig">––%</div>
+          <div class="fr-sub" id="frSub">Loading today's figure…</div>
+        </div>
+        <div class="fr-meter" aria-hidden="true"><b></b><i id="frPin"></i></div>
+        <div class="fr-scale" aria-hidden="true"><span>0%</span><span>50% · trust line</span><span>100%</span></div>
+        <div class="fr-verdict" id="frVerdict">Checking whether the crowd is on the wrong side today…</div>
+        <p class="fr-sub">The <b>Failure Rate</b> is the share of 49 pairs where price is moving <b>against</b> the way the retail crowd is shifting. <b>Above 50%</b>, the crowd is mostly wrong and contrarian sentiment reads are working. <b>Below 50%</b>, the crowd is getting it right, so intraday sentiment is less reliable and it's a day to be patient.</p>
+        <p class="fr-note" id="frNote">From the QDB Sheet's Myfxbook data, refreshed through the trading day. Not financial advice.</p>
+      </div>
+      <div class="ic-box reveal">
+        <iframe src="https://secure.ic.com/Partner/Widget/PriceWidget/55485" title="Live IC Markets prices and spreads" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <small>Live prices from IC Markets, QDB's broker. <a href="guides/ic-markets/?ref=home-widget" style="text-decoration:underline" data-goatcounter-click="home-widget-guide">Get QDB free with IC</a>. Affiliate link.</small>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="free-sheet" id="free-sheet">
   <div class="wrap fs-grid">
@@ -1208,6 +1256,29 @@ const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // ---- Live ticker from the published "QDB Public Ticker" sheet ----
+// ---- Crowd Failure Rate (published "Failure" tab of the QDB Public Ticker sheet) ----
+(async function failureRate(){
+  const URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQH6tE-4tM3gxk5G5OBIbDA7Z3bRwDYQYu4nESCDyD2QrE4DUKJJREGdlENvfCHxnh4xeuBsXYH2mv_/pub?single=true&output=csv&gid=1004&t='+Date.now();
+  const big=document.getElementById('frBig'), sub=document.getElementById('frSub'), pin=document.getElementById('frPin'), ver=document.getElementById('frVerdict');
+  const pct=v=>{const n=parseFloat(String(v||'').replace('%',''));return isFinite(n)?n:null;};
+  try{
+    const res=await fetch(URL,{cache:'no-store'}); if(!res.ok) throw 0;
+    const rows=parseCSV(await res.text()); const r=rows[1]||[];
+    const rate=pct(r[3]), avg=pct(r[6]), failing=r[1], pairs=r[2], day=(r[0]||'').trim();
+    if(rate===null) throw 0;
+    const ok=rate>=50;
+    big.textContent=rate.toFixed(1)+'%'; big.className='fr-big '+(ok?'ok':'bad');
+    pin.style.left='calc('+Math.max(0,Math.min(100,rate))+'% - 2px)';
+    sub.innerHTML=`<b>${failing} of ${pairs}</b> pairs moving against the crowd${day?` · ${day}`:''}`+(avg!==null?`<br>Recent average <b>${avg.toFixed(1)}%</b> · today is ${rate>=avg?'<b>above</b>':'<b>below</b>'} normal`:'');
+    ver.className='fr-verdict '+(ok?'ok':'bad');
+    ver.textContent= ok ? '✅ The crowd is on the wrong side today. Contrarian sentiment reads are working.'
+                        : '⏸️ The crowd is getting it right today. Treat intraday sentiment with caution and be patient.';
+  }catch(e){
+    sub.textContent='Today\'s figure is unavailable right now.';
+    ver.textContent='Check back shortly. Members see it live in the QDB Sheet.';
+  }
+})();
+
 const TICKER_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQH6tE-4tM3gxk5G5OBIbDA7Z3bRwDYQYu4nESCDyD2QrE4DUKJJREGdlENvfCHxnh4xeuBsXYH2mv_/pub?gid=0&single=true&output=csv';
 
 function parseCSV(text){
