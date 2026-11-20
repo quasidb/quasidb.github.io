@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sentiment: the final layer of any trading system | QDB Guides</title>
+<meta name="description" content="Where retail sentiment and fundamentals fit in a trading system. Risk management is the base, technicals are the sponge, sentiment is the icing. Common technical-analysis traps, a step-by-step pre-trade checklist, and how the QDB Sheet helps define an edge.">
+<link rel="canonical" href="https://quasidb.com/guides/sentiment-in-a-system/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/guides/sentiment-in-a-system/">
+<meta property="og:title" content="Sentiment: the final layer of any trading system">
+<meta property="og:description" content="Risk is the base, technicals are the sponge, sentiment is the icing. The steps to follow before you place a trade, and where the QDB Sheet fits.">
+<meta property="og:image" content="https://quasidb.com/guides/sentiment-in-a-system/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sentiment: the final layer of any trading system">
+<meta name="twitter:description" content="Risk is the base, technicals are the sponge, sentiment is the icing. The steps to follow before you place a trade, and where the QDB Sheet fits.">
+<meta name="twitter:image" content="https://quasidb.com/guides/sentiment-in-a-system/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../guides.css">
+<style>
+/* the cake */
+.cake{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:22px;align-items:center;margin-top:18px}
+@media (max-width:760px){.cake{grid-template-columns:1fr}}
+.cake svg{display:block;width:100%;height:auto;max-width:300px;margin:0 auto}
+.layers{display:grid;gap:12px}
+.layer{display:grid;grid-template-columns:14px 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.layer i{border-radius:6px}
+.layer b{display:block;font-size:19px}
+.layer .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.layer p{color:var(--muted);font-size:17px;margin-top:4px}
+.layer p b{display:inline;font-size:inherit;color:var(--text)}
+/* steps */
+.steps{counter-reset:s;display:grid;gap:12px;margin-top:18px}
+.stp{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stp:before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:20px;background:rgba(245,184,61,.14);color:var(--accent)}
+.stp.risk:before{background:rgba(148,163,184,.16);color:#cbd5e1}
+.stp.tech:before{background:rgba(251,146,60,.16);color:var(--wall)}
+.stp.fund:before{background:rgba(59,130,246,.16);color:#93c5fd}
+.stp.sent:before{background:rgba(167,139,250,.18);color:#c4b5fd}
+.stp b{display:block;font-size:18px}
+.stp span{color:var(--muted);font-size:17px}
+.stp span b{display:inline;font-size:inherit;color:var(--text)}
+.stp .lay{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-left:6px;font-weight:400}
+/* edges */
+.edges{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media (max-width:760px){.edges{grid-template-columns:1fr}}
+.edge{display:flex;flex-direction:column;gap:6px}
+.edge .tabs{font-family:var(--mono);font-size:13px;color:var(--accent)}
+.edge p{color:var(--muted);font-size:17px}
+.edge p b{color:var(--text)}
+.edge .use{font-size:16px;border-top:1px dashed var(--line);padding-top:8px;margin-top:4px}
+.stat{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+@media (max-width:640px){.stat{grid-template-columns:1fr 1fr}}
+.stat div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.stat b{display:block;font-family:var(--mono);font-size:26px;color:var(--accent)}
+.stat span{font-size:14px;color:var(--muted)}
+.crowd{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:8px;font-family:var(--mono);font-size:14px;color:var(--muted)}
+.crowd b{color:var(--text)}
+.rt td:first-child{font-style:normal;width:auto}
+@media (max-width:640px){
+  .rt thead{display:none}
+  .rt tr{display:block;border-bottom:1px solid var(--line);padding:10px 0}
+  .rt td{display:block;border:0;padding:2px 0}
+  .rt td:first-child{font-size:18px}
+  .rt td[data-h]:before{content:attr(data-h) ": ";font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../../?ref=guide-system"><img src="../../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../">Guides</a><a href="../../games/?ref=guide-system">Games</a><a href="../../?ref=guide-system#pricing">Pricing</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">QDB Guide · Using QDB in a trade · about 10 minutes</p>
+    <h1>Sentiment: <em>the final layer of any trading system</em></h1>
+    <p class="lead">The question we're asked most is <b>"how do I use your tool to put a trade on?"</b> The honest answer: QDB isn't one tool, and it isn't a signal service. Retail sentiment is a <b>trigger to execute inside a trading system you already have</b>. This guide shows where it fits, the technical traps it helps you avoid, and the exact steps to run through before you click buy or sell.</p>
+    <nav class="toc" aria-label="On this page">
+      <a href="#cake">The cake</a><a href="#steps">Before you trade</a><a href="#why">Why sentiment</a><a href="#breakout">Fake breakouts</a><a href="#round">Round numbers</a><a href="#pitfalls">TA pitfalls</a><a href="#edge">QDB edges</a><a href="#snapback">The snapback</a>
+    </nav>
+  </header>
+
+  <section class="sec" id="cake">
+    <h2>The cake: three layers, in this order</h2>
+    <p>Nobody eats a bowl of icing. Sentiment on its own is sweet, exciting and makes you sick. It only works sitting on top of something solid.</p>
+    <div class="cake">
+      <svg viewBox="0 0 300 300" role="img" aria-label="A three-layer cake: the base is risk management, the sponge is technical analysis, the icing is sentiment">
+        <ellipse cx="150" cy="268" rx="138" ry="16" fill="#1e293b"/>
+        <rect x="30" y="196" width="240" height="66" rx="10" fill="#475569"/>
+        <text x="150" y="236" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="16" font-weight="700" fill="#e2e8f0">RISK</text>
+        <rect x="36" y="112" width="228" height="86" rx="10" fill="#c2763b"/>
+        <rect x="36" y="150" width="228" height="8" fill="#f5d6a8" opacity=".55"/>
+        <text x="150" y="184" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="16" font-weight="700" fill="#1a1205">TECHNICALS</text>
+        <path d="M34 84h232v30c0 6-8 6-12 0-6 14-18 14-22 0-6 16-20 16-24 0-6 14-20 14-24 0-6 16-20 16-24 0-6 14-20 14-24 0-6 16-20 16-24 0-6 14-20 14-24 0-6 12-18 12-22 0-4 6-12 6-12 0z" fill="#c4b5fd"/>
+        <rect x="34" y="70" width="232" height="26" rx="12" fill="#ddd6fe"/>
+        <text x="150" y="90" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="16" font-weight="700" fill="#2e1065">SENTIMENT</text>
+        <rect x="146" y="34" width="8" height="36" rx="3" fill="#f5b83d"/>
+        <path d="M150 12c6 8 8 13 0 20-8-7-6-12 0-20z" fill="#fb923c"/>
+      </svg>
+      <div class="layers">
+        <div class="layer"><i style="background:#475569"></i><div><span class="k">The base</span><b>Risk management</b><p>How much you'll risk per trade, your maximum loss for the day and week, which markets and which hours. <b>Decided before the charts are open.</b> Get this wrong and nothing on top survives.</p></div></div>
+        <div class="layer"><i style="background:#c2763b"></i><div><span class="k">The sponge</span><b>Technical analysis</b><p>Strong weekly and daily demand and supply. The levels tell you <b>where</b> a trade can happen and where your stop belongs. This is the body of the trade.</p></div></div>
+        <div class="layer"><i style="background:#c4b5fd"></i><div><span class="k">The icing</span><b>Sentiment</b><p>Who is trapped, who is fuel, and where their stops and break-evens sit. It tells you <b>when to pull the trigger</b> at a level, or to leave it alone.</p></div></div>
+        <div class="layer"><i style="background:#3b82f6"></i><div><span class="k">The kitchen</span><b>Fundamentals</b><p>Not a layer, the conditions you bake in: the macro backdrop (rates, yields, <a href="../../cot/?ref=guide-system">COT</a>, risk mood) and the news calendar. They tell you <b>which way the wind blows, and when to keep the oven shut.</b></p></div></div>
+      </div>
+    </div>
+    <div class="note gold"><h4>The one rule</h4><p><b>Sentiment is a trigger, never a signal on its own.</b> It can confirm a trade at a strong level, or veto one. It can never start one.</p></div>
+  </section>
+
+  <section class="sec" id="steps">
+    <h2>Before you place a trade: the steps</h2>
+    <p>This is the answer to "show me an example of the steps". Same order every time. If a step fails, you stop there, and the later steps never get asked.</p>
+    <div class="steps">
+      <div class="stp risk"><div><b>Your plan is written down <span class="lay">Base</span></b><span>Risk per trade (say 0.5 to 1%), maximum trades a day, the pairs you trade and the sessions you trade them in. If you're tired, busy or behind on the day, the plan says <b>no trade</b>.</span></div></div>
+      <div class="stp tech"><div><b>Mark the strong levels <span class="lay">Sponge</span></b><span>Weekly and daily demand and supply only, the zones where price turned hard before. Each pair's 🎯 page in the QDB Sheet lists the monthly, weekly and daily pivots and opens as a price ladder, with distances in pips.</span></div></div>
+      <div class="stp tech"><div><b>Price is at a level, and your setup appears <span class="lay">Sponge</span></b><span>Whatever your system calls a setup: a rejection candle, a sweep and reclaim, a pattern completing. <b>No level, no trade.</b> Price in the middle of nowhere? Close the chart.</span></div></div>
+      <div class="stp fund"><div><b>Check the kitchen <span class="lay">Fundamentals</span></b><span>Any high-impact news for either currency in the next few hours? Is the macro backdrop with you or against you? A clean setup into a central bank decision is a coin flip.</span></div></div>
+      <div class="stp sent"><div><b>Now, and only now, check the crowd <span class="lay">Icing</span></b><span>Open the QDB Sheet. Is the crowd positioned <b>against</b> your trade, or still piling in? Where are its stops, and is a minority in profit with a break-even nearby? Confirmed: go. Crowd on your side: skip it, or halve the size.</span></div></div>
+      <div class="stp risk"><div><b>Place the stop, size it, set the target <span class="lay">Base</span></b><span>Stop beyond the level and beyond any stop cluster on it, <b>never on a round number</b>. Size from the stop with the Risk Calculation tab. Target the next magnet: a stop cluster or the minority's break-even.</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="why">
+    <h2>Why sentiment has a place at all</h2>
+    <p>RSI, MACD, moving averages and Bollinger Bands are all made from the <b>same thing: price</b>. Stack four of them and you've asked the same question four times. They feel like confirmation, but they can't disagree with each other in any useful way.</p>
+    <p>Positioning is <b>different information</b>. It tells you who is already in, where they're hurting, and where their stops are. That's why it earns a place in the system, and why it belongs at the end: it's the one check your chart can't make for you.</p>
+    <div class="tblwrap"><table class="rt">
+      <thead><tr><th>Layer</th><th>Answers</th><th>QDB tools</th><th>Can it start a trade?</th></tr></thead>
+      <tbody>
+        <tr><td><b>Risk</b></td><td data-h="Answers">How much, how often, when not at all</td><td data-h="QDB tools">Risk Calculation, SL &amp; TP Planner, FX Pair Risk Matrix</td><td data-h="Starts a trade">No. It decides the size.</td></tr>
+        <tr><td><b>Technicals</b></td><td data-h="Answers">Where</td><td data-h="QDB tools">Pair 🎯 price ladders, pivots and opens</td><td data-h="Starts a trade"><b>Yes, it's the only one that can.</b></td></tr>
+        <tr><td><b>Fundamentals</b></td><td data-h="Answers">Which way the wind blows, and when to stay out</td><td data-h="QDB tools">Weekly COT, US Yields, Weekend Bias, the news feed</td><td data-h="Starts a trade">No. It sets the backdrop.</td></tr>
+        <tr><td><b>Sentiment</b></td><td data-h="Answers">When, and who pays</td><td data-h="QDB tools">QDB Scores, Crowd Extremes, Bubbles, Breakeven Board, Signal House</td><td data-h="Starts a trade">No. It confirms or vetoes.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="sec" id="breakout">
+    <h2>Pitfall 1: the fake breakout of support</h2>
+    <p>The textbook says: support breaks, you sell the break. It's the first trade most technical traders learn, and the crowd's favourite way to lose. Very often the "breakout" is a <b>stop loss cluster being swept</b>: the liquidity under the obvious low, taken before the real move.</p>
+    <div id="breakoutScene"></div>
+    <p>The chart alone said "sell". The crowd said "everyone is already selling, and their stops are now above". That's the job of the icing. More on how clusters are hunted in the <a href="../stop-loss-clusters/?ref=guide-system">Stop loss clusters guide</a>.</p>
+  </section>
+
+  <section class="sec" id="round">
+    <h2>Pitfall 2: stops on round numbers</h2>
+    <p>Why do so many traders put their stop at 1.3000, or 150.00? Not because they're lazy. Because they're <b>busy, or overwhelmed</b>: placing a trade between meetings, on a phone, with the kids shouting. A round number is the quickest thing to type. Multiply that by thousands of traders and round numbers become <b>magnets</b>, crowded with stops that the market can see.</p>
+    <div id="roundScene"></div>
+    <div class="note"><h4>The fix is time, not willpower</h4><p>Plan the stop <b>before</b> you're in the trade, when you're calm. The SL &amp; TP Planner tab works it out from the level, and the Risk Calculation tab sizes the position from it. If there's no time to plan the stop, there's no time to take the trade.</p></div>
+  </section>
+
+  <section class="sec" id="pitfalls">
+    <h2>More technical traps the crowd falls into</h2>
+    <div class="mistakes">
+      <div class="mistake"><div class="x">✕</div><div><b>Stop at the obvious swing high or low</b><span>Everyone's stop is there, so it's what gets hunted. Sit beyond the level and beyond the cluster on it. <a href="../stop-loss-clusters/?ref=guide-system">See the SLC guide</a>.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Lines everywhere</b><span>Twenty lines on a 5-minute chart means price is always "at a level". Only strong weekly and daily demand and supply count.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Stacking indicators for confirmation</b><span>Four price-based indicators agreeing is one opinion, not four. Add a different kind of information instead: positioning.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Chasing after a big candle</b><span>By the time it's obvious, the crowd is already in. The QDB Signal House blocks buys when RSI is overbought and sells when it's oversold for exactly this reason.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Trading sentiment with no level</b><span>An extreme crowd reading in the middle of nowhere can get more extreme for days. The crowd is often wrong, but not on your schedule.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>Betting on the biggest cluster being next</b><span>Market makers don't have to go for the biggest pool of stops first. Price often takes the nearer, smaller one. Never size up on a guess.</span></div></div>
+      <div class="mistake"><div class="x">✕</div><div><b>A perfect setup into the news</b><span>The technicals don't know there's a rate decision in an hour. Check the calendar before the crowd, every time.</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="edge">
+    <h2>How the QDB Sheet helps define an edge</h2>
+    <p>Each of these is a <b>question you ask at a level</b>, not a reason to open a chart. Pick the ones that suit your system; you don't need all of them.</p>
+    <div class="edges">
+      <div class="card edge"><span class="tag">SNAPBACK</span><h3>The minority's break-even</h3><span class="tabs">🐂🐻 Breakeven Board · 🧠 BE Memory</span><p>When the smaller side of the crowd is in profit, price has a strong habit of coming back to <b>their average entry</b>. A ready-made target, and a warning not to chase. <a href="#snapback">Full example below</a>.</p><p class="use"><b>Use it:</b> as a take-profit, or to skip trades that would run straight into it.</p></div>
+      <div class="card edge"><span class="tag">CONTRARIAN</span><h3>Crowd extremes and the QDB Score</h3><span class="tabs">🌡️ Crowd Extremes · 🏆 QDB Scores</span><p>The Score is a 12-point check of price against pivots and opens, weighed against how the crowd is stacked. A high score <b>at your level</b> means the technicals and the crowd agree.</p><p class="use"><b>Use it:</b> to rank which of your setups gets your risk today.</p></div>
+      <div class="card edge"><span class="tag">SHIFT</span><h3>Is the crowd adding, or bailing?</h3><span class="tabs">🫧 Daily &amp; Weekly Bubbles · ⚖️ Vol Delta</span><p>Crowd buying more as price falls into your demand zone is <b>fuel for a reversal</b>. Crowd suddenly flipping to your side means you're late. Direction of change matters more than the level.</p><p class="use"><b>Use it:</b> as the final trigger at the zone. <a href="../retail-sentiment/?ref=guide-system">The crowd train guide</a> explains it.</p></div>
+      <div class="card edge"><span class="tag">GATE</span><h3>Is the crowd losing as usual?</h3><span class="tabs">❌ Myfxbook Failure Rate · 🪤 Trap check</span><p>The contrarian read assumes the crowd is losing. When the failure rate is unusually low, the crowd is winning, and fading it is weaker. Each pair page also flags a <b>trap</b>: crowd on one side and still winning.</p><p class="use"><b>Use it:</b> as a go or no-go switch before any contrarian trade.</p></div>
+      <div class="card edge"><span class="tag">CONSENSUS</span><h3>Several rooms agreeing</h3><span class="tabs">🏠 Signal House</span><p>Every strategy in the sheet in one place, with the failure-rate and risk-mood gates applied and an RSI block on chasing. A pair where <b>several independent rooms agree</b> is worth a look, if it's also at your level.</p><p class="use"><b>Use it:</b> as a shortlist of pairs to check against your own charts.</p></div>
+      <div class="card edge"><span class="tag">LIQUIDITY</span><h3>Stops and pending orders</h3><span class="tabs">FXSSI Stop Loss Clusters · Order Book</span><p>Where the crowd's stops and orders are bunched, right on your chart. <b>Only trade the SLCs at key, strong technical levels.</b> See the <a href="../stop-loss-clusters/?ref=guide-system">SLC</a> and <a href="../order-book/?ref=guide-system">Order Book</a> guides.</p><p class="use"><b>Use it:</b> to place your stop where the crowd's isn't, and to spot the sweep.</p></div>
+      <div class="card edge"><span class="tag">RISK</span><h3>Don't double up by accident</h3><span class="tabs">🧮 FX Pair Risk Matrix · 🧭 Risk Calculation · 🛡️ SL &amp; TP Planner</span><p>Short EURUSD, short GBPUSD and long USDCHF is <b>one trade, three times the risk</b>. The matrix shows the overlap; the calculator sizes each trade from your stop.</p><p class="use"><b>Use it:</b> after the trigger, before you click.</p></div>
+      <div class="card edge"><span class="tag">BACKDROP</span><h3>The bigger picture</h3><span class="tabs">COT · 🏦 US Yields · 🌙 Weekend Bias</span><p>What the large speculators are doing each week, where yields are heading, and how the crowd sits going into Monday. <b>The kitchen, not the cake.</b></p><p class="use"><b>Use it:</b> to favour trades with the backdrop, and size down against it. <a href="../../cot/?ref=guide-system">Free weekly COT report</a>.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="snapback">
+    <h2>The snapback to the minority's break-even</h2>
+    <p>The QDB Sheet's <b>Breakeven Board</b> shows two prices for each pair: the crowd's average short price and average long price. Whichever side is <b>in profit</b> has a break-even sitting away from price. When that winning side is the <b>minority</b>, price has shown a strong tendency to snap back to their break-even. Even a small minority gets punished.</p>
+    <div id="snapScene"></div>
+    <p>Notice what happened there. The crowd was 80% long, so the contrarian read said <b>sell</b>. The snapback said <b>buy</b>, back up to the shorts' break-even. Both were "sentiment". The strong daily demand zone decided which one to act on. That's sentiment working inside a system rather than as a signal.</p>
+    <div class="card" style="margin-top:18px">
+      <h3>What the BE Memory tab has recorded</h3>
+      <p class="muted" style="margin-top:6px">The 🧠 BE Memory tab logs every time a minority side moves at least 10 pips into profit, then watches whether price returns to that side's break-even within the time limit. The window started at 20 days; it was tightened to 10 days for a fairer, stricter test, because a lot can happen in 20 days. Figures at the time of writing (20 November 2026):</p>
+      <div class="stat">
+        <div><b>17</b><span>break-evens watched</span></div>
+        <div><b>17</b><span>reached</span></div>
+        <div><b>0</b><span>expired</span></div>
+        <div><b>~32h</b><span>average time to reach</span></div>
+      </div>
+      <p class="muted" style="margin-top:12px">In Dave's testing so far, <b style="color:var(--text)">every recorded minority break-even has been revisited within the 10-day window</b>. Subscribers can watch the live tally on the tab.</p>
+    </div>
+    <div class="note"><h4>Read this before you trade it</h4><p>It's a <b>tested observation, not a guarantee</b>. The history is short and the sample is small, prices are checked at each recalculation, and past results don't predict future ones. Most importantly, <b>price reaching a break-even is not the same as your trade winning</b>: it can hit your stop first. That's why the snapback is a target and a filter, used at a strong level with a proper stop, never a reason to enter on its own. The automated test that trades towards the break-even is still a work in progress, with rules being refined as it runs (for example, no trade when the stop would be under 15 pips away).</p></div>
+  </section>
+
+  <section class="sec" id="example">
+    <h2>One trade, start to finish</h2>
+    <p>Putting it together, illustratively. GBPUSD is falling into strong daily demand.</p>
+    <div class="steps">
+      <div class="stp risk"><div><b>Plan</b><span>It's London session, a pair on the list, no trades yet today. Risk 1%.</span></div></div>
+      <div class="stp tech"><div><b>Level</b><span>Price reaches strong daily demand and dips under the obvious low, where a stop cluster sat, then closes back inside the zone.</span></div></div>
+      <div class="stp fund"><div><b>Kitchen</b><span>No high-impact GBP or USD news for six hours. COT isn't fighting the idea.</span></div></div>
+      <div class="stp sent"><div><b>Crowd</b><span>Retail is 70% short and added shorts on the way down (fuel). The failure-rate gate is open, and the shorts' stops are now bunched 60 pips above. Confirmed.</span></div></div>
+      <div class="stp risk"><div><b>Execute</b><span>Stop beyond the zone and beyond the swept cluster, not at the round number. Size from the stop. Take profit at that cluster of shorts' stops: it's the magnet. Leave the rest of the move to the next setup.</span></div></div>
+    </div>
+    <p>If any one of those had failed, there would be no trade. Most days, that's the right answer.</p>
+  </section>
+
+  <div class="cta">
+    <h3>Try the sheet</h3>
+    <p>The free Lite sheet shows the crowd's positioning and QDB Scores across every pair. The full QDB Sheet adds the Breakeven Board, BE Memory, Signal House and the risk tools.</p>
+    <div class="row"><a class="btn primary" href="../../?ref=guide-system#free-sheet">Get the free Lite sheet</a><a class="btn" href="../../?ref=guide-system#pricing">See the full QDB Sheet</a><a class="btn" href="../ic-markets/?ref=guide-system">Get QDB free with IC Markets</a></div>
+  </div>
+  <div class="cta">
+    <h3>See the real clusters</h3>
+    <p>FXSSI's stop loss clusters and order book tools show where the crowd's stops and orders really are. QDB pairs them with the sheet and strong daily and weekly levels.</p>
+    <div class="row"><a class="btn primary" href="https://fxssi.com/plans?promocode=QUASIDB" target="_blank" rel="sponsored noopener" onclick="QDBGuide.track('affiliate-fxssi-guide-system')">Get FXSSI with code QUASIDB</a><a class="btn" href="../stop-loss-clusters/?ref=guide-system">Stop loss clusters guide</a><a class="btn" href="../order-book/?ref=guide-system">Order Book guide</a></div>
+    <p class="disc">Affiliate link: if you buy through it, QDB earns a commission at no extra cost to you. FXSSI is an independent company and doesn't endorse this guide.</p>
+  </div>
+
+  <p class="foot">Educational only, not financial advice. Charts, levels and crowd figures in the examples are illustrative, written to teach the idea, not real data. BE Memory figures are hypothetical forward-test records from the QDB Sheet, not real trades. Trading on margin carries a high level of risk. <a href="../">All guides</a> · <a href="../../">QDB Trading Desk</a></p>
+</main>
+
+<script src="../stepper.js"></script>
+<script>
+const {Stepper,Path,esc,ease}=QDBGuide;
+const ROWS=14, PURPLE="#a78bfa", GREEN="#22c55e", RED="#ef4444", GOLD="#f5b83d", GREY="#8b97ad", BLUE="#7dd3fc";
+function fmt(c,v){const x=c.base+v*c.step;return c.dp===0?Math.round(x).toLocaleString("en-US"):x.toFixed(c.dp)}
+function geom(el){
+  const C=(el.clientWidth||600)<600, W=C?560:960, H=C?560:440, T=C?62:52, B=H-12;
+  const cL=8, cR=C?372:744, pX=cR+4, pW=C?70:74, hL=pX+pW, hR=W-8, rowH=(B-T)/ROWS;
+  return {C,W,H,T,B,cL,cR,pX,pW,hL,hR,rowH,Y:v=>B-(v+.5)*rowH,fs:C?20:15};
+}
+function growK(cl,t){if(!cl.grow)return 1;const a=cl.grow-1;return t<=a?0:t>=cl.grow?1:ease(t-a)}
+const shown=(o,t)=>t>=(o.at||0)&&(o.until==null||t<o.until);
+
+function draw(c,P,t,el){
+  const g=geom(el),{C,W,H,T,B,cL,cR,pX,pW,hL,hR,Y,fs}=g, s0=P.at(t), h=s0.hist, price=h[h.length-1];
+  const n=Math.max(1,P.total-1), X=i=>cL+(cR-cL-18)*i/n, live=h.slice(P.k0), lo=Math.min(...live), hi=Math.max(...live);
+  const mono='font-family="JetBrains Mono, monospace"', sans='font-family="Space Grotesk, sans-serif"';
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.alt)}"><rect width="${W}" height="${H}" fill="#0a1220"/>`;
+  s+=`<text x="${cL+4}" y="${T-30}" ${mono} font-size="${C?fs-4:fs-1}" font-weight="700" fill="#e8edf6">${esc(c.pair)}</text><text x="${cL+4}" y="${T-12}" ${sans} font-size="${fs-4}" fill="#6b7892">illustrative</text>`;
+  s+=`<text x="${(hL+hR)/2}" y="${T-30}" text-anchor="middle" ${mono} font-size="${C?fs-6:fs-3}" font-weight="700" fill="#e8edf6">STOPS</text><text x="${(hL+hR)/2}" y="${T-12}" text-anchor="middle" ${sans} font-size="${fs-6}" fill="#a3afc5">longer = more</text>`;
+  s+=`<line x1="${hL}" x2="${hL}" y1="${T}" y2="${B}" stroke="#334155"/>`;
+  if(c.zone){
+    const dem=/demand/i.test(c.zone[2]), zc=dem?"34,197,94":"239,68,68", y1=Y(c.zone[1]), y0=Y(c.zone[0]);
+    s+=`<rect x="${cL}" y="${y1}" width="${hR-cL}" height="${y0-y1}" fill="rgba(${zc},.12)" stroke="rgba(${zc},.5)" stroke-dasharray="6 4"/>`;
+    s+=`<text x="${cR-60}" y="${dem?y0+fs+2:y1-6}" text-anchor="end" ${sans} font-size="${fs-1}" font-weight="700" fill="rgb(${zc})" stroke="#0a1220" stroke-width="4" paint-order="stroke">${esc(c.zone[2])}</text>`;
+  }
+  for(let r=0;r<ROWS;r++) s+=`<text x="${pX+pW/2}" y="${Y(r)+fs*.35}" text-anchor="middle" ${mono} font-size="${fs-4}" fill="${c.round===r?"#e8edf6":"#6b7892"}" font-weight="${c.round===r?700:400}">${fmt(c,r)}</text>`;
+  (c.clusters||[]).forEach(cl=>{
+    const k=growK(cl,t); if(k<=0) return;
+    const y=Y(cl.row), swept=k>=1&&t>=(cl.grow||0)&&(cl.side==="below"?lo<=cl.row+.15:hi>=cl.row-.15), w=Math.min(1,cl.size/2.4)*(hR-hL-6)*k;
+    if(swept){
+      s+=`<line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${GREY}" stroke-width="2" stroke-dasharray="4 6"/><rect x="${hL+2}" y="${y-5}" width="${w}" height="10" rx="3" fill="none" stroke="${GREY}" stroke-dasharray="3 3"/>`;
+      s+=`<text x="${cR-4}" y="${y+(cl.side==="below"?fs+4:-8)}" text-anchor="end" ${mono} font-size="${fs-3}" font-weight="700" fill="${GREY}" stroke="#0a1220" stroke-width="4" paint-order="stroke">SWEPT</text>`;
+    }else{
+      s+=`<line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${PURPLE}" stroke-width="${(2+cl.size*4)*k}" stroke-opacity=".55" stroke-linecap="round"/><rect x="${hL+2}" y="${y-6}" width="${w}" height="12" rx="3" fill="${PURPLE}"/>`;
+    }
+  });
+  (c.lines||[]).forEach(l=>{ if(!shown(l,t)) return; const y=Y(l.row), col=l.color||GOLD, lab=l.label, lw=lab.length*(fs*.62)+12, lx=l.right?cR-lw-2:cL+2;
+    s+=`<line x1="${cL}" x2="${cR}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="2.5" ${l.dash?'stroke-dasharray="8 5"':""}/><rect x="${lx}" y="${y-fs*.75}" width="${lw}" height="${fs*1.5}" rx="5" fill="${col}"/><text x="${lx+6}" y="${y+fs*.32}" ${mono} font-size="${fs-4}" font-weight="700" fill="#0b0f17">${esc(lab)}</text>`; });
+  (c.marks||[]).forEach(m=>{ if(!shown(m,t)) return;
+    s+=`<text x="${X(m.x)}" y="${Y(m.row)+(m.dy||0)}" text-anchor="middle" ${mono} font-size="${fs-3}" font-weight="700" fill="${m.color||GREY}" stroke="#0a1220" stroke-width="4" paint-order="stroke">${esc(m.label)}</text>`; });
+  const py=Y(price), k0=P.k0, path=(a,b)=>h.slice(a,b).map((v,i)=>(i?"L":"M")+X(a+i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ");
+  s+=`<line x1="${cL}" x2="${hR}" y1="${py}" y2="${py}" stroke="${GOLD}" stroke-width="1.2" stroke-dasharray="3 5" opacity=".7"/>`;
+  s+=`<path d="${path(0,k0+1)}" fill="none" stroke="#e8edf6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  if(h.length>k0+1) s+=`<path d="${path(k0,h.length)}" fill="none" stroke="${BLUE}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  s+=`<circle cx="${X(h.length-1)}" cy="${py}" r="6" fill="${GOLD}" stroke="#0b0f17" stroke-width="2"/>`;
+  return s+"</svg>";
+}
+const LEGEND=`<div class="legend"><span><span class="sw" style="background:${PURPLE}"></span>Crowd's stop cluster</span><span><span class="sw" style="background:${GREY}"></span>Swept: the stops were hit</span><span><span class="sw" style="background:${GOLD};height:3px"></span>Price now</span></div>`;
+function crowdLine(c,t){
+  if(!c.crowd) return "";
+  const k=Math.min(c.crowd.length-1,Math.ceil(t-1e-6)), r=c.crowd[k];
+  return `<div class="crowd"><span>Crowd: <b>${r.long}% long</b> · ${100-r.long}% short</span>${r.note?`<span>${r.note}</span>`:""}</div>`;
+}
+function scene(id,c){
+  const P=Path(c.past,c.steps);
+  return Stepper(document.getElementById(id),{id:"system-"+c.id,title:c.title,sub:c.sub,intro:c.intro,
+    steps:c.steps.map(s=>Object.assign({len:s.path.length},s)),legend:LEGEND,
+    draw:(t,box)=>({svg:draw(c,P,t,box),below:crowdLine(c,t)})});
+}
+
+/* 1. Fake breakout of support */
+scene("breakoutScene",{id:"breakout",title:"Support breaks. Sell it?",sub:"EURUSD · daily demand",alt:"EURUSD chart: price breaks below support into a stop cluster, then reverses back above",
+  pair:"EURUSD",base:1.0800,step:0.001,dp:4,zone:[2.4,5.6,"Daily demand"],
+  past:[11.5,10.6,9.4,8.2,7,6.2,7.2,8.4,9.2,8.4,7.4,6.4,6.1,6.9,7.8,7.3,6.6],
+  clusters:[{row:5,size:2.2,side:"below"},{row:7.4,size:1.4,side:"above",grow:2}],
+  lines:[{row:5.9,label:"SUPPORT",color:"#cbd5e1",dash:true,right:true,until:2}],
+  marks:[{at:1,until:2,x:21,row:3.2,dy:34,label:"BREAKOUT SHORTS",color:"#fca5a5"}],
+  crowd:[{long:55,note:"stops bunched under the double bottom"},{long:38,note:"retail selling the break"},{long:30,note:"shorts' stops now just above"},{long:44,note:"shorts squeezed out"}],
+  intro:"Price has bounced twice from the same low at daily demand. Every buyer of those bounces has their stop <b>just under it</b>. To a chart-only trader, a break of that line is a sell signal.",
+  steps:[
+    {name:"The break",path:[5.8,5,4.2,3.6],cap:"Support breaks. Breakout traders sell, and the crowd swings from 55% to 38% long. But look at what's under the line: the <b>longs' stops</b>. Each one fills as a market sell, and someone large is happily <b>buying</b> them, inside daily demand."},
+    {name:"The sweep and reclaim",path:[3.3,3.9,5,6.1,6.8],cap:"The stops are gone, and price is straight back above support. The breakout shorts now have <b>their</b> stops just above the old line: a fresh cluster of future buy orders. The crowd is 70% short and wrong-footed."},
+    {name:"The real move",path:[7.6,8.6,9.6,10.6,11.4,12.2],cap:"Price runs, taking the shorts' stops as fuel. <b>The breakout was the liquidity, not the move.</b> The trade was a buy at demand after the sweep, confirmed by a crowd piling in short."}]});
+
+/* 2. Round numbers */
+scene("roundScene",{id:"round",title:"Long from daily demand. Where's the stop?",sub:"GBPUSD · daily demand",alt:"GBPUSD chart: a stop cluster at the 1.3000 round number is swept while a stop beyond the demand zone survives",
+  pair:"GBPUSD",base:1.2960,step:0.001,dp:4,zone:[1.8,3.4,"Daily demand"],round:4,
+  past:[6,5.4,6.2,7,6.6,7.6,8.4,7.8,7.2],
+  clusters:[{row:4,size:2.3,side:"below"}],
+  lines:[{row:4,label:"CROWD'S STOP · 1.3000",color:RED,until:1.4},{row:4,label:"STOPPED · 1.3000",color:"#64748b",at:1.4},{row:0.7,label:"YOUR STOP",color:RED},{row:10.6,label:"TAKE PROFIT",color:GREEN,dash:true}],
+  crowd:[{long:58,note:"stops piled on the round number"},{long:41,note:"longs stopped out at 1.3000"},{long:36,note:"crowd sold the low"}],
+  intro:"Two traders bought the same dip. One typed <b>1.3000</b> for the stop between meetings. You planned yours the night before: <b>beyond the daily demand zone</b>, a few pips under its far edge.",
+  steps:[
+    {name:"The flush",path:[6.4,5.4,4.4,3.4,2.6,2.2],cap:"Price dips through 1.3000. The round-number stops fire together, and that burst of selling is exactly what a large buyer needs to fill at demand. The crowd's stop is gone. <b>Yours hasn't been touched.</b>"},
+    {name:"The run",path:[3,4.2,5.6,7,8.4,9.6,10.6],cap:"Same trade idea, same entry, opposite result. The only difference was <b>where the stop went, and when it was planned</b>."}]});
+
+/* 3. The snapback to the minority's break-even */
+scene("snapScene",{id:"snapback",title:"The minority is in profit",sub:"AUDUSD · daily demand",alt:"AUDUSD chart: price falls to daily demand, then snaps back up to the minority shorts' break-even",
+  pair:"AUDUSD",base:0.6500,step:0.001,dp:4,zone:[0.8,2.6,"Daily demand"],
+  past:[11,10.4,10.8,9.8,9,9.4,8.4],
+  clusters:[{row:2,size:1.6,side:"below"}],
+  lines:[{row:12.4,label:"LONGS' BREAK-EVEN",color:"#86efac",dash:true,right:true},{row:8.6,label:"SHORTS' BREAK-EVEN (MINORITY)",color:"#c4b5fd",dash:true,at:1}],
+  crowd:[{long:72,note:"longs' average entry far above, deep in loss"},{long:80,note:"the 20% short are in profit"},{long:84,note:"longs added at the low"},{long:76,note:"shorts' break-even reached"}],
+  intro:"The crowd is long and losing: their average entry is way up at the top. The contrarian read says <b>sell</b>. But look at the other side.",
+  steps:[
+    {name:"The minority wins",path:[7.8,7,6.2,5.4,4.6,4],cap:"Price keeps falling. The 20% who are <b>short</b> are now in profit: their average entry, their break-even, sits well above price. The Breakeven Board flags it: <b>minority in profit, price pulled up</b>."},
+    {name:"At the level",path:[3.4,2.6,1.7,1.4,2],cap:"Price reaches strong daily demand and sweeps the stops under it. Now the technical level and the snapback point the same way: <b>up, towards the shorts' break-even</b>."},
+    {name:"The snapback",path:[3,4.2,5.4,6.6,7.6,8.6],cap:"Price returns to the minority's break-even and the snapback is complete. A buy at demand, stop beyond the zone, target the break-even. Without the level, this would have been a guess against the crowd."}]});
+</script>
+</body>
+</html>
