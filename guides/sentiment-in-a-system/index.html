@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>How to use sentiment in a trade: the icing, not the cake | QDB Guides</title>
+<title>Sentiment: the final layer of any trading system | QDB Guides</title>
 <meta name="description" content="Where retail sentiment and fundamentals fit in a trading system. Risk management is the base, technicals are the sponge, sentiment is the icing. Common technical-analysis traps, a step-by-step pre-trade checklist, and how the QDB Sheet helps define an edge.">
 <link rel="canonical" href="https://quasidb.com/guides/sentiment-in-a-system/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="QDB Trading Desk">
 <meta property="og:url" content="https://quasidb.com/guides/sentiment-in-a-system/">
-<meta property="og:title" content="Sentiment in a trade: the icing, not the cake">
+<meta property="og:title" content="Sentiment: the final layer of any trading system">
 <meta property="og:description" content="Risk is the base, technicals are the sponge, sentiment is the icing. The steps to follow before you place a trade, and where the QDB Sheet fits.">
 <meta property="og:image" content="https://quasidb.com/guides/sentiment-in-a-system/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sentiment in a trade: the icing, not the cake">
+<meta name="twitter:title" content="Sentiment: the final layer of any trading system">
 <meta name="twitter:description" content="Risk is the base, technicals are the sponge, sentiment is the icing. The steps to follow before you place a trade, and where the QDB Sheet fits.">
 <meta name="twitter:image" content="https://quasidb.com/guides/sentiment-in-a-system/og.png">
 <meta name="theme-color" content="#0b0f17">
@@ -83,7 +83,7 @@
 <main class="wrap">
   <header class="hero">
     <p class="kick">QDB Guide · Using QDB in a trade · about 10 minutes</p>
-    <h1>Sentiment in a trade: <em>the icing, not the cake</em></h1>
+    <h1>Sentiment: <em>the final layer of any trading system</em></h1>
     <p class="lead">The question we're asked most is <b>"how do I use your tool to put a trade on?"</b> The honest answer: QDB isn't one tool, and it isn't a signal service. Retail sentiment is a <b>trigger to execute inside a trading system you already have</b>. This guide shows where it fits, the technical traps it helps you avoid, and the exact steps to run through before you click buy or sell.</p>
     <nav class="toc" aria-label="On this page">
       <a href="#cake">The cake</a><a href="#steps">Before you trade</a><a href="#why">Why sentiment</a><a href="#breakout">Fake breakouts</a><a href="#round">Round numbers</a><a href="#pitfalls">TA pitfalls</a><a href="#edge">QDB edges</a><a href="#snapback">The snapback</a>
@@ -194,16 +194,16 @@
     <p>Notice what happened there. The crowd was 80% long, so the contrarian read said <b>sell</b>. The snapback said <b>buy</b>, back up to the shorts' break-even. Both were "sentiment". The strong daily demand zone decided which one to act on. That's sentiment working inside a system rather than as a signal.</p>
     <div class="card" style="margin-top:18px">
       <h3>What the BE Memory tab has recorded</h3>
-      <p class="muted" style="margin-top:6px">The 🧠 BE Memory tab logs every time a minority side moves at least 10 pips into profit, then watches whether price returns to that side's break-even within the time limit. Figures at the time of writing (20 November 2026):</p>
+      <p class="muted" style="margin-top:6px">The 🧠 BE Memory tab logs every time a minority side moves at least 10 pips into profit, then watches whether price returns to that side's break-even within the time limit. The window started at 20 days; it was tightened to 10 days for a fairer, stricter test, because a lot can happen in 20 days. Figures at the time of writing (20 November 2026):</p>
       <div class="stat">
         <div><b>17</b><span>break-evens watched</span></div>
         <div><b>17</b><span>reached</span></div>
         <div><b>0</b><span>expired</span></div>
         <div><b>~32h</b><span>average time to reach</span></div>
       </div>
-      <p class="muted" style="margin-top:12px">In Dave's testing so far, <b style="color:var(--text)">every recorded minority break-even has been revisited within the time limit</b>. Subscribers can watch the live tally on the tab.</p>
+      <p class="muted" style="margin-top:12px">In Dave's testing so far, <b style="color:var(--text)">every recorded minority break-even has been revisited within the 10-day window</b>. Subscribers can watch the live tally on the tab.</p>
     </div>
-    <div class="note"><h4>Read this before you trade it</h4><p>It's a <b>tested observation, not a guarantee</b>. The history is short and the sample is small, prices are checked at each recalculation, and past results don't predict future ones. Most importantly, <b>price reaching a break-even is not the same as your trade winning</b>: it can hit your stop first. That's why the snapback is a target and a filter, used at a strong level with a proper stop, never a reason to enter on its own.</p></div>
+    <div class="note"><h4>Read this before you trade it</h4><p>It's a <b>tested observation, not a guarantee</b>. The history is short and the sample is small, prices are checked at each recalculation, and past results don't predict future ones. Most importantly, <b>price reaching a break-even is not the same as your trade winning</b>: it can hit your stop first. That's why the snapback is a target and a filter, used at a strong level with a proper stop, never a reason to enter on its own. The automated test that trades towards the break-even is still a work in progress, with rules being refined as it runs (for example, no trade when the stop would be under 15 pips away).</p></div>
   </section>
 
   <section class="sec" id="example">
