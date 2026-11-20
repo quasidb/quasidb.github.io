@@ -279,6 +279,12 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--dim);fon
 
 /* live hero board */
 .pill.m{background:rgba(245,158,11,.14);color:#f59e0b}
+/* live data arriving: fade the rows in and grow the bars, without moving anything */
+@keyframes boardIn{from{opacity:0}to{opacity:1}}
+@keyframes barGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#boardBody.fresh td{animation:boardIn .6s ease both}
+#boardBody.fresh .bar i{transform-origin:left center;animation:barGrow .9s cubic-bezier(.2,.7,.2,1) .15s both}
+@media (prefers-reduced-motion:reduce){#boardBody.fresh td,#boardBody.fresh .bar i{animation:none}}
 .board-badge{font-family:var(--mono);font-size:13px;color:var(--dim);min-width:4.6em;text-align:right;white-space:nowrap}
 .board-badge.onair{color:var(--buy)}
 .board-badge.onair::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--buy);margin-right:6px;vertical-align:1px;animation:pulse 2s infinite}
@@ -1289,7 +1295,8 @@ function showTab(tab){
     foot.textContent=''; return;
   }
   document.getElementById('boardHead').innerHTML=HEADS[tab];
-  document.getElementById('boardBody').innerHTML=d.rows;
+  const tb=document.getElementById('boardBody');
+  tb.classList.remove('fresh'); tb.innerHTML=d.rows; void tb.offsetWidth; tb.classList.add('fresh');   // replay the fade-in each time rows change
   foot.textContent=FOOTS[tab](d.at, d.day);
   badge.textContent='LIVE'; badge.classList.add('onair');
 }
