@@ -1,0 +1,1 @@
+Self-hosted Latin subsets of Space Grotesk and JetBrains Mono (variable woff2, from Google Fonts), used by the homepage so it renders without a font swap. Both fonts are licensed under the SIL Open Font License 1.1: https://openfontlicense.org

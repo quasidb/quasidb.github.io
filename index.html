@@ -22,9 +22,17 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22%231d3f61%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22none%22%20stroke%3D%22%239fd0ee%22%20stroke-width%3D%224%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-weight%3D%22900%22%20font-size%3D%2234%22%20fill%3D%22%23ffffff%22%3EQ%3C/text%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%2213%22%20r%3D%227%22%20fill%3D%22%239fd0ee%22%20stroke%3D%22%231d3f61%22%20stroke-width%3D%223%22/%3E%3C/svg%3E">
 <meta name="theme-color" content="#0b0f17">
 <script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<!-- Fonts are self-hosted and preloaded so the first paint already uses them.
+     font-display:optional means the text never swaps fonts after it's drawn, and the
+     metric-matched fallbacks below keep sizes identical if a font is ever slow. -->
+<link rel="preload" href="fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300 700;font-display:optional;src:url(fonts/space-grotesk-latin.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:optional;src:url(fonts/jetbrains-mono-latin.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk Fallback';src:local('Arial'),local('Helvetica'),local('Liberation Sans');size-adjust:111.1%;ascent-override:88.5%;descent-override:26.3%;line-gap-override:0%}
+@font-face{font-family:'JetBrains Mono Fallback';src:local('Courier New'),local('Liberation Mono'),local('Cousine');size-adjust:100%;ascent-override:102%;descent-override:30%;line-gap-override:0%}
+</style>
 <link rel="stylesheet" href="free-sheet.css">
 <style>
 :root{
@@ -34,8 +42,8 @@
   --sell:#ef4444; --sell-bg:rgba(239,68,68,.13);
   --accent:#f5b83d; --accent2:#3b82f6;
   --radius:16px;
-  --mono:'JetBrains Mono',ui-monospace,monospace;
-  --sans:'Space Grotesk',system-ui,sans-serif;
+  --mono:'JetBrains Mono','JetBrains Mono Fallback',ui-monospace,monospace;
+  --sans:'Space Grotesk','Space Grotesk Fallback',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -419,7 +427,7 @@ nav .wrap{gap:28px}
       </div>
     </div>
 
-    <div class="sheet reveal">
+    <div class="sheet">
       <div class="sheet-bar">
         <div class="lights"><i></i><i></i><i></i></div>
         <span class="t">QDB Sheet · Retail sentiment</span>
