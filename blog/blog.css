@@ -1,0 +1,36 @@
+/* QDB Blog: extra styles on top of guides/guides.css. Calm, readable, one column. */
+.post{max-width:46em}
+.post header.hero{padding-bottom:6px}
+.post h1{font-size:clamp(32px,5.6vw,48px)}
+.meta{font-family:var(--mono);font-size:14px;color:var(--dim);margin-top:6px}
+.post section.sec{padding-top:26px}
+.post section.sec>p,.post li{color:var(--text)}
+.post ul.plain{margin:10px 0 0 22px;display:grid;gap:8px;max-width:44em}
+.post ul.plain li b{color:var(--text)}
+.tldr{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.tldr h4{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.tldr ul{margin-left:20px;display:grid;gap:6px}
+blockquote{margin:14px 0 0;border-left:4px solid var(--line);padding:4px 0 4px 16px;color:var(--muted);font-style:italic;max-width:42em}
+blockquote cite{display:block;font-style:normal;font-size:14px;color:var(--dim);margin-top:4px}
+.lvl{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+@media (max-width:640px){.lvl{grid-template-columns:1fr}}
+.lvl div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px}
+.lvl b{display:block;font-family:var(--mono);font-size:22px;color:var(--accent)}
+.lvl span{font-size:15px;color:var(--muted)}
+.src{margin:10px 0 0 22px;display:grid;gap:6px;font-size:16px;color:var(--muted)}
+.src a{word-break:break-word}
+/* blog index */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.filters button{font-size:15px;padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:var(--panel);color:var(--muted)}
+.filters button[aria-pressed="true"]{color:var(--text);border-color:var(--accent)}
+.plist{display:grid;gap:14px;margin-top:18px}
+.pitem{display:block;text-decoration:none;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.pitem:hover{border-color:var(--accent)}
+.pitem .k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.pitem .k .t{color:var(--accent)}
+.pitem h3{margin-top:4px}
+.pitem p{color:var(--muted);font-size:17px;margin-top:6px}
+/* hand-written (Markdown) posts */
+.post section.sec>ul:not([class]),.post section.sec>ol:not([class]){margin:10px 0 0 22px;display:grid;gap:8px;max-width:44em}
+.post section.sec>ol:not([class]){font-size:16px;color:var(--muted)}
+.post section.sec>h3{margin-top:18px}

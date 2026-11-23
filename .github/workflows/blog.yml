@@ -1,0 +1,54 @@
+name: Blog market note
+
+# Each weekday morning before the London open: Claude researches the day's most
+# currency-relevant news story and, if it's worth a note and passes the checks
+# in scripts/blog_auto.py, publishes it to /blog/. Quiet days are skipped.
+# Needs the ANTHROPIC_API_KEY repository secret; without it the job does nothing.
+on:
+  schedule:
+    - cron: "15 6 * * 1-5"   # Mon-Fri 06:15 UTC
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/blog_auto.py"
+      - "scripts/blog_fixture.json"
+      - ".github/workflows/blog.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blog-update
+  cancel-in-progress: false
+
+jobs:
+  note:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Render check (pull requests only, nothing is published)
+        if: github.event_name == 'pull_request'
+        run: python3 scripts/blog_auto.py --fixture scripts/blog_fixture.json --out /tmp/blog-check
+
+      - name: Research, draft and publish
+        if: github.event_name != 'pull_request'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          pip install --quiet "anthropic>=2.12"
+          python3 scripts/blog_auto.py
+
+      - name: Commit
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "qdb-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add blog sitemap.xml
+          git diff --cached --quiet && { echo "Nothing to publish today."; exit 0; }
+          git commit -m "Market note $(date -u +%F)"
+          for i in 1 2 3 4; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep $((i*5))
+          done
+          exit 1

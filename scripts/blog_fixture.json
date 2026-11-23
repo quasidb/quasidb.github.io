@@ -1,0 +1,21 @@
+{
+  "publish": true,
+  "skip_reason": "",
+  "slug": "example-test-note",
+  "title": "Example note for the CI render check",
+  "title_em": "not real news",
+  "description": "A fixed example used only to test that scripts/blog_auto.py renders a post. Never published.",
+  "tags": ["GBP", "EUR/GBP"],
+  "tldr": ["First **example** point.", "Second example point.", "Third example point with a & b < c to test escaping."],
+  "sections": [
+    {"heading": "What happened", "paragraphs": ["Example paragraph, attributed to Example News."], "bullets": []},
+    {"heading": "How the market reacted", "paragraphs": ["Example reaction."], "bullets": ["One", "Two"]},
+    {"heading": "What to watch next", "paragraphs": ["Example."], "bullets": []}
+  ],
+  "levels": [{"value": "0.8375", "label": "Example level (Example Bank)"}],
+  "crowd_pairs": ["GBPUSD", "EURGBP"],
+  "sources": [
+    {"outlet": "Example News", "title": "Example headline", "date": "23 Nov 2026", "url": "https://example.com/a"},
+    {"outlet": "Example Wire", "title": "Another headline", "date": "23 Nov 2026", "url": "https://example.com/b"}
+  ]
+}
