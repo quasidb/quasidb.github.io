@@ -383,13 +383,14 @@ def render_post(d, now, snaps):
 """
 
 
-def add_to_index(path, d, now):
+def add_to_index(path, d, now, kind="market"):
     with open(path) as f:
         s = f.read()
     tags = " · ".join(attr(t) for t in d["tags"][:2])
     title_full = plain(d["title"]) + (": " + plain(d["title_em"]) if d["title_em"].strip() else "")
-    card = (f'\n    <a class="pitem" data-type="market" href="{d["slug"]}/">\n'
-            f'      <span class="k"><span class="t">Market note</span> · {now.strftime("%-d %b %Y")}'
+    label = "Site update" if kind == "site" else "Market note"
+    card = (f'\n    <a class="pitem" data-type="{kind}" href="{d["slug"]}/">\n'
+            f'      <span class="k"><span class="t">{label}</span> · {now.strftime("%-d %b %Y")}'
             f'{" · " + tags if tags else ""}</span>\n'
             f'      <h3>{attr(title_full)}</h3>\n'
             f'      <p>{attr(plain(d["description"]))}</p>\n    </a>')
@@ -400,14 +401,14 @@ def add_to_index(path, d, now):
         f.write(s.replace(marker, marker + card, 1))
 
 
-def add_to_feed(path, d, now):
+def add_to_feed(path, d, now, kind="market"):
     with open(path) as f:
         s = f.read()
     title_full = plain(d["title"]) + (": " + plain(d["title_em"]) if d["title_em"].strip() else "")
     url = f"{SITE}/blog/{d['slug']}/"
     item = (f"\n  <item>\n    <title>{html.escape(title_full)}</title>\n    <link>{url}</link>\n"
             f"    <guid>{url}</guid>\n    <pubDate>{format_datetime(now, usegmt=True)}</pubDate>\n"
-            f"    <category>Market note</category>\n    <description>{html.escape(plain(d['description']))}</description>\n  </item>")
+            f"    <category>{'Site update' if kind == 'site' else 'Market note'}</category>\n    <description>{html.escape(plain(d['description']))}</description>\n  </item>")
     marker = "</language>"
     with open(path, "w") as f:
         f.write(s.replace(marker, marker + item, 1))

@@ -30,3 +30,7 @@ blockquote cite{display:block;font-style:normal;font-size:14px;color:var(--dim);
 .pitem .k .t{color:var(--accent)}
 .pitem h3{margin-top:4px}
 .pitem p{color:var(--muted);font-size:17px;margin-top:6px}
+/* hand-written (Markdown) posts */
+.post section.sec>ul:not([class]),.post section.sec>ol:not([class]){margin:10px 0 0 22px;display:grid;gap:8px;max-width:44em}
+.post section.sec>ol:not([class]){font-size:16px;color:var(--muted)}
+.post section.sec>h3{margin-top:18px}
