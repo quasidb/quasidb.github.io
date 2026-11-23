@@ -39,7 +39,7 @@
     <svg class="snowman sm-hero" viewBox="0 0 80 110" aria-hidden="true"><use href="#snowman"/></svg>
     <p class="kick">❄ Winter at QDB</p>
     <h1>The QDB <em>Shop</em></h1>
-    <p class="lead">Everything on offer, laid out calmly. <b>Start free</b>, see if the crowd data clicks for you, then take <b>one month at a time</b>. No subscription, nothing to cancel.</p>
+    <p class="lead">Everything on offer, laid out calmly. <b>Start free</b>, see if the crowd data clicks for you, then pick how you like to pay: <b>pay as you go</b> with PayPal, or <b>set and forget</b> with Patreon.</p>
     <div class="row">
       <a class="btn primary" href="#plans" data-goatcounter-click="shop-hero-plans">See the plans</a>
       <a class="btn" href="#free" data-goatcounter-click="shop-hero-free">Start free</a>
@@ -53,8 +53,8 @@
     <p>Four things, from free to full access. You don't need to take it all in at once: most people start at the top and work down.</p>
     <ol class="shelves">
       <li><span class="n">1</span><div><b>Free</b><span>The free sheet, the free Discord channels, guides and games.</span></div></li>
-      <li><span class="n">2</span><div><b>Discord</b><span>The daily flow: the Daily Bulletin, analysis, SSI snapshots and alerts.</span></div></li>
-      <li><span class="n">3</span><div><b>The QDB Sheet</b><span>The full toolkit in Google Sheets, plus the Daily Backup sheet.</span></div></li>
+      <li><span class="n">2</span><div><b>Discord + Daily Backup</b><span>From $5 (Lite): the Daily Bulletin, analysis, live SSI and the Daily Backup sheet.</span></div></li>
+      <li><span class="n">3</span><div><b>The QDB Sheet</b><span>The full live toolkit in Google Sheets, 40+ tabs.</span></div></li>
       <li><span class="n">4</span><div><b>Free via IC Markets</b><span>Trade with IC Markets and get the Sheet and Discord Super User free.</span></div></li>
     </ol>
   </section>
@@ -83,7 +83,23 @@
   <section class="sec" id="plans">
     <svg class="snowman sm-plans" viewBox="0 0 80 110" aria-hidden="true"><use href="#snowman"/></svg>
     <h2>2 · The plans</h2>
-    <p>Pay with PayPal in US dollars. Each payment covers <b>one month</b>. To carry on, pay again with the same button.</p>
+    <p>Prices are in US dollars. First choose how you'd like to pay, then pick a plan.</p>
+
+    <div class="ways">
+      <div class="way">
+        <span class="tag">PAY AS YOU GO</span>
+        <h3>PayPal</h3>
+        <p><b>Not totally sure yet?</b> Pay for one month at a time with the buttons below. Nothing renews by itself: to carry on, just pay again. Or lock in a full year with the Christmas deal.</p>
+      </div>
+      <div class="way">
+        <span class="tag pat">SET AND FORGET</span>
+        <h3>Patreon</h3>
+        <p><b>Backing QDB for the long run?</b> Join on Patreon and it renews automatically each month, so your access never lapses. After joining, send Dave your Discord ID and Gmail.</p>
+        <div class="row"><a class="btn patreon" href="https://www.patreon.com/quasidb" target="_blank" rel="noopener" data-goatcounter-click="shop-patreon">Join on Patreon</a></div>
+      </div>
+    </div>
+
+    <h3 class="sub">Pay as you go with PayPal</h3>
 
     <div class="tiers">
       <article class="tier">
@@ -93,12 +109,13 @@
           <li>Almost all of the Discord</li>
           <li><b>The Daily Bulletin</b></li>
           <li>Daily analysis, SSI snapshots &amp; news alerts</li>
+          <li><b>The Daily Backup sheet</b></li>
           <li class="off">Community chat</li>
           <li class="off">Signals</li>
           <li class="off">QDB Sheet access</li>
         </ul>
         <a href="https://paypal.me/quasidb/5USD" class="btn btn-paypal" data-goatcounter-click="shop-paypal-lite" target="_blank" rel="noopener">Pay $5 with <span class="pp">Pay<i>Pal</i></span></a>
-        <p class="need">In the PayPal note: your <b>Discord username</b> and <b>email</b></p>
+        <p class="need">In the PayPal note: your <b>Discord username</b> and <b>Gmail address</b></p>
       </article>
 
       <article class="tier hot" id="basicCard" data-badge="Best value · launch offer">
@@ -108,19 +125,20 @@
         <ul class="promo-only">
           <li><b>Full Discord access</b></li>
           <li><b>Full QDB Sheet access</b></li>
+          <li>The Daily Backup sheet</li>
           <li>QDB Score, SSI Delta &amp; trade setups</li>
           <li>Daily SSI snapshots, alerts &amp; robot channels</li>
           <li>New tabs and tools as they're added</li>
         </ul>
         <ul class="no-promo">
           <li>Full Discord access</li>
+          <li>The Daily Backup sheet</li>
           <li>Daily SSI snapshots &amp; news alerts</li>
           <li>Indicator &amp; robot discussion channels</li>
           <li class="off">QDB Sheet access</li>
         </ul>
         <a href="https://paypal.me/quasidb/20USD" class="btn btn-paypal" data-goatcounter-click="shop-paypal-basic" target="_blank" rel="noopener">Pay $20 with <span class="pp">Pay<i>Pal</i></span></a>
-        <p class="need promo-only">In the PayPal note: your <b>Discord username</b> and <b>Gmail address</b></p>
-        <p class="need no-promo">In the PayPal note: your <b>Discord username</b> and <b>email</b></p>
+        <p class="need">In the PayPal note: your <b>Discord username</b> and <b>Gmail address</b></p>
       </article>
 
       <article class="tier" id="premiumCard">
@@ -130,6 +148,7 @@
         <ul>
           <li><b>Full Discord access</b></li>
           <li><b>Full QDB Sheet access</b></li>
+          <li>The Daily Backup sheet</li>
           <li>QDB Score, SSI Delta &amp; trade setups</li>
           <li>Daily SSI snapshots, alerts &amp; robot channels</li>
           <li>New tabs and tools as they're added</li>
@@ -137,6 +156,19 @@
         <a href="https://paypal.me/quasidb/30USD" class="btn btn-paypal" data-goatcounter-click="shop-paypal-premium" target="_blank" rel="noopener">Pay $30 with <span class="pp">Pay<i>Pal</i></span></a>
         <p class="need">In the PayPal note: your <b>Discord username</b> and <b>Gmail address</b></p>
       </article>
+    </div>
+
+    <div class="year promo-only">
+      <svg class="flake-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#flake"/></svg>
+      <div class="year-copy">
+        <span class="tag xmas">🎄 CHRISTMAS DEAL · UNTIL 31 DECEMBER</span>
+        <h3>A year of Basic for <span class="big">$220</span></h3>
+        <p>12 months at $20 would be <s>$240</s>. Pay once and get <b>$20 off</b>, and your price is <b>locked in for 12 months</b>, with everything Basic includes today: full Discord, the QDB Sheet and the Daily Backup.</p>
+      </div>
+      <div class="year-pay">
+        <a href="https://paypal.me/quasidb/220USD" class="btn btn-paypal" data-goatcounter-click="shop-paypal-basic-year" target="_blank" rel="noopener">Pay $220 with <span class="pp">Pay<i>Pal</i></span></a>
+        <p class="need">Add <b>"Basic yearly"</b>, your <b>Discord username</b> and <b>Gmail</b> to the note</p>
+      </div>
     </div>
 
     <h3 class="sub">Which plan is for me?</h3>
@@ -148,6 +180,7 @@
           <tr><th scope="row">#free-tools MT5 indicators</th><td>✔</td><td>✔</td><td>✔</td><td>✔</td></tr>
           <tr><th scope="row">The Daily Bulletin</th><td>–</td><td>✔</td><td>✔</td><td>✔</td></tr>
           <tr><th scope="row">Daily analysis, SSI snapshots &amp; alerts</th><td>–</td><td>✔</td><td>✔</td><td>✔</td></tr>
+          <tr><th scope="row">The Daily Backup sheet</th><td>–</td><td>✔</td><td>✔</td><td>✔</td></tr>
           <tr><th scope="row">Community chat &amp; full Discord</th><td>–</td><td>–</td><td>✔</td><td>✔</td></tr>
           <tr><th scope="row">Sentiment indicators (e.g. Sentiment Delta)</th><td>–</td><td>–</td><td>✔</td><td>✔</td></tr>
           <tr><th scope="row">The full QDB Sheet</th><td>–</td><td>–</td><td><span class="promo-only">✔ <small>until 31 Dec</small></span><span class="no-promo">–</span></td><td>✔</td></tr>
@@ -158,18 +191,11 @@
 
     <div class="how">
       <div class="step"><div class="num">STEP 1</div><h3>Pay with PayPal</h3><p>A PayPal account or a card both work.</p></div>
-      <div class="step"><div class="num">STEP 2</div><h3>Add your details in the note</h3><span class="note-tpl">Discord: yourname · Gmail: you@gmail.com</span><p>Use a Gmail if your plan includes the QDB Sheet.</p></div>
-      <div class="step"><div class="num">STEP 3</div><h3>You're in</h3><p>Dave sets up your Discord role, shares the sheet to your Gmail and confirms by email.</p></div>
+      <div class="step"><div class="num">STEP 2</div><h3>Add your details in the note</h3><span class="note-tpl">Discord: yourname · Gmail: you@gmail.com</span><p>The sheets are Google Sheets, so please use a Gmail.</p></div>
+      <div class="step"><div class="num">STEP 3</div><h3>You're in</h3><p>Dave sets up your Discord role, shares your sheets to your Gmail and confirms by email.</p></div>
     </div>
-    <p class="small">Forgot the note? Email the details to <a href="mailto:davidianbennett@gmail.com">davidianbennett@gmail.com</a>. You can also join through <a href="https://www.patreon.com/quasidb" target="_blank" rel="noopener">Patreon</a>.</p>
+    <p class="small">Forgot the note? Email the details to <a href="mailto:davidianbennett@gmail.com">davidianbennett@gmail.com</a>.</p>
 
-    <div class="card gift-month">
-      <svg class="flake-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#flake"/></svg>
-      <div>
-        <h3>Giving a month as a gift?</h3>
-        <p>Pay for any plan as usual and put <b>their</b> Discord username and Gmail in the PayPal note, with "gift" in front. Dave sets the access up for them.</p>
-      </div>
-    </div>
   </section>
 
   <!-- ===== what's inside ===== -->
@@ -178,16 +204,18 @@
     <p>There's a lot here, so it's folded away. Open only the parts you're curious about.</p>
 
     <details class="layer" open>
-      <summary><span class="lt">Discord</span><span class="ls">Lite and up · the daily flow</span></summary>
-      <ul class="bul">
-        <li><b>The Daily Bulletin</b>: the day's read in one post.</li>
-        <li><b>Daily analysis</b> and <b>SSI snapshots</b> through the session.</li>
-        <li><b>News alerts</b> and the calendar bot, so big releases don't surprise you.</li>
-        <li><b>Robot channels</b> with automated updates.</li>
-        <li><b>Indicator &amp; robot discussion</b>, including the MT5 <b>Sentiment Delta</b> indicator (Basic and up).</li>
-        <li><b>Community chat</b> with other members (Basic and up).</li>
-        <li><b>#free-tools</b>: free MT5 technical indicators for everyone.</li>
-      </ul>
+      <summary><span class="lt">Discord</span><span class="ls">Lite and up · eight sections</span></summary>
+      <p class="lp">The server is big, but it breaks down into a few sections. Lite covers almost all of it; <b>Signals</b> and the <b>members' chat</b> come with Basic and up.</p>
+      <div class="tabs">
+        <div><h4>Welcome</h4><p>Onboarding, risk disclaimers and trading plan documents.</p></div>
+        <div><h4>Daily Bulletin</h4><p>The day's read, posted automatically every day.</p></div>
+        <div><h4>Analysis</h4><p>FX, indices, commodities and crypto. Members share charts and macro views too.</p></div>
+        <div><h4>Signals <small>Basic +</small></h4><p>Live SSI for the current market mood, basket deviations for synthetic signals, X (Twitter) sentiment on EURUSD, and MT5 signals on the way.</p></div>
+        <div><h4>Discussion</h4><p>Trading Chat for setups, Any Other Business and Memes <small>(Basic +)</small>, plus a read-only Public Channel with teaser analysis for everyone.</p></div>
+        <div><h4>News &amp; requests</h4><p>News, bank analysis, general requests (ask for things to be added to the QDB), ideas in the works, trading tips and announcements.</p></div>
+        <div><h4>Indicators &amp; robots</h4><p>MT4, MT5, TradingView, FXCM Trading Station and cTrader, including the <b>Sentiment Delta</b> indicator <small>(Basic +)</small> and free tools in #free-tools.</p></div>
+        <div><h4>Video guides &amp; affiliates</h4><p>Video guides and tutorials, plus affiliate links (FXSSI, IC Markets) with disclaimers.</p></div>
+      </div>
     </details>
 
     <details class="layer">
@@ -207,8 +235,8 @@
     </details>
 
     <details class="layer">
-      <summary><span class="lt">The Daily Backup sheet</span><span class="ls">alongside the QDB Sheet · the long memory</span></summary>
-      <p class="lp">The live sheet shows <i>now</i>. The Daily Backup keeps the <b>history</b>, imported every day, so you can look back and test ideas.</p>
+      <summary><span class="lt">The Daily Backup sheet</span><span class="ls">Lite and up · the long memory</span></summary>
+      <p class="lp">The live QDB Sheet shows <i>now</i>. The Daily Backup keeps the <b>history</b>, imported every day, so you can look back and test ideas.</p>
       <ul class="bul">
         <li><b>Massive backup</b>: the archive of sentiment readings.</li>
         <li><b>Volume history</b> for every FX pair, plus gold and silver.</li>
@@ -240,7 +268,7 @@
     <h2>Quick questions</h2>
     <details class="qa"><summary>Is this a signal service?</summary><p>No. The tools give you context: where the crowd is positioned and whether price agrees. Use sentiment alongside your technical and fundamental analysis and strict <b>risk management</b>, never on its own.</p></details>
     <details class="qa"><summary>Do I need a Gmail address?</summary><p>Only for the QDB Sheet, which is shared to a Google account. Discord access needs just your Discord username.</p></details>
-    <details class="qa"><summary>How do I cancel?</summary><p>There's nothing to cancel. Each payment covers one month. If you don't pay again, access ends when the month runs out.</p></details>
+    <details class="qa"><summary>PayPal or Patreon?</summary><p>PayPal is pay as you go: each payment covers one month (or a year with the Christmas deal) and nothing renews by itself. Patreon renews monthly until you stop it in your Patreon account, so it suits people who want to set it and forget it.</p></details>
     <details class="qa"><summary>Can I ask before I buy?</summary><p>Of course. Use the <a href="../?ref=shop#contact">contact form</a> or message <a href="https://t.me/quasi_db" target="_blank" rel="noopener">@quasi_db</a> on Telegram.</p></details>
   </section>
 

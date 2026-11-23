@@ -97,8 +97,6 @@ h3.sub{margin-top:34px}
 .small{font-size:14px;color:var(--dim);margin-top:14px}
 .small a{color:var(--muted)}
 
-.gift-month{display:flex;gap:14px;align-items:flex-start;margin-top:18px;border-color:var(--frost-line);background:linear-gradient(135deg,var(--frost),rgba(239,68,68,.06))}
-.gift-month p{color:var(--muted);font-size:16px;margin-top:4px}.gift-month b{color:var(--text)}
 .flake-ico{flex:none;width:34px;height:34px;color:var(--ice)}
 
 /* layers */
@@ -132,3 +130,23 @@ h3.sub{margin-top:34px}
 .winter-cta{margin-top:34px;background:linear-gradient(135deg,rgba(156,200,255,.10),rgba(239,68,68,.07));border-color:var(--frost-line)}
 .wrap{max-width:1100px}
 .tier .btn{white-space:nowrap;font-size:16px;padding:10px 12px}
+
+/* two ways to pay */
+.ways{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media (max-width:760px){.ways{grid-template-columns:1fr}}
+.way{background:var(--panel);border:1px solid var(--frost-line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.way p{color:var(--muted);font-size:16px}.way p b{color:var(--text)}
+.tag.pat{background:rgba(249,104,84,.14);color:#ff8a78}
+.btn.patreon{background:#f96854;border-color:#f96854;color:#fff}
+.btn.patreon:hover{border-color:#fff}
+
+/* christmas year deal */
+.year{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;margin-top:20px;padding:22px;border-radius:18px;border:1px solid rgba(239,68,68,.45);background:linear-gradient(135deg,rgba(239,68,68,.10),rgba(156,200,255,.08))}
+@media (max-width:760px){.year{grid-template-columns:1fr}.year .flake-ico{display:none}}
+.year-copy p{color:var(--muted);font-size:16px;margin-top:6px}.year-copy p b{color:var(--text)}
+.year h3{margin-top:8px;font-size:22px}
+.year .big{color:var(--ice)}
+.tag.xmas{background:rgba(239,68,68,.14);color:#ff8f8f}
+.year-pay{min-width:230px}.year-pay .btn{width:100%;white-space:nowrap}
+.tabs h4 small,.tabs p small{font-size:inherit;color:var(--accent);text-transform:none;letter-spacing:0}
+@media (max-width:600px){.cmp{min-width:0;font-size:13px}.cmp th,.cmp td{padding:8px 5px}.cmp thead th{font-size:11px;letter-spacing:0}}
