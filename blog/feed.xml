@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>QDB Blog</title>
+  <link>https://quasidb.com/blog/</link>
+  <atom:link href="https://quasidb.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Market notes on the news that moves currency sentiment, and site updates from QDB Trading Desk.</description>
+  <language>en-gb</language>
+  <item>
+    <title>The UK–EU reset and the pound: what day traders should know</title>
+    <link>https://quasidb.com/blog/uk-eu-reset-pound/</link>
+    <guid>https://quasidb.com/blog/uk-eu-reset-pound/</guid>
+    <pubDate>Mon, 23 Nov 2026 10:00:00 GMT</pubDate>
+    <category>Market note</category>
+    <description>It isn't rejoining. What was agreed, how sterling reacted, the EUR/GBP levels analysts are watching, and where the crowd sits on GBP/USD.</description>
+  </item>
+  <item>
+    <title>What's new on QDB this November</title>
+    <link>https://quasidb.com/blog/november-site-update/</link>
+    <guid>https://quasidb.com/blog/november-site-update/</guid>
+    <pubDate>Mon, 23 Nov 2026 09:30:00 GMT</pubDate>
+    <category>Site update</category>
+    <description>A new address, free sentiment pages for 28 pairs, a weekly COT page, new guides and games, all in one place.</description>
+  </item>
+</channel>
+</rss>

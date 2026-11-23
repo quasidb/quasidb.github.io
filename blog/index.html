@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QDB Blog: market notes and site updates | QDB Trading Desk</title>
+<meta name="description" content="Short market notes on the news that moves currency sentiment, always paired with levels and risk, plus updates on what's new at QDB Trading Desk.">
+<link rel="canonical" href="https://quasidb.com/blog/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/blog/">
+<meta property="og:title" content="QDB Blog: market notes and site updates">
+<meta property="og:description" content="The news that moves currency sentiment, paired with levels and risk. Plus what's new at QDB.">
+<meta property="og:image" content="https://quasidb.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://quasidb.com/og-image.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../logo.png">
+<link rel="alternate" type="application/rss+xml" title="QDB Blog" href="feed.xml">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../guides/guides.css">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../?ref=blog"><img src="../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="./" aria-current="page">Blog</a><a href="../guides/?ref=blog">Guides</a><a href="../sentiment/?ref=blog">Sentiment</a><a href="../?ref=blog#pricing">Pricing</a></div>
+</div></nav>
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">QDB Blog</p>
+    <h1>Market notes <em>and site updates</em></h1>
+    <p class="lead">Short, sourced notes on the news that moves currency sentiment, written for day traders. Every note pairs the story with <b>levels and risk</b>, because sentiment is never a trade on its own. Plus the occasional update on what's new here.</p>
+    <div class="filters" role="group" aria-label="Show">
+      <button type="button" data-f="all" aria-pressed="true">All</button>
+      <button type="button" data-f="market" aria-pressed="false">Market notes</button>
+      <button type="button" data-f="site" aria-pressed="false">Site updates</button>
+      <a class="btn" style="min-height:0;padding:7px 14px;font-size:15px;border-radius:99px" href="feed.xml">RSS</a>
+    </div>
+  </header>
+
+  <!-- POSTS: newest first. Each post: an <a class="pitem" data-type="market|site"> block. -->
+  <div class="plist" id="posts">
+    <a class="pitem" data-type="market" href="uk-eu-reset-pound/">
+      <span class="k"><span class="t">Market note</span> · 23 Nov 2026 · GBP</span>
+      <h3>The UK–EU reset and the pound: what day traders should know</h3>
+      <p>It isn't rejoining. What was agreed, how sterling reacted, the EUR/GBP levels analysts are watching, and where the crowd sits on GBP/USD.</p>
+    </a>
+    <a class="pitem" data-type="site" href="november-site-update/">
+      <span class="k"><span class="t">Site update</span> · 23 Nov 2026</span>
+      <h3>What's new on QDB this November</h3>
+      <p>A new address, free sentiment pages for 28 pairs, a weekly COT page, new guides and games, all in one place.</p>
+    </a>
+  </div>
+
+  <p class="foot">Educational only, not financial advice. Trading on margin carries a high level of risk and the majority of retail CFD accounts lose money. <a href="../">QDB Trading Desk</a></p>
+</main>
+<script>
+document.querySelectorAll('.filters button').forEach(function(b){
+  b.addEventListener('click',function(){
+    var f=b.dataset.f;
+    document.querySelectorAll('.filters button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    document.querySelectorAll('#posts .pitem').forEach(function(p){p.hidden=!(f==='all'||p.dataset.type===f)});
+  });
+});
+</script>
+</body>
+</html>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://quasidb.com/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://quasidb.com/blog/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://quasidb.com/blog/uk-eu-reset-pound/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://quasidb.com/blog/november-site-update/</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://quasidb.com/guides/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://quasidb.com/guides/sentiment-in-a-system/</loc><lastmod>2026-11-20</lastmod></url>
   <url><loc>https://quasidb.com/guides/order-book/</loc><lastmod>2026-11-06</lastmod></url>
