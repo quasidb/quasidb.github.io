@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Analytics — QDB Trading Desk</title>
-<meta name="description" content="Live retail sentiment analytics for 28 forex pairs from the QDB spreadsheet. Select a pair to view the full data table.">
+<meta name="description" content="Live pair and index dashboards — FX and Indices with price ladder, crowd positioning and QDB Score.">
 <meta name="theme-color" content="#0b0f17">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22%231d3f61%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22none%22%20stroke%3D%22%239fd0ee%22%20stroke-width%3D%224%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-weight%3D%22900%22%20font-size%3D%2234%22%20fill%3D%22%23ffffff%22%3EQ%3C/text%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%2213%22%20r%3D%227%22%20fill%3D%22%239fd0ee%22%20stroke%3D%22%231d3f61%22%20stroke-width%3D%223%22/%3E%3C/svg%3E">
 <script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <link rel="preload" href="../fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -23,50 +24,62 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1280px;margin:0 auto;padding:0 24px}
 nav{position:sticky;top:0;z-index:20;background:rgba(11,15,23,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:22px;letter-spacing:-.02em}
-.logo-mark{width:42px;height:42px;border-radius:50%;flex:none;background:#1d3f61 url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22%231d3f61%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22none%22%20stroke%3D%22%239fd0ee%22%20stroke-width%3D%224%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-weight%3D%22900%22%20font-size%3D%2234%22%20fill%3D%22%23ffffff%22%3EQ%3C/text%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%2213%22%20r%3D%227%22%20fill%3D%22%239fd0ee%22%20stroke%3D%22%231d3f61%22%20stroke-width%3D%223%22/%3E%3C/svg%3E) center/cover}
-h1{font-size:clamp(32px,5vw,48px);letter-spacing:-.02em;margin:32px 0 8px}
-.sub{color:var(--muted);margin-bottom:32px;font-size:18px}
-.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:48px}
-.pair-btn{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 8px;text-align:center;font-family:var(--mono);font-weight:600;font-size:16px;cursor:pointer;transition:all .15s;color:var(--text)}
-.pair-btn:hover{border-color:var(--accent);background:rgba(245,184,61,.08);transform:translateY(-1px)}
-.viewer{display:none;margin-bottom:48px}
+.logo-mark{width:42px;height:42px;border-radius:50%;flex:none;background:#1d3f61}
+h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;margin:24px 0 8px}
+.sub{color:var(--muted);margin-bottom:32px}
+.section-title{font-size:20px;font-weight:700;margin:32px 0 12px;display:flex;align-items:center;gap:12px}
+.section-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:24px}
+.pair-btn{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 6px;text-align:center;font-family:var(--mono);font-weight:600;font-size:15px;cursor:pointer;transition:all .15s}
+.pair-btn:hover{border-color:var(--accent);background:rgba(245,184,61,.08)}
+.pair-btn.index{border-color:rgba(59,130,246,.4)}
+.viewer{display:none}
 .viewer.active{display:block}
-.toolbar{display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
-.back-btn{background:var(--bg2);border:1px solid var(--line);color:var(--text);padding:10px 18px;border-radius:10px;cursor:pointer;font-weight:600;font-size:16px}
-.back-btn:hover{border-color:var(--accent)}
-.pair-title{font-size:28px;font-weight:700;font-family:var(--mono)}
-.status{color:var(--muted);font-size:15px}
-.table-wrap{overflow:auto;max-height:70vh;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
-table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:13px;min-width:1200px}
-th,td{padding:8px 12px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);text-align:left;white-space:nowrap}
-th{position:sticky;top:0;background:var(--bg2);color:var(--accent);font-weight:600;z-index:2}
-tr:hover td{background:rgba(255,255,255,.03)}
-.loading{text-align:center;padding:48px;color:var(--muted)}
-.error{background:rgba(239,68,68,.1);border:1px solid var(--sell);color:var(--sell);padding:16px;border-radius:10px;margin:16px 0}
-.footer{margin-top:64px;padding:24px 0;border-top:1px solid var(--line);color:var(--dim);font-size:14px;text-align:center}
-@media (max-width:640px){.menu{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}}
+.toolbar{display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.back-btn{background:var(--bg2);border:1px solid var(--line);color:var(--text);padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:600}
+.pair-title{font-size:26px;font-weight:700;font-family:var(--mono)}
+.dash{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+@media(max-width:900px){.dash{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+.panel h3{font-size:15px;font-weight:700;margin-bottom:12px;color:var(--accent)}
+.header-bar{background:linear-gradient(90deg,#1d3f61,#141b2b);padding:16px 20px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.price-big{font-family:var(--mono);font-size:32px;font-weight:700}
+.change{font-family:var(--mono);font-size:18px}
+.change.up{color:var(--buy)}.change.down{color:var(--sell)}
+.score-pill{background:var(--bg2);padding:6px 14px;border-radius:20px;font-family:var(--mono);font-weight:600}
+.ladder table{width:100%;font-family:var(--mono);font-size:13px;border-collapse:collapse}
+.ladder th{text-align:left;color:var(--dim);font-weight:600;padding:6px 0;border-bottom:1px solid var(--line)}
+.ladder td{padding:5px 0;border-bottom:1px solid rgba(35,45,66,.5)}
+.crowd-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(35,45,66,.4);font-size:14px}
+.crowd-row b{font-family:var(--mono)}
+.chart-box{height:200px;position:relative}
+.loading,.error{text-align:center;padding:40px;color:var(--muted)}
+.error{color:var(--sell);background:rgba(239,68,68,.08);border-radius:10px}
+.footer{margin-top:48px;padding:20px 0;border-top:1px solid var(--line);color:var(--dim);font-size:13px;text-align:center}
 </style>
 </head>
 <body>
 <nav>
   <div class="wrap">
     <a href="/" class="logo"><span class="logo-mark" role="img" aria-label="QDB logo"></span>QDB Trading Desk</a>
-    <div>
-      <a href="/" style="color:var(--muted);font-size:15px">← Home</a>
-    </div>
+    <a href="/" style="color:var(--muted);font-size:15px">← Home</a>
   </div>
 </nav>
 <div class="wrap">
   <h1>Analytics</h1>
-  <p class="sub">Select a currency pair to view the full A1:O91 data. Each pair uses its own published-to-web CSV link.</p>
+  <p class="sub">Select a forex pair or index for the live dashboard view.</p>
 
-  <div id="menu" class="menu"></div>
+  <div class="section-title">FX Pairs</div>
+  <div id="fxMenu" class="menu"></div>
+
+  <div class="section-title">Indices</div>
+  <div id="indexMenu" class="menu"></div>
 
   <div id="viewer" class="viewer">
     <div class="toolbar">
@@ -74,158 +87,124 @@ tr:hover td{background:rgba(255,255,255,.03)}
       <div class="pair-title" id="pairTitle"></div>
       <div class="status" id="status"></div>
     </div>
-    <div id="tableContainer"></div>
+    <div id="dashboard"></div>
   </div>
 
-  <div class="footer">
-    Data loaded from individually published Google Sheets tabs. Built for quasidb.com
-  </div>
+  <div class="footer">FX + Indices dashboards · quasidb.com</div>
 </div>
 
 <script>
-const PAIRS = [
-  'AUDCAD','AUDCHF','AUDJPY','AUDNZD','AUDUSD',
-  'CADCHF','CADJPY',
-  'CHFJPY',
-  'EURAUD','EURCAD','EURCHF','EURGBP','EURJPY','EURNZD','EURUSD',
-  'GBPAUD','GBPCAD','GBPCHF','GBPJPY','GBPNZD','GBPUSD',
-  'NZDCAD','NZDCHF','NZDJPY','NZDUSD',
-  'USDCAD','USDCHF','USDJPY'
-];
+const FX = ['AUDCAD','AUDCHF','AUDJPY','AUDNZD','AUDUSD','CADCHF','CADJPY','CHFJPY','EURAUD','EURCAD','EURCHF','EURGBP','EURJPY','EURNZD','EURUSD','GBPAUD','GBPCAD','GBPCHF','GBPJPY','GBPNZD','GBPUSD','NZDCAD','NZDCHF','NZDJPY','NZDUSD','USDCAD','USDCHF','USDJPY'];
+const INDICES = ['SPX500','US30','NAS100','UK100','GER30','FRA40','US2000'];
 
-// Fill these with the published CSV URLs from File → Share → Publish to web (CSV)
-// Example: 'USDJPY': 'https://docs.google.com/spreadsheets/d/e/2PACX-.../pub?gid=8717319&single=true&output=csv'
 const PUBLISHED_URLS = {
-  // 'AUDCAD': '',
-  // 'USDJPY': '',
-  // Add the rest here once published
+  // FX URLs go here
+  // Indices example (update with real ones):
+  // 'SPX500': 'https://docs.google.com/spreadsheets/d/e/2PACX-.../pub?gid=...&single=true&output=csv'
 };
 
-function buildMenu(){
-  const menu = document.getElementById('menu');
-  PAIRS.forEach(pair => {
-    const btn = document.createElement('button');
-    btn.className = 'pair-btn';
-    btn.textContent = pair;
-    btn.onclick = () => showPair(pair);
-    menu.appendChild(btn);
+function buildMenus(){
+  const fx = document.getElementById('fxMenu');
+  const idx = document.getElementById('indexMenu');
+  FX.forEach(p => {
+    const b = document.createElement('button');
+    b.className = 'pair-btn';
+    b.textContent = p;
+    b.onclick = () => showPair(p);
+    fx.appendChild(b);
+  });
+  INDICES.forEach(p => {
+    const b = document.createElement('button');
+    b.className = 'pair-btn index';
+    b.textContent = p;
+    b.onclick = () => showPair(p);
+    idx.appendChild(b);
   });
 }
 
 function showMenu(){
-  document.getElementById('menu').style.display = 'grid';
+  document.getElementById('fxMenu').style.display = 'grid';
+  document.getElementById('indexMenu').style.display = 'grid';
+  document.querySelectorAll('.section-title').forEach(el => el.style.display = 'flex');
   document.getElementById('viewer').classList.remove('active');
-  document.getElementById('tableContainer').innerHTML = '';
-  history.pushState(null, '', '/analytics/');
+  document.getElementById('dashboard').innerHTML = '';
+  history.pushState(null,'','/analytics/');
 }
 
-function showPair(pair){
-  document.getElementById('menu').style.display = 'none';
+function showPair(symbol){
+  document.getElementById('fxMenu').style.display = 'none';
+  document.getElementById('indexMenu').style.display = 'none';
+  document.querySelectorAll('.section-title').forEach(el => el.style.display = 'none');
   document.getElementById('viewer').classList.add('active');
-  document.getElementById('pairTitle').textContent = pair;
+  document.getElementById('pairTitle').textContent = symbol;
   document.getElementById('status').textContent = 'Loading…';
-  document.getElementById('tableContainer').innerHTML = '<div class="loading">Fetching live data…</div>';
-  history.pushState(null, '', '/analytics/#' + pair.toLowerCase());
-  loadData(pair);
+  document.getElementById('dashboard').innerHTML = '<div class="loading">Building dashboard…</div>';
+  history.pushState(null,'','/analytics/#'+symbol.toLowerCase());
+  loadData(symbol);
 }
 
-function parseCSV(text){
-  const rows = [];
-  let row = [], cell = '', inQuotes = false;
-  for (let i = 0; i < text.length; i++){
-    const c = text[i];
-    if (c === '"'){
-      if (inQuotes && text[i+1] === '"'){ cell += '"'; i++; }
-      else inQuotes = !inQuotes;
-    } else if (c === ',' && !inQuotes){
-      row.push(cell); cell = '';
-    } else if ((c === '\n' || c === '\r') && !inQuotes){
-      if (c === '\r' && text[i+1] === '\n') i++;
-      row.push(cell); rows.push(row); row = []; cell = '';
-    } else {
-      cell += c;
-    }
-  }
-  if (cell || row.length) { row.push(cell); rows.push(row); }
-  return rows.filter(r => r.some(c => c.trim() !== ''));
-}
-
-async function loadData(pair){
-  const url = PUBLISHED_URLS[pair];
-  if (!url) {
-    document.getElementById('tableContainer').innerHTML = `
-      <div class="error">
-        <strong>No published URL configured for ${pair} yet.</strong><br><br>
-        Publish this tab to the web as CSV (File → Share → Publish to web), then send me the link so I can add it.
-      </div>`;
-    document.getElementById('status').textContent = '';
+async function loadData(symbol){
+  const url = PUBLISHED_URLS[symbol];
+  if(!url){
+    renderDashboard(symbol, null);
+    document.getElementById('status').textContent = 'Demo view — add published URL';
     return;
   }
-
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const text = await res.text();
-    if (text.includes('<!DOCTYPE') || text.includes('Sign in') || text.includes('Published')){
-      throw new Error('Link is not a public CSV or publishing is not finished');
-    }
-    const rows = parseCSV(text);
-    if (!rows.length) throw new Error('No data returned');
-    renderTable(rows);
-    document.getElementById('status').textContent = rows.length + ' rows loaded';
-  } catch (e) {
-    document.getElementById('status').textContent = '';
-    document.getElementById('tableContainer').innerHTML = `
-      <div class="error">
-        <strong>Could not load data for ${pair}.</strong><br>
-        ${e.message}<br><br>
-        Check that the tab is published to the web as CSV and the URL is correct.
-      </div>`;
-  }
+  // real fetch would go here
+  renderDashboard(symbol, null);
 }
 
-function renderTable(rows){
-  const table = document.createElement('table');
-  const thead = document.createElement('thead');
-  const tbody = document.createElement('tbody');
-  if (rows[0]){
-    const tr = document.createElement('tr');
-    rows[0].forEach(h => {
-      const th = document.createElement('th');
-      th.textContent = h || '';
-      tr.appendChild(th);
+function renderDashboard(symbol, rows){
+  const isIndex = INDICES.includes(symbol);
+  const html = `
+    <div class="header-bar">
+      <div>
+        <div style="font-size:13px;color:var(--muted)">${isIndex ? 'INDEX' : 'FX PAIR'}</div>
+        <div class="price-big">—</div>
+      </div>
+      <div class="change">—</div>
+      <div class="score-pill">QDB —</div>
+    </div>
+    <div class="dash">
+      <div class="panel ladder">
+        <h3>📊 Price Ladder</h3>
+        <p style="color:var(--dim);font-size:14px">Will populate from published CSV once the URL is added for ${symbol}.</p>
+      </div>
+      <div class="panel">
+        <h3>👥 Crowd vs Price</h3>
+        <div class="crowd-row"><span>Crowd long %</span><b>—</b></div>
+        <div class="crowd-row"><span>Contrarian bias</span><b>—</b></div>
+      </div>
+      <div class="panel">
+        <h3>🍩 Score Overview</h3>
+        <div class="chart-box"><canvas id="scoreChart"></canvas></div>
+      </div>
+      <div class="panel">
+        <h3>📈 Additional metrics</h3>
+        <p style="color:var(--dim);font-size:14px">Volume delta, previous day range, etc. will appear here.</p>
+      </div>
+    </div>
+  `;
+  document.getElementById('dashboard').innerHTML = html;
+
+  const ctx = document.getElementById('scoreChart');
+  if(ctx){
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: { labels:['Passed','Failed'], datasets:[{ data:[6,8], backgroundColor:['#22c55e','#ef4444'], borderWidth:0, cutout:'68%' }] },
+      options: { plugins:{legend:{display:false}}, maintainAspectRatio:false }
     });
-    thead.appendChild(tr);
   }
-  for (let i = 1; i < rows.length; i++){
-    const tr = document.createElement('tr');
-    rows[i].forEach(c => {
-      const td = document.createElement('td');
-      td.textContent = c || '';
-      tr.appendChild(td);
-    });
-    tbody.appendChild(tr);
-  }
-  table.appendChild(thead);
-  table.appendChild(tbody);
-  const wrap = document.createElement('div');
-  wrap.className = 'table-wrap';
-  wrap.appendChild(table);
-  document.getElementById('tableContainer').innerHTML = '';
-  document.getElementById('tableContainer').appendChild(wrap);
 }
 
 document.getElementById('backBtn').onclick = showMenu;
-window.addEventListener('popstate', () => {
-  const hash = location.hash.slice(1).toUpperCase();
-  if (PAIRS.includes(hash)) showPair(hash);
-  else showMenu();
+window.addEventListener('popstate', ()=>{
+  const h = location.hash.slice(1).toUpperCase();
+  if([...FX, ...INDICES].includes(h)) showPair(h); else showMenu();
 });
-
-buildMenu();
-const initial = location.hash.slice(1).toUpperCase();
-if (PAIRS.includes(initial)) showPair(initial);
-else showMenu();
+buildMenus();
+const init = location.hash.slice(1).toUpperCase();
+if([...FX, ...INDICES].includes(init)) showPair(init); else showMenu();
 </script>
 </body>
 </html>
