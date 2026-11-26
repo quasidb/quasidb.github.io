@@ -304,17 +304,19 @@ function renderDashboard(symbol, rows){
     }
     ladderHtml = ladder.join('') || '<tr><td colspan="3">No ladder</td></tr>';
 
-    // Volume / ADR rough extract
+    // Volume / ADR extract
     for(let i=0;i<rows.length;i++){
-      const joined = rows[i].join(' ').toLowerCase();
-      if(joined.includes('volume delta') || joined.includes('short volume')){
-        const shortRow = rows[i+2] || [];
-        const longRow = rows[i+3] || [];
-        volumeHtml = `<div class="crowd-row"><span>Short volume (live)</span><b>${(shortRow[4]||'—').trim()}</b></div>
-                       <div class="crowd-row"><span>Long volume (live)</span><b>${(longRow[4]||'—').trim()}</b></div>`;
+      const r = rows[i];
+      const joined = r.join(' ').toLowerCase();
+      if(joined.includes('short volume') && !joined.includes('delta')){
+        volumeHtml = `<div class="crowd-row"><span>Short volume (live)</span><b>${(r[4]||'—').trim()}</b></div>
+                       <div class="crowd-row"><span>Long volume (live)</span><b>${(rows[i+1]?.[4]||'—').trim()}</b></div>
+                       <div class="crowd-row"><span>Δ Day % (short)</span><b>${(r[6]||'—').trim()}</b></div>`;
       }
-      if(joined.includes('previous day range') || joined.includes('adr')){
-        adrHtml = `<div class="crowd-row"><span>ADR</span><b>${findValue(rows,'ADR')||'—'}</b></div>`;
+      if(joined.includes('adr(1)') || joined.includes('adr')){
+        const adrVal = (r[12]||r[11]||findValue(rows,'ADR')||'—').toString().trim();
+        adrHtml = `<div class="crowd-row"><span>ADR (pips)</span><b>${adrVal}</b></div>
+                    <div class="crowd-row"><span>% of ADR used</span><b>${findValue(rows,'% of ADR used')||'—'}</b></div>`;
       }
     }
   }
@@ -401,14 +403,21 @@ function renderDashboard(symbol, rows){
         if(t.includes('Score Breakdown')) { inChecks = true; continue; }
         if(inChecks && t.includes('Ticks:')) break;
         if(inChecks){
-          const left = (r[8]||r[7]||'').trim();
-          const val = (r[12]||r[11]||'').trim();
-          if(left && (val.includes('✅') || val.includes('❌') || val.includes('Yes') || val.includes('No'))){
-            const tick = val.includes('✅') || val.includes('Yes') ? '✅' : '❌';
-            items.push(`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px">
-              <span>${left}</span>
-              <b>${tick} ${val.replace(/✅|❌/g,'').trim()}</b>
-            </div>`);
+          // Try common column pairs for label + result
+          const candidates = [
+            [(r[8]||'').trim(), (r[12]||'').trim()],
+            [(r[7]||'').trim(), (r[11]||'').trim()],
+            [(r[9]||'').trim(), (r[13]||'').trim()]
+          ];
+          for(const [left, val] of candidates){
+            if(left && (val.includes('✅') || val.includes('❌') || /yes|no/i.test(val))){
+              const tick = /✅|yes/i.test(val) ? '✅' : '❌';
+              items.push(`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px">
+                <span>${left}</span>
+                <b>${tick} ${val.replace(/✅|❌/g,'').trim()}</b>
+              </div>`);
+              break;
+            }
           }
         }
       }
