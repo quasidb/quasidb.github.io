@@ -217,16 +217,24 @@ function showPair(symbol){
 }
 
 function parseCSV(text){
-  const rows=[]; let row=[], cell='', q=false;
-  for(let i=0;i<text.length;i++){
-    const c=text[i];
-    if(c==='"'){ if(q && text[i+1]==='"'){cell+='"';i++;} else q=!q; }
-    else if(c===',' && !q){ row.push(cell); cell=''; }
-    else if((c==='\n'||c==='\r') && !q){ if(c==='\r'&&text[i+1]==='\n')i++; row.push(cell); rows.push(row); row=[]; cell=''; }
-    else cell+=c;
+  const rows = [];
+  let row = [], cell = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (c === '"') {
+      if (inQuotes && text[i+1] === '"') { cell += '"'; i++; }
+      else inQuotes = !inQuotes;
+    } else if (c === ',' && !inQuotes) {
+      row.push(cell); cell = '';
+    } else if ((c === '\n' || c === '\r') && !inQuotes) {
+      if (c === '\r' && text[i+1] === '\n') i++;
+      row.push(cell); rows.push(row); row = []; cell = '';
+    } else {
+      cell += c;
+    }
   }
-  if(cell||row.length){row.push(cell);rows.push(row);}
-  return rows.filter(r=>r.some(c=>c.trim()));
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(c => (c||'').trim() !== ''));
 }
 
 async function loadData(symbol){
