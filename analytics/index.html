@@ -36,9 +36,17 @@ h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;margin:24px 0 8px}
 .section-title{font-size:20px;font-weight:700;margin:32px 0 12px;display:flex;align-items:center;gap:12px}
 .section-title::after{content:"";flex:1;height:1px;background:var(--line)}
 .menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:24px}
-.pair-btn{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 6px;text-align:center;font-family:var(--mono);font-weight:600;font-size:15px;cursor:pointer;transition:all .15s}
-.pair-btn:hover{border-color:var(--accent);background:rgba(245,184,61,.08)}
-.pair-btn.index{border-color:rgba(59,130,246,.4)}
+.pair-btn{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 6px;text-align:center;font-family:var(--mono);font-weight:600;font-size:15px;cursor:pointer;transition:all .15s;color:#ffffff}
+.pair-btn:hover{border-color:var(--accent);background:rgba(245,184,61,.08);color:#ffffff}
+.pair-btn.index{border-color:rgba(59,130,246,.5);color:#ffffff}
+.pair-btn.aud{border-left:4px solid #f59e0b}
+.pair-btn.cad{border-left:4px solid #ef4444}
+.pair-btn.chf{border-left:4px solid #8b5cf6}
+.pair-btn.eur{border-left:4px solid #3b82f6}
+.pair-btn.gbp{border-left:4px solid #10b981}
+.pair-btn.jpy{border-left:4px solid #ec4899}
+.pair-btn.nzd{border-left:4px solid #06b6d4}
+.pair-btn.usd{border-left:4px solid #64748b}
 .viewer{display:none}
 .viewer.active{display:block}
 .toolbar{display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
@@ -171,6 +179,8 @@ function buildMenus(){
   FX.forEach(p => {
     const b = document.createElement('button');
     b.className = 'pair-btn';
+    const base = p.slice(0,3).toLowerCase();
+    if(['aud','cad','chf','eur','gbp','jpy','nzd','usd'].includes(base)) b.classList.add(base);
     b.textContent = p;
     b.onclick = () => showPair(p);
     fx.appendChild(b);
@@ -351,13 +361,53 @@ function renderDashboard(symbol, rows){
       </div>
     </div>
 
-    <div class="panel" style="margin-top:16px">
+    
+    <div class="dash-grid" style="margin-top:16px">
+      <div class="panel">
+        <h3>✅ Score Breakdown</h3>
+        <div id="checksPanel" style="font-size:13px;line-height:1.7"></div>
+      </div>
+      <div>
+        <div class="panel" style="margin-bottom:16px">
+          <h3>📐 RSI & Bollinger</h3>
+          <div id="rsiPanel"></div>
+        </div>
+        <div class="panel">
+          <h3>🏦 Smart Money (COT)</h3>
+          <div id="cotPanel"></div>
+        </div>
+      </div>
+    </div>
+<div class="panel" style="margin-top:16px">
       <h3>🍩 Score Overview</h3>
       <div class="chart-box"><canvas id="scoreChart"></canvas></div>
     </div>
   `;
 
   document.getElementById('dashboard').innerHTML = html;
+
+  // Populate extra panels if data exists
+  setTimeout(() => {
+    const checks = document.getElementById('checksPanel');
+    const rsi = document.getElementById('rsiPanel');
+    const cot = document.getElementById('cotPanel');
+    if(checks && rows){
+      let checkHtml = '';
+      let inChecks = false;
+      for(const r of rows){
+        const t = r.join(' ');
+        if(t.includes('Score Breakdown')) inChecks = true;
+        if(inChecks && (t.includes('✅') || t.includes('❌'))){
+          checkHtml += `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span>${r[8]||r[7]||''}</span><b>${r[12]||r[11]||''}</b></div>`;
+        }
+        if(t.includes('Ticks:')) break;
+      }
+      checks.innerHTML = checkHtml || '<span style="color:var(--dim)">Checks loading…</span>';
+    }
+    if(rsi) rsi.innerHTML = '<div class="crowd-row"><span>RSI (14)</span><b>' + (findValue(rows,'RSI (14)')||'—') + '</b></div>';
+    if(cot) cot.innerHTML = '<div class="crowd-row"><span>COT bias</span><b>' + (findValue(rows,'Smart vs dumb money')||'—') + '</b></div>';
+  }, 50);
+
 
   const ctx = document.getElementById('scoreChart');
   if(ctx){
