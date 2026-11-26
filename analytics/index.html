@@ -97,7 +97,16 @@ h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;margin:24px 0 8px}
 const FX = ['AUDCAD','AUDCHF','AUDJPY','AUDNZD','AUDUSD','CADCHF','CADJPY','CHFJPY','EURAUD','EURCAD','EURCHF','EURGBP','EURJPY','EURNZD','EURUSD','GBPAUD','GBPCAD','GBPCHF','GBPJPY','GBPNZD','GBPUSD','NZDCAD','NZDCHF','NZDJPY','NZDUSD','USDCAD','USDCHF','USDJPY'];
 const INDICES = ['SPX500','US30','NAS100','UK100','GER30','FRA40','US2000'];
 
+const BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTTWwh8vdvIjzOxGvIDCjR05tZtZwtOjwhpM25aUcgbv4wXuZezmMXkR5_jqxhKXNo713PbJXRH7YN0/pub';
 const PUBLISHED_URLS = {
+  'SPX500': BASE + '?gid=0&single=true&output=csv',
+  'US30': BASE + '?gid=1295520178&single=true&output=csv',
+  'NAS100': BASE + '?gid=1549744721&single=true&output=csv',
+  'UK100': BASE + '?gid=1632370860&single=true&output=csv',
+  'GER40': BASE + '?gid=408307758&single=true&output=csv',
+  'FRA40': BASE + '?gid=2097298862&single=true&output=csv',
+  'US2000': BASE + '?gid=2005171773&single=true&output=csv',
+
   // FX URLs go here
   // Indices example (update with real ones):
   // 'SPX500': 'https://docs.google.com/spreadsheets/d/e/2PACX-.../pub?gid=...&single=true&output=csv'
@@ -150,8 +159,31 @@ async function loadData(symbol){
     document.getElementById('status').textContent = 'Demo view — add published URL';
     return;
   }
-  // real fetch would go here
-  renderDashboard(symbol, null);
+  try {
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    if(text.includes('<!DOCTYPE') || text.includes('Sign in')) throw new Error('Not a public CSV');
+    const rows = parseCSV(text);
+    renderDashboard(symbol, rows);
+    document.getElementById('status').textContent = rows.length + ' rows loaded';
+  } catch(e) {
+    document.getElementById('status').textContent = '';
+    document.getElementById('dashboard').innerHTML = `<div class="error">Could not load ${symbol}: ${e.message}</div>`;
+  }
+}
+
+function parseCSV(text){
+  const rows=[]; let row=[], cell='', q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(c==='"'){ if(q && text[i+1]==='"'){cell+='"';i++;} else q=!q; }
+    else if(c===',' && !q){ row.push(cell); cell=''; }
+    else if((c==='\n'||c==='\r') && !q){ if(c==='\r'&&text[i+1]==='\n')i++; row.push(cell); rows.push(row); row=[]; cell=''; }
+    else cell+=c;
+  }
+  if(cell||row.length){row.push(cell);rows.push(row);}
+  return rows.filter(r=>r.some(c=>c.trim()));
 }
 
 function renderDashboard(symbol, rows){
