@@ -413,27 +413,19 @@ function renderDashboard(symbol, rows){
     const cot = document.getElementById('cotPanel');
     if(checks && rows){
       let items = [];
-      let inChecks = false;
-      for(const r of rows){
-        const t = r.join(' ');
-        if(t.includes('Score Breakdown')) { inChecks = true; continue; }
-        if(inChecks && t.includes('Ticks:')) break;
-        if(inChecks){
-          // Try common column pairs for label + result
-          const candidates = [
-            [(r[8]||'').trim(), (r[12]||'').trim()],
-            [(r[7]||'').trim(), (r[11]||'').trim()],
-            [(r[9]||'').trim(), (r[13]||'').trim()]
-          ];
-          for(const [left, val] of candidates){
-            if(left && (val.includes('✅') || val.includes('❌') || /yes|no/i.test(val))){
-              const tick = /✅|yes/i.test(val) ? '✅' : '❌';
-              items.push(`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px">
-                <span>${left}</span>
-                <b>${tick} ${val.replace(/✅|❌/g,'').trim()}</b>
-              </div>`);
-              break;
-            }
+      // FX Score Breakdown lives in columns I-O (indices 8-14), roughly rows 66-82
+      for(let i = 65; i < Math.min(rows.length, 85); i++){
+        const r = rows[i] || [];
+        // Look for pairs of (label, result) in the right-hand columns
+        for(let c = 8; c < Math.min(r.length-1, 15); c += 2){
+          const label = (r[c]||'').trim();
+          const val = (r[c+1]||'').trim();
+          if(label && (val.includes('✅') || val.includes('❌') || /^(yes|no)$/i.test(val))){
+            const tick = /✅|yes/i.test(val) ? '✅' : '❌';
+            items.push(`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px">
+              <span>${label}</span>
+              <b>${tick} ${val.replace(/✅|❌/g,'').trim()}</b>
+            </div>`);
           }
         }
       }
