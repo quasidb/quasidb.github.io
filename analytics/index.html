@@ -392,20 +392,50 @@ function renderDashboard(symbol, rows){
     const rsi = document.getElementById('rsiPanel');
     const cot = document.getElementById('cotPanel');
     if(checks && rows){
-      let checkHtml = '';
+      let items = [];
       let inChecks = false;
       for(const r of rows){
         const t = r.join(' ');
-        if(t.includes('Score Breakdown')) inChecks = true;
-        if(inChecks && (t.includes('✅') || t.includes('❌'))){
-          checkHtml += `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05)"><span>${r[8]||r[7]||''}</span><b>${r[12]||r[11]||''}</b></div>`;
+        if(t.includes('Score Breakdown')) { inChecks = true; continue; }
+        if(inChecks && t.includes('Ticks:')) break;
+        if(inChecks){
+          const left = (r[8]||r[7]||'').trim();
+          const val = (r[12]||r[11]||'').trim();
+          if(left && (val.includes('✅') || val.includes('❌') || val.includes('Yes') || val.includes('No'))){
+            const tick = val.includes('✅') || val.includes('Yes') ? '✅' : '❌';
+            items.push(`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px">
+              <span>${left}</span>
+              <b>${tick} ${val.replace(/✅|❌/g,'').trim()}</b>
+            </div>`);
+          }
         }
-        if(t.includes('Ticks:')) break;
       }
-      checks.innerHTML = checkHtml || '<span style="color:var(--dim)">Checks loading…</span>';
+      checks.innerHTML = items.length ? items.join('') : '<span style="color:var(--dim)">No checks found</span>';
     }
-    if(rsi) rsi.innerHTML = '<div class="crowd-row"><span>RSI (14)</span><b>' + (findValue(rows,'RSI (14)')||'—') + '</b></div>';
-    if(cot) cot.innerHTML = '<div class="crowd-row"><span>COT bias</span><b>' + (findValue(rows,'Smart vs dumb money')||'—') + '</b></div>';
+
+    if(rsi && rows){
+      const rsiVal = findValue(rows,'RSI (14)') || '—';
+      const bbU = findValue(rows,'BB upper') || '—';
+      const bbM = findValue(rows,'BB mid') || '—';
+      const bbL = findValue(rows,'BB lower') || '—';
+      rsi.innerHTML = `
+        <div class="crowd-row"><span>RSI (14)</span><b>${rsiVal}</b></div>
+        <div class="crowd-row"><span>BB upper</span><b>${bbU}</b></div>
+        <div class="crowd-row"><span>BB mid</span><b>${bbM}</b></div>
+        <div class="crowd-row"><span>BB lower</span><b>${bbL}</b></div>
+      `;
+    }
+
+    if(cot && rows){
+      const smart = (findValue(rows,'Smart vs dumb money') || findValue(rows,'Aligned contrarian') || '—').replace(/🟢|🔴/g,'').trim();
+      const cotScore = findValue(rows,'Pair COT score') || '—';
+      const retail = findValue(rows,'Retail (crowd long %)') || '—';
+      cot.innerHTML = `
+        <div class="crowd-row"><span>Pair COT score</span><b>${cotScore}</b></div>
+        <div class="crowd-row"><span>Retail long %</span><b>${retail}</b></div>
+        <div style="margin-top:12px;font-size:13px;line-height:1.45;color:var(--muted)">${smart}</div>
+      `;
+    }
   }, 50);
 
 
