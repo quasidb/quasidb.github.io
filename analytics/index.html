@@ -290,8 +290,8 @@ function renderDashboard(symbol, rows){
     let foundPrice = false;
     for(const r of rows){
       const level = (r[1]||r[0]||'').trim();
-      const pr = (r[3]||r[4]||'').trim();
-      const dist = (r[4]||r[5]||'').trim();
+      const pr = (r[4]||r[3]||'').trim();
+      const dist = (r[5]||r[4]||'').trim();
       if(!level || !pr) continue;
       const isPriceHere = /PRICE IS HERE|◀/i.test(level);
       const isLevel = /R\d|S\d|Pivot|Open|High|Low|BB|Breakeven|PRICE/i.test(level);
@@ -308,8 +308,10 @@ function renderDashboard(symbol, rows){
     for(let i=0;i<rows.length;i++){
       const joined = rows[i].join(' ').toLowerCase();
       if(joined.includes('volume delta') || joined.includes('short volume')){
-        volumeHtml = `<div class="crowd-row"><span>Short volume (live)</span><b>${(rows[i+2]||[])[4]||'—'}</b></div>
-                       <div class="crowd-row"><span>Long volume (live)</span><b>${(rows[i+3]||[])[4]||'—'}</b></div>`;
+        const shortRow = rows[i+2] || [];
+        const longRow = rows[i+3] || [];
+        volumeHtml = `<div class="crowd-row"><span>Short volume (live)</span><b>${(shortRow[4]||'—').trim()}</b></div>
+                       <div class="crowd-row"><span>Long volume (live)</span><b>${(longRow[4]||'—').trim()}</b></div>`;
       }
       if(joined.includes('previous day range') || joined.includes('adr')){
         adrHtml = `<div class="crowd-row"><span>ADR</span><b>${findValue(rows,'ADR')||'—'}</b></div>`;
