@@ -257,12 +257,14 @@ function renderDashboard(symbol, rows){
   const isIndex = INDICES.includes(symbol);
   let price = '—', change = '—', score = '—', bias = '—', longPct = '—';
   let ladderHtml = '';
+  let volumeHtml = '<div class="crowd-row"><span>Volume data</span><b>—</b></div>';
+  let adrHtml = '<div class="crowd-row"><span>ADR</span><b>—</b></div>';
 
   if(rows && rows.length){
-    // Header values
-    for(let i=0;i<Math.min(10,rows.length);i++){
+    // Header
+    for(let i=0;i<Math.min(12,rows.length);i++){
       const r = rows[i].map(c=>(c||'').trim());
-      if(r.some(c=>c.includes('Live Price') || c.includes('live price'))){
+      if(r.some(c=> /live price/i.test(c))){
         const next = rows[i+1] || [];
         price = (next[2]||next[3]||price).trim();
         change = (next[4]||next[5]||change).trim();
@@ -273,7 +275,7 @@ function renderDashboard(symbol, rows){
     }
     longPct = findValue(rows, 'Crowd long % (now)') || findValue(rows, 'Crowd long %') || longPct;
 
-    // Build ladder
+    // Ladder
     const ladder = [];
     let foundPrice = false;
     for(const r of rows){
@@ -281,18 +283,28 @@ function renderDashboard(symbol, rows){
       const pr = (r[3]||r[4]||'').trim();
       const dist = (r[4]||r[5]||'').trim();
       if(!level || !pr) continue;
-      const isPriceHere = level.includes('PRICE IS HERE') || level.includes('◀');
+      const isPriceHere = /PRICE IS HERE|◀/i.test(level);
       const isLevel = /R\d|S\d|Pivot|Open|High|Low|BB|Breakeven|PRICE/i.test(level);
       if(isLevel || isPriceHere){
-        let cls = '';
-        if(isPriceHere){ cls = 'price-here'; foundPrice = true; }
-        else if(foundPrice) cls = 'below';
-        else cls = 'above';
-        ladder.push(`<tr class="${cls}"><td>${level.replace('◀','')}</td><td class="price">${pr}</td><td class="dist">${dist}</td></tr>`);
-        if(ladder.length > 25) break;
+        let cls = isPriceHere ? 'price-here' : (foundPrice ? 'below' : 'above');
+        if(isPriceHere) foundPrice = true;
+        ladder.push(`<tr class="${cls}"><td>${level.replace(/◀\s*/,'')}</td><td class="price">${pr}</td><td class="dist">${dist}</td></tr>`);
+        if(ladder.length > 28) break;
       }
     }
-    ladderHtml = ladder.join('') || '<tr><td colspan="3">No ladder data</td></tr>';
+    ladderHtml = ladder.join('') || '<tr><td colspan="3">No ladder</td></tr>';
+
+    // Volume / ADR rough extract
+    for(let i=0;i<rows.length;i++){
+      const joined = rows[i].join(' ').toLowerCase();
+      if(joined.includes('volume delta') || joined.includes('short volume')){
+        volumeHtml = `<div class="crowd-row"><span>Short volume (live)</span><b>${(rows[i+2]||[])[4]||'—'}</b></div>
+                       <div class="crowd-row"><span>Long volume (live)</span><b>${(rows[i+3]||[])[4]||'—'}</b></div>`;
+      }
+      if(joined.includes('previous day range') || joined.includes('adr')){
+        adrHtml = `<div class="crowd-row"><span>ADR</span><b>${findValue(rows,'ADR')||'—'}</b></div>`;
+      }
+    }
   }
 
   const changeClass = String(change).includes('-') ? 'down' : 'up';
@@ -315,8 +327,8 @@ function renderDashboard(symbol, rows){
           <tbody>${ladderHtml}</tbody>
         </table>
         <div class="legend">
-          <span class="res">above price = resistance</span>
-          <span class="sup">below price = support</span>
+          <span class="res">above = resistance</span>
+          <span class="sup">below = support</span>
           <span class="here">amber = live price</span>
         </div>
       </div>
@@ -325,14 +337,23 @@ function renderDashboard(symbol, rows){
         <div class="panel" style="margin-bottom:16px">
           <h3>👥 Crowd vs Price — contrarian read</h3>
           <div class="crowd-row"><span>Crowd long % (now)</span><b>${longPct}</b></div>
-          <div class="crowd-row"><span>Contrarian bias</span><b class="${bias.toLowerCase().includes('bear')?'sell':'buy'}">${bias}</b></div>
-          <div class="crowd-row"><span>Score</span><b>${score}</b></div>
+          <div class="crowd-row"><span>Contrarian bias</span><b class="${/bear/i.test(bias)?'sell':'buy'}">${bias}</b></div>
+          <div class="crowd-row"><span>QDB Score</span><b>${score}</b></div>
+        </div>
+        <div class="panel" style="margin-bottom:16px">
+          <h3>📊 Volume Delta</h3>
+          ${volumeHtml}
         </div>
         <div class="panel">
-          <h3>🍩 Score Overview</h3>
-          <div class="chart-box"><canvas id="scoreChart"></canvas></div>
+          <h3>📏 Previous Day & ADR</h3>
+          ${adrHtml}
         </div>
       </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <h3>🍩 Score Overview</h3>
+      <div class="chart-box"><canvas id="scoreChart"></canvas></div>
     </div>
   `;
 
@@ -348,14 +369,14 @@ function renderDashboard(symbol, rows){
       data: {
         labels: ['Passed', 'Failed'],
         datasets: [{
-          data: [passed, Math.max(0, total - passed)],
-          backgroundColor: ['#22c55e', '#ef4444'],
+          data: [passed, Math.max(0, total-passed)],
+          backgroundColor: ['#22c55e','#ef4444'],
           borderWidth: 0,
-          cutout: '70%'
+          cutout: '68%'
         }]
       },
       options: {
-        plugins: { legend: { display: true, position: 'bottom', labels: { color: '#93a0b8', boxWidth: 12 } } },
+        plugins: { legend: { display: true, position: 'bottom', labels: { color:'#93a0b8', boxWidth:12 } } },
         maintainAspectRatio: false
       }
     });
