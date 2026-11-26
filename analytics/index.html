@@ -39,8 +39,6 @@
 .tools .seg{margin-top:0}
 .tools select{background:var(--bg2);color:var(--text);border:1px solid var(--line);border-radius:12px;min-height:46px;padding:0 12px;font:inherit;font-size:16px}
 .tools .stamp{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--dim)}
-.tools .stamp button{background:none;border:1px solid var(--line);border-radius:8px;padding:4px 10px;margin-left:8px;color:var(--muted);font-size:13px}
-.tools .stamp button:hover{border-color:var(--accent);color:var(--text)}
 .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:16px}
 .tile{display:flex;flex-direction:column;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .15s}
 .tile:hover{border-color:var(--accent);transform:translateY(-1px)}
@@ -227,7 +225,7 @@
         <option value="long">Crowd most long</option>
         <option value="short">Crowd most short</option>
       </select>
-      <span class="stamp"><span id="stamp">Loading…</span><button type="button" id="refresh">Refresh</button></span>
+      <span class="stamp" id="stamp">Loading…</span>
     </div>
     <div class="board" id="board"></div>
     <p class="small muted" style="margin-top:12px">Score bar: green bias = the checks lean bullish, red = bearish. Crowd bar: retail long (green) vs short (red), read contrarian, so a crowd that is heavily long is a bearish sign.</p>
@@ -250,8 +248,8 @@
     <p>Use it only together with technical and fundamental analysis and strict <b>risk management</b>. Only trade the crowd at strong daily or weekly supply and demand levels. The dashboards show who is likely to be wrong. The level tells you where.</p>
   </div>
   <div class="cta">
-    <h3>Want this on your own screen, every 15 minutes?</h3>
-    <p>The QDB Sheet carries these dashboards plus the full board, Basket Shifting and the Sentiment Delta indicator for MT5.</p>
+    <h3>This is one tab of the QDB Sheet</h3>
+    <p>Members get the rest of it: the full sentiment board, Basket Shifting, trade setups, the Sentiment Delta indicator for MT5 and the Discord, where the crowd gets talked through every day.</p>
     <div class="row"><a class="btn primary" href="../shop/?ref=analytics" data-goatcounter-click="analytics-shop">See the plans</a><a class="btn" href="../?ref=analytics#free-sheet">Try the free Lite sheet</a></div>
   </div>
   <p class="foot">Data: QDB Sheet, published every few minutes. Prices via Google Finance, delayed up to about 20 minutes, and CFD prices can differ. Crowd: FXCM SSI. COT: CFTC. Educational only, not financial advice. Trading on margin carries a high level of risk. <a href="../">Back to QDB Trading Desk</a></p>
@@ -321,6 +319,8 @@ function extract(sym, rows){
   function find(col, re, from){ for (var r = from || 0; r < rows.length; r++) if (re.test(at(r,col))) return r; return -1; }
   var d = {sym: sym, fx: isFx(sym)};
   d.title = at(0,B); d.sub = at(1,B); d.banner = at(2,B);
+  var snap = /^Snapshot/i.test(at(0,16)) ? new Date(at(1,16)) : null;
+  d.snap = snap && !isNaN(snap) ? snap : null;
   var h = find(B, /^(Pair|Index)$/);
   var hv = h >= 0 ? h + 1 : 4;
   d.scoreName = at(h, H) || 'QDB Score';
@@ -427,6 +427,13 @@ function extract(sym, rows){
   return d;
 }
 
+/* ---------- freshness ---------- */
+function hm(t){ return t.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
+function fresh(snap){
+  return snap ? 'Hourly snapshot · last update ' + hm(snap) + ' your time'
+              : 'Live · updates automatically every 5 minutes · last checked ' + hm(new Date()) + ' your time';
+}
+
 /* ---------- small pieces ---------- */
 function scoreBar(d, cls){
   if (isNaN(d.max)) return '';
@@ -484,7 +491,8 @@ function loadBoard(force){
   var workers = []; for (var i = 0; i < 6; i++) workers.push(next());
   return Promise.all(workers).then(function(){
     var t = new Date();
-    $('stamp').textContent = (failed === ALL.length ? 'Data unavailable right now' : 'Updated ' + t.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) + ' your time');
+    var snaps = ALL.map(function(s){ return results[s] && results[s].snap; }).filter(Boolean).sort(function(a,b){ return b - a; });
+    $('stamp').textContent = (failed === ALL.length ? 'Data unavailable right now' : fresh(snaps[0] || null));
   });
 }
 
@@ -619,7 +627,7 @@ function renderDash(d){
       '</section>';
   }
   h += '</div>';
-  h += '<p class="small muted" style="margin-top:10px">Loaded ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) + ' your time. The sheet republishes every few minutes. <a href="#' + d.sym.toLowerCase() + '" id="reload">Reload</a></p>';
+  h += '<p class="small muted" style="margin-top:10px">' + fresh(d.snap) + '.' + (d.snap ? ' This page refreshes itself. Members see it every 15 minutes in the QDB Sheet: <a href="../shop/?ref=analytics-snapshot" data-goatcounter-click="analytics-snapshot-plans">see the plans</a>.' : '') + '</p>';
   return h;
 }
 
@@ -631,14 +639,12 @@ function show(sym, force){
   $('jump').value = sym;
   document.title = label(sym) + ' dashboard: live levels, crowd and QDB Score | QDB Analytics';
   var body = $('dashBody');
-  if (!body.firstChild || body.dataset.sym !== sym) body.innerHTML = '<div class="state">Loading the ' + esc(label(sym)) + ' dashboard…</div>';
+  if (!body.firstChild || body.dataset.sym !== sym){ body.innerHTML = '<div class="state">Loading the ' + esc(label(sym)) + ' dashboard…</div>'; window.scrollTo(0, 0); }
   body.dataset.sym = sym;
-  window.scrollTo(0, 0);
   load(sym, force).then(function(d){
     if (current !== sym) return;
     results[sym] = d;
     body.innerHTML = renderDash(d);
-    var rl = $('reload'); if (rl) rl.addEventListener('click', function(e){ e.preventDefault(); show(sym, true); });
   }, function(e){
     if (current !== sym) return;
     body.innerHTML = '<div class="state err">Could not load ' + esc(label(sym)) + ' (' + esc(e.message) + '). Please try again in a minute.</div>';
@@ -661,7 +667,6 @@ $('jump').addEventListener('change', function(){ location.hash = this.value.toLo
 $('prev').addEventListener('click', function(){ step(-1); });
 $('next').addEventListener('click', function(){ step(1); });
 $('back').addEventListener('click', function(e){ e.preventDefault(); history.pushState(null, '', location.pathname); showBoard(); });
-$('refresh').addEventListener('click', function(){ loadBoard(true); });
 $('sort').addEventListener('change', function(){ sortBy = this.value; drawBoard(); });
 document.querySelectorAll('.seg button').forEach(function(btn){
   btn.addEventListener('click', function(){
