@@ -232,7 +232,7 @@ def head(title, desc, url, depth, ld, og_title):
 <body>
 <nav class="top"><div class="wrap">
   <a class="brand" href="{up}?ref=sentiment"><img src="{up}logo.png" alt="">QDB Trading Desk</a>
-  <div class="navl"><a href="{up}sentiment/"{' aria-current="page"' if depth == 1 else ''}>Sentiment</a><a href="{up}cot/?ref=sentiment">COT</a><a href="{up}games/?ref=sentiment">Games</a><a href="{up}?ref=sentiment#pricing">Pricing</a></div>
+  <div class="navl"><a href="{up}sentiment/"{' aria-current="page"' if depth == 1 else ''}>Sentiment</a><a href="{up}analytics/">Analytics</a><a href="{up}cot/">COT</a><a href="{up}guides/">Guides</a><a href="{up}games/">Games</a><a href="{up}shop/">Shop</a></div>
 </div></nav>
 """
 
