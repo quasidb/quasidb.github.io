@@ -271,12 +271,13 @@ function renderDashboard(symbol, rows){
   let adrHtml = '<div class="crowd-row"><span>ADR</span><b>—</b></div>';
 
   if(rows && rows.length){
-    // Header — exact positions from FX layout (row 5)
+    // Header — exact positions (row 5 for both FX and Indices)
     const headerRow = rows[4] || [];
     price = (headerRow[3] || headerRow[2] || price).trim();
     change = (headerRow[5] || headerRow[4] || change).trim();
     score = (headerRow[7] || headerRow[6] || score).trim();
     bias = (headerRow[9] || headerRow[10] || bias).trim();
+    const isIndexLayout = INDICES.includes(symbol);
     longPct = findValue(rows, 'Crowd long % (now)') || findValue(rows, 'Crowd long %') || longPct;
 
     // Ladder
@@ -298,21 +299,32 @@ function renderDashboard(symbol, rows){
     }
     ladderHtml = ladder.join('') || '<tr><td colspan="3">No ladder</td></tr>';
 
-    // Volume / ADR extract
-    for(let i=0;i<rows.length;i++){
-      const r = rows[i];
-      const joined = r.join(' ').toLowerCase();
-      if((r[1]||'').trim().toLowerCase() === 'short volume'){
-        const longR = rows[i+1] || [];
-        volumeHtml = `<div class="crowd-row"><span>Short volume (live)</span><b>${(r[4]||'—').trim()}</b></div>
-                       <div class="crowd-row"><span>Long volume (live)</span><b>${(longR[4]||'—').trim()}</b></div>
-                       <div class="crowd-row"><span>Δ Day % (short)</span><b>${(r[6]||'—').trim()}</b></div>`;
+    // Volume / ADR / SSI extract
+    if(isIndexLayout){
+      // Indices use Crowd SSI instead of volume delta
+      for(let i=0;i<rows.length;i++){
+        const r = rows[i];
+        if((r[1]||'').trim().toLowerCase().includes('ssi ratio')){
+          volumeHtml = `<div class="crowd-row"><span>SSI ratio (now)</span><b>${(r[3]||'—').trim()}</b></div>
+                         <div class="crowd-row"><span>Long % (now)</span><b>${longPct}</b></div>`;
+          break;
+        }
       }
-      if(joined.includes('adr(1)') || joined.includes('adr')){
-        const adrVal = (r[12]||r[11]||findValue(rows,'ADR')||'—').toString().trim();
-        adrHtml = `<div class="crowd-row"><span>ADR (pips)</span><b>${adrVal}</b></div>
-                    <div class="crowd-row"><span>% of ADR used</span><b>${findValue(rows,'% of ADR used')||'—'}</b></div>`;
+      adrHtml = `<div class="crowd-row"><span>ADR (pts)</span><b>${findValue(rows,'ADR')||'—'}</b></div>`;
+    } else {
+      // FX volume
+      for(let i=0;i<rows.length;i++){
+        const r = rows[i];
+        if((r[1]||'').trim().toLowerCase() === 'short volume'){
+          const longR = rows[i+1] || [];
+          volumeHtml = `<div class="crowd-row"><span>Short volume (live)</span><b>${(r[4]||'—').trim()}</b></div>
+                         <div class="crowd-row"><span>Long volume (live)</span><b>${(longR[4]||'—').trim()}</b></div>
+                         <div class="crowd-row"><span>Δ Day % (short)</span><b>${(r[6]||'—').trim()}</b></div>`;
+          break;
+        }
       }
+      adrHtml = `<div class="crowd-row"><span>ADR (pips)</span><b>${findValue(rows,'ADR')||'—'}</b></div>
+                  <div class="crowd-row"><span>% of ADR used</span><b>${findValue(rows,'% of ADR used')||'—'}</b></div>`;
     }
   }
 
