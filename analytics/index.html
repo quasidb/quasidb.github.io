@@ -271,15 +271,15 @@ function renderDashboard(symbol, rows){
   let adrHtml = '<div class="crowd-row"><span>ADR</span><b>—</b></div>';
 
   if(rows && rows.length){
-    // Header
-    for(let i=0;i<Math.min(12,rows.length);i++){
+    // Header — fixed columns (consistent within FX / Indices)
+    for(let i=0;i<Math.min(8,rows.length);i++){
       const r = rows[i].map(c=>(c||'').trim());
       if(r.some(c=> /live price/i.test(c))){
-        const next = rows[i+1] || [];
-        price = (next[2]||next[3]||price).trim();
-        change = (next[4]||next[5]||change).trim();
-        score = (next[6]||next[7]||score).trim();
-        bias = (next[9]||next[10]||bias).trim();
+        const next = (rows[i+1] || []).map(c=>(c||'').trim());
+        price = next[3] || next[2] || price;
+        change = next[5] || next[4] || change;
+        score = next[7] || next[6] || score;
+        bias = next[10] || next[9] || bias;
         break;
       }
     }
@@ -290,8 +290,8 @@ function renderDashboard(symbol, rows){
     let foundPrice = false;
     for(const r of rows){
       const level = (r[1]||r[0]||'').trim();
-      const pr = (r[4]||r[3]||'').trim();
-      const dist = (r[5]||r[4]||'').trim();
+      const pr = (r[4]||'').trim();
+      const dist = (r[5]||'').trim();
       if(!level || !pr) continue;
       const isPriceHere = /PRICE IS HERE|◀/i.test(level);
       const isLevel = /R\d|S\d|Pivot|Open|High|Low|BB|Breakeven|PRICE/i.test(level);
@@ -308,9 +308,10 @@ function renderDashboard(symbol, rows){
     for(let i=0;i<rows.length;i++){
       const r = rows[i];
       const joined = r.join(' ').toLowerCase();
-      if(joined.includes('short volume') && !joined.includes('delta')){
+      if(r[1] && r[1].trim().toLowerCase() === 'short volume'){
+        const longR = rows[i+1] || [];
         volumeHtml = `<div class="crowd-row"><span>Short volume (live)</span><b>${(r[4]||'—').trim()}</b></div>
-                       <div class="crowd-row"><span>Long volume (live)</span><b>${(rows[i+1]?.[4]||'—').trim()}</b></div>
+                       <div class="crowd-row"><span>Long volume (live)</span><b>${(longR[4]||'—').trim()}</b></div>
                        <div class="crowd-row"><span>Δ Day % (short)</span><b>${(r[6]||'—').trim()}</b></div>`;
       }
       if(joined.includes('adr(1)') || joined.includes('adr')){
