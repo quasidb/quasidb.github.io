@@ -271,18 +271,12 @@ function renderDashboard(symbol, rows){
   let adrHtml = '<div class="crowd-row"><span>ADR</span><b>—</b></div>';
 
   if(rows && rows.length){
-    // Header — fixed columns (consistent within FX / Indices)
-    for(let i=0;i<Math.min(8,rows.length);i++){
-      const r = rows[i].map(c=>(c||'').trim());
-      if(r.some(c=> /live price/i.test(c))){
-        const next = (rows[i+1] || []).map(c=>(c||'').trim());
-        price = next[3] || next[2] || price;
-        change = next[5] || next[4] || change;
-        score = next[7] || next[6] || score;
-        bias = next[10] || next[9] || bias;
-        break;
-      }
-    }
+    // Header — exact positions from FX layout (row 5)
+    const headerRow = rows[4] || [];
+    price = (headerRow[3] || headerRow[2] || price).trim();
+    change = (headerRow[5] || headerRow[4] || change).trim();
+    score = (headerRow[7] || headerRow[6] || score).trim();
+    bias = (headerRow[9] || headerRow[10] || bias).trim();
     longPct = findValue(rows, 'Crowd long % (now)') || findValue(rows, 'Crowd long %') || longPct;
 
     // Ladder
@@ -291,7 +285,7 @@ function renderDashboard(symbol, rows){
     for(const r of rows){
       const level = (r[1]||r[0]||'').trim();
       const pr = (r[4]||'').trim();
-      const dist = (r[5]||'').trim();
+      const dist = (r[5]||'').trim(); // E=price, F=distance
       if(!level || !pr) continue;
       const isPriceHere = /PRICE IS HERE|◀/i.test(level);
       const isLevel = /R\d|S\d|Pivot|Open|High|Low|BB|Breakeven|PRICE/i.test(level);
@@ -308,7 +302,7 @@ function renderDashboard(symbol, rows){
     for(let i=0;i<rows.length;i++){
       const r = rows[i];
       const joined = r.join(' ').toLowerCase();
-      if(r[1] && r[1].trim().toLowerCase() === 'short volume'){
+      if((r[1]||'').trim().toLowerCase() === 'short volume'){
         const longR = rows[i+1] || [];
         volumeHtml = `<div class="crowd-row"><span>Short volume (live)</span><b>${(r[4]||'—').trim()}</b></div>
                        <div class="crowd-row"><span>Long volume (live)</span><b>${(longR[4]||'—').trim()}</b></div>
@@ -426,10 +420,10 @@ function renderDashboard(symbol, rows){
     }
 
     if(rsi && rows){
-      const rsiVal = findValue(rows,'RSI (14)') || '—';
-      const bbU = findValue(rows,'BB upper') || '—';
-      const bbM = findValue(rows,'BB mid') || '—';
-      const bbL = findValue(rows,'BB lower') || '—';
+      const rsiVal = (rows[67]?.[2] || findValue(rows,'RSI (14)') || '—').trim();
+      const bbU = (rows[68]?.[2] || findValue(rows,'BB upper') || '—').trim();
+      const bbM = (rows[69]?.[2] || findValue(rows,'BB mid') || '—').trim();
+      const bbL = (rows[70]?.[2] || findValue(rows,'BB lower') || '—').trim();
       rsi.innerHTML = `
         <div class="crowd-row"><span>RSI (14)</span><b>${rsiVal}</b></div>
         <div class="crowd-row"><span>BB upper</span><b>${bbU}</b></div>
