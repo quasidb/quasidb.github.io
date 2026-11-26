@@ -433,10 +433,11 @@ function renderDashboard(symbol, rows){
     }
 
     if(rsi && rows){
-      const rsiVal = (rows[67]?.[2] || findValue(rows,'RSI (14)') || '—').trim();
-      const bbU = (rows[68]?.[2] || findValue(rows,'BB upper') || '—').trim();
-      const bbM = (rows[69]?.[2] || findValue(rows,'BB mid') || '—').trim();
-      const bbL = (rows[70]?.[2] || findValue(rows,'BB lower') || '—').trim();
+      // RSI & BB from B66:G75 (0-indexed rows 65-74, cols 1-6)
+      const rsiVal = (rows[67]?.[2] || rows[67]?.[1] || '—').trim();
+      const bbU = (rows[68]?.[2] || rows[68]?.[1] || '—').trim();
+      const bbM = (rows[69]?.[2] || rows[69]?.[1] || '—').trim();
+      const bbL = (rows[70]?.[2] || rows[70]?.[1] || '—').trim();
       rsi.innerHTML = `
         <div class="crowd-row"><span>RSI (14)</span><b>${rsiVal}</b></div>
         <div class="crowd-row"><span>BB upper</span><b>${bbU}</b></div>
