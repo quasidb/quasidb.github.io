@@ -211,42 +211,88 @@ function parseCSV(text){
 
 function renderDashboard(symbol, rows){
   const isIndex = INDICES.includes(symbol);
+  let price = '—', change = '—', score = '—', bias = '—', longPct = '—';
+  let ladderRows = '';
+
+  if (rows && rows.length) {
+    // Find header-ish row with live price
+    for (let i = 0; i < Math.min(15, rows.length); i++) {
+      const r = rows[i].map(c => (c||'').trim());
+      if (r.some(c => c.includes('Live Price') || c.includes('live price'))) {
+        // next row often has the values
+        const next = rows[i+1] || [];
+        price = next[3] || next[2] || price;
+        change = next[5] || next[4] || change;
+        score = next[7] || next[6] || score;
+        bias = next[10] || next[9] || bias;
+        break;
+      }
+    }
+    // Crowd long %
+    for (const r of rows) {
+      const joined = r.join(' ').toLowerCase();
+      if (joined.includes('crowd long % (now)') || joined.includes('crowd long %')) {
+        const idx = r.findIndex(c => (c||'').includes('Crowd long') || (c||'').includes('long %'));
+        longPct = (r[idx+2] || r[idx+1] || longPct).trim();
+        break;
+      }
+    }
+    // Simple ladder extract (rows containing level-like text)
+    const ladder = [];
+    for (const r of rows) {
+      const level = (r[1]||r[0]||'').trim();
+      const pr = (r[3]||r[4]||'').trim();
+      const dist = (r[5]||r[4]||'').trim();
+      if (level && pr && (level.includes('R') || level.includes('S') || level.includes('Pivot') || level.includes('PRICE') || level.includes('Open') || level.includes('High') || level.includes('Low'))) {
+        ladder.push(`<tr><td>${level}</td><td>${pr}</td><td class="dist">${dist}</td></tr>`);
+        if (ladder.length > 12) break;
+      }
+    }
+    ladderRows = ladder.join('') || '<tr><td colspan="3">Ladder data loading…</td></tr>';
+  }
+
   const html = `
     <div class="header-bar">
       <div>
         <div style="font-size:13px;color:var(--muted)">${isIndex ? 'INDEX' : 'FX PAIR'}</div>
-        <div class="price-big">—</div>
+        <div class="price-big">${price}</div>
       </div>
-      <div class="change">—</div>
-      <div class="score-pill">QDB —</div>
+      <div class="change ${String(change).includes('-')?'down':'up'}">${change}</div>
+      <div class="score-pill">${score}</div>
+      <div style="font-weight:700">${bias}</div>
     </div>
     <div class="dash">
       <div class="panel ladder">
         <h3>📊 Price Ladder</h3>
-        <p style="color:var(--dim);font-size:14px">Will populate from published CSV once the URL is added for ${symbol}.</p>
+        <table>
+          <thead><tr><th>Level</th><th>Price</th><th class="dist">Distance</th></tr></thead>
+          <tbody>${ladderRows}</tbody>
+        </table>
       </div>
       <div class="panel">
         <h3>👥 Crowd vs Price</h3>
-        <div class="crowd-row"><span>Crowd long %</span><b>—</b></div>
-        <div class="crowd-row"><span>Contrarian bias</span><b>—</b></div>
+        <div class="crowd-row"><span>Crowd long % (now)</span><b>${longPct}</b></div>
+        <div class="crowd-row"><span>Contrarian bias</span><b>${bias}</b></div>
       </div>
       <div class="panel">
         <h3>🍩 Score Overview</h3>
         <div class="chart-box"><canvas id="scoreChart"></canvas></div>
       </div>
       <div class="panel">
-        <h3>📈 Additional metrics</h3>
-        <p style="color:var(--dim);font-size:14px">Volume delta, previous day range, etc. will appear here.</p>
+        <h3>📈 Live data</h3>
+        <p style="color:var(--dim);font-size:14px">${rows ? rows.length + ' rows loaded from published sheet' : 'Demo mode'}</p>
       </div>
     </div>
   `;
   document.getElementById('dashboard').innerHTML = html;
 
   const ctx = document.getElementById('scoreChart');
-  if(ctx){
+  if (ctx) {
+    const scoreNum = parseFloat(String(score).split('/')[0]) || 5;
+    const max = parseFloat(String(score).split('/')[1]) || 9;
     new Chart(ctx, {
       type: 'doughnut',
-      data: { labels:['Passed','Failed'], datasets:[{ data:[6,8], backgroundColor:['#22c55e','#ef4444'], borderWidth:0, cutout:'68%' }] },
+      data: { labels:['Passed','Failed'], datasets:[{ data:[scoreNum, Math.max(0, max-scoreNum)], backgroundColor:['#22c55e','#ef4444'], borderWidth:0, cutout:'68%' }] },
       options: { plugins:{legend:{display:false}}, maintainAspectRatio:false }
     });
   }
