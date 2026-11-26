@@ -26,8 +26,8 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
-nav{position:sticky;top:0;z-index:20;background:rgba(11,15,23,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1400px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;z-index:20;background:rgba(11,15,23,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:22px;letter-spacing:-.02em}
 .logo-mark{width:42px;height:42px;border-radius:50%;flex:none;background:#1d3f61}
@@ -43,23 +43,53 @@ h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;margin:24px 0 8px}
 .viewer.active{display:block}
 .toolbar{display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
 .back-btn{background:var(--bg2);border:1px solid var(--line);color:var(--text);padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:600}
-.pair-title{font-size:26px;font-weight:700;font-family:var(--mono)}
-.dash{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
-@media(max-width:900px){.dash{grid-template-columns:1fr}}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
-.panel h3{font-size:15px;font-weight:700;margin-bottom:12px;color:var(--accent)}
-.header-bar{background:linear-gradient(90deg,#1d3f61,#141b2b);padding:16px 20px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px}
-.price-big{font-family:var(--mono);font-size:32px;font-weight:700}
-.change{font-family:var(--mono);font-size:18px}
+.pair-title{font-size:28px;font-weight:700;font-family:var(--mono)}
+
+/* Dashboard header */
+.dash-header{background:linear-gradient(90deg,#1e3a5f,#141b2b);padding:18px 24px;border-radius:14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border:1px solid #2a3a5a}
+.price-block{display:flex;flex-direction:column}
+.price-label{font-size:12px;color:var(--muted);letter-spacing:.5px}
+.price-big{font-family:var(--mono);font-size:36px;font-weight:700;line-height:1.1}
+.change{font-family:var(--mono);font-size:20px;font-weight:600}
 .change.up{color:var(--buy)}.change.down{color:var(--sell)}
-.score-pill{background:var(--bg2);padding:6px 14px;border-radius:20px;font-family:var(--mono);font-weight:600}
+.score-pill{background:#1a2332;padding:8px 16px;border-radius:24px;font-family:var(--mono);font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.bias{font-weight:700;font-size:16px}
+
+/* Grid */
+.dash-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:16px;margin-bottom:16px}
+@media(max-width:1000px){.dash-grid{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:hidden}
+.panel h3{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;color:var(--accent)}
+
+/* Ladder */
 .ladder table{width:100%;font-family:var(--mono);font-size:13px;border-collapse:collapse}
-.ladder th{text-align:left;color:var(--dim);font-weight:600;padding:6px 0;border-bottom:1px solid var(--line)}
-.ladder td{padding:5px 0;border-bottom:1px solid rgba(35,45,66,.5)}
-.crowd-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(35,45,66,.4);font-size:14px}
-.crowd-row b{font-family:var(--mono)}
-.chart-box{height:200px;position:relative}
-.loading,.error{text-align:center;padding:40px;color:var(--muted)}
+.ladder th{text-align:left;color:var(--dim);font-weight:600;padding:6px 4px;border-bottom:1px solid var(--line);font-size:12px}
+.ladder td{padding:5px 4px;border-bottom:1px solid rgba(35,45,66,.4)}
+.ladder tr.price-here{background:rgba(245,184,61,.22);font-weight:700}
+.ladder tr.price-here td{color:var(--accent)}
+.ladder tr.above td:first-child{color:#f87171}
+.ladder tr.below td:first-child{color:#4ade80}
+.ladder .dist{text-align:right;font-variant-numeric:tabular-nums}
+.ladder .price{text-align:right;font-variant-numeric:tabular-nums}
+
+/* Crowd */
+.crowd-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(35,45,66,.35);font-size:14px}
+.crowd-row:last-child{border:none}
+.crowd-row b{font-family:var(--mono);font-weight:600}
+.crowd-row .buy{color:var(--buy)}
+.crowd-row .sell{color:var(--sell)}
+
+/* Chart */
+.chart-box{height:220px;position:relative;margin:8px 0}
+
+/* Legend */
+.legend{display:flex;gap:16px;font-size:12px;color:var(--dim);margin-top:10px;flex-wrap:wrap}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.legend .res::before{background:#ef4444}
+.legend .sup::before{background:#22c55e}
+.legend .here::before{background:#f5b83d}
+
+.loading,.error{text-align:center;padding:48px;color:var(--muted)}
 .error{color:var(--sell);background:rgba(239,68,68,.08);border-radius:10px}
 .footer{margin-top:48px;padding:20px 0;border-top:1px solid var(--line);color:var(--dim);font-size:13px;text-align:center}
 </style>
@@ -95,7 +125,7 @@ h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;margin:24px 0 8px}
 
 <script>
 const FX = ['AUDCAD','AUDCHF','AUDJPY','AUDNZD','AUDUSD','CADCHF','CADJPY','CHFJPY','EURAUD','EURCAD','EURCHF','EURGBP','EURJPY','EURNZD','EURUSD','GBPAUD','GBPCAD','GBPCHF','GBPJPY','GBPNZD','GBPUSD','NZDCAD','NZDCHF','NZDJPY','NZDUSD','USDCAD','USDCHF','USDJPY'];
-const INDICES = ['SPX500','US30','NAS100','UK100','GER30','FRA40','US2000'];
+const INDICES = ['SPX500','US30','NAS100','UK100','GER40','FRA40','US2000'];
 
 const BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTTWwh8vdvIjzOxGvIDCjR05tZtZwtOjwhpM25aUcgbv4wXuZezmMXkR5_jqxhKXNo713PbJXRH7YN0/pub';
 const PUBLISHED_URLS = {
@@ -132,7 +162,7 @@ const PUBLISHED_URLS = {
   'NZDUSD': BASE + '?gid=1830829538&single=true&output=csv',
   'USDCAD': BASE + '?gid=590361703&single=true&output=csv',
   'USDCHF': BASE + '?gid=852931922&single=true&output=csv',
-  'USDJPY': BASE + '?gid=394480278&single=true&output=csv',
+  'USDJPY': BASE + '?gid=394480278&single=true&output=csv'
 };
 
 function buildMenus(){
@@ -175,11 +205,24 @@ function showPair(symbol){
   loadData(symbol);
 }
 
+function parseCSV(text){
+  const rows=[]; let row=[], cell='', q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(c==='"'){ if(q && text[i+1]==='"'){cell+='"';i++;} else q=!q; }
+    else if(c===',' && !q){ row.push(cell); cell=''; }
+    else if((c==='\n'||c==='\r') && !q){ if(c==='\r'&&text[i+1]==='\n')i++; row.push(cell); rows.push(row); row=[]; cell=''; }
+    else cell+=c;
+  }
+  if(cell||row.length){row.push(cell);rows.push(row);}
+  return rows.filter(r=>r.some(c=>c.trim()));
+}
+
 async function loadData(symbol){
   const url = PUBLISHED_URLS[symbol];
   if(!url){
     renderDashboard(symbol, null);
-    document.getElementById('status').textContent = 'Demo view — add published URL';
+    document.getElementById('status').textContent = 'No URL';
     return;
   }
   try {
@@ -196,104 +239,125 @@ async function loadData(symbol){
   }
 }
 
-function parseCSV(text){
-  const rows=[]; let row=[], cell='', q=false;
-  for(let i=0;i<text.length;i++){
-    const c=text[i];
-    if(c==='"'){ if(q && text[i+1]==='"'){cell+='"';i++;} else q=!q; }
-    else if(c===',' && !q){ row.push(cell); cell=''; }
-    else if((c==='\n'||c==='\r') && !q){ if(c==='\r'&&text[i+1]==='\n')i++; row.push(cell); rows.push(row); row=[]; cell=''; }
-    else cell+=c;
+function findValue(rows, label){
+  for(const r of rows){
+    const joined = r.join('|').toLowerCase();
+    if(joined.includes(label.toLowerCase())){
+      for(let i=0;i<r.length;i++){
+        if((r[i]||'').toLowerCase().includes(label.toLowerCase())){
+          return (r[i+2] || r[i+1] || '').trim();
+        }
+      }
+    }
   }
-  if(cell||row.length){row.push(cell);rows.push(row);}
-  return rows.filter(r=>r.some(c=>c.trim()));
+  return '';
 }
 
 function renderDashboard(symbol, rows){
   const isIndex = INDICES.includes(symbol);
   let price = '—', change = '—', score = '—', bias = '—', longPct = '—';
-  let ladderRows = '';
+  let ladderHtml = '';
 
-  if (rows && rows.length) {
-    // Find header-ish row with live price
-    for (let i = 0; i < Math.min(15, rows.length); i++) {
-      const r = rows[i].map(c => (c||'').trim());
-      if (r.some(c => c.includes('Live Price') || c.includes('live price'))) {
-        // next row often has the values
+  if(rows && rows.length){
+    // Header values
+    for(let i=0;i<Math.min(10,rows.length);i++){
+      const r = rows[i].map(c=>(c||'').trim());
+      if(r.some(c=>c.includes('Live Price') || c.includes('live price'))){
         const next = rows[i+1] || [];
-        price = next[3] || next[2] || price;
-        change = next[5] || next[4] || change;
-        score = next[7] || next[6] || score;
-        bias = next[10] || next[9] || bias;
+        price = (next[2]||next[3]||price).trim();
+        change = (next[4]||next[5]||change).trim();
+        score = (next[6]||next[7]||score).trim();
+        bias = (next[9]||next[10]||bias).trim();
         break;
       }
     }
-    // Crowd long %
-    for (const r of rows) {
-      const joined = r.join(' ').toLowerCase();
-      if (joined.includes('crowd long % (now)') || joined.includes('crowd long %')) {
-        const idx = r.findIndex(c => (c||'').includes('Crowd long') || (c||'').includes('long %'));
-        longPct = (r[idx+2] || r[idx+1] || longPct).trim();
-        break;
-      }
-    }
-    // Simple ladder extract (rows containing level-like text)
+    longPct = findValue(rows, 'Crowd long % (now)') || findValue(rows, 'Crowd long %') || longPct;
+
+    // Build ladder
     const ladder = [];
-    for (const r of rows) {
+    let foundPrice = false;
+    for(const r of rows){
       const level = (r[1]||r[0]||'').trim();
       const pr = (r[3]||r[4]||'').trim();
-      const dist = (r[5]||r[4]||'').trim();
-      if (level && pr && (level.includes('R') || level.includes('S') || level.includes('Pivot') || level.includes('PRICE') || level.includes('Open') || level.includes('High') || level.includes('Low'))) {
-        ladder.push(`<tr><td>${level}</td><td>${pr}</td><td class="dist">${dist}</td></tr>`);
-        if (ladder.length > 12) break;
+      const dist = (r[4]||r[5]||'').trim();
+      if(!level || !pr) continue;
+      const isPriceHere = level.includes('PRICE IS HERE') || level.includes('◀');
+      const isLevel = /R\d|S\d|Pivot|Open|High|Low|BB|Breakeven|PRICE/i.test(level);
+      if(isLevel || isPriceHere){
+        let cls = '';
+        if(isPriceHere){ cls = 'price-here'; foundPrice = true; }
+        else if(foundPrice) cls = 'below';
+        else cls = 'above';
+        ladder.push(`<tr class="${cls}"><td>${level.replace('◀','')}</td><td class="price">${pr}</td><td class="dist">${dist}</td></tr>`);
+        if(ladder.length > 25) break;
       }
     }
-    ladderRows = ladder.join('') || '<tr><td colspan="3">Ladder data loading…</td></tr>';
+    ladderHtml = ladder.join('') || '<tr><td colspan="3">No ladder data</td></tr>';
   }
 
+  const changeClass = String(change).includes('-') ? 'down' : 'up';
   const html = `
-    <div class="header-bar">
-      <div>
-        <div style="font-size:13px;color:var(--muted)">${isIndex ? 'INDEX' : 'FX PAIR'}</div>
+    <div class="dash-header">
+      <div class="price-block">
+        <div class="price-label">${isIndex ? 'INDEX' : 'FX PAIR'}</div>
         <div class="price-big">${price}</div>
       </div>
-      <div class="change ${String(change).includes('-')?'down':'up'}">${change}</div>
+      <div class="change ${changeClass}">${change}</div>
       <div class="score-pill">${score}</div>
-      <div style="font-weight:700">${bias}</div>
+      <div class="bias">${bias}</div>
     </div>
-    <div class="dash">
+
+    <div class="dash-grid">
       <div class="panel ladder">
-        <h3>📊 Price Ladder</h3>
+        <h3>🧭 Price Ladder — all key levels, sorted</h3>
         <table>
           <thead><tr><th>Level</th><th>Price</th><th class="dist">Distance</th></tr></thead>
-          <tbody>${ladderRows}</tbody>
+          <tbody>${ladderHtml}</tbody>
         </table>
+        <div class="legend">
+          <span class="res">above price = resistance</span>
+          <span class="sup">below price = support</span>
+          <span class="here">amber = live price</span>
+        </div>
       </div>
-      <div class="panel">
-        <h3>👥 Crowd vs Price</h3>
-        <div class="crowd-row"><span>Crowd long % (now)</span><b>${longPct}</b></div>
-        <div class="crowd-row"><span>Contrarian bias</span><b>${bias}</b></div>
-      </div>
-      <div class="panel">
-        <h3>🍩 Score Overview</h3>
-        <div class="chart-box"><canvas id="scoreChart"></canvas></div>
-      </div>
-      <div class="panel">
-        <h3>📈 Live data</h3>
-        <p style="color:var(--dim);font-size:14px">${rows ? rows.length + ' rows loaded from published sheet' : 'Demo mode'}</p>
+
+      <div>
+        <div class="panel" style="margin-bottom:16px">
+          <h3>👥 Crowd vs Price — contrarian read</h3>
+          <div class="crowd-row"><span>Crowd long % (now)</span><b>${longPct}</b></div>
+          <div class="crowd-row"><span>Contrarian bias</span><b class="${bias.toLowerCase().includes('bear')?'sell':'buy'}">${bias}</b></div>
+          <div class="crowd-row"><span>Score</span><b>${score}</b></div>
+        </div>
+        <div class="panel">
+          <h3>🍩 Score Overview</h3>
+          <div class="chart-box"><canvas id="scoreChart"></canvas></div>
+        </div>
       </div>
     </div>
   `;
+
   document.getElementById('dashboard').innerHTML = html;
 
   const ctx = document.getElementById('scoreChart');
-  if (ctx) {
-    const scoreNum = parseFloat(String(score).split('/')[0]) || 5;
-    const max = parseFloat(String(score).split('/')[1]) || 9;
+  if(ctx){
+    const parts = String(score).split('/');
+    const passed = parseFloat(parts[0]) || 5;
+    const total = parseFloat(parts[1]) || 14;
     new Chart(ctx, {
       type: 'doughnut',
-      data: { labels:['Passed','Failed'], datasets:[{ data:[scoreNum, Math.max(0, max-scoreNum)], backgroundColor:['#22c55e','#ef4444'], borderWidth:0, cutout:'68%' }] },
-      options: { plugins:{legend:{display:false}}, maintainAspectRatio:false }
+      data: {
+        labels: ['Passed', 'Failed'],
+        datasets: [{
+          data: [passed, Math.max(0, total - passed)],
+          backgroundColor: ['#22c55e', '#ef4444'],
+          borderWidth: 0,
+          cutout: '70%'
+        }]
+      },
+      options: {
+        plugins: { legend: { display: true, position: 'bottom', labels: { color: '#93a0b8', boxWidth: 12 } } },
+        maintainAspectRatio: false
+      }
     });
   }
 }
