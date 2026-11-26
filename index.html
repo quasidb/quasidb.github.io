@@ -368,17 +368,24 @@ td.lock a:hover{color:var(--accent)}
 
 /* responsive */
 .logo,.navlinks a,nav .btn{white-space:nowrap}
-nav .wrap{gap:28px}
-@media (max-width:1320px){.navlinks{gap:18px;font-size:15px}}
-@media (max-width:1400px){.navlinks a[href="#score"]{display:none}}
-@media (max-width:1180px){.navlinks a[href="#faq"],.navlinks a[href="#contact"]{display:none}}
+nav .wrap{gap:20px;position:relative}
+.navlinks{margin-left:auto}
+.navlinks .m-only{display:none}
+.menu-btn{display:none;margin-left:auto;background:var(--bg2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font:600 15px var(--sans);cursor:pointer}
+@media (max-width:1100px){.navlinks{gap:16px;font-size:15px}}
 @media (max-width:980px){
   .prices{grid-template-columns:minmax(0,520px)}
   .hero-grid,.score-grid{grid-template-columns:1fr}
   .grid3{grid-template-columns:1fr 1fr}
   .eco,.socials{grid-template-columns:1fr 1fr}
   .navlinks{display:none}
+  .menu-btn{display:inline-flex}
+  nav.open .navlinks{display:flex;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;background:#0b0f17;box-shadow:0 18px 40px rgba(0,0,0,.6);border-bottom:1px solid var(--line);padding:6px 24px 14px;font-size:17px}
+  nav.open .navlinks a{padding:11px 0;border-bottom:1px solid var(--line)}
+  nav.open .navlinks a:last-child{border-bottom:0}
+  nav.open .navlinks .m-only{display:block}
 }
+@media (max-width:420px){.logo{font-size:18px;gap:8px}.logo-mark{width:34px;height:34px}nav .btn-sm{padding:8px 12px;font-size:15px}nav .wrap{gap:10px}}
 @media (max-width:640px){
   .wrap{padding:0 16px}
   section{padding:68px 0}
@@ -397,20 +404,20 @@ nav .wrap{gap:28px}
 <nav>
   <div class="wrap">
     <a href="#" class="logo"><span class="logo-mark" role="img" aria-label="QDB logo"></span>QDB Trading Desk</a>
-    <div class="navlinks">
-      <a href="#free-sheet">Free sheet</a>
-      <a href="#live">Basket board</a>
-      <a href="#cot">COT</a>
-      <a href="#new">What's new</a>
+    <div class="navlinks" id="navlinks">
       <a href="sentiment/">Sentiment</a>
-      <a href="games/">Games</a>
+      <a href="analytics/">Analytics</a>
+      <a href="cot/">COT</a>
       <a href="guides/">Guides</a>
-      <a href="#score">QDB Score</a>
-      <a href="#pricing">Pricing</a>
+      <a href="games/">Games</a>
       <a href="shop/?ref=nav" data-goatcounter-click="nav-shop">Shop</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#free-sheet" class="m-only">Free sheet</a>
+      <a href="#live" class="m-only">Basket board</a>
+      <a href="#faq" class="m-only">FAQ</a>
+      <a href="#contact" class="m-only">Contact</a>
     </div>
+    <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navlinks">Menu</button>
     <a href="#pricing" data-goatcounter-click="nav-join" class="btn btn-primary btn-sm">Join now</a>
   </div>
 </nav>
@@ -1530,5 +1537,10 @@ function gcEvent(name){ try{ window.goatcounter && goatcounter.count && goatcoun
 })();
 </script>
 <script src="free-sheet.js" defer></script>
+<script>
+(function(){var n=document.querySelector('body > nav'),b=document.getElementById('menuBtn');if(!n||!b)return;
+b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o));b.textContent=o?'Close':'Menu';});
+document.getElementById('navlinks').addEventListener('click',function(e){if(e.target.closest('a')&&n.classList.contains('open')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='Menu';}});})();
+</script>
 </body>
 </html>
