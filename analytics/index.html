@@ -447,9 +447,17 @@ function renderDashboard(symbol, rows){
     }
 
     if(cot && rows){
-      const smart = (findValue(rows,'Smart vs dumb money') || findValue(rows,'Aligned contrarian') || '—').replace(/🟢|🔴/g,'').trim();
-      const cotScore = findValue(rows,'Pair COT score') || '—';
-      const retail = findValue(rows,'Retail (crowd long %)') || '—';
+      // Smart Money from B84:O91
+      let cotScore = '—', retail = '—', smart = '—';
+      for(let i=83; i<Math.min(rows.length, 95); i++){
+        const r = rows[i] || [];
+        const t = r.join(' ');
+        if(t.includes('Pair COT score')) cotScore = (r[10]||r[9]||r[8]||'—').trim();
+        if(t.includes('Retail (crowd long %)')) retail = (r[10]||r[9]||'—').trim();
+        if(t.includes('Smart vs dumb money') || t.includes('Aligned contrarian')){
+          smart = t.replace(/.*money[,\s]*/i,'').replace(/🟢|🔴/g,'').trim();
+        }
+      }
       cot.innerHTML = `
         <div class="crowd-row"><span>Pair COT score</span><b>${cotScore}</b></div>
         <div class="crowd-row"><span>Retail long %</span><b>${retail}</b></div>
