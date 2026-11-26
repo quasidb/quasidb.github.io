@@ -64,7 +64,7 @@ tr:hover td{background:rgba(255,255,255,.03)}
 </nav>
 <div class="wrap">
   <h1>Analytics</h1>
-  <p class="sub">Select a currency pair to view the full A1:O91 data from the live QDB retail sentiment spreadsheet. Data updates in real time when the sheet is publicly viewable.</p>
+  <p class="sub">Select a currency pair to view the full A1:O91 data. Each pair uses its own published-to-web CSV link.</p>
 
   <div id="menu" class="menu"></div>
 
@@ -78,7 +78,7 @@ tr:hover td{background:rgba(255,255,255,.03)}
   </div>
 
   <div class="footer">
-    Data from the private Google Spreadsheet (make “Anyone with the link can view” for live public access). Built for quasidb.com
+    Data loaded from individually published Google Sheets tabs. Built for quasidb.com
   </div>
 </div>
 
@@ -93,7 +93,13 @@ const PAIRS = [
   'USDCAD','USDCHF','USDJPY'
 ];
 
-const SPREADSHEET_ID = '1Gdhax-I6KAq-zYe-r8qp5FwZsdaCGRg-5zqLB6hp8YE';
+// Fill these with the published CSV URLs from File → Share → Publish to web (CSV)
+// Example: 'USDJPY': 'https://docs.google.com/spreadsheets/d/e/2PACX-.../pub?gid=8717319&single=true&output=csv'
+const PUBLISHED_URLS = {
+  // 'AUDCAD': '',
+  // 'USDJPY': '',
+  // Add the rest here once published
+};
 
 function buildMenu(){
   const menu = document.getElementById('menu');
@@ -145,13 +151,23 @@ function parseCSV(text){
 }
 
 async function loadData(pair){
-  const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(pair)}&range=A1:O91`;
+  const url = PUBLISHED_URLS[pair];
+  if (!url) {
+    document.getElementById('tableContainer').innerHTML = `
+      <div class="error">
+        <strong>No published URL configured for ${pair} yet.</strong><br><br>
+        Publish this tab to the web as CSV (File → Share → Publish to web), then send me the link so I can add it.
+      </div>`;
+    document.getElementById('status').textContent = '';
+    return;
+  }
+
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const text = await res.text();
-    if (text.includes('<!DOCTYPE') || text.includes('Sign in')){
-      throw new Error('Sheet is private or not shared for public viewing');
+    if (text.includes('<!DOCTYPE') || text.includes('Sign in') || text.includes('Published')){
+      throw new Error('Link is not a public CSV or publishing is not finished');
     }
     const rows = parseCSV(text);
     if (!rows.length) throw new Error('No data returned');
@@ -161,10 +177,9 @@ async function loadData(pair){
     document.getElementById('status').textContent = '';
     document.getElementById('tableContainer').innerHTML = `
       <div class="error">
-        <strong>Could not load live data for ${pair}.</strong><br>
+        <strong>Could not load data for ${pair}.</strong><br>
         ${e.message}<br><br>
-        To enable live public access: open the Google Sheet → Share → “Anyone with the link” → Viewer.<br>
-        Sheet tabs must be named exactly after the pairs (AUDCAD, USDJPY, etc.).
+        Check that the tab is published to the web as CSV and the URL is correct.
       </div>`;
   }
 }
