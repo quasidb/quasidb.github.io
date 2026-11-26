@@ -627,7 +627,7 @@ function renderDash(d){
       '</section>';
   }
   h += '</div>';
-  h += '<p class="small muted" style="margin-top:10px">' + fresh(d.snap) + '. This page refreshes itself.' + (d.snap ? ' Members see it every 15 minutes in the QDB Sheet: <a href="../shop/?ref=analytics-snapshot" data-goatcounter-click="analytics-snapshot-plans">see the plans</a>.' : '') + '</p>';
+  h += '<p class="small muted" style="margin-top:10px">' + fresh(d.snap) + '.' + (d.snap ? ' This page refreshes itself. Members see it every 15 minutes in the QDB Sheet: <a href="../shop/?ref=analytics-snapshot" data-goatcounter-click="analytics-snapshot-plans">see the plans</a>.' : '') + '</p>';
   return h;
 }
 
