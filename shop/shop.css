@@ -167,3 +167,10 @@ h3.sub{margin-top:34px}
 .card.game .tag{margin-top:6px}
 .card.game p{color:var(--muted);font-size:16px}
 .card.game .go{color:var(--accent);font-weight:700;margin-top:auto}
+/* black friday banner (shown only while body.bf is set) */
+body:not(.bf) .bf-only{display:none}
+.bf-banner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:20px;max-width:46em;padding:16px 18px;border-radius:16px;text-decoration:none;color:var(--text);border:1px solid rgba(245,184,61,.6);background:linear-gradient(135deg,rgba(245,184,61,.16),rgba(156,200,255,.08));font-size:17px}
+.bf-banner:hover{border-color:var(--accent)}
+.bf-tag{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.05em;background:var(--accent);color:#1a1205;padding:3px 9px;border-radius:6px}
+.bf-txt{flex:1 1 320px;color:var(--muted)}.bf-txt b{color:var(--text)}
+.bf-go{font-weight:700;color:var(--accent);white-space:nowrap}

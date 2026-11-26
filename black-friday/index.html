@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Black Friday at QDB: Lifetime access from $349</title>
+<meta name="description" content="QDB Trading Desk Black Friday: Lifetime access to the Discord, the QDB Sheet and the indicators and EAs from $349, until 1 December. Plus 70% off FXSSI Lifetime with code QUASIDB.">
+<link rel="canonical" href="https://quasidb.com/black-friday/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/black-friday/">
+<meta property="og:title" content="QDB Black Friday: Lifetime access from $349">
+<meta property="og:description" content="Pay once, keep it: the Discord, the QDB Sheet, indicators and EAs. Early-bird $349 until Sunday, then $399 until 1 December.">
+<meta property="og:image" content="https://quasidb.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QDB Black Friday: Lifetime access from $349">
+<meta name="twitter:description" content="Pay once, keep it: the Discord, the QDB Sheet, indicators and EAs. Early-bird $349 until Sunday, then $399 until 1 December.">
+<meta name="twitter:image" content="https://quasidb.com/og-image.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../guides/guides.css">
+<link rel="stylesheet" href="../shop/shop.css">
+<style>
+  /* which state is showing: set on <body> by the script at the bottom */
+  body:not(.bf-early) .early-only{display:none}
+  body:not(.bf-main) .main-only{display:none}
+  body:not(.bf-live) .live-only{display:none}
+  body:not(.bf-over) .over-only{display:none}
+
+  .bf-hero{text-align:center;padding-top:52px}
+  .bf-hero .lead{margin:0 auto}
+  .bf-hero .row{justify-content:center}
+  .bf-hero h1 em{color:var(--accent)}
+
+  .clock{margin:28px auto 6px;max-width:640px}
+  .clock-lab{font-family:var(--mono);font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--ice)}
+  .clock-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+  .clock-row div{background:var(--panel);border:1px solid var(--frost-line);border-radius:16px;padding:14px 6px}
+  .clock-row b{display:block;font-family:var(--mono);font-size:clamp(34px,8vw,56px);line-height:1;font-variant-numeric:tabular-nums}
+  .clock-row span{display:block;font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:6px;letter-spacing:.06em}
+  .clock-when{font-size:16px;color:var(--muted);margin-top:10px}
+
+  .deal{margin-top:22px;padding:26px;border-radius:20px;border:1px solid rgba(245,184,61,.55);background:linear-gradient(135deg,rgba(245,184,61,.12),rgba(156,200,255,.06));display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
+  @media (max-width:820px){.deal{grid-template-columns:1fr;padding:20px}}
+  .prices{display:flex;flex-wrap:wrap;gap:14px 34px;align-items:flex-end;margin-top:14px}
+  .prices>div{display:flex;flex-direction:column}
+  .p-now{font-size:64px;font-weight:700;color:var(--accent);line-height:1;letter-spacing:-.03em}
+  .p-next{font-size:32px;font-weight:700;line-height:1.1}
+  .p-was{font-size:28px;color:var(--dim);text-decoration:line-through;line-height:1.2}
+  .p-lab{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.04em;margin-top:6px}
+  .deal ul{list-style:none;display:grid;gap:9px;font-size:18px;margin-top:4px}
+  .deal li{padding-left:26px;position:relative}
+  .deal li::before{content:"✓";position:absolute;left:2px;color:var(--buy);font-weight:700}
+  .deal .btn-paypal{width:100%;font-size:19px;min-height:56px;margin-top:20px}
+  .deal .need{font-size:15px}
+  .vs{font-size:17px;color:var(--muted);margin-top:16px}
+  .vs b{color:var(--text)}
+  .fine{font-size:15px;color:var(--muted);margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+
+  .fx{margin-top:18px;border-color:rgba(59,130,246,.45);display:flex;flex-direction:column;gap:8px}
+  .fx p{color:var(--muted);font-size:17px;max-width:46em}.fx p b{color:var(--text)}
+  .code{display:inline-block;font-family:var(--mono);font-weight:700;font-size:22px;letter-spacing:.08em;padding:6px 14px;border-radius:10px;border:1px dashed var(--ice);color:var(--ice);background:var(--bg2);cursor:pointer}
+  .code[data-copied]::after{content:"  copied ✓";font-size:14px;letter-spacing:0;color:var(--buy)}
+  .tag.fxt{background:rgba(59,130,246,.15);color:#8fb8ff}
+
+  .over-box{margin-top:26px;text-align:center}
+  .over-box .row{justify-content:center}
+</style>
+</head>
+<body>
+<div class="snow" aria-hidden="true" id="snow"></div>
+
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../?ref=bf"><img src="../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a class="live-only" href="#lifetime">Lifetime deal</a><a class="live-only" href="#fxssi">FXSSI deal</a><a class="live-only" href="#monthly">Monthly</a><a href="../shop/?ref=bf">Shop</a></div>
+</div></nav>
+
+<main class="wrap">
+
+  <!-- ================= LIVE: Black Friday is running ================= -->
+  <header class="hero bf-hero live-only">
+    <p class="kick">❄ Black Friday at QDB · until 1 December</p>
+    <h1>Lifetime access, <em>once</em>.</h1>
+    <p class="lead">The full QDB toolkit (Discord, the QDB Sheet, indicators and EAs) for a single payment, at <b>less than a year of Premium</b>. Everyone is welcome. If you have questions, just ask.</p>
+
+    <div class="clock" aria-live="off">
+      <div class="clock-lab" id="clockLab">Early-bird price ends in</div>
+      <div class="clock-row">
+        <div><b id="cd-d">0</b><span>DAYS</span></div>
+        <div><b id="cd-h">00</b><span>HOURS</span></div>
+        <div><b id="cd-m">00</b><span>MINS</span></div>
+        <div><b id="cd-s">00</b><span>SECS</span></div>
+      </div>
+      <p class="clock-when" id="clockWhen"></p>
+    </div>
+
+    <div class="row">
+      <a class="btn primary" href="#lifetime" data-goatcounter-click="bf-hero-lifetime">See the Lifetime deal</a>
+      <a class="btn" href="#fxssi" data-goatcounter-click="bf-hero-fxssi">FXSSI 70% off</a>
+    </div>
+  </header>
+
+  <section class="sec live-only" id="lifetime">
+    <h2>QDB Lifetime</h2>
+    <div class="deal">
+      <div>
+        <span class="tag early-only">EARLY BIRD · UNTIL SUNDAY 29 NOV, 23:59 UK</span>
+        <span class="tag main-only">BLACK FRIDAY · UNTIL TUESDAY 1 DEC, 23:59 UK</span>
+        <div class="prices">
+          <div class="early-only"><span class="p-now">$349</span><span class="p-lab">early bird, until Sunday</span></div>
+          <div class="early-only"><span class="p-next">$399</span><span class="p-lab">from Monday to 1 Dec</span></div>
+          <div class="main-only"><span class="p-now">$399</span><span class="p-lab">Black Friday, until 1 Dec</span></div>
+          <div><span class="p-was">$600</span><span class="p-lab">normal Lifetime price</span></div>
+        </div>
+        <p class="vs">For comparison, 12 months of Premium is <b>$360</b>. Lifetime costs about the same, and you <b>never pay again</b>.</p>
+        <p class="fine"><b>What "Lifetime" means:</b> access for as long as QDB Trading Desk runs, including new tabs, tools and indicators added to the plans you already get. Separate future products may be priced on their own. Trading involves risk, and this is a toolkit for context, not a signal service.</p>
+      </div>
+      <div>
+        <ul>
+          <li><b>Discord Super User</b>: every channel</li>
+          <li><b>The full QDB Sheet</b>: 40+ live tabs</li>
+          <li>The <b>Daily Backup</b> sheet</li>
+          <li>The <b>Daily Bulletin</b>, analysis &amp; Bank Views</li>
+          <li><b>Indicators &amp; Robots</b>: MT4, MT5, TradingView, cTrader</li>
+          <li>Signals, SSI snapshots &amp; alerts</li>
+          <li>Everything new, as it's added</li>
+        </ul>
+        <a id="payBtn" href="https://paypal.me/quasidb/349USD" class="btn btn-paypal" data-goatcounter-click="bf-paypal-lifetime" target="_blank" rel="noopener">Pay <span id="payAmt">$349</span> USD with <span class="pp">Pay<i>Pal</i></span></a>
+        <p class="need">In the PayPal note: <b>"BF Lifetime"</b>, your <b>Discord username</b> and <b>Gmail</b></p>
+        <p class="need">No Discord yet? <a href="https://discord.gg/2Ccf67favj" target="_blank" rel="noopener" data-goatcounter-click="bf-discord">Join free first</a>, so there's an account to give your role to.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec live-only" id="fxssi">
+    <h2>Partner deal: FXSSI</h2>
+    <div class="card fx">
+      <span class="tag fxt">70% OFF FXSSI LIFETIME</span>
+      <h3>FXSSI's Black Friday sale works with the QDB code</h3>
+      <p>FXSSI is the sentiment and order-book toolkit many QDB members use alongside the sheet. For Black Friday they're taking <b>70% off their Lifetime plan</b>, and the QDB code still applies at checkout.</p>
+      <p>Code: <span class="code" id="fxCode" role="button" tabindex="0" title="Click to copy">QUASIDB</span></p>
+      <div class="row"><a class="btn" href="https://fxssi.com/" target="_blank" rel="noopener" data-goatcounter-click="bf-fxssi">Go to FXSSI</a></div>
+      <p class="disc">Affiliate disclosure: QDB may earn a commission when you use the code. The sale is run by FXSSI and ends when they end it.</p>
+    </div>
+  </section>
+
+  <section class="sec live-only" id="monthly">
+    <h2>Prefer monthly?</h2>
+    <p>No problem. The launch offer still runs until 31 December: <b>Basic includes everything</b>, full Discord <i>and</i> the QDB Sheet, for <b>$20/month</b> instead of $30. Or lock in a year of Basic for $220.</p>
+    <div class="row"><a class="btn" href="../shop/?ref=bf#plans" data-goatcounter-click="bf-monthly">See the monthly plans</a></div>
+  </section>
+
+  <section class="sec live-only" id="faq">
+    <h2>Quick questions</h2>
+    <details class="qa"><summary>How quickly do I get access?</summary><p>Dave sets up your Discord role and shares your sheets to your Gmail by hand, then confirms by email from davidianbennett@gmail.com. He works shifts, so allow up to a day.</p></details>
+    <details class="qa"><summary>I'm already a member. Can I switch to Lifetime?</summary><p>Yes. Pay for Lifetime and add "switching from monthly" to the note. If you're on Patreon, cancel your Patreon membership after you get your Lifetime role so you're not charged twice.</p></details>
+    <details class="qa"><summary>Is this a signal service?</summary><p>No. The tools show where the crowd is positioned and whether price agrees. Use them alongside your own analysis and strict <b>risk management</b>.</p></details>
+    <details class="qa"><summary>Can I ask before I buy?</summary><p>Of course. Use the <a href="../?ref=bf#contact">contact form</a> or ask in the Discord.</p></details>
+  </section>
+
+  <!-- ================= OVER: page is asleep until next November ================= -->
+  <header class="hero bf-hero over-only">
+    <p class="kick">❄ Black Friday at QDB</p>
+    <h1>Black Friday is <em>over</em> for this year.</h1>
+    <p class="lead">Thanks to everyone who joined. The deal comes back next November. Until then, there are still good ways in.</p>
+    <div class="over-box">
+      <div class="card">
+        <h3>Earn Lifetime from $450</h3>
+        <p class="muted" style="margin-top:6px">Top-score a QDB challenge game, such as the Retail Survival Simulator, to unlock Lifetime below the normal $600 price.</p>
+        <div class="row"><a class="btn primary" href="../shop/?ref=bf-over#lifetime" data-goatcounter-click="bf-over-lifetime">Play to unlock Lifetime</a><a class="btn" href="../shop/?ref=bf-over#plans" data-goatcounter-click="bf-over-plans">Monthly plans</a></div>
+      </div>
+    </div>
+  </header>
+
+  <p class="foot"><b>Risk warning:</b> trading forex, indices and commodities on margin carries a high level of risk and may not suit all investors. The majority of retail CFD accounts lose money. Nothing here is financial advice. <a href="../?ref=bf">Back to QDB Trading Desk</a></p>
+</main>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="flake" viewBox="0 0 24 24">
+      <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none">
+        <path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/>
+        <path d="M9.5 3.8L12 6l2.5-2.2M9.5 20.2L12 18l2.5 2.2M3.6 10.2l3.2-.9-.8-3.3M20.4 13.8l-3.2.9.8 3.3M3.6 13.8l3.2.9-.8 3.3M20.4 10.2l-3.2-.9.8-3.3"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<script>
+/* ===== BLACK FRIDAY SETTINGS =====
+   To wake the page next November: change the three dates and the two prices below.
+   Dates are UTC. In late November UK time = UTC, so 23:59 UK on Sunday = 'T00:00:00Z' on Monday. */
+var BF = {
+  earlyEnd:   '2026-11-30T00:00:00Z',  // early bird ends: end of Sun 29 Nov (UK)
+  end:        '2026-12-02T00:00:00Z',  // Black Friday ends: end of Tue 1 Dec (UK)
+  earlyPrice: 349,
+  mainPrice:  399
+};
+
+(function(){
+  var earlyEnd = new Date(BF.earlyEnd), end = new Date(BF.end);
+  var body = document.body, pay = document.getElementById('payBtn'), amt = document.getElementById('payAmt');
+  var lab = document.getElementById('clockLab'), when = document.getElementById('clockWhen');
+  var el = { d: cd('d'), h: cd('h'), m: cd('m'), s: cd('s') };
+  function cd(k){ return document.getElementById('cd-' + k); }
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  var shown = '';
+
+  function tick(){
+    var now = new Date(), state = now < earlyEnd ? 'early' : (now < end ? 'main' : 'over');
+    if (state !== shown){
+      shown = state;
+      body.classList.remove('bf-early','bf-main','bf-live','bf-over');
+      body.classList.add('bf-' + state);
+      if (state !== 'over'){
+        body.classList.add('bf-live');
+        var price = state === 'early' ? BF.earlyPrice : BF.mainPrice;
+        pay.href = 'https://paypal.me/quasidb/' + price + 'USD';
+        amt.textContent = '$' + price;
+        lab.textContent = state === 'early' ? 'Early-bird price ends in' : 'Black Friday ends in';
+        when.textContent = state === 'early'
+          ? 'Sunday 29 November, 23:59 UK time. Then $' + BF.mainPrice + ' until 1 December.'
+          : 'Tuesday 1 December, 23:59 UK time.';
+      }
+    }
+    if (state === 'over') return;
+    var left = Math.max(0, (state === 'early' ? earlyEnd : end) - now), t = Math.floor(left / 1000);
+    el.d.textContent = Math.floor(t / 86400);
+    el.h.textContent = pad(Math.floor(t % 86400 / 3600));
+    el.m.textContent = pad(Math.floor(t % 3600 / 60));
+    el.s.textContent = pad(t % 60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  // click the code to copy it
+  var code = document.getElementById('fxCode');
+  function copy(){
+    try { navigator.clipboard.writeText('QUASIDB').then(function(){ code.setAttribute('data-copied',''); setTimeout(function(){ code.removeAttribute('data-copied'); }, 2000); }); } catch(e){}
+  }
+  code.addEventListener('click', copy);
+  code.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); copy(); } });
+})();
+
+// gentle snowfall, same as the shop
+(function(){
+  var box=document.getElementById('snow'); if(!box) return;
+  var n = window.innerWidth < 600 ? 14 : 26, html='';
+  for (var i=0;i<n;i++){
+    var size=(8+Math.random()*12).toFixed(1), left=(Math.random()*100).toFixed(2),
+        dur=(14+Math.random()*16).toFixed(1), delay=(-Math.random()*30).toFixed(1),
+        drift=(Math.random()*60-30).toFixed(0), op=(0.25+Math.random()*0.4).toFixed(2);
+    html+='<svg class="flake" viewBox="0 0 24 24" style="left:'+left+'%;width:'+size+'px;height:'+size+'px;opacity:'+op+';animation-duration:'+dur+'s;animation-delay:'+delay+'s;--drift:'+drift+'px"><use href="#flake"/></svg>';
+  }
+  box.innerHTML=html;
+})();
+</script>
+</body>
+</html>

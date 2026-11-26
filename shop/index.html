@@ -45,6 +45,11 @@
       <a class="btn" href="#free" data-goatcounter-click="shop-hero-free">Start free</a>
       <a class="btn discord" href="https://discord.gg/2Ccf67favj" target="_blank" rel="noopener" data-goatcounter-click="shop-hero-discord">Join the Discord</a>
     </div>
+    <a class="bf-banner bf-only" href="../black-friday/?ref=shop-banner" data-goatcounter-click="shop-bf-banner">
+      <span class="bf-tag">BLACK FRIDAY · UNTIL 1 DEC</span>
+      <span class="bf-txt"><b>Lifetime access from <span class="bf-price">$349</span></b>: pay once for the Discord, the QDB Sheet, indicators and EAs. Plus FXSSI 70% off with code QUASIDB.</span>
+      <span class="bf-go">See the deal →</span>
+    </a>
     <div class="promo-note promo-only">🎁 <b>Launch offer, until 31 December:</b> the Basic plan includes <b>everything</b>, full Discord <i>and</i> the QDB Sheet, for $20 instead of $30.</div>
   </header>
 
@@ -275,6 +280,7 @@
   <!-- ===== Lifetime via the games ===== -->
   <section class="sec" id="lifetime">
     <h2>5 · Unlock Lifetime access at the best price</h2>
+    <div class="promo-note bf-only" style="border-color:rgba(245,184,61,.55);background:rgba(245,184,61,.10)">🖤 <b>Black Friday:</b> until 1 December, Lifetime is <b class="bf-price">$349</b> for everyone, no game needed. <a href="../black-friday/?ref=shop-lifetime" data-goatcounter-click="shop-bf-lifetime">See the Black Friday deal</a></div>
     <p><b>Want Lifetime access at the best price? Complete a challenge game with a top score.</b> Traders who stick to a plan and manage risk are exactly the traders QDB wants to reward, so passing earns a Lifetime discount.</p>
     <div class="life">
       <div class="life-price">
@@ -355,6 +361,14 @@
   if (new Date() < new Date('2027-01-01T00:00:00Z')) document.body.classList.add('promo');
   else { var b=document.getElementById('basicCard'), p=document.getElementById('premiumCard');
          b.classList.remove('hot'); p.classList.add('hot'); p.dataset.badge='Most popular'; }
+})();
+// ---- Black Friday banner: shows only while the deal runs (same dates as /black-friday/) ----
+(function(){
+  var now = new Date(), earlyEnd = new Date('2026-11-30T00:00:00Z'), end = new Date('2026-12-02T00:00:00Z');
+  if (now >= end) return;
+  document.body.classList.add('bf');
+  var price = now < earlyEnd ? '$349' : '$399';
+  document.querySelectorAll('.bf-price').forEach(function(e){ e.textContent = price; });
 })();
 // ---- Snowfall: a handful of slow flakes. Fewer on phones. ----
 (function(){
