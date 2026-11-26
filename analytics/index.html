@@ -248,8 +248,8 @@
     <p>Use it only together with technical and fundamental analysis and strict <b>risk management</b>. Only trade the crowd at strong daily or weekly supply and demand levels. The dashboards show who is likely to be wrong. The level tells you where.</p>
   </div>
   <div class="cta">
-    <h3>Want this on your own screen, every 15 minutes?</h3>
-    <p>The QDB Sheet carries these dashboards plus the full board, Basket Shifting and the Sentiment Delta indicator for MT5.</p>
+    <h3>This is one tab of the QDB Sheet</h3>
+    <p>Members get the rest of it: the full sentiment board, Basket Shifting, trade setups, the Sentiment Delta indicator for MT5 and the Discord, where the crowd gets talked through every day.</p>
     <div class="row"><a class="btn primary" href="../shop/?ref=analytics" data-goatcounter-click="analytics-shop">See the plans</a><a class="btn" href="../?ref=analytics#free-sheet">Try the free Lite sheet</a></div>
   </div>
   <p class="foot">Data: QDB Sheet, published every few minutes. Prices via Google Finance, delayed up to about 20 minutes, and CFD prices can differ. Crowd: FXCM SSI. COT: CFTC. Educational only, not financial advice. Trading on margin carries a high level of risk. <a href="../">Back to QDB Trading Desk</a></p>
@@ -431,7 +431,7 @@ function extract(sym, rows){
 function hm(t){ return t.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
 function fresh(snap){
   return snap ? 'Hourly snapshot · last update ' + hm(snap) + ' your time'
-              : 'Updates automatically · last checked ' + hm(new Date()) + ' your time';
+              : 'Live · updates automatically every 5 minutes · last checked ' + hm(new Date()) + ' your time';
 }
 
 /* ---------- small pieces ---------- */
