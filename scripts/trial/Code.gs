@@ -185,7 +185,7 @@ function startTrial_(sh, r, email, name) {
   sh.getRange(r, C.notes).setValue('');
   sendWelcome_(email, name, ends);
   if (CONFIG.NOTIFY_ME) notifyMe_('New QDB trial: ' + email, 'Started ' + fmt_(start) + ', ends ' + fmt_(ends) + '.\nIf they pay, type "paid" in their Status cell so access is not removed.');
-  return { ok: true, status: 'started', ends: iso_(ends) };
+  return { ok: true, status: 'started', ends: iso_(ends), url: sheetUrl_() };
 }
 
 function endTrial_(sh, x) {
@@ -206,8 +206,11 @@ function sendWelcome_(email, name, ends) {
   var hi = name ? 'Hi ' + name.split(' ')[0] + ',' : 'Hi,';
   var body = [
     hi, '',
-    'Your 14-day free trial of the full QDB Sheet has started. It is now shared with this Google account:',
-    'open Google Sheets (or Drive > "Shared with me") and look for the QDB Sheet. It opens on the Start Here tab.',
+    'Your 14-day free trial of the full QDB Sheet has started. It is now shared with this Google account.',
+    '',
+    'Open your QDB Sheet: ' + sheetUrl_(),
+    '',
+    'Tip: bookmark that link. It is also in Google Drive under "Shared with me". The sheet opens on the Start Here tab.',
     '',
     'Your trial runs until ' + fmt_(ends) + '. No card, nothing renews, nothing to cancel.',
     '',
@@ -230,7 +233,7 @@ function sendWelcome_(email, name, ends) {
     '',
     footer_()
   ].join('\n');
-  MailApp.sendEmail({ to: email, subject: 'Your 14-day QDB Sheet trial has started', body: body, name: 'QDB Trading Desk' });
+  send_(email, 'Your 14-day QDB Sheet trial has started', body);
 }
 
 function sendReminder_(x) {
@@ -253,7 +256,7 @@ function sendReminder_(x) {
     '',
     footer_()
   ]).join('\n');
-  MailApp.sendEmail({ to: x.email, subject: 'Your QDB Sheet trial ends in 3 days', body: body, name: 'QDB Trading Desk' });
+  send_(x.email, 'Your QDB Sheet trial ends in 3 days', body);
 }
 
 function sendEnded_(x) {
@@ -272,7 +275,7 @@ function sendEnded_(x) {
     '',
     footer_()
   ]).join('\n');
-  MailApp.sendEmail({ to: x.email, subject: 'Your QDB Sheet trial has ended', body: body, name: 'QDB Trading Desk' });
+  send_(x.email, 'Your QDB Sheet trial has ended', body);
 }
 
 function offerLines_() {
@@ -295,6 +298,26 @@ function footer_() {
   return 'You are getting this because you asked for a QDB Sheet trial at quasidb.com/trial/. ' +
     'Educational only, not financial advice. Trading on margin is high risk. ' +
     'To have your details deleted, reply with "delete my data".';
+}
+
+/** The direct link to the trial sheet, opening on its first tab. */
+function sheetUrl_() {
+  return 'https://docs.google.com/spreadsheets/d/' + CONFIG.TRIAL_SHEET_ID + '/edit';
+}
+
+/** Sends plain text plus a simple HTML version, so lines don't break oddly and links are clickable. */
+function send_(to, subject, body) {
+  var esc = function (t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+  var html = body.split('\n').map(function (line) {
+    var h = esc(line).replace(/(https:\/\/[^\s]+)/g, function (u) {
+      var label = u === sheetUrl_() ? 'Open your QDB Sheet' : u;
+      return '<a href="' + u + '"' + (label !== u ? ' style="display:inline-block;background:#f5b83d;color:#1a1205;font-weight:bold;padding:10px 18px;border-radius:8px;text-decoration:none"' : '') + '>' + label + '</a>';
+    });
+    if (/^Open your QDB Sheet: /.test(line)) h = h.replace(/^Open your QDB Sheet: /, '');
+    return h.replace(/^( +)/, function (sp) { return new Array(sp.length + 1).join('&nbsp;'); });
+  }).join('<br>');
+  MailApp.sendEmail({ to: to, subject: subject, body: body, name: 'QDB Trading Desk',
+    htmlBody: '<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.55;color:#1d2433;max-width:620px">' + html + '</div>' });
 }
 
 function notifyMe_(subject, body) {
