@@ -78,11 +78,11 @@ def score_read(c):
     if not c or c.get("score") is None:
         return None, None
     sc = c["score"]
-    if sc >= 7:
-        return "bull", f"The <b>QDB Score is {sc}/12</b>, a <b class=\"buy\">bullish</b> reading."
-    if sc <= 3:
-        return "bear", f"The <b>QDB Score is {sc}/12</b>, a <b class=\"sell\">bearish</b> reading."
-    return None, f"The <b>QDB Score is {sc}/12</b>, neutral. No call either way."
+    if sc >= 8:
+        return "bull", f"The <b>QDB Score is {sc}/14</b>, a <b class=\"buy\">bullish</b> reading."
+    if sc <= 6:
+        return "bear", f"The <b>QDB Score is {sc}/14</b>, a <b class=\"sell\">bearish</b> reading."
+    return None, f"The <b>QDB Score is {sc}/14</b>, neutral. No call either way."
 
 
 def cot_read(pair, cot):
@@ -260,7 +260,7 @@ def pair_page(pair, snap, hist, cot):
     if lg is not None:
         bits.append(f"{lg}% of retail traders are long {slash(pair)}")
     if c and c.get("score") is not None:
-        bits.append(f"QDB Score {c['score']}/12")
+        bits.append(f"QDB Score {c['score']}/14")
     if kscore is not None:
         bits.append(f"COT score {kscore:+.0f}")
     desc = (f"{slash(pair)}{nick} sentiment" + (f" on {short(snap['at'])}" if snap else "") + ": " + ", ".join(bits) +
@@ -282,7 +282,7 @@ def pair_page(pair, snap, hist, cot):
     else:
         cards.append('<div class="sig"><h3>Retail crowd</h3><div class="big" style="color:var(--dim)">Members</div><p>The crowd % for this pair is in the QDB Sheet, updated every 15 minutes.</p></div>')
     if ssent:
-        cards.append(f'<div class="sig"><h3>QDB Score</h3><div class="big {"buy" if ss == "bull" else "sell" if ss == "bear" else ""}">{c["score"]}<small style="font-size:18px;color:var(--dim)">/12</small></div><p>{ssent}</p></div>')
+        cards.append(f'<div class="sig"><h3>QDB Score</h3><div class="big {"buy" if ss == "bull" else "sell" if ss == "bear" else ""}">{c["score"]}<small style="font-size:18px;color:var(--dim)">/14</small></div><p>{ssent}</p></div>')
     if ksent:
         cards.append(f'<div class="sig"><h3>COT (weekly)</h3><div class="big {"buy" if ks == "bull" else "sell" if ks == "bear" else ""}">{kscore:+.0f}</div><p>{ksent}</p></div>')
 
@@ -356,7 +356,7 @@ def pair_page(pair, snap, hist, cot):
     <details open><summary>Are retail traders long or short {slash(pair)}?</summary><p>{(f"At the latest snapshot, <b>{lg}%</b> of retail traders were long and {100 - lg}% short." if lg is not None else "The live split for this pair is in the QDB Sheet.")} The page updates every weekday at about 5pm UK.</p></details>
     <details><summary>Why read retail sentiment as contrarian?</summary><p>Most retail traders lose, and they tend to buy falling markets and sell rising ones. When the crowd piles onto one side, the stops and losing positions on that side become fuel for a move the other way. That is why a crowd that is heavily long is read as bearish.</p></details>
     <details><summary>Should I trade on sentiment alone?</summary><p>No. A crowd can stay wrong for a long time. QDB only acts on sentiment at strong daily or weekly supply and demand levels, and treats it as one input next to the QDB Score and the COT positioning above.</p></details>
-    <details><summary>What is the QDB Score?</summary><p>A 0 to 12 score for each pair that combines retail positioning, how it is shifting and the trend. 7 or more reads bullish, 3 or less bearish. <a href="../../guides/?ref=sentiment-{pair.lower()}">The guides explain how it works.</a></p></details>
+    <details><summary>What is the QDB Score?</summary><p>A 0 to 14 score for each pair that combines retail positioning, how it is shifting, the trend and 2 COT checks. 8 or more reads bullish, 6 or less bearish, 7 is neutral. <a href="../../guides/?ref=sentiment-{pair.lower()}">The guides explain how it works.</a></p></details>
   </section>
 
   <section class="sec" id="more">
@@ -390,9 +390,9 @@ def hub_page(snap, cot):
         vl, vc = LABEL[v]
         crowd = (f'{lg}% long<span class="mini hide-sm"><i style="width:{lg}%"></i></span>' if lg is not None else '<span style="color:var(--dim)">members</span>')
         sc = c.get("score") if c else None
-        scc = "buy" if sc is not None and sc >= 7 else "sell" if sc is not None and sc <= 3 else ""
+        scc = "buy" if sc is not None and sc >= 8 else "sell" if sc is not None and sc <= 6 else ""
         trs.append(f'<tr><td><a href="{p.lower()}/">{slash(p)}</a></td><td>{crowd}</td>'
-                   f'<td class="{scc}">{"" if sc is None else str(sc) + "/12"}</td>'
+                   f'<td class="{scc}">{"" if sc is None else str(sc) + "/14"}</td>'
                    f'<td class="hide-sm {"buy" if (ksc or 0) >= COT_EDGE else "sell" if (ksc or 0) <= -COT_EDGE else ""}">{"" if ksc is None else f"{ksc:+.0f}"}</td>'
                    f'<td><span class="pill {vc}" style="font-size:11px;padding:2px 6px;border-width:1px">{vl}</span></td></tr>')
     top = [r for r in rows if r[3] is not None][:3]
@@ -421,7 +421,7 @@ def hub_page(snap, cot):
       </tbody>
     </table>
   </div>
-  <p class="muted small" style="margin-top:10px">Crowd: % of retail traders long. QDB Score: 0 to 12, 7+ bullish, 3 or less bearish. COT: base minus quote currency COT index, ±30 or more counts as a bias. "Members" means the crowd % for that pair is in the QDB Sheet.</p>
+  <p class="muted small" style="margin-top:10px">Crowd: % of retail traders long. QDB Score: 0 to 14, 8+ bullish, 6 or less bearish. COT: base minus quote currency COT index, ±30 or more counts as a bias. "Members" means the crowd % for that pair is in the QDB Sheet.</p>
   <div class="cta" style="margin-top:24px">
     <h3>Once a day here. Every 15 minutes in the QDB Sheet.</h3>
     <p>Members get the live crowd for every pair, the Basket Shifting board, FXCM SSI and the MT5 Sentiment Delta indicator, plus Discord.</p>

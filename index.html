@@ -10,14 +10,14 @@
 <meta property="og:url" content="https://quasidb.com/">
 <link rel="canonical" href="https://quasidb.com/">
 <meta property="og:title" content="QDB Trading Desk — Retail Sentiment, Read Contrarian">
-<meta property="og:description" content="Retail FX, index and gold sentiment read contrarian — live crowd positioning, FXCM SSI deltas and the 12-point QDB Score. By quasidb.">
+<meta property="og:description" content="Retail FX, index and gold sentiment read contrarian — live crowd positioning, FXCM SSI deltas and the 14-point QDB Score. By quasidb.">
 <meta property="og:image" content="https://quasidb.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="QDB Trading Desk — see where the crowd is positioned, then think the other way">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="QDB Trading Desk — Retail Sentiment, Read Contrarian">
-<meta name="twitter:description" content="Retail FX, index and gold sentiment read contrarian — live crowd positioning, FXCM SSI deltas and the 12-point QDB Score. By quasidb.">
+<meta name="twitter:description" content="Retail FX, index and gold sentiment read contrarian — live crowd positioning, FXCM SSI deltas and the 14-point QDB Score. By quasidb.">
 <meta name="twitter:image" content="https://quasidb.com/og-image.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22%231d3f61%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2230%22%20fill%3D%22none%22%20stroke%3D%22%239fd0ee%22%20stroke-width%3D%224%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-weight%3D%22900%22%20font-size%3D%2234%22%20fill%3D%22%23ffffff%22%3EQ%3C/text%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%2213%22%20r%3D%227%22%20fill%3D%22%239fd0ee%22%20stroke%3D%22%231d3f61%22%20stroke-width%3D%223%22/%3E%3C/svg%3E">
 <meta name="theme-color" content="#0b0f17">
@@ -497,7 +497,7 @@ nav .wrap{gap:20px;position:relative}
       </div>
       <div class="hero-stats">
         <div><strong>28+</strong>instruments tracked</div>
-        <div><strong>/12</strong>QDB Score checks</div>
+        <div><strong>/14</strong>QDB Score checks</div>
         <div><strong>8 yrs</strong>of daily sentiment work</div>
       </div>
     </div>
@@ -512,7 +512,7 @@ nav .wrap{gap:20px;position:relative}
         <button type="button" class="on" data-tab="sent">Sentiment</button><button type="button" data-tab="scores">QDB Scores</button><button type="button" data-tab="ssi">FXCM SSI Delta</button><button type="button" data-tab="setups">Trade Setups</button>
       </div>
       <div class="board-intro" id="scoresIntro" hidden>
-        <b>What's the QDB Score?</b> A 12-check rating for each pair. <b>7 or above</b> leans bullish, <b>3 or below</b> bearish, and 4–6 is no man's land. It's strongest when price confirms a move while retail traders bet the other way.
+        <b>What's the QDB Score?</b> A 14-check rating for each FX pair, including 2 COT checks. <b>8 or above</b> leans bullish, <b>6 or below</b> bearish, and 7 is neutral. It's strongest when price confirms a move while retail traders bet the other way.
         <div class="track" id="trackLine" hidden></div>
       </div>
       <div class="board-scroll" id="boardWrap">
@@ -775,8 +775,8 @@ nav .wrap{gap:20px;position:relative}
       </div>
       <div class="card reveal">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div>
-        <h3>QDB Score /12</h3>
-        <p>A 12-point check of price against pivots and opens, weighed against how the crowd is stacked. High score = strong contrarian confluence.</p>
+        <h3>QDB Score /14</h3>
+        <p>A 14-point check of price against pivots and opens, weighed against how the crowd is stacked, plus 2 COT checks. High score = strong contrarian confluence.</p>
       </div>
       <div class="card reveal">
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 12h4l3-8 4 16 3-8h2"/></svg></div>
@@ -968,7 +968,7 @@ nav .wrap{gap:20px;position:relative}
         <h3>Signal feed — every check, one line per pair</h3>
         <p>Instead of flicking between tabs, the signal feed pulls everything the QDB Sheet knows about a pair into a single row, refreshed through the day. Green means a check is passing; red means it's pointing the other way or blocked.</p>
         <ul class="read">
-          <li><b>QDB score &amp; level signal</b> — the 12-point score, and whether it's strong enough to lean buy (1) or sell (−1).</li>
+          <li><b>QDB score &amp; level signal</b> — the 14-point score, and whether it's strong enough to lean buy (1) or sell (−1).</li>
           <li><b>QDB Δ24h &amp; Δ signal</b> — how much the score has changed in the last day. A score that's building matters more than one that's fading.</li>
           <li><b>Cohort status</b> — what the crowd is going through right now: <i>Crowd capitulating</i> (giving up on their side), <i>Fresh longs / shorts winning</i>, or <i>Normal</i>.</li>
           <li><b>Crowded side</b> — which way most retail traders are leaning on that pair.</li>
@@ -1081,7 +1081,7 @@ nav .wrap{gap:20px;position:relative}
 <section id="score" class="alt">
   <div class="wrap score-grid">
     <div class="gauge reveal">
-      <div class="gauge-top"><span class="pair">AUDUSD</span><span class="val">11<small>/12</small></span></div>
+      <div class="gauge-top"><span class="pair">AUDUSD</span><span class="val">11<small>/14</small></span></div>
       <div class="sub">Bullish bias · crowd 26% long · <span class="buy">BUY</span></div>
       <ul class="checks">
         <li><span class="tick">✓</span>Above monthly pivot</li>
@@ -1447,7 +1447,7 @@ const HEADS={
 };
 const FOOTS={
   sent:t=>`Live · most crowded first · ${t} UK`,   // kept to one line so the board doesn't change height when live data arrives
-  scores:t=>`Live QDB Scores · highest to lowest: strongest bullish at the top, strongest bearish at the bottom · scroll for all pairs · checked ${t} UK time · members get the full 12-check breakdown`,
+  scores:t=>`Live QDB Scores · highest to lowest: strongest bullish at the top, strongest bearish at the bottom · scroll for all pairs · checked ${t} UK time · members get the full 14-check breakdown`,
   ssi:(t,day)=>`FXCM Speculative Sentiment Index · ${day} snapshot vs last week · biggest changes first · checked ${t} UK time · positive = crowd net long`,
   setups:()=>'Trade setups refresh through the day in the QDB Sheet'
 };
@@ -1487,9 +1487,9 @@ async function loadScores(){
     if (!out.length) throw 0;
     // highest score first: strongest bullish at the top, strongest bearish at the bottom; ties: bigger weekly move first
     const rows=out.sort((a,b)=>b.sc-a.sc || Math.abs(b.wc||0)-Math.abs(a.wc||0)).map(d=>{
-      const cls = d.sc>=7 ? 'buy' : d.sc<=3 ? 'sell' : '';
+      const cls = d.sc>=8 ? 'buy' : d.sc<=6 ? 'sell' : '';
       const pc = v => isNaN(v) ? '' : `${signed(v,2)}%`, pcl = v => v>0?'buy':v<0?'sell':'';
-      return `<tr><td>${esc(d.sym)}</td><td class="qscore ${cls}">${Math.round(d.sc)}<small>/12</small></td>`+
+      return `<tr><td>${esc(d.sym)}</td><td class="qscore ${cls}">${Math.round(d.sc)}<small>/14</small></td>`+
         `<td class="${pcl(d.dc)}">${pc(d.dc)}</td><td class="${pcl(d.wc)}">${pc(d.wc)}</td></tr>`;
     });
     BOARD.scores={rows:rows.join(''), at:ukTime()};

@@ -163,7 +163,7 @@ function save(s){ try { localStorage.setItem(KEY, JSON.stringify(s)); } catch(e)
 const fmtPair = s => s.length === 6 ? s.slice(0,3) + '/' + s.slice(3) : s;
 const signed = v => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(2) + '%';
 const crowdUp = r => r.long >= 50;
-const scoreSide = sc => sc == null ? null : sc >= 7 ? 'up' : sc <= 3 ? 'dn' : null;
+const scoreSide = sc => sc == null ? null : sc >= 8 ? 'up' : sc <= 6 ? 'dn' : null;
 const dayName = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'short', timeZone:'UTC'});
 
 let S = load(), P = null, T = null, FC = null, FR = null, state = null;
@@ -300,7 +300,7 @@ function pick(c, btn){
       <div class="verdicts">
         <div class="v"><span>You</span><b class="${me ? 'ok' : 'no'}">${me ? '✓ Right' : '✗ Wrong'}</b></div>
         <div class="v"><span>The crowd</span><b class="${crowd ? 'ok' : 'no'}">${crowd ? '✓ Right' : '✗ Wrong'}</b></div>
-        ${r.score != null ? `<div class="v"><span>QDB Score ${r.score}/12</span><b class="${ss ? (ss === went ? 'ok' : 'no') : 'na'}">${ss ? (ss === went ? '✓ Called it' : '✗ Missed') : '– No call'}</b></div>` : ''}
+        ${r.score != null ? `<div class="v"><span>QDB Score ${r.score}/14</span><b class="${ss ? (ss === went ? 'ok' : 'no') : 'na'}">${ss ? (ss === went ? '✓ Called it' : '✗ Missed') : '– No call'}</b></div>` : ''}
       </div>
       <p class="lesson">${lesson}</p>
       <div class="row"><button class="btn primary" id="nx">${state.i + 1 < P.rounds.length ? 'Next pair →' : 'See my result →'}</button></div>
