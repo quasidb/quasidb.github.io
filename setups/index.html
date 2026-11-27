@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Setups to Watch: where the crowd, the score and a strong level line up | QDB</title>
+<meta name="description" content="The quick answer from the QDB Sheet: markets where retail sentiment, the QDB Score and a strong weekly or monthly level all point the same way. Live, free, with the reasons in plain English.">
+<link rel="canonical" href="https://quasidb.com/setups/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/setups/">
+<meta property="og:title" content="Setups to watch, live from the QDB Sheet">
+<meta property="og:description" content="Crowd on the wrong side + QDB Score agrees + price at a strong level. Only markets where all three line up.">
+<meta property="og:image" content="https://quasidb.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../guides/guides.css">
+<style>
+.kick{color:var(--accent)}
+h1 em{color:var(--accent)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.three div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15px;color:var(--muted)}
+.three b{display:block;color:var(--text);font-size:16px}
+.three span{font-family:var(--mono);color:var(--accent);font-size:13px}
+@media (max-width:640px){.three{grid-template-columns:1fr}}
+
+.stamp{font-family:var(--mono);font-size:13px;color:var(--dim);margin-top:26px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.stamp button{background:none;border:1px solid var(--line);border-radius:8px;padding:4px 10px;color:var(--muted);font-size:13px}
+.stamp button:hover{border-color:var(--accent);color:var(--text)}
+.progress{height:4px;border-radius:99px;background:var(--bg2);overflow:hidden;margin-top:10px}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+
+.setup{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px;display:grid;grid-template-columns:1.25fr 1fr;gap:22px}
+.setup.sell{border-color:rgba(239,68,68,.45);background:linear-gradient(160deg,rgba(239,68,68,.08),var(--panel) 55%)}
+.setup.buy{border-color:rgba(34,197,94,.45);background:linear-gradient(160deg,rgba(34,197,94,.08),var(--panel) 55%)}
+@media (max-width:760px){.setup{grid-template-columns:1fr;padding:18px}}
+.s-top{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.dir{font-family:var(--mono);font-weight:700;font-size:15px;padding:4px 10px;border-radius:8px;letter-spacing:.04em}
+.dir.sell{background:rgba(239,68,68,.16);color:#fca5a5}
+.dir.buy{background:rgba(34,197,94,.16);color:#86efac}
+.sym{font-family:var(--mono);font-weight:700;font-size:30px;letter-spacing:.01em;line-height:1}
+.kind{font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.chip{font-size:14px;padding:4px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.chip.ready{border-color:rgba(245,184,61,.6);color:var(--accent)}
+.chip.wait{border-color:rgba(251,191,36,.5);color:#fbbf24}
+.px{font-family:var(--mono);font-size:15px;color:var(--muted);margin-top:8px}
+.why{list-style:none;display:grid;gap:10px;margin-top:16px}
+.why li{padding-left:30px;position:relative;color:var(--muted);font-size:17px}
+.why li b{color:var(--text)}
+.why li::before{position:absolute;left:0;top:0;font-size:17px}
+.why li:nth-child(1)::before{content:'👥'} .why li:nth-child(2)::before{content:'🎯'} .why li:nth-child(3)::before{content:'🧭'}
+.lad{font-family:var(--mono);font-size:14px;border:1px solid var(--line);border-radius:14px;overflow:hidden;align-self:start}
+.lad .r{display:flex;justify-content:space-between;gap:10px;padding:7px 12px;border-top:1px solid var(--line);color:var(--muted)}
+.lad .r:first-child{border-top:0}
+.lad .r.lvl{background:rgba(245,184,61,.12);color:var(--text);font-weight:700}
+.lad .r.here{background:#b45309;color:#fff;font-weight:700}
+.lad .lcap{padding:7px 12px;font-size:12px;color:var(--dim);background:var(--bg2);letter-spacing:.06em;text-transform:uppercase}
+.check{grid-column:1/-1;border-top:1px solid var(--line);padding-top:16px}
+.check h4{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.check ol{padding-left:22px;display:grid;gap:6px;color:var(--muted);font-size:16px}
+.check b{color:var(--text)}
+
+.locked{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+@media (max-width:640px){.locked{grid-template-columns:1fr}}
+.lk{position:relative;background:var(--panel);border:1px dashed var(--line);border-radius:18px;padding:18px;min-height:120px;overflow:hidden}
+.lk .blur{filter:blur(7px);opacity:.55;user-select:none;pointer-events:none}
+.lk .over{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:12px;font-weight:700}
+.lk .over small{display:block;font-weight:400;color:var(--muted);font-size:14px}
+
+.empty{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}
+.empty p{color:var(--muted);margin-top:6px}
+.rules{list-style:none;display:grid;gap:10px;margin-top:14px;max-width:46em}
+.rules li{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px;color:var(--muted);font-size:17px}
+.rules b{color:var(--text)}
+.risk{margin-top:26px;border:1px solid rgba(239,68,68,.45);background:rgba(239,68,68,.06);border-radius:16px;padding:16px 18px;font-size:16px;color:var(--muted);max-width:52em}
+.risk b{color:var(--text)}
+.copied{color:var(--buy);font-size:14px;margin-left:6px}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../?ref=setups"><img src="../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../setups/" aria-current="page">Setups</a><a href="../sentiment/">Sentiment</a><a href="../analytics/">Analytics</a><a href="../cot/">COT</a><a href="../guides/">Guides</a><a href="../psychology/">Psychology</a><a href="../games/">Games</a><a href="../shop/">Shop</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <span class="kick">Live · Free · The quick answer</span>
+    <h1>Setups to <em>watch</em></h1>
+    <p class="lead">No wall of data. Just the markets where three things line up right now, scanned live from the QDB Sheet across <b>28 FX pairs and 7 indices</b>. If they don't all line up, it isn't on the list.</p>
+    <div class="three">
+      <div><span>01</span><b>The crowd is on the wrong side</b>Most retail traders lean the other way.</div>
+      <div><span>02</span><b>The QDB Score agrees</b>The technical checks point the same way.</div>
+      <div><span>03</span><b>Price is at a strong level</b>A weekly or monthly level, or a Daily Bollinger Band.</div>
+    </div>
+  </header>
+
+  <p class="stamp" id="stamp"><span id="stampTxt">Scanning 35 markets…</span><button type="button" id="rescan" hidden>Scan again</button></p>
+  <div class="progress" id="prog"><i id="progBar"></i></div>
+
+  <section class="sec" id="top" aria-live="polite">
+    <h2 id="topH">Today's setup to watch</h2>
+    <div id="feature"></div>
+  </section>
+
+  <section class="sec" id="more" hidden>
+    <h2 id="moreH">More lining up</h2>
+    <p id="moreP"></p>
+    <div class="locked" id="locked"></div>
+    <div class="cta">
+      <h3>Want the full ranked list?</h3>
+      <p>Members get the <b>Top 3 bubble trades</b> inside the QDB Sheet, ranked and marked <i>Ready</i> or <i>Wait</i>, plus the full QDB Score, FXCM SSI Delta, pivots and the Discord Signals channel. It refreshes through the trading day.</p>
+      <div class="row"><a class="btn primary" href="../shop/?ref=setups" data-goatcounter-click="setups-shop">See the plans</a><a class="btn" href="../?ref=setups#free-sheet" data-goatcounter-click="setups-lite">Try the free Lite sheet</a></div>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <h2>How a market makes the list</h2>
+    <p>Sentiment on its own is never a trade. It only counts when the technical picture agrees and price is at a level worth trading from.</p>
+    <ul class="rules">
+      <li><b>Crowd:</b> at least 60% of retail traders on one side for FX pairs (55% for indices). We read it contrarian, so a crowd that is mostly long is a bearish sign.</li>
+      <li><b>QDB Score:</b> clearly leaning the same way as the contrarian read: about a third of the checks or fewer for a sell, two thirds or more for a buy. The middle is no man's land and is skipped.</li>
+      <li><b>Strong level:</b> a monthly or weekly pivot level, the weekly open, or a Daily Bollinger Band, on the right side of price (resistance above for a sell, support below for a buy) and no further than about one and a half average days' range away. Daily pivots and yesterday's high and low are too minor and don't count.</li>
+      <li><b>Crowd at an extreme</b> (beyond 85/15): still listed, but marked <i>wait</i>. At extremes the crowd can stay right for a while, so let price confirm first.</li>
+      <li><b>Ranking:</b> the stronger the score, the more one-sided the crowd and the closer the level, the higher it ranks.</li>
+    </ul>
+    <div class="row"><a class="btn" href="../guides/sentiment-in-a-system/?ref=setups">How sentiment fits into a trading system</a><a class="btn" href="../guides/stop-loss-clusters/?ref=setups">Stop loss clusters, explained</a></div>
+  </section>
+
+  <div class="risk"><b>This is a watchlist, not a signal service and not financial advice.</b> Never trade sentiment on its own: use it with your own technical and fundamental analysis and strict <b>risk management</b>. Don't put your stop at the obvious level, or where the crowd's stop loss cluster sits. Prices come from Google Finance and can be up to about 20 minutes delayed, and CFD prices can differ. Trading on margin carries a high level of risk, and you can lose more than you expect.</div>
+
+  <p class="foot">Data: QDB Sheet via the live <a href="../analytics/?ref=setups">pair dashboards</a>. Crowd: FXCM SSI. Educational only, not financial advice. <a href="../">Back to QDB Trading Desk</a></p>
+</main>
+
+<script src="setups.js"></script>
+<script>
+(function(){
+'use strict';
+var Q = window.QDBSetups, esc = Q.esc;
+function $(id){ return document.getElementById(id); }
+
+function ladder(d){
+  var s = d.setup, rows = d.ladder, iL = -1, iP = -1;
+  rows.forEach(function(r, i){ if (r.here) iP = i; if (r.name === s.level.name) iL = i; });
+  if (iL < 0 || iP < 0) return '';
+  var lo = Math.max(0, Math.min(iL, iP) - 1), hi = Math.min(rows.length - 1, Math.max(iL, iP) + 1);
+  if (hi - lo > 7) { // keep it short: level, price and their neighbours only
+    var keep = [iL - 1, iL, iL + 1, iP - 1, iP, iP + 1].filter(function(i){ return i >= 0 && i < rows.length; });
+    var uniq = keep.filter(function(v, i){ return keep.indexOf(v) === i; }).sort(function(a, b){ return a - b; });
+    return '<div class="lad"><div class="lcap">Price ladder</div>' + uniq.map(function(i, k){
+      return (k && i - uniq[k-1] > 1 ? '<div class="r"><span>⋮</span><span></span></div>' : '') + row(rows[i], i === iL);
+    }).join('') + '</div>';
+  }
+  var h = '<div class="lad"><div class="lcap">Price ladder</div>';
+  for (var i = lo; i <= hi; i++) h += row(rows[i], i === iL);
+  return h + '</div>';
+  function row(r, isLvl){
+    return '<div class="r' + (r.here ? ' here' : isLvl ? ' lvl' : '') + '"><span>' + (r.here ? '◀ Price now' : esc(r.name) + (isLvl ? ' ★' : '')) + '</span><span>' + esc(r.price) + '</span></div>';
+  }
+}
+
+function feature(d){
+  var s = d.setup, st = Q.status(d), sell = s.dir === 'sell';
+  var link = '../analytics/?ref=setups#' + d.sym.toLowerCase();
+  return '<article class="setup ' + s.dir + '">' +
+    '<div><div class="s-top"><span class="dir ' + s.dir + '">' + (sell ? '▼ SELL IDEA' : '▲ BUY IDEA') + '</span><span class="chip ' + st.cls + '">' + st.txt + '</span></div>' +
+    '<div style="margin-top:12px"><div class="sym">' + esc(d.label) + '</div><div class="kind">' + esc(d.kind) + '</div></div>' +
+    '<p class="px">Price ' + esc(d.price) + ' · ' + esc(d.change) + ' today</p>' +
+    '<ul class="why">' + Q.reasons(d).map(function(r){ return '<li>' + r + '</li>'; }).join('') + '</ul>' +
+    '<div class="row"><a class="btn primary" href="' + link + '" data-goatcounter-click="setups-open-' + d.sym.toLowerCase() + '">Open the full ' + esc(d.label) + ' dashboard</a><button type="button" class="btn" id="copyBtn">Copy for X / Telegram</button><span class="copied" id="copied" hidden>Copied</span></div></div>' +
+    ladder(d) +
+    '<div class="check"><h4>Before you even think about it</h4><ol>' +
+      '<li>Check the level on <b>your own chart</b>. Does it line up with weekly or daily supply and demand?</li>' +
+      '<li>Wait for price to <b>react at the level</b>. ' + (sell ? 'A rejection, not a close above it.' : 'A rejection, not a close below it.') + '</li>' +
+      '<li>Know your exit first. Keep your stop <b>away from the obvious level</b> and the crowd\'s stop loss cluster.</li>' +
+      '<li>Size it so being wrong is a small, planned loss. That\'s <b>risk management</b>, and it comes first.</li>' +
+    '</ol></div>' +
+  '</article>';
+}
+
+function shareText(d){
+  var s = d.setup;
+  return 'Setup to watch: ' + (s.dir === 'sell' ? 'SELL ' : 'BUY ') + d.label + '\n' +
+    '👥 ' + Math.round(s.crowdWrong) + '% of retail ' + (s.dir === 'sell' ? 'long' : 'short') + ' (contrarian)\n' +
+    '🎯 ' + d.scoreName + ' ' + d.score + '/' + d.max + '\n' +
+    '🧭 ' + (s.at ? 'At ' : 'Near ') + s.level.name + ' ' + s.level.price + '\n' +
+    'Watchlist, not advice. Risk management first.\nhttps://quasidb.com/setups/';
+}
+
+function render(res){
+  var list = res.setups, top = list[0];
+  var t = res.at.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  $('stampTxt').textContent = 'Scanned ' + res.scanned + ' markets at ' + t + ' your time · ' + list.length + ' line' + (list.length === 1 ? 's' : '') + ' up' + (res.failed ? ' · ' + res.failed + ' could not load' : '');
+  $('rescan').hidden = false; $('prog').hidden = true;
+  if (!top){
+    $('topH').textContent = 'Nothing lines up right now';
+    $('feature').innerHTML = '<div class="empty"><h3>No setup is a position too.</h3><p>Right now no market has the crowd, the QDB Score and a strong level all pointing the same way. That happens, and sitting on your hands is part of the plan. Check back later in the session, or browse the live dashboards.</p><div class="row"><a class="btn primary" href="../analytics/?ref=setups">Open the live dashboards</a><a class="btn" href="../shop/?ref=setups-empty">See what members get</a></div></div>';
+    $('more').hidden = true;
+    return;
+  }
+  $('topH').textContent = list.length > 1 ? 'Top setup to watch right now' : 'The setup to watch right now';
+  $('feature').innerHTML = feature(top);
+  $('copyBtn').addEventListener('click', function(){
+    var txt = shareText(top);
+    var ok = function(){ $('copied').hidden = false; setTimeout(function(){ $('copied').hidden = true; }, 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, function(){ window.prompt('Copy this:', txt); });
+    else window.prompt('Copy this:', txt);
+  });
+  var rest = list.length - 1;
+  $('more').hidden = false;
+  if (rest > 0){
+    $('moreH').textContent = rest + ' more ' + (rest === 1 ? 'market lines' : 'markets line') + ' up right now';
+    $('moreP').textContent = 'The free page shows the strongest one. The rest are for members.';
+    var n = Math.min(rest, 2), h = '';
+    for (var i = 0; i < n; i++){
+      var d = list[i + 1];
+      h += '<div class="lk" aria-label="Locked setup"><div class="blur"><div class="s-top"><span class="dir ' + d.setup.dir + '">' + (d.setup.dir === 'sell' ? '▼ SELL IDEA' : '▲ BUY IDEA') + '</span></div><div class="sym" style="margin-top:10px">XXX/XXX</div><p class="px">Crowd 00% · Score 0/00 · Weekly 0</p></div>' +
+        '<div class="over"><div>🔒 Setup #' + (i + 2) + '<small>Members only</small></div></div></div>';
+    }
+    $('locked').innerHTML = h;
+  } else {
+    $('moreH').textContent = 'Only one lines up right now';
+    $('moreP').textContent = 'That\'s normal. Most of the time most markets don\'t qualify, which is the point of the filter.';
+    $('locked').innerHTML = '';
+  }
+}
+
+function run(){
+  $('prog').hidden = false; $('progBar').style.width = '0'; $('rescan').hidden = true;
+  $('stampTxt').textContent = 'Scanning ' + Q.total + ' markets…';
+  Q.scan(function(done, total){ $('progBar').style.width = (100 * done / total) + '%'; $('stampTxt').textContent = 'Scanning ' + Q.total + ' markets… ' + done + '/' + total; })
+   .then(function(res){
+     if (!res.scanned){ $('stampTxt').textContent = 'Could not reach the QDB Sheet just now.'; $('rescan').hidden = false; $('prog').hidden = true; $('feature').innerHTML = '<div class="empty"><p>The live data didn\'t load. Try again in a minute.</p></div>'; return; }
+     render(res);
+   });
+}
+$('rescan').addEventListener('click', run);
+run();
+setInterval(function(){ if (!document.hidden) run(); }, 10 * 60 * 1000);
+})();
+</script>
+</body>
+</html>

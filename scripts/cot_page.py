@@ -243,7 +243,7 @@ def render(d):
 <body>
 <nav class="top"><div class="wrap">
   <a class="brand" href="../?ref=cot"><img src="../logo.png" alt="">QDB Trading Desk</a>
-  <div class="navl"><a href="../sentiment/">Sentiment</a><a href="../analytics/">Analytics</a><a href="../cot/" aria-current="page">COT</a><a href="../guides/">Guides</a><a href="../psychology/">Psychology</a><a href="../games/">Games</a><a href="../shop/">Shop</a></div>
+  <div class="navl"><a href="../setups/">Setups</a><a href="../sentiment/">Sentiment</a><a href="../analytics/">Analytics</a><a href="../cot/" aria-current="page">COT</a><a href="../guides/">Guides</a><a href="../psychology/">Psychology</a><a href="../games/">Games</a><a href="../shop/">Shop</a></div>
 </div></nav>
 
 <main class="wrap">
