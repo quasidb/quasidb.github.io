@@ -314,6 +314,23 @@ td.lock a:hover{color:var(--accent)}
 .games-band .games-grid{grid-template-columns:repeat(2,1fr)}
 @media (max-width:980px){.games-band .grid3{grid-template-columns:1fr}}
 
+/* trading psychology band */
+.psych{padding:0 0 88px}
+.psych-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(59,130,246,.06));border:1px solid rgba(167,139,250,.32);border-radius:var(--radius);padding:44px}
+.psych .kicker{color:#c4b5fd}
+.psych h2 em{font-style:normal;color:#c4b5fd}
+.psych p.ps-lead{color:var(--muted);font-size:19px;margin-bottom:24px}
+.psych p.ps-lead b{color:var(--text)}
+.ps-tn{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ps-tn div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.ps-tn .yr{display:block;font-family:var(--mono);font-size:26px;font-weight:700;line-height:1;margin-bottom:10px;color:var(--muted)}
+.ps-tn .now .yr{color:#c4b5fd}
+.ps-tn ul{list-style:none;display:grid;gap:8px;font-size:15px;color:var(--muted)}
+.ps-tn b{color:var(--text)}
+.ps-quote{grid-column:1/-1;font-size:16px;color:var(--muted);border-left:3px solid #a78bfa;padding-left:14px}
+@media (max-width:980px){.psych-grid{grid-template-columns:1fr;padding:30px 24px}}
+@media (max-width:480px){.ps-tn{grid-template-columns:1fr}.psych-grid{padding:24px 18px}}
+
 /* COT non-commercial positioning */
 .cot{padding:0 0 80px}
 .cot-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-family:var(--mono);font-size:14px;color:var(--muted);margin:-28px 0 22px}
@@ -409,6 +426,7 @@ nav .wrap{gap:20px;position:relative}
       <a href="analytics/">Analytics</a>
       <a href="cot/">COT</a>
       <a href="guides/">Guides</a>
+      <a href="psychology/">Psychology</a>
       <a href="games/">Games</a>
       <a href="shop/?ref=nav" data-goatcounter-click="nav-shop">Shop</a>
       <a href="#pricing">Pricing</a>
@@ -640,6 +658,27 @@ nav .wrap{gap:20px;position:relative}
       <a class="card game-card reveal" href="games/stop-hunter/?ref=home"><img src="games/stop-hunter/og.png" alt="Stop Hunter: a fish hunting stop loss clusters" loading="lazy"><span class="tag free">Free</span><h3>Stop Hunter</h3><p>Drag your stop and take profit, then watch the big fish hunt the crowd's stop loss clusters.</p><p class="play-link">Start hunting →</p></a>
     </div>
     <p class="reveal" style="margin-top:22px;text-align:center"><a class="play-link" href="games/beat-the-crowd/?ref=home">New: Beat the Crowd, a daily puzzle with the real retail crowd →</a><br><a class="play-link" href="games/advent/?ref=home">🎄 The Trader's Advent Calendar: 24 doors, 1 to 24 December →</a><br><a class="play-link" href="games/?ref=home">See all seven games, including the advanced Order Book Walls →</a><br><a class="play-link" href="guides/order-book/?ref=home">New to the order book? Read the animated guide →</a></p>
+  </div>
+</section>
+
+<section class="psych" id="psychology">
+  <div class="wrap">
+    <div class="psych-grid reveal">
+      <div>
+        <div class="kicker">New · Trading psychology</div>
+        <h2>Why you can't <em>set and forget</em> anymore.</h2>
+        <p class="ps-lead">In 2010 you could place a trade and walk away. Since 2020 the swings are faster and wilder, and a lot of us end up <b>babysitting every position</b>. Is it the market, or is it us? Honestly, both. Here's what changed, and six fixes that let you step away again.</p>
+        <div class="cta-row">
+          <a href="psychology/set-and-forget/?ref=home" class="btn btn-primary" data-goatcounter-click="home-psych-read">Read the piece →</a>
+          <a href="psychology/?ref=home" class="btn btn-ghost" data-goatcounter-click="home-psych-hub">Trading psychology</a>
+        </div>
+      </div>
+      <div class="ps-tn">
+        <div><span class="yr">2010</span><ul><li><b>Set it</b> and check at lunch</li><li>News moved, then <b>settled</b></li><li>Last month's stop <b>still fitted</b></li></ul></div>
+        <div class="now"><span class="yr">2026</span><ul><li>Algos react in <b>milliseconds</b></li><li>Ranges <b>wider</b>, stop hunts sharper</li><li>Every tick <b>in your pocket</b></li></ul></div>
+        <p class="ps-quote">&ldquo;I run a Discord full of traders, and I still struggle with this. That's the reason to talk about it.&rdquo;<br><b>Dave, QDB</b></p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1252,6 +1291,7 @@ nav .wrap{gap:20px;position:relative}
         <a href="https://www.patreon.com/quasidb" target="_blank" rel="noopener">Patreon</a>
         <a href="games/">Free games</a>
         <a href="guides/">Guides</a>
+        <a href="psychology/">Psychology</a>
         <a href="shop/?ref=footer" data-goatcounter-click="footer-shop">Shop</a>
       </div>
     </div>
