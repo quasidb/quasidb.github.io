@@ -62,7 +62,7 @@
     <p class="lead">Here's a confession. For years, after a proper bloodbath in the indices, I could never find the conviction to go long. I knew, on paper, that the best entries come when everything looks broken. But with the S&amp;P just down hard, my head was full of red candles, and I waited. Then I waited some more. <b>By the time I felt ready, the optimal entry was long gone.</b> Over the years I've learned to hand that first call to something that can't feel fear: the QDB Sheet's Risk Calculation. This is how.</p>
     <div class="byline"><img src="../../logo.png" alt=""><span><b>Dave</b> · QDB Trading Desk · trading since 2010</span></div>
     <nav class="toc" aria-label="On this page">
-      <a href="#why">Why it happens</a><a href="#gut">My old gut vs the score</a><a href="#ladder">Capitulation 0 to Dominance 6</a><a href="#how">How it's scored</a><a href="#use">How I use it</a><a href="#free">Get it free</a>
+      <a href="#why">Why it happens</a><a href="#gut">My old gut vs the score</a><a href="#ladder">Capitulation 0 to Dominance 6</a><a href="#extremes">The extremes never last</a><a href="#how">How it's scored</a><a href="#use">How I use it</a><a href="#free">Get it free</a>
     </nav>
   </header>
 
@@ -99,6 +99,17 @@
     <div class="note gold"><h4>3 is no-man's land</h4><p><b>Denial and Doubt</b> both score 3. That's the market sitting on the fence, and it's deliberate: it's where I hold off. The <b>weekly change in the VIX</b> decides which of the two we're in, and so which way the ladder is leaning. Only when the score moves clearly off 3, in either direction, is the move big enough to act on.</p></div>
   </section>
 
+  <section class="sec" id="extremes">
+    <h2>The extremes never last</h2>
+    <p>Something I've noticed over the years: the two ends of the ladder are always short-lived.</p>
+    <div class="two">
+      <div class="card good"><span class="tag">6 · Dominance</span><h3>A lovely time to take profit</h3><p>Dominance never, <b>ever</b> lasts long. When the score hits 6, I'm not looking to add to longs, I'm looking to <b>bank them</b>.</p></div>
+      <div class="card bad"><span class="tag red">0 · Capitulation</span><h3>Over almost as soon as it starts</h3><p>Capitulation doesn't last long either. The big money that comes in to "buy the dip" <b>rushes in</b>, and the flush is over before most people have stopped panicking.</p></div>
+    </div>
+    <p>I'll be 100% honest: <b>why</b> the extremes are so brief is a guess on my part. It could be big money squaring up ahead of the weekend, or hedge funds closing positions. I'm not sure, and I'd rather say so than make something up.</p>
+    <div class="note gold"><h4>We're counting</h4><p>So we're not just going on my gut, we're now <b>recording every phase the score enters and how long it lasts</b>. Once there's enough history, I'll share the numbers: how long Dominance and Capitulation really last, and what usually comes next.</p></div>
+  </section>
+
   <section class="sec" id="how">
     <h2>How the score is built</h2>
     <p>Six checks, each worth one point. Three come from the crowd's big-picture positioning and three from the markets themselves.</p>
@@ -118,7 +129,8 @@
       <div class="fix"><div><b>Sit out the 3s</b><span>At <b>3 (Denial or Doubt)</b> the market is on the fence, so I am too. I wait for the score to move clearly off it before I commit, rather than guessing which way it'll break.</span></div></div>
       <div class="fix"><div><b>Still only at a strong level</b><span>The score tells me the mood. The chart tells me <b>where</b>. I only buy at strong weekly or daily demand, with the stop beyond it and beyond the crowd's stop cluster.</span></div></div>
       <div class="fix"><div><b>Scale in, small</b><span>No conviction? Then don't need it. Start with <b>half size</b> at the level and add the rest if the score keeps rising. A small position is much easier to take when you're scared.</span></div></div>
-      <div class="fix"><div><b>Be wary when it feels easy</b><span>At <b>5 (Euphoria)</b> and <b>6 (Dominance)</b>, when buying feels obvious, I tighten up. That's when leverage grows and caution looks foolish, so it's when the plan matters most.</span></div></div>
+      <div class="fix"><div><b>Be wary when it feels easy</b><span>At <b>5 (Euphoria)</b>, when buying feels obvious, I tighten up. That's when leverage grows and caution looks foolish, so it's when the plan matters most.</span></div></div>
+      <div class="fix"><div><b>Take profit into Dominance</b><span>When the score reaches <b>6</b>, I bank profit on the longs rather than add. Dominance never lasts long, and I'd rather be paid on the way up than give it back.</span></div></div>
     </div>
   </section>
 
@@ -180,7 +192,7 @@ const DAYS=[
   {d:"Day 7",i:24,st:"Doubt",feel:"“It could still be a trap.”",note:"No-man's land: a 3. Half the checks are risk-on, and the weekly VIX change says which side of the fence we're on. Wait for the move off it."},
   {d:"Day 10",i:29,st:"Complacency",feel:"“OK, maybe. Let me see one more day.”",note:"Most checks are risk-on. A lot of the move is already done."},
   {d:"Day 14",i:34,st:"Euphoria",feel:"“Now I'm sure. Buy!”",note:"The sheet's own words: the point of maximum risk."},
-  {d:"Day 18",i:39,st:"Dominance",feel:"“Why didn't I buy at the bottom?”",note:"Peak confidence. Caution looks foolish, which is exactly when to be careful."}
+  {d:"Day 18",i:39,st:"Dominance",feel:"“Why didn't I buy at the bottom?”",note:"Peak confidence, and it never lasts long. If you bought the dip, this is a lovely place to take profit."}
 ];
 /* index path: rally, crash, recovery */
 const P=[100,101,101.5,101,102,101.4,100,97.5,95,92.8,91.2,93,92,93.6,94.4,93.8,95,96,95.4,96.6,97.4,96.9,98.2,98.8,98.3,99.4,100.2,99.8,100.9,101.4,101,102,102.6,102.2,103.4,103.8,103.5,104.4,104.9,104.6];
