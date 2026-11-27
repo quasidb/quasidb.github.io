@@ -96,6 +96,7 @@
     <h2>Capitulation 0 to Dominance 6</h2>
     <p>The <b>🧭 Risk Calculation</b> tab places the market on one rung of this ladder. It's a rigid score: the same inputs always give the same answer, whether I'm feeling brave or bruised.</p>
     <div class="ladder" id="ladderList"></div>
+    <div class="note gold"><h4>3 is no-man's land</h4><p><b>Denial and Doubt</b> both score 3. That's the market sitting on the fence, and it's deliberate: it's where I hold off. The <b>weekly change in the VIX</b> decides which of the two we're in, and so which way the ladder is leaning. Only when the score moves clearly off 3, in either direction, is the move big enough to act on.</p></div>
   </section>
 
   <section class="sec" id="how">
@@ -114,6 +115,7 @@
     <h2>How I use it, so I stop missing the turn</h2>
     <div class="fixes">
       <div class="fix"><div><b>Let the score start the conversation</b><span>When it climbs off <b>0 or 1</b> after a sell-off, that's my cue to start looking for longs on the indices, not to wait for my nerves to settle.</span></div></div>
+      <div class="fix"><div><b>Sit out the 3s</b><span>At <b>3 (Denial or Doubt)</b> the market is on the fence, so I am too. I wait for the score to move clearly off it before I commit, rather than guessing which way it'll break.</span></div></div>
       <div class="fix"><div><b>Still only at a strong level</b><span>The score tells me the mood. The chart tells me <b>where</b>. I only buy at strong weekly or daily demand, with the stop beyond it and beyond the crowd's stop cluster.</span></div></div>
       <div class="fix"><div><b>Scale in, small</b><span>No conviction? Then don't need it. Start with <b>half size</b> at the level and add the rest if the score keeps rising. A small position is much easier to take when you're scared.</span></div></div>
       <div class="fix"><div><b>Be wary when it feels easy</b><span>At <b>5 (Euphoria)</b> and <b>6 (Dominance)</b>, when buying feels obvious, I tighten up. That's when leverage grows and caution looks foolish, so it's when the plan matters most.</span></div></div>
@@ -167,7 +169,7 @@ const DAYS=[
   {d:"Crash day",i:10,st:"Capitulation",feel:"“I'm never buying this again.”",note:"The last holders give up. Selling is exhausting itself."},
   {d:"Day 2",i:14,st:"Extreme Fear",feel:"“That bounce is a dead cat.”",note:"Still panicky, but the direction checks have started to improve."},
   {d:"Day 4",i:19,st:"Fear",feel:"“I'll wait for confirmation.”",note:"Risk appetite is recovering underneath the headlines."},
-  {d:"Day 7",i:24,st:"Doubt",feel:"“It could still be a trap.”",note:"Half the checks are now risk-on. Rallies are starting to hold."},
+  {d:"Day 7",i:24,st:"Doubt",feel:"“It could still be a trap.”",note:"No-man's land: a 3. Half the checks are risk-on, and the weekly VIX change says which side of the fence we're on. Wait for the move off it."},
   {d:"Day 10",i:29,st:"Complacency",feel:"“OK, maybe. Let me see one more day.”",note:"Most checks are risk-on. A lot of the move is already done."},
   {d:"Day 14",i:34,st:"Euphoria",feel:"“Now I'm sure. Buy!”",note:"The sheet's own words: the point of maximum risk."},
   {d:"Day 18",i:39,st:"Dominance",feel:"“Why didn't I buy at the bottom?”",note:"Peak confidence. Caution looks foolish, which is exactly when to be careful."}
