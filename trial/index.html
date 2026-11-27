@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Try the full QDB Sheet free for 14 days | QDB</title>
+<meta name="description" content="Two weeks of the full QDB Sheet, free. Retail sentiment, the QDB Score, FXCM SSI, pivots and the Top 3 bubble trades, shared to your Google account. No card, nothing to cancel.">
+<link rel="canonical" href="https://quasidb.com/trial/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/trial/">
+<meta property="og:title" content="The full QDB Sheet, free for 14 days">
+<meta property="og:description" content="See where the crowd is, whether the technicals agree and if price is at a strong level. Two weeks free, no card.">
+<meta property="og:image" content="https://quasidb.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../guides/guides.css">
+<style>
+h1 em{color:var(--accent)}
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
+@media (max-width:820px){.hero-grid{grid-template-columns:1fr}}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.facts span{font-family:var(--mono);font-size:13px;padding:5px 11px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.facts b{color:var(--accent)}
+
+.form{background:var(--panel);border:1px solid rgba(245,184,61,.45);border-radius:20px;padding:22px;display:grid;gap:14px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.form h2{font-size:24px;margin:0}
+.form label{display:grid;gap:6px;font-size:16px;font-weight:600}
+.form label small{color:var(--dim);font-weight:400;font-size:14px}
+.form input[type=text],.form input[type=email]{font:inherit;font-size:18px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%}
+.form input:focus{border-color:var(--accent);outline:none}
+.tick{display:grid!important;grid-template-columns:24px 1fr;gap:10px!important;align-items:start;font-weight:400!important;font-size:15px!important;color:var(--muted)}
+.tick input{width:20px;height:20px;margin-top:3px;accent-color:var(--accent)}
+.tick b{color:var(--text)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form .btn{width:100%}
+.msg{font-size:16px;border-radius:12px;padding:12px 14px;display:none}
+.msg.ok{display:block;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.45);color:var(--text)}
+.msg.err{display:block;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.45);color:var(--text)}
+.fine{font-size:13px;color:var(--dim)}
+
+.ba{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;margin-top:16px}
+@media (max-width:760px){.ba{grid-template-columns:1fr}.ba .arrow{transform:rotate(90deg);justify-self:center}}
+.ba .card h3{display:flex;align-items:center;gap:8px}
+.ba .before{border-color:rgba(239,68,68,.35)}
+.ba .after{border-color:rgba(34,197,94,.45);background:linear-gradient(160deg,rgba(34,197,94,.07),var(--panel) 55%)}
+.ba ul{list-style:none;display:grid;gap:9px;margin-top:12px}
+.ba li{padding-left:26px;position:relative;color:var(--muted);font-size:16px}
+.ba li b{color:var(--text)}
+.ba .before li::before{content:'✕';position:absolute;left:2px;color:var(--sell);font-weight:700}
+.ba .after li::before{content:'✓';position:absolute;left:2px;color:var(--buy);font-weight:700}
+.arrow{align-self:center;font-size:30px;color:var(--accent)}
+
+.plan{list-style:none;display:grid;gap:10px;margin-top:16px;counter-reset:d}
+.plan li{display:grid;grid-template-columns:92px 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.plan .d{font-family:var(--mono);font-weight:700;color:var(--accent);font-size:14px;padding-top:2px}
+.plan p{color:var(--muted);font-size:16px}
+.plan b{color:var(--text)}
+.plan li.decide{border-color:rgba(245,184,61,.55)}
+@media (max-width:520px){.plan li{grid-template-columns:1fr;gap:2px}}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+@media (max-width:760px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:440px){.steps{grid-template-columns:1fr}}
+.steps div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15px;color:var(--muted)}
+.steps span{font-family:var(--mono);color:var(--accent);font-size:13px}
+.steps b{display:block;color:var(--text);font-size:16px}
+
+.qa{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-top:10px}
+.qa summary{cursor:pointer;font-weight:600}
+.qa p{color:var(--muted);margin-top:8px;font-size:16px}
+.privacy{font-size:15px;color:var(--muted);max-width:52em}
+.privacy p{margin-top:8px}
+.privacy b{color:var(--text)}
+.risk{margin-top:26px;border:1px solid rgba(239,68,68,.45);background:rgba(239,68,68,.06);border-radius:16px;padding:16px 18px;font-size:16px;color:var(--muted);max-width:52em}
+.risk b{color:var(--text)}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../?ref=trial"><img src="../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../setups/">Setups</a><a href="../sentiment/">Sentiment</a><a href="../analytics/">Analytics</a><a href="../cot/">COT</a><a href="../guides/">Guides</a><a href="../psychology/">Psychology</a><a href="../games/">Games</a><a href="../shop/">Shop</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero hero-grid">
+    <div>
+      <span class="kick">Free · 14 days · No card</span>
+      <h1>The full QDB Sheet, <em>free</em> for two weeks.</h1>
+      <p class="lead">See it working on your own pairs before you spend a penny. Where the retail crowd is positioned, whether the <b>QDB Score</b> agrees, and whether price is sitting at a <b>strong level</b>. That extra confirmation behind a trade is the whole point.</p>
+      <div class="facts"><span><b>40+</b> tabs</span><span><b>28</b> FX pairs + <b>7</b> indices</span><span>Nothing renews</span><span>Nothing to cancel</span></div>
+    </div>
+
+    <form class="form" id="trialForm" novalidate>
+      <h2>Start my free trial</h2>
+      <label>Your Google email
+        <input type="email" name="email" id="email" autocomplete="email" inputmode="email" required placeholder="you@gmail.com">
+        <small>The sheet is shared to a Google account, so a Gmail works best.</small>
+      </label>
+      <label>First name <small>(optional)</small>
+        <input type="text" name="name" autocomplete="given-name" maxlength="60">
+      </label>
+      <label class="hp" aria-hidden="true">Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      <label class="tick"><input type="checkbox" name="consent" value="yes" required>
+        <span><b>Yes, share the QDB Sheet with this Google account for 14 days</b> and email me about my trial: a welcome, a reminder 3 days before it ends and a note when it ends. (Required)</span></label>
+      <label class="tick"><input type="checkbox" name="marketing" value="yes">
+        <span>Also send me <b>occasional QDB news and offers</b>. Optional, and you can unsubscribe any time.</span></label>
+      <button type="submit" class="btn primary" id="go" data-goatcounter-click="trial-submit">Start my 14 days →</button>
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
+      <p class="fine">One trial per Google account. See <a href="#privacy">how your details are used</a>.</p>
+    </form>
+  </header>
+
+  <section class="sec" id="before-after">
+    <h2>Before and after</h2>
+    <p>Same chart, same pair. The difference is what you know before you click buy or sell.</p>
+    <div class="ba">
+      <div class="card before">
+        <h3>😬 Without it</h3>
+        <ul>
+          <li>A level on the chart and <b>a gut feeling</b>.</li>
+          <li>No idea if you're <b>on the same side as the crowd</b> that usually loses.</li>
+          <li>Stop at the obvious place, right where the <b>stop loss cluster</b> sits.</li>
+          <li>Ten tabs and websites open, each saying something different.</li>
+        </ul>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="card after">
+        <h3>🧭 With the QDB Sheet</h3>
+        <ul>
+          <li><b>Crowd Extremes</b> show which pairs retail traders are leaning hard into.</li>
+          <li>The <b>QDB Score /12</b> says whether the technicals back the contrarian read.</li>
+          <li>Pivots, weekly levels and the <b>SL &amp; TP Planner</b> show where price is, and where not to hide a stop.</li>
+          <li>One place, refreshed through the trading day, with the <b>Top 3 Bubble Trades</b> ranked for you.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note gold"><h4>The goal</h4>Not more trades. <b>Better-backed trades</b>: extra confirmation that should pay for itself, as long as you stick to your plan.</div>
+  </section>
+
+  <section class="sec" id="plan">
+    <h2>Your 14 days, planned out</h2>
+    <p>Two weeks goes quickly. This plan comes in your welcome email too, so you get a real before and after rather than a quick look round.</p>
+    <ol class="plan">
+      <li><span class="d">Day 1</span><p><b>Start Here, then the Dashboard.</b> Pick three pairs you already trade and keep to them.</p></li>
+      <li><span class="d">Day 2–3</span><p><b>Crowd Extremes.</b> Is the crowd leaning hard one way on any of your pairs?</p></li>
+      <li><span class="d">Day 4–5</span><p><b>QDB Scores.</b> Does the technical picture agree with the contrarian read, or argue with it?</p></li>
+      <li><span class="d">Day 6–7</span><p><b>Your pair's own tab.</b> Pivots, weekly levels, FXCM SSI. Is price at a level worth trading from?</p></li>
+      <li><span class="d">Week 2</span><p><b>Top 3 Bubble Trades each morning.</b> Write down what you'd do and why, then check what price actually did.</p></li>
+      <li class="decide"><span class="d">Day 11</span><p><b>A reminder email</b> with three days left, and how to keep it if it's earned its place.</p></li>
+      <li><span class="d">Day 14</span><p><b>Access ends by itself.</b> No card was taken, so there's nothing to cancel.</p></li>
+    </ol>
+  </section>
+
+  <section class="sec" id="how">
+    <h2>What happens when you sign up</h2>
+    <div class="steps">
+      <div><span>01</span><b>You ask</b>Your Google email and a tick.</div>
+      <div><span>02</span><b>It's shared</b>Usually within minutes. Look in Google Sheets or Drive under "Shared with me".</div>
+      <div><span>03</span><b>You use it</b>Follow the plan, ask questions by replying to any email.</div>
+      <div><span>04</span><b>You decide</b>Keep it via PayPal or Patreon, or let it lapse.</div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <h2>Quick questions</h2>
+    <details class="qa"><summary>Is it really the full sheet?</summary><p>Yes. The same live QDB Sheet paying members use: Dashboard, Signal House, QDB Scores, Crowd Extremes, Bubbles, FXCM SSI, break-evens, failure rates, the SL &amp; TP Planner and one tab per market. See the full list in the <a href="../shop/?ref=trial#inside">shop</a>.</p></details>
+    <details class="qa"><summary>Do I need a Gmail?</summary><p>You need a Google account, because Google Sheets shares to Google accounts. A Gmail address is the simplest. A work address that signs in to Google works too.</p></details>
+    <details class="qa"><summary>How do I keep it after 14 days?</summary><p>Pay as you go with PayPal, one month at a time, or set and forget with Patreon. Until 31 December the <b>Basic plan at $20 includes the full Sheet</b> (normally $30). Put the same Google email in the PayPal note and your access carries on with no gap. All the options are in the <a href="../shop/?ref=trial#plans">shop</a>.</p></details>
+    <details class="qa"><summary>What does it cost if I forget?</summary><p>Nothing. We never ask for a card, so nothing can renew. On day 14 the sheet is simply un-shared.</p></details>
+    <details class="qa"><summary>Is this a signal service?</summary><p>No. It's context for your own decisions. Never trade sentiment on its own: use it with your technical and fundamental analysis and strict <b>risk management</b>.</p></details>
+    <details class="qa"><summary>Not ready for a trial?</summary><p>Start with the free <a href="../?ref=trial#free-sheet">QDB Data Lite sheet</a> or <a href="../setups/?ref=trial">today's setups to watch</a>. No sign-up for either.</p></details>
+  </section>
+
+  <section class="sec privacy" id="privacy">
+    <h2>How your details are used</h2>
+    <p><b>Who:</b> QDB Trading Desk, run by Dave Bennett in the UK, is responsible for your details. Questions or requests: <a href="mailto:davidianbennett@gmail.com">davidianbennett@gmail.com</a>.</p>
+    <p><b>What and why:</b> your Google email and first name, to share the sheet with you and send the three trial emails you asked for. If you also tick the news box, we use your email for occasional QDB news and offers, based on that consent.</p>
+    <p><b>Where:</b> a private Google Sheet in Dave's Google account, and Gmail for the emails. Google processes this for us. Nothing is sold or passed to anyone else.</p>
+    <p><b>How long:</b> the trial record is deleted automatically 12 months after your trial ends. We keep it that long only so each Google account gets one trial. If you opted in to news, your email stays on that list until you unsubscribe.</p>
+    <p><b>Your rights:</b> you can ask to see, correct or delete your details, or withdraw consent, at any time: reply to any trial email or write to the address above. You can also complain to the UK Information Commissioner's Office at <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener">ico.org.uk</a>.</p>
+  </section>
+
+  <div class="risk"><b>Educational only, not financial advice.</b> Trading forex, indices and commodities on margin carries a high level of risk and may not suit everyone. The majority of retail CFD accounts lose money. Never trade sentiment on its own, and always use strict <b>risk management</b>.</div>
+  <p class="foot">Not ready? <a href="../shop/?ref=trial">See every plan in the shop</a> · <a href="../?ref=trial">Back to QDB Trading Desk</a></p>
+</main>
+
+<script>
+(function(){
+'use strict';
+// Paste the Web app URL from Apps Script here (Deploy > New deployment > Web app). See scripts/trial/INSTALL.md.
+var TRIAL_URL = 'PASTE_WEB_APP_URL_HERE';
+var CONTACT = 'davidianbennett@gmail.com';
+
+var form = document.getElementById('trialForm'), msg = document.getElementById('msg'), btn = document.getElementById('go');
+var ref = (new URLSearchParams(location.search).get('ref') || '').slice(0, 40);
+function show(cls, html){ msg.className = 'msg ' + cls; msg.innerHTML = html; }
+function track(name){ try { window.goatcounter && window.goatcounter.count({ path: name, title: name, event: true }); } catch (e) {} }
+function when(iso){ try { return new Date(iso).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }); } catch (e) { return ''; } }
+
+var TEXT = {
+  started: function(r){ return '<b>You\'re in.</b> The QDB Sheet is now shared with your Google account' + (r.ends ? ' until <b>' + when(r.ends) + '</b>' : '') + '. Check your inbox for the welcome email and the 14-day plan (and the spam folder, just in case). Then open Google Sheets or Drive and look under <b>"Shared with me"</b>.'; },
+  sent: function(){ return '<b>Request sent.</b> Watch your inbox: the welcome email with the link usually arrives within minutes (check spam too).'; },
+  pending: function(){ return '<b>Got it.</b> Your trial is in the queue and Dave will start it shortly. You\'ll get an email the moment it\'s shared.'; },
+  already: function(){ return 'This Google account has <b>already had a trial</b>. To keep using the sheet, <a href="../shop/?ref=trial-again#plans">see the plans</a>, or reply to one of your trial emails if something went wrong.'; },
+  member: function(){ return 'Good news: this Google account <b>already has access</b> to the QDB Sheet. Look in Google Drive under "Shared with me".'; },
+  'not-google': function(){ return 'Google couldn\'t share the sheet with that address. It needs to be a <b>Google account</b>, so please try your Gmail.'; }
+};
+
+form.addEventListener('submit', function(ev){
+  ev.preventDefault();
+  var fd = new FormData(form), email = String(fd.get('email') || '').trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show('err', 'That email address doesn\'t look quite right.');
+  if (fd.get('consent') !== 'yes') return show('err', 'Please tick the first box so the sheet can be shared with you.');
+  if (ref) fd.set('ref', ref);
+  if (TRIAL_URL.indexOf('PASTE') === 0) {
+    var body = 'Hi Dave, I\'d like the 14-day QDB Sheet trial.\n\nGoogle email: ' + email + '\nName: ' + (fd.get('name') || '') + '\nNews and offers: ' + (fd.get('marketing') === 'yes' ? 'yes please' : 'no thanks');
+    location.href = 'mailto:' + CONTACT + '?subject=' + encodeURIComponent('QDB Sheet free trial') + '&body=' + encodeURIComponent(body);
+    return show('ok', 'Your email app should open with the request ready to send. If it doesn\'t, email <a href="mailto:' + CONTACT + '">' + CONTACT + '</a> with your Google email.');
+  }
+  btn.disabled = true; btn.textContent = 'Starting your trial…'; msg.className = 'msg';
+  var params = new URLSearchParams(fd);
+  fetch(TRIAL_URL, { method: 'POST', body: params })
+    .then(function(r){ return r.json(); })
+    .then(function(r){
+      var t = TEXT[r.status];
+      if (t) { show(r.ok || r.status === 'member' ? 'ok' : 'err', t(r)); track('trial-' + r.status); if (r.status === 'started' || r.status === 'pending') form.querySelectorAll('input').forEach(function(i){ i.disabled = true; }); btn.hidden = r.status === 'started' || r.status === 'pending'; }
+      else show('err', 'Something went wrong. Please try again, or email <a href="mailto:' + CONTACT + '">' + CONTACT + '</a>.');
+    })
+    .catch(function(){
+      // The browser couldn't read the reply. Send it once more without reading the answer.
+      return fetch(TRIAL_URL, { method: 'POST', mode: 'no-cors', body: params }).then(function(){ show('ok', TEXT.sent()); track('trial-sent'); btn.hidden = true; })
+        .catch(function(){ show('err', 'That didn\'t go through. Please try again, or email <a href="mailto:' + CONTACT + '">' + CONTACT + '</a> with your Google email.'); });
+    })
+    .then(function(){ btn.disabled = false; if (!btn.hidden) btn.textContent = 'Start my 14 days →'; });
+});
+})();
+</script>
+</body>
+</html>
