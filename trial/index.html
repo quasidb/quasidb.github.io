@@ -204,7 +204,7 @@ function track(name){ try { window.goatcounter && window.goatcounter.count({ pat
 function when(iso){ try { return new Date(iso).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }); } catch (e) { return ''; } }
 
 var TEXT = {
-  started: function(r){ return '<b>You\'re in.</b> The QDB Sheet is now shared with your Google account' + (r.ends ? ' until <b>' + when(r.ends) + '</b>' : '') + '. Check your inbox for the welcome email and the 14-day plan (and the spam folder, just in case). Then open Google Sheets or Drive and look under <b>"Shared with me"</b>.'; },
+  started: function(r){ return '<b>You\'re in.</b> The QDB Sheet is now shared with your Google account' + (r.ends ? ' until <b>' + when(r.ends) + '</b>' : '') + '. Your welcome email with the 14-day plan is on its way (check spam too).' + (r.url ? '<br><a class="btn primary" style="margin-top:10px" href="' + r.url + '" target="_blank" rel="noopener" data-goatcounter-click="trial-open-sheet">Open your QDB Sheet →</a><br><small>Bookmark it. It\'s also in Google Drive under "Shared with me".</small>' : ' Then open Google Drive and look under <b>"Shared with me"</b>.'); },
   sent: function(){ return '<b>Request sent.</b> Watch your inbox: the welcome email with the link usually arrives within minutes (check spam too).'; },
   pending: function(){ return '<b>Got it.</b> Your trial is in the queue and Dave will start it shortly. You\'ll get an email the moment it\'s shared.'; },
   already: function(){ return 'This Google account has <b>already had a trial</b>. To keep using the sheet, <a href="../shop/?ref=trial-again#plans">see the plans</a>, or reply to one of your trial emails if something went wrong.'; },
