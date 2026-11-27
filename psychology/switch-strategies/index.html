@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>It's easier to switch strategies than to change yourself | QDB Trading Psychology</title>
+<meta name="description" content="Traders switch strategies all the time but almost never hone their risk management. Why we blame the system instead of ourselves, why it feels like the market hunts your stop, and what to work on instead. With two animations.">
+<link rel="canonical" href="https://quasidb.com/psychology/switch-strategies/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/psychology/switch-strategies/">
+<meta property="og:title" content="It's easier to switch strategies than to change yourself">
+<meta property="og:description" content="New strategy, a few wins, one big loss, blame the strategy, repeat. Why the thing that needs changing is usually us, and our risk management.">
+<meta property="og:image" content="https://quasidb.com/psychology/switch-strategies/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="It's easier to switch strategies than to change yourself">
+<meta name="twitter:description" content="New strategy, a few wins, one big loss, blame the strategy, repeat. Why the thing that needs changing is usually us, and our risk management.">
+<meta name="twitter:image" content="https://quasidb.com/psychology/switch-strategies/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../guides/guides.css">
+<link rel="stylesheet" href="../psych.css">
+<style>
+.quote{margin-top:18px;border-left:4px solid #a78bfa;padding:6px 0 6px 18px;max-width:44em}
+.quote p{font-size:24px;line-height:1.35;letter-spacing:-.01em}
+.quote span{display:block;margin-top:6px;font-size:15px;color:var(--dim)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;color:var(--muted);margin-top:10px}
+.legend2 i{display:inline-block;width:18px;height:4px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.dstats .red b{color:#fca5a5} .dstats .grn b{color:#86efac} .dstats .pur b{color:#c4b5fd}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../../?ref=psych-switch"><img src="../../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../../sentiment/">Sentiment</a><a href="../../analytics/">Analytics</a><a href="../../cot/">COT</a><a href="../../guides/">Guides</a><a href="../../psychology/" aria-current="page">Psychology</a><a href="../../games/">Games</a><a href="../../shop/">Shop</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">Trading psychology · about 7 minutes</p>
+    <h1>It's easier to switch strategies <em>than to change yourself</em></h1>
+    <p class="lead">If there's one thing I've learned over the years, it's this. People switch strategies all the time, but they <b>never hone their risk management</b>. New system, a few wins, one big loss, blame the system, find a new one. Round and round. It's easier to change the strategy than to change ourselves.</p>
+    <div class="byline"><img src="../../logo.png" alt=""><span><b>Dave</b> · QDB Trading Desk · trading since 2010</span></div>
+    <nav class="toc" aria-label="On this page">
+      <a href="#carousel">The strategy carousel</a><a href="#why">Why we do it</a><a href="#herd">"The market hunts my stop"</a><a href="#hone">What to work on instead</a>
+    </nav>
+  </header>
+
+  <section class="sec" id="carousel">
+    <h2>The strategy carousel</h2>
+    <p>Two traders take <b>exactly the same 120 trades</b>, with the same entries and the same winners and losers. One keeps changing strategy every time the account takes a hit. The other never changes the strategy, only the way they manage risk. Press play.</p>
+    <div class="demo">
+      <div id="carChart"></div>
+      <div class="legend2"><span><i style="background:#f87171"></i>The strategy hopper: 4% risk, cuts winners early, moves the stop</span><span><i style="background:#86efac"></i>Same trades, risk honed: 1% risk, stop never moved, winners run to 2R</span></div>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn primary" id="carPlay">▶ Play the year</button></div>
+      <div class="dstats">
+        <div class="pur"><b id="carN">0</b><span>strategies the hopper has tried</span></div>
+        <div class="red"><b id="carH">$10,000</b><span>the hopper's account</span></div>
+        <div class="grn"><b id="carR">$10,000</b><span>the risk-honed account</span></div>
+      </div>
+    </div>
+    <p class="muted" style="font-size:15px">Simulated trades with a 45% win rate, made to teach the idea, not real results. The only difference between the two lines is risk management.</p>
+    <div class="note gold"><h4>Same trades, different trader</h4><p>Every strategy the hopper dropped was the <b>same strategy</b> the other trader kept. It wasn't the system that failed. It was the sizing, the moved stops and the cut winners, and those came along to every new system.</p></div>
+  </section>
+
+  <section class="sec" id="why">
+    <h2>Why we keep doing it</h2>
+    <div class="fixes">
+      <div class="fix"><div><b>We want easy money</b><span>A new strategy feels like a shortcut. Working on discipline, sizing and patience feels like hard work with no instant reward. So we shop for the shortcut.</span></div></div>
+      <div class="fix"><div><b>Blaming the system is painless</b><span>"The strategy stopped working" protects us. "I risked too much and moved my stop" doesn't. The <b>error is putting the blame on something else</b>, rather than ourselves.</span></div></div>
+      <div class="fix"><div><b>The ego won't allow it</b><span>Nobody likes to admit they've been fooled, least of all by themselves.</span></div></div>
+    </div>
+    <div class="quote"><p>"It's easier to fool people than to convince them that they have been fooled."</p><span>Often attributed to Mark Twain, though there's no record he actually said it. True either way.</span></div>
+    <p>The hardest person to convince is the one in the mirror. If you've switched strategy three times this year, ask yourself honestly: <b>did the strategy fail, or did I?</b></p>
+  </section>
+
+  <section class="sec" id="herd">
+    <h2>Why it feels like the market is hunting <em style="font-style:normal;color:#c4b5fd">your</em> stop</h2>
+    <p>It really can feel personal. Price drops to the exact pip of your stop, takes it, and turns. But the market doesn't know you exist. What most people don't realise is that they're <b>not trading alone</b>. They're part of a herd, a large group of traders who all read the same chart, see the same obvious low, and put their stops in the same place.</p>
+    <div class="demo">
+      <div id="herdChart"></div>
+      <div class="pills" role="group" aria-label="Where you put your stop">
+        <button type="button" data-pos="herd" aria-pressed="true">My stop: just under the obvious low</button>
+        <button type="button" data-pos="beyond" aria-pressed="false">My stop: beyond the cluster</button>
+      </div>
+      <div class="row" style="margin-top:10px"><button type="button" class="btn primary" id="herdPlay">▶ Play</button></div>
+      <div class="verdict2 cap" id="herdCap"><span class="sn">Before the move</span><p>Every dot is a trader's stop. Yours is the gold one. Press play.</p></div>
+    </div>
+    <p>That pile of stops is a <a href="../../guides/stop-loss-clusters/?ref=psych-switch">stop loss cluster</a>. To a large player who needs to buy, it's a pool of ready-made sell orders. Nobody is hunting <b>you</b>. They're filling an order where the herd left the liquidity.</p>
+    <div class="row"><a class="btn" href="../../guides/stop-loss-clusters/?ref=psych-switch">Stop loss clusters guide</a><a class="btn" href="../../games/stop-hunter/?ref=psych-switch">Play Stop Hunter</a></div>
+  </section>
+
+  <section class="sec" id="hone">
+    <h2>What to work on instead</h2>
+    <p>Before you reach for the next strategy, give these a proper go. None of them are exciting. All of them work with <b>any</b> strategy.</p>
+    <div class="fixes">
+      <div class="fix"><div><b>Fix your risk per trade</b><span><b>0.5 to 1%</b> of the account, every trade, whatever happened on the last one. Most "broken" strategies are just oversized ones.</span></div></div>
+      <div class="fix"><div><b>Put the stop where the herd isn't</b><span>Beyond the strong level <b>and</b> beyond the crowd's stop cluster. Never on the obvious low, never on a round number.</span></div></div>
+      <div class="fix"><div><b>Let winners reach the target</b><span>If your plan says 2R, cutting at 1R turns a winning system into a losing one, as the carousel shows.</span></div></div>
+      <div class="fix"><div><b>Journal the cause of every loss</b><span>Write one line: <b>"the setup failed"</b> or <b>"I broke a rule"</b>. After 20 losses, count them. It's usually the second one.</span></div></div>
+      <div class="fix"><div><b>Give a strategy a fair trial</b><span>Judge it over <b>50 to 100 trades</b> at the same risk, not after one bad week. Five losses in a row is normal for a perfectly good system.</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="honest">
+      <h2>A note from me</h2>
+      <p>I've watched this cycle for years, in myself early on and in plenty of traders since. The strategies change, but the losses keep coming for the same reasons. <b>Strict risk management</b> is the one skill that goes with you to every chart, every market and every system.</p>
+      <p>So next time you're about to switch, try changing yourself first. It's harder. It's also the only change that sticks.</p>
+    </div>
+    <div class="note gold"><h4>The one rule</h4><p>Never trade sentiment on its own. Use it only together with technical and fundamental analysis, and with strict <b>risk management</b>.</p></div>
+  </section>
+
+  <section class="sec">
+    <h2>Keep reading</h2>
+    <div class="next">
+      <a href="../elephant-and-rider/?ref=psych-switch"><span>TRADING PSYCHOLOGY</span>The Elephant and the Rider: headlines, the herd and your emotions</a>
+      <a href="../afloat/?ref=psych-switch"><span>TRADING PSYCHOLOGY</span>Afloat or underwater: what following the plan does to your head</a>
+      <a href="../set-and-forget/?ref=psych-switch"><span>TRADING PSYCHOLOGY</span>Why you can't set and forget anymore, and how to get it back</a>
+    </div>
+  </section>
+
+  <p class="foot">Educational only, not financial advice. The animations use simulated, illustrative trades, not real results. Trading on margin carries a high level of risk. <a href="../">Trading psychology</a> · <a href="../../guides/">Guides</a> · <a href="../../">QDB Trading Desk</a></p>
+</main>
+
+<script>
+(function(){
+const track=n=>{try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:n,title:n,event:true})}catch(e){}};
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mono='font-family="JetBrains Mono, monospace"';
+const fmt=v=>"$"+Math.round(v).toLocaleString("en-US");
+
+/* ===== 1. the strategy carousel ===== */
+let seed=4242;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+const N=120, WIN=[];for(let i=0;i<N;i++)WIN.push(rnd()<0.45);
+const NAMES=["Moving-average cross","RSI divergence","Breakout system","Smart money concepts","Grid EA","Ichimoku cloud","Scalping bot","Harmonic patterns","Copy-trading","Fibonacci only"];
+const H=[10000],R=[10000],SW=[];let lossRun=0,peak=10000,strat=0;
+SW.push({i:0,name:NAMES[0]});
+for(let i=0;i<N;i++){
+  /* risk honed: 1%, wins 2R, losses 1R */
+  const r=R[i];R.push(WIN[i]?r*1.02:r*0.99);
+  /* hopper: 4%, cuts winners at 1R, every third loss in a row the stop was moved (3R) */
+  const h=H[i];let nh;
+  if(WIN[i]){nh=h*1.04;lossRun=0}else{lossRun++;nh=h*(1-0.04*(lossRun%3===0?3:1))}
+  H.push(nh);peak=Math.max(peak,nh);
+  if(nh<peak*0.85&&strat<NAMES.length-1){strat++;SW.push({i:i+1,name:NAMES[strat]});peak=nh;}
+}
+const car=document.getElementById("carChart");
+function drawCar(k){
+  const C=(car.clientWidth||600)<560,W=C?560:960,Hh=C?400:360,L=C?66:74,Rr=W-14,T=20,B=Hh-30,fs=C?16:13;
+  const lo=0,hi=Math.max(...R,...H)*1.05,X=i=>L+(Rr-L)*i/N,Y=v=>T+(B-T)*(hi-v)/(hi-lo);
+  let s=`<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Two account curves over the same 120 trades. The strategy hopper's account falls while it keeps switching strategy; the risk-honed account climbs."><rect width="${W}" height="${Hh}" fill="#0a1220"/>`;
+  [0,10000,20000].forEach(v=>{if(v>hi)return;s+=`<line x1="${L}" x2="${Rr}" y1="${Y(v)}" y2="${Y(v)}" stroke="#1e293b"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end" ${mono} font-size="${fs-2}" fill="#6b7892">${v?"$"+v/1000+"k":"$0"}</text>`});
+  s+=`<line x1="${L}" x2="${Rr}" y1="${Y(10000)}" y2="${Y(10000)}" stroke="#475569" stroke-dasharray="4 5"/>`;
+  SW.forEach((w,j)=>{if(w.i>k)return;const x=X(w.i);s+=`<line x1="${x}" x2="${x}" y1="${T}" y2="${B}" stroke="#a78bfa" stroke-opacity=".35" stroke-dasharray="3 4"/>`;
+    if(j>0||true){const ty=T+12+(j%4)*(fs+6);s+=`<text x="${x+4}" y="${ty}" ${mono} font-size="${fs-3}" fill="#c4b5fd" opacity="${j===SW.filter(w=>w.i<=k).length-1?1:.55}">${C&&w.name.length>14?w.name.slice(0,13)+"…":w.name}</text>`;}});
+  const path=a=>a.slice(0,k+1).map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ");
+  s+=`<path d="${path(R)}" fill="none" stroke="#86efac" stroke-width="3" stroke-linejoin="round"/><path d="${path(H)}" fill="none" stroke="#f87171" stroke-width="3" stroke-linejoin="round"/>`;
+  s+=`<circle cx="${X(k)}" cy="${Y(R[k])}" r="5" fill="#86efac"/><circle cx="${X(k)}" cy="${Y(H[k])}" r="5" fill="#f87171"/>`;
+  s+=`<text x="${L}" y="${Hh-8}" ${mono} font-size="${fs-2}" fill="#6b7892">TRADE 1</text><text x="${Rr}" y="${Hh-8}" text-anchor="end" ${mono} font-size="${fs-2}" fill="#6b7892">TRADE ${N}</text>`;
+  car.innerHTML=s+"</svg>";
+  document.getElementById("carN").textContent=SW.filter(w=>w.i<=k).length;
+  document.getElementById("carH").textContent=fmt(H[k]);
+  document.getElementById("carR").textContent=fmt(R[k]);
+}
+let carK=0,carRAF=null,carT0=0;
+function playCar(){
+  cancelAnimationFrame(carRAF);carK=0;carT0=performance.now();
+  if(reduce){carK=N;drawCar(N);return}
+  const step=t=>{carK=Math.min(N,Math.floor((t-carT0)/55));drawCar(carK);if(carK<N)carRAF=requestAnimationFrame(step)};
+  carRAF=requestAnimationFrame(step);
+}
+document.getElementById("carPlay").addEventListener("click",()=>{playCar();track("psych-switch-carousel")});
+drawCar(0);
+let carSeen=false;
+if("IntersectionObserver" in window){new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting&&!carSeen){carSeen=true;playCar();o.disconnect()}})},{threshold:.5}).observe(car)}
+
+/* ===== 2. the herd and the stop cluster ===== */
+const herd=document.getElementById("herdChart");let pos="herd",hRAF=null;
+seed=77;const DOTS=Array.from({length:42},()=>({dx:rnd(),dy:rnd()}));
+/* price path in "rows": a double bottom at 3, a sweep to 1.2, then the reversal */
+const PP=[9,8.2,7.4,6.2,5,3.9,3.1,3.6,4.8,5.6,5,4.2,3.4,3.05,3.5,4.4,5.2,4.6];
+const SW2=[2.3,1.4,0.9,1.3,2.6,4,5.4,6.8,8,9,10.2,11];
+function drawHerd(p){ /* p: 0 (before) .. 1 (done) */
+  const C=(herd.clientWidth||600)<560,W=C?560:960,Hh=C?420:360,L=10,Rr=W-12,T=20,B=Hh-24,fs=C?16:13;
+  const lo=0,hi=12.5,Y=v=>T+(B-T)*(hi-v)/(hi-lo),tot=PP.length+SW2.length-1,X=i=>L+20+(Rr-L-40)*i/tot;
+  const shown=PP.length-1+Math.floor(p*SW2.length+1e-9), frac=p*SW2.length-Math.floor(p*SW2.length);
+  const all=PP.concat(SW2);let pts=all.slice(0,shown+1);
+  if(p>0&&p<1&&shown+1<all.length){const a=all[shown],b=all[shown+1];pts=pts.concat([a+(b-a)*frac]);}
+  const low=Math.min(...pts.slice(PP.length-1));
+  const cy0=2.6,cy1=1.6,cx0=X(2),cx1=X(PP.length+1);
+  let s=`<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Price makes a double bottom. A crowd of stops sits just under the low. Price sweeps through them and reverses."><rect width="${W}" height="${Hh}" fill="#0a1220"/>`;
+  s+=`<line x1="${L}" x2="${Rr}" y1="${Y(3.05)}" y2="${Y(3.05)}" stroke="#cbd5e1" stroke-dasharray="5 5" opacity=".5"/><text x="${Rr-4}" y="${Y(3.05)-6}" text-anchor="end" ${mono} font-size="${fs-2}" fill="#cbd5e1">THE OBVIOUS LOW</text>`;
+  const hit=v=>low<=v;
+  DOTS.forEach((d,j)=>{const v=cy1+(cy0-cy1)*d.dy, x=cx0+(cx1-cx0)*d.dx, gone=hit(v);
+    s+=`<circle cx="${x.toFixed(1)}" cy="${(Y(v)+(gone?18*Math.min(1,(v-low)+0.6):0)).toFixed(1)}" r="${C?6:5}" fill="${gone?"#475569":"#a78bfa"}" opacity="${gone?.35:.85}"/>`;});
+  const yv=pos==="herd"?2.2:0.35, yx=(cx0+cx1)/2, yg=hit(yv);
+  s+=`<circle cx="${yx}" cy="${Y(yv)+(yg?16:0)}" r="${C?10:9}" fill="${yg?"#7c5a12":"#f5b83d"}" stroke="#0a1220" stroke-width="2"/><text x="${yx+16}" y="${Y(yv)+(yg?16:0)+5}" ${mono} font-size="${fs-1}" font-weight="700" fill="${yg?"#a3afc5":"#f5b83d"}">YOU${yg?" · STOPPED OUT":""}</text>`;
+  if(pos==="beyond")s+=`<line x1="${L}" x2="${Rr}" y1="${Y(0.35)}" y2="${Y(0.35)}" stroke="#f5b83d" stroke-dasharray="3 6" opacity=".5"/>`;
+  s+=`<path d="${pts.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ")}" fill="none" stroke="#e8edf6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  s+=`<circle cx="${X(pts.length-1)}" cy="${Y(pts[pts.length-1])}" r="6" fill="#f5b83d" stroke="#0a1220" stroke-width="2"/>`;
+  const n=DOTS.filter(d=>hit(cy1+(cy0-cy1)*d.dy)).length;
+  s+=`<text x="${L+10}" y="${Hh-6}" ${mono} font-size="${fs-1}" fill="#a3afc5">STOPS TRIGGERED: ${n} of ${DOTS.length+1}</text>`;
+  herd.innerHTML=s+"</svg>";
+  const cap=document.getElementById("herdCap");
+  if(p===0)cap.innerHTML=`<span class="sn">Before the move</span><p>Every purple dot is a trader's stop. Yours is the gold one. Press play.</p>`;
+  else if(p<0.4)cap.innerHTML=`<span class="sn">The sweep</span><p>Price drops under the obvious low. Every stop there fills as a market <b>sell</b>, and someone large is happily buying them.</p>`;
+  else cap.innerHTML=pos==="herd"?`<span class="sn">Stopped out, with the herd</span><p>You were taken out with ${n} others, then price went exactly where you thought it would. It wasn't personal. You were standing in the crowd.</p>`:`<span class="sn">Still in the trade</span><p>The herd was swept, your stop wasn't touched, and the reversal carries you with it. Same idea, same entry, <b>different place for the stop</b>.</p>`;
+}
+function playHerd(){
+  cancelAnimationFrame(hRAF);
+  if(reduce){drawHerd(1);return}
+  const t0=performance.now(),D=3600;
+  const step=t=>{const p=Math.min(1,(t-t0)/D);drawHerd(p);if(p<1)hRAF=requestAnimationFrame(step)};
+  hRAF=requestAnimationFrame(step);
+}
+document.getElementById("herdPlay").addEventListener("click",()=>{playHerd();track("psych-switch-herd-"+pos)});
+document.querySelectorAll("[data-pos]").forEach(b=>b.addEventListener("click",()=>{pos=b.dataset.pos;document.querySelectorAll("[data-pos]").forEach(x=>x.setAttribute("aria-pressed",x===b));cancelAnimationFrame(hRAF);drawHerd(0);}));
+drawHerd(0);
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{drawCar(carK);drawHerd(0)},150)});
+})();
+</script>
+</body>
+</html>
