@@ -314,6 +314,27 @@ td.lock a:hover{color:var(--accent)}
 .games-band .games-grid{grid-template-columns:repeat(2,1fr)}
 @media (max-width:980px){.games-band .grid3{grid-template-columns:1fr}}
 
+/* setups to watch band */
+.hsetups{padding:56px 0 40px}
+.hs-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:36px;align-items:center;background:linear-gradient(135deg,rgba(245,184,61,.10),rgba(59,130,246,.05));border:1px solid rgba(245,184,61,.35);border-radius:var(--radius);padding:40px}
+.hsetups .kicker{color:#f5b83d}
+.hsetups h2 em{font-style:normal;color:#f5b83d}
+.hs-lead{color:var(--muted);font-size:18px;margin-bottom:22px}
+.hs-lead b{color:var(--text)}
+.hs-card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;color:var(--text);min-height:200px;transition:border-color .15s}
+.hs-card:hover{border-color:#f5b83d}
+.hs-card .hs-st{font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+.hs-card .hs-sym{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 6px}
+.hs-card .hs-sym b{font-family:var(--mono);font-size:28px;line-height:1}
+.hs-dir{font-family:var(--mono);font-weight:700;font-size:13px;padding:4px 9px;border-radius:7px}
+.hs-dir.sell{background:rgba(239,68,68,.16);color:#fca5a5}
+.hs-dir.buy{background:rgba(34,197,94,.16);color:#86efac}
+.hs-card ul{list-style:none;display:grid;gap:6px;font-size:15px;color:var(--muted)}
+.hs-card ul b{color:var(--text)}
+.hs-card .hs-go{display:block;margin-top:12px;font-weight:700;color:#f5b83d;font-size:15px}
+.hs-note{font-size:13px;color:var(--dim);margin-top:14px}
+@media (max-width:980px){.hs-grid{grid-template-columns:1fr;padding:28px 22px}}
+@media (max-width:480px){.hs-grid{padding:22px 16px}.hs-card .hs-sym b{font-size:24px}}
 /* trading psychology band */
 .psych{padding:0 0 88px}
 .psych-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(59,130,246,.06));border:1px solid rgba(167,139,250,.32);border-radius:var(--radius);padding:44px}
@@ -422,6 +443,7 @@ nav .wrap{gap:20px;position:relative}
   <div class="wrap">
     <a href="#" class="logo"><span class="logo-mark" role="img" aria-label="QDB logo"></span>QDB Trading Desk</a>
     <div class="navlinks" id="navlinks">
+      <a href="setups/?ref=nav" data-goatcounter-click="nav-setups">Setups</a>
       <a href="sentiment/">Sentiment</a>
       <a href="analytics/">Analytics</a>
       <a href="cot/">COT</a>
@@ -516,6 +538,31 @@ nav .wrap{gap:20px;position:relative}
     </div>
   </div>
 </header>
+
+<section class="hsetups" id="setups">
+  <div class="wrap">
+    <div class="hs-grid reveal">
+      <div>
+        <div class="kicker">New · Free · Live</div>
+        <h2>Just want the <em>setups</em>?</h2>
+        <p class="hs-lead">Skip the deep dive. We scan all 35 markets in the QDB Sheet and only show the ones where <b>the crowd is on the wrong side</b>, <b>the QDB Score agrees</b> and <b>price is at a strong level</b>. All three, or it's not on the list.</p>
+        <div class="cta-row">
+          <a href="setups/?ref=home" class="btn btn-primary" data-goatcounter-click="home-setups">See today's setups →</a>
+          <a href="analytics/?ref=home-setups" class="btn btn-ghost" data-goatcounter-click="home-setups-analytics">Live pair dashboards</a>
+        </div>
+      </div>
+      <div>
+        <a class="hs-card" id="hsCard" href="setups/?ref=home-card" data-goatcounter-click="home-setups-card">
+          <span class="hs-st" id="hsTxt">Top setup to watch</span>
+          <div class="hs-sym"><b>Scanning…</b></div>
+          <ul><li>Checking the crowd, the QDB Score and the key levels on 28 FX pairs and 7 indices.</li></ul>
+          <span class="hs-go">Open Setups to watch →</span>
+        </a>
+        <p class="hs-note">A watchlist, not advice. Never trade sentiment alone: use it with your own analysis and strict <b>risk management</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="confirm" id="confirm">
   <div class="wrap">
@@ -1289,6 +1336,7 @@ nav .wrap{gap:20px;position:relative}
         <a href="downloads/?ref=footer" data-goatcounter-click="footer-downloads">Free Downloads</a>
         <a href="https://www.youtube.com/@quasidb" target="_blank" rel="noopener">YouTube</a>
         <a href="https://www.patreon.com/quasidb" target="_blank" rel="noopener">Patreon</a>
+        <a href="setups/?ref=footer">Setups to watch</a>
         <a href="games/">Free games</a>
         <a href="guides/">Guides</a>
         <a href="psychology/">Psychology</a>
@@ -1581,6 +1629,38 @@ function gcEvent(name){ try{ window.goatcounter && goatcounter.count && goatcoun
 (function(){var n=document.querySelector('body > nav'),b=document.getElementById('menuBtn');if(!n||!b)return;
 b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o));b.textContent=o?'Close':'Menu';});
 document.getElementById('navlinks').addEventListener('click',function(e){if(e.target.closest('a')&&n.classList.contains('open')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='Menu';}});})();
+</script>
+<script>
+/* Setups to watch band: load the live scan only when the band comes near the screen. */
+(function(){
+  var card = document.getElementById('hsCard'); if (!card) return;
+  var started = false;
+  function go(){
+    if (started) return; started = true;
+    var sc = document.createElement('script'); sc.src = 'setups/setups.js';
+    sc.onload = function(){
+      var Q = window.QDBSetups;
+      Q.scan().then(function(res){
+        var d = res.setups[0], txt = document.getElementById('hsTxt');
+        if (!res.scanned) { txt.textContent = 'Live data unavailable right now'; card.querySelector('.hs-sym').innerHTML = '<b>Open the page</b>'; card.querySelector('ul').innerHTML = '<li>Try again in a minute.</li>'; return; }
+        if (!d) { txt.textContent = 'Scanned ' + res.scanned + ' markets'; card.querySelector('.hs-sym').innerHTML = '<b>Nothing lines up</b>'; card.querySelector('ul').innerHTML = '<li>No market has all three right now. <b>No setup is a position too.</b></li>'; return; }
+        var s = d.setup, st = Q.status(d);
+        txt.textContent = 'Top setup to watch · ' + res.setups.length + ' of ' + res.scanned + ' markets line up';
+        card.querySelector('.hs-sym').innerHTML = '<b>' + Q.esc(d.label) + '</b><span class="hs-dir ' + s.dir + '">' + (s.dir === 'sell' ? '▼ SELL IDEA' : '▲ BUY IDEA') + '</span>';
+        card.querySelector('ul').innerHTML = '<li>👥 <b>' + Math.round(s.crowdWrong) + '%</b> of retail ' + (s.dir === 'sell' ? 'long' : 'short') + ' (contrarian)</li>' +
+          '<li>🎯 ' + Q.esc(d.scoreName) + ' <b>' + d.score + ' / ' + d.max + '</b></li>' +
+          '<li>🧭 ' + (s.at ? 'At ' : 'Near ') + '<b>' + Q.esc(s.level.name) + '</b> ' + Q.esc(s.level.price) + '</li>' +
+          '<li>' + st.txt + '</li>';
+        card.querySelector('.hs-go').textContent = 'Why, and what to check first →';
+      });
+    };
+    document.body.appendChild(sc);
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(e){ if (e.some(function(x){ return x.isIntersecting; })) { io.disconnect(); go(); } }, {rootMargin: '400px'});
+    io.observe(card);
+  } else go();
+})();
 </script>
 </body>
 </html>
