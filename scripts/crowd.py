@@ -57,7 +57,7 @@ def sym(v):
 
 
 def read_crowd():
-    """{SYM: {'long': %, 'score': 0-12 or None, 'dc': %, 'wc': %}}"""
+    """{SYM: {'long': %, 'score': 0-14 or None, 'dc': %, 'wc': %}}"""
     out = {}
     for r in csv.reader(io.StringIO(get(SHEET + TICKER_GID))):
         s = sym(r[0] if r else "")

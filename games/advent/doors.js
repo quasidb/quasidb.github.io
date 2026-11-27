@@ -90,11 +90,11 @@ window.ADVENT_DOORS = [
       why: 'Never place a stop at obvious levels or in the crowd’s cluster.' }
   ]},
   { day: 16, type: 'quiz', title: 'The QDB Score', link: ['guides/', 'Watch the QDB Sheet videos'], qs: [
-    { q: 'The QDB Score runs from…', a: ['0 to 12', '1 to 5', '0 to 100'], c: 0,
-      why: 'Each pair gets a score out of 12.' },
-    { q: 'A score of 9/12 reads as…', a: ['Bullish', 'Bearish', 'Neutral'], c: 0,
-      why: '7 or more reads bullish, 3 or less bearish, and the middle is no call.' },
-    { q: 'Should you trade a 10/12 the moment you see it?', a: ['Yes', 'Only at a strong technical level, with a plan', 'Only if it’s Monday'], c: 1,
+    { q: 'The QDB Score runs from…', a: ['0 to 14', '1 to 5', '0 to 100'], c: 0,
+      why: 'Each FX pair gets a score out of 14, including 2 COT checks.' },
+    { q: 'A score of 10/14 reads as…', a: ['Bullish', 'Bearish', 'Neutral'], c: 0,
+      why: '8 or more reads bullish, 6 or less bearish, and 7 is neutral.' },
+    { q: 'Should you trade a 12/14 the moment you see it?', a: ['Yes', 'Only at a strong technical level, with a plan', 'Only if it’s Monday'], c: 1,
       why: 'The score narrows down where to look. The level and the plan decide the trade.' }
   ]},
   { day: 17, type: 'crowd', title: 'Guess the crowd' },
