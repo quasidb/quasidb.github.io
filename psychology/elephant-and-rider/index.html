@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Elephant and the Rider: headlines, the herd and your emotions | QDB Trading Psychology</title>
+<meta name="description" content="Your emotions are an elephant, your reasoning is its rider. Headlines are written to make you feel something, and when the elephant takes over, your stop, your sizing and your plan get trampled. With an animation of exactly that, plus the dot-com bubble and why indices hit records in wartime.">
+<link rel="canonical" href="https://quasidb.com/psychology/elephant-and-rider/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/psychology/elephant-and-rider/">
+<meta property="og:title" content="The Elephant and the Rider: headlines, the herd and your emotions">
+<meta property="og:description" content="Headlines are written to make you feel something. Watch what happens when the elephant takes over, and how to keep the rider in charge.">
+<meta property="og:image" content="https://quasidb.com/psychology/elephant-and-rider/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Elephant and the Rider: headlines, the herd and your emotions">
+<meta name="twitter:description" content="Headlines are written to make you feel something. Watch what happens when the elephant takes over, and how to keep the rider in charge.">
+<meta name="twitter:image" content="https://quasidb.com/psychology/elephant-and-rider/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../guides/guides.css">
+<link rel="stylesheet" href="../psych.css">
+<style>
+.scene{padding:14px}
+.scene .stage{background:#0a1220;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.scene svg{display:block;width:100%;height:auto}
+.hud{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media (max-width:560px){.hud{grid-template-columns:1fr}}
+.hud>div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.hud .k{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.hud .k b{color:var(--text);letter-spacing:0;font-size:14px}
+.meter{height:12px;border-radius:99px;background:#1e293b;overflow:hidden;margin-top:8px}
+.meter i{display:block;height:100%;width:0;border-radius:99px;transition:width .35s ease,background .35s}
+.news{margin-top:12px;min-height:56px;background:#f8fafc;color:#0f172a;border-radius:10px;padding:10px 14px;font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:20px;line-height:1.25;display:flex;align-items:center;gap:10px;opacity:.15;transition:opacity .25s}
+.news.on{opacity:1;animation:slam .35s ease}
+.news small{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;color:#fff;background:#dc2626;border-radius:4px;padding:3px 6px;white-space:nowrap}
+@media (max-width:560px){.news{font-size:16px}}
+@keyframes slam{from{transform:scale(1.06) rotate(-1deg)}}
+.stage.shake{animation:shake .35s linear 3}
+@keyframes shake{25%{transform:translate(-4px,2px)}50%{transform:translate(3px,-2px)}75%{transform:translate(-2px,-1px)}}
+@media (prefers-reduced-motion:reduce){.news.on,.stage.shake{animation:none}}
+.two .card p+p{margin-top:8px}
+.myth{font-size:15px;color:var(--dim);margin-top:10px;max-width:46em}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../../?ref=psych-elephant"><img src="../../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../../sentiment/">Sentiment</a><a href="../../analytics/">Analytics</a><a href="../../cot/">COT</a><a href="../../guides/">Guides</a><a href="../../psychology/" aria-current="page">Psychology</a><a href="../../games/">Games</a><a href="../../shop/">Shop</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">Trading psychology · about 8 minutes</p>
+    <h1>The Elephant and the Rider: <em>headlines, the herd and your emotions</em></h1>
+    <p class="lead">There's an old picture of the mind that every trader should know. Your emotions are an <b>elephant</b>: huge, fast and powerful. Your reasoning is the <b>rider</b> sitting on top, holding the reins. On a calm day the rider steers. But when the elephant gets spooked, the rider is just along for the ride, and that's when the plan gets trampled.</p>
+    <div class="byline"><img src="../../logo.png" alt=""><span><b>Dave</b> · QDB Trading Desk · trading since 2010</span></div>
+    <nav class="toc" aria-label="On this page">
+      <a href="#metaphor">The metaphor</a><a href="#stampede">Watch the elephant take over</a><a href="#headlines">Headlines</a><a href="#dotcom">The dot-com bubble</a><a href="#wars">Records in wartime</a><a href="#train">Train the rider</a>
+    </nav>
+  </header>
+
+  <section class="sec" id="metaphor">
+    <h2>The elephant and the rider</h2>
+    <p>The psychologist <b>Jonathan Haidt</b> made this picture famous in his book <i>The Happiness Hypothesis</i>, building on much older Buddhist imagery of the mind as an elephant that has to be tamed.</p>
+    <div class="two">
+      <div class="card bad"><span class="tag red">The elephant</span><h3>Emotion</h3><p>Fear, greed, fight or flight. It reacts in an instant, it's far stronger than the rider, and it doesn't read the fine print.</p><p>In trading, it's the part of you that slams the close button, doubles the size, or chases the candle.</p></div>
+      <div class="card good"><span class="tag">The rider</span><h3>Reasoning</h3><p>Slow, logical and able to plan ahead. It knows about levels, stops and 1% risk.</p><p>But it can't out-muscle the elephant. It can only steer, and only if it trained the elephant <b>before</b> the trip.</p></div>
+    </div>
+    <p class="myth">You'll sometimes hear this put as "left brain vs right brain". That split is a popular myth. Emotion vs reasoning is the useful part, and it's all you need.</p>
+  </section>
+
+  <section class="sec" id="stampede">
+    <h2>Watch the elephant take over</h2>
+    <p>Our trader is heading calmly towards the plan. Then the headlines start. Pick whether the rider is <b>untrained</b> or <b>trained</b>, and press play.</p>
+    <div class="demo scene">
+      <div class="stage" id="stage"><div id="scene"></div></div>
+      <div class="news" id="news" aria-live="polite"><small>BREAKING</small><span id="newsText">The headlines will appear here…</span></div>
+      <div class="hud">
+        <div><span class="k">Elephant (emotion) <b id="mVal">0%</b></span><div class="meter"><i id="mBar"></i></div></div>
+        <div><span class="k">Account <b id="acc">$10,000</b></span><div class="meter"><i id="aBar" style="width:100%;background:#22c55e"></i></div></div>
+      </div>
+      <div class="pills" role="group" aria-label="The rider">
+        <button type="button" data-rider="0" aria-pressed="true">Untrained rider: no plan</button>
+        <button type="button" data-rider="1" aria-pressed="false">Trained rider: plan, stop, 1% risk</button>
+      </div>
+      <div class="row" style="margin-top:10px"><button type="button" class="btn primary" id="play">▶ Play</button></div>
+      <div class="cap"><span class="sn" id="capN">Ready</span><p id="capT">The elephant is calm, the rider has the reins. Press play.</p></div>
+    </div>
+    <p class="muted" style="font-size:15px">Made-up headlines and numbers, written to teach the idea.</p>
+  </section>
+
+  <section class="sec" id="headlines">
+    <h2>Headlines are written to make you feel something</h2>
+    <p>Most people don't read the article, let alone the fine print. They read the <b>headline</b>, and headlines are written to make you feel something, because feelings get clicks. Fear, anger and outrage work best, and those feelings tend to keep people defensive and bearish.</p>
+    <p>Here's the bit that matters for us. You're not the only one reading it. <b>Thousands of traders read the same headline at the same moment</b>, feel the same thing, and press the same button. That's how a headline swings sentiment, and how the herd ends up on the same side, with its stops in the same place.</p>
+    <div class="note gold"><h4>Why this helps a contrarian</h4><p>When the crowd reacts to a headline, you can see it in the positioning. That's exactly what the QDB Sheet and the free <a href="../../sentiment/?ref=psych-elephant">sentiment pages</a> track: <b>who just piled in, and which way</b>. The elephant moves the herd. The data shows you the herd.</p></div>
+  </section>
+
+  <section class="sec" id="dotcom">
+    <h2>The classic: the dot-com bubble</h2>
+    <p>In the late 1990s everyone got super bullish on tech. The story was that anyone could set up a website and <b>make it rich</b>. Headlines fed the euphoria, the crowd piled in, and the Nasdaq went parabolic.</p>
+    <div class="demo">
+      <div id="dot"></div>
+      <div class="row" style="margin-top:10px"><button type="button" class="btn" id="dotPlay">↻ Replay</button></div>
+    </div>
+    <p class="muted" style="font-size:15px">Approximate shape of the Nasdaq Composite, 1995 to 2003. The headlines are paraphrased moods of the time, not quotes.</p>
+    <p>From its peak in March 2000 to its low in October 2002, the Nasdaq lost <b>almost 80%</b> of its value. My take: the euphoria was the catalyst, but those stocks were also <b>ripe for taking profit</b>. It was most likely a combination of both, and the herd was buying right at the top.</p>
+  </section>
+
+  <section class="sec" id="wars">
+    <h2>Records with wars going on?</h2>
+    <p>Here's a question I get asked: why do the indices hit <b>all-time highs</b> while wars are going on and the news is full of doom? If the headlines were in charge, they couldn't.</p>
+    <p>The honest answer is that the market prices <b>money, not mood</b>: liquidity, interest rates and what companies are expected to earn. Headlines can shake prices for a day or a week. But when the money keeps flowing in, the trend wins, and the traders who sold the scary headline become the fuel for the next leg up.</p>
+    <div class="note"><h4>The lesson</h4><p>The headline tells you how people <b>feel</b>. The chart and the positioning tell you what they're <b>doing</b>. Trade the second one.</p></div>
+  </section>
+
+  <section class="sec" id="train">
+    <h2>How to train the rider</h2>
+    <p>You can't get rid of the elephant, and you wouldn't want to. You just need to train it before the trip, not argue with it during the stampede.</p>
+    <div class="fixes">
+      <div class="fix"><div><b>Make the decisions while the elephant is asleep</b><span>Your level, your stop beyond the crowd's cluster, your size at <b>0.5 to 1%</b> and your target. All written down before you open the news.</span></div></div>
+      <div class="fix"><div><b>Name the feeling</b><span>When a headline hits, say it out loud: "that's fear" or "that's greed". Naming it gives the rider a second to pick up the reins.</span></div></div>
+      <div class="fix"><div><b>Never trade the headline</b><span>Wait for the first spike to settle. The algorithms trade the headline in milliseconds, and the first move is often the fake one.</span></div></div>
+      <div class="fix"><div><b>Check the herd</b><span>If the crowd is piling in the same way the headline is pushing, be careful. That's usually where the stops and the reversals are.</span></div></div>
+      <div class="fix"><div><b>Let the plan decide</b><span>If the plan didn't say to act on news, you don't. The elephant can stamp its feet all it likes.</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="honest">
+      <h2>A note from me</h2>
+      <p>It's very, very common for traders to let the elephant take control. I've done it myself, more times than I'd like to admit, usually right after reading a headline that made me angry or scared.</p>
+      <p>The rider never wins a fight with the elephant. <b>It wins by planning the route before the elephant wakes up.</b> That's all a trading plan really is.</p>
+    </div>
+    <div class="note gold"><h4>The one rule</h4><p>Never trade sentiment on its own. Use it only together with technical and fundamental analysis, and with strict <b>risk management</b>.</p></div>
+  </section>
+
+  <section class="sec">
+    <h2>Keep reading</h2>
+    <div class="next">
+      <a href="../switch-strategies/?ref=psych-elephant"><span>TRADING PSYCHOLOGY</span>It's easier to switch strategies than to change yourself</a>
+      <a href="../afloat/?ref=psych-elephant"><span>TRADING PSYCHOLOGY</span>Afloat or underwater: what following the plan does to your head</a>
+      <a href="../after-the-bloodbath/?ref=psych-elephant"><span>TRADING PSYCHOLOGY</span>No conviction after a bloodbath: how I learned to stop missing the best long entries</a>
+    </div>
+  </section>
+
+  <p class="foot">Educational only, not financial advice. The animation uses made-up headlines and numbers, and the Nasdaq chart is an approximate shape. Trading on margin carries a high level of risk. <a href="../">Trading psychology</a> · <a href="../../guides/">Guides</a> · <a href="../../">QDB Trading Desk</a></p>
+</main>
+
+<script>
+(function(){
+const track=n=>{try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:n,title:n,event:true})}catch(e){}};
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $=id=>document.getElementById(id);
+const mono='font-family="JetBrains Mono, monospace"';
+
+/* ================= The elephant and the rider ================= */
+const W=960,H=440,G=372;
+const SIGNS=[{x:330,t:"1% RISK",cost:900},{x:500,t:"STOP LOSS",cost:1400},{x:670,t:"MAX DAILY LOSS",cost:1100},{x:860,t:"YOUR PLAN",cost:700,flag:1}];
+const NEWS=[
+  {t:"MARKETS IN FREEFALL: IS THIS 2008 ALL OVER AGAIN?",u:22,tr:8},
+  {t:"Your neighbour just made 300% on one trade",u:18,tr:6},
+  {t:"WAR FEARS GRIP WALL STREET",u:26,tr:9},
+  {t:"Experts: ‘buy now before it’s too late’",u:20,tr:7},
+  {t:"‘THIS TIME IT’S DIFFERENT’, SAYS EVERYONE",u:24,tr:8}
+];
+let trained=0,raf=null,st=null;
+function reset(){st={riderX0:null,t:0,ex:80,rot:0,meter:0,acc:10000,news:-1,bolt:-1,riderFall:0,signs:SIGNS.map(()=>({fall:0,hit:false})),dust:[],done:false,shook:false,reins:0};}
+reset();
+function elephant(o){
+  const {x,rot,step,rage}=o, lift=k=>Math.max(0,Math.sin(step+k))*(rage?10:6);
+  const body="#8b95a8",dark="#6b7487";
+  let s=`<g transform="translate(${x.toFixed(1)} ${G}) rotate(${rot.toFixed(2)})">`;
+  s+=`<path d="M-86 -92 q-16 12 -12 34" fill="none" stroke="${dark}" stroke-width="4" stroke-linecap="round"/>`;
+  [[-60,0],[30,Math.PI],[-30,Math.PI],[58,0]].forEach(([lx,ph],j)=>{s+=`<rect x="${lx-11}" y="${-56-lift(ph)}" width="24" height="56" rx="8" fill="${j===1||j===2?dark:body}"/>`;});
+  s+=`<ellipse cx="0" cy="-88" rx="88" ry="52" fill="${body}"/>`;
+  s+=`<circle cx="80" cy="-104" r="38" fill="${body}"/>`;
+  s+=`<ellipse cx="60" cy="-100" rx="22" ry="33" fill="${dark}"/>`;
+  s+= rage?`<path d="M108 -98 C134 -118 146 -142 132 -164" fill="none" stroke="${body}" stroke-width="17" stroke-linecap="round"/>`
+          :`<path d="M108 -94 C130 -72 126 -32 114 -14" fill="none" stroke="${body}" stroke-width="17" stroke-linecap="round"/>`;
+  s+=`<path d="M100 -78 q18 4 24 -8" fill="none" stroke="#f8fafc" stroke-width="5" stroke-linecap="round"/>`;
+  s+=`<circle cx="92" cy="-114" r="${rage?5:4}" fill="${rage?"#ef4444":"#0b0f17"}"/>`;
+  if(rage)s+=`<path d="M84 -126 l16 6" stroke="#0b0f17" stroke-width="4" stroke-linecap="round"/>`;
+  return s+"</g>";
+}
+function rider(o){
+  const {x,rot,fall,reins,x0}=o;
+  /* seat on the elephant's back, rotated with it; when falling, drops behind to the ground */
+  const sx=(fall>0&&x0!=null?x0:x)-6, sy=G-140, fx=sx-60*fall, fy=sy+(G-sy-14)*fall*fall, r=fall*-95;
+  let s=`<g transform="translate(${fx.toFixed(1)} ${fy.toFixed(1)}) rotate(${(r+rot).toFixed(1)})">`;
+  s+=`<path d="M-6 0 l-10 18 M6 0 l12 16" stroke="#7c3aed" stroke-width="6" stroke-linecap="round"/>`;
+  s+=`<rect x="-9" y="-36" width="18" height="38" rx="7" fill="#c4b5fd"/>`;
+  s+=`<circle cx="0" cy="-47" r="11" fill="#f1c9a5"/><path d="M-11 -50 q11 -14 22 0" fill="#3b2a1a"/>`;
+  if(fall<0.05){const tx=82,ty=-14+(reins?6:0);s+=`<path d="M6 -24 Q${40} ${reins?-30:-8} ${tx} ${ty}" fill="none" stroke="#f5b83d" stroke-width="2.5"/><circle cx="8" cy="-24" r="4" fill="#f1c9a5"/>`;}
+  return s+"</g>";
+}
+function sign(sg,i,state){
+  const f=state.fall, ang=f*82;
+  let s=`<g transform="translate(${sg.x} ${G}) rotate(${ang.toFixed(1)})">`;
+  if(sg.flag){s+=`<rect x="-3" y="-120" width="6" height="120" fill="#cbd5e1"/><path d="M3 -118 L78 -100 L3 -82 Z" fill="${f>0?"#64748b":"#22c55e"}"/><text x="10" y="-130" ${mono} font-size="15" font-weight="700" fill="#86efac">${sg.t}</text>`;}
+  else{const w=sg.t.length*10+24;s+=`<rect x="-3" y="-96" width="6" height="96" fill="#94a3b8"/><rect x="${-w/2}" y="-122" width="${w}" height="32" rx="6" fill="${f>0?"#334155":"#f5b83d"}"/><text x="0" y="-100" text-anchor="middle" ${mono} font-size="15" font-weight="700" fill="${f>0?"#94a3b8":"#1a1205"}">${sg.t}</text>`;}
+  return s+"</g>";
+}
+function render(){
+  const rage=st.bolt>=0&&!trained, step=st.t*(rage?16:6);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="An elephant with a rider walks towards a flag marked Your plan, past signs for 1% risk, stop loss and max daily loss. As headlines arrive, an untrained elephant bolts and tramples the signs; a trained one stays on the path.">`;
+  s+=`<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${rage?"#2a0f14":"#0b1426"}"/><stop offset="1" stop-color="${rage?"#3b1219":"#16233b"}"/></linearGradient></defs>`;
+  s+=`<rect width="${W}" height="${H}" fill="url(#sky)"/>`;
+  s+=`<path d="M0 ${G-40} Q160 ${G-90} 320 ${G-48} T640 ${G-52} T960 ${G-60} V${G} H0Z" fill="#111a2c"/>`;
+  s+=`<rect x="0" y="${G}" width="${W}" height="${H-G}" fill="#1a2436"/><path d="M40 ${G+18} H920" stroke="#2a3854" stroke-width="10" stroke-dasharray="26 16" stroke-linecap="round"/>`;
+  SIGNS.forEach((sg,i)=>s+=sign(sg,i,st.signs[i]));
+  st.dust.forEach(d=>{s+=`<circle cx="${d.x.toFixed(1)}" cy="${d.y.toFixed(1)}" r="${d.r.toFixed(1)}" fill="#a8a29e" opacity="${Math.max(0,d.life).toFixed(2)}"/>`;});
+  s+=elephant({x:st.ex,rot:st.rot,step,rage});
+  s+=rider({x:st.ex,rot:st.riderFall>0?0:st.rot,fall:st.riderFall,reins:st.reins,x0:st.riderX0});
+  if(rage&&st.t-st.bolt<1.6)s+=`<text x="${W/2}" y="70" text-anchor="middle" ${mono} font-size="40" font-weight="700" fill="#f87171" opacity="${(1-(st.t-st.bolt)/1.6).toFixed(2)}">FIGHT OR FLIGHT!</text>`;
+  if(st.done)s+=`<text x="${W/2}" y="70" text-anchor="middle" ${mono} font-size="30" font-weight="700" fill="${trained?"#86efac":"#f87171"}">${trained?"PLAN FOLLOWED":"THE ELEPHANT TOOK OVER"}</text>`;
+  $("scene").innerHTML=s+"</svg>";
+  const m=Math.min(100,st.meter);$("mVal").textContent=Math.round(m)+"%";
+  $("mBar").style.width=m+"%";$("mBar").style.background=m>=100?"#ef4444":m>60?"#fb923c":m>30?"#f5b83d":"#22c55e";
+  $("acc").textContent="$"+Math.round(st.acc).toLocaleString("en-US");
+  const ap=st.acc/10000*100;$("aBar").style.width=ap+"%";$("aBar").style.background=ap<75?"#ef4444":ap<95?"#f5b83d":"#22c55e";
+}
+function cap(n,t){$("capN").textContent=n;$("capT").innerHTML=t;}
+function headline(i){const n=NEWS[i],el=$("news");$("newsText").textContent=n.t;el.classList.remove("on");void el.offsetWidth;el.classList.add("on");st.meter+=trained?n.tr:n.u;
+  if(trained&&st.meter>20){st.reins=1;cap("Headline "+(i+1)+" of 5","The elephant flinches. The rider has a plan, so it just shortens the reins: <b>nothing in the plan says to act on news</b>.");}
+  else cap("Headline "+(i+1)+" of 5",st.meter>60?"The elephant is getting agitated. The rider is still talking, but the elephant isn't listening any more.":"The elephant's ears go up. The rider hasn't decided anything about news in advance…");}
+function tick(dt){
+  st.t+=dt;
+  const NT=[0.5,1.7,2.9,4.1,5.3];
+  NT.forEach((nt,i)=>{if(st.news<i&&st.t>=nt){st.news=i;headline(i);}});
+  if(!trained){
+    if(st.bolt<0){st.ex+=dt*38;if(st.meter>=100&&st.t>5.6){st.bolt=st.t;cap("The elephant takes over","Fight or flight. The elephant bolts, and the rider is a passenger now. Watch what it runs through.");if(!reduce){$("stage").classList.add("shake");setTimeout(()=>$("stage").classList.remove("shake"),1100);}}}
+    else{const b=st.t-st.bolt;st.ex+=dt*(180+b*120);st.rot=Math.sin(st.t*14)*4-4;if(b>=0.5&&st.riderX0==null)st.riderX0=st.ex;st.riderFall=Math.min(1,Math.max(0,(b-0.5)/0.9));
+      if(Math.random()<0.9)for(let k=0;k<2;k++)st.dust.push({x:st.ex-70+Math.random()*40,y:G-4,r:6+Math.random()*10,vx:-60-Math.random()*80,vy:-30-Math.random()*40,life:1});
+      SIGNS.forEach((sg,i)=>{const s2=st.signs[i];if(!s2.hit&&st.ex+90>=sg.x){s2.hit=true;st.acc-=sg.cost;cap("Trampled: "+sg.t,{0:"There goes the 1% risk. The next trade is three times the size, to “win it back”.",1:"The stop loss is gone. “I'll give it a bit more room.”",2:"Past the max daily loss without even noticing. One more trade. Then another.",3:"And the plan itself. Flattened."}[i]);}
+        if(s2.hit)s2.fall=Math.min(1,s2.fall+dt*3);});
+      if(st.ex>W+160&&!st.done){st.done=true;cap("The damage",`The elephant is gone, the rider is in the dust, and the account is down <b>${Math.round((1-st.acc/10000)*100)}%</b>. Nothing that happened was in the plan. It was all decided by one spooked elephant and five headlines.`);}}
+  }else{
+    st.ex=Math.min(740,st.ex+dt*(st.reins?100:90));st.meter=Math.max(0,st.meter-dt*(st.reins?5:0));
+    if(st.ex>=740&&st.t>6.2&&!st.done){st.done=true;st.reins=0;cap("The plan held","Five headlines, and the elephant twitched at every one. But the rider made the decisions <b>before</b> the trip, so there was nothing to decide on the way. Account untouched, plan followed.");}
+  }
+  st.dust.forEach(d=>{d.x+=d.vx*dt;d.y+=d.vy*dt;d.vy+=60*dt;d.life-=dt*1.1;});st.dust=st.dust.filter(d=>d.life>0);
+  render();
+  return st.done&&st.dust.length===0;
+}
+function play(){
+  cancelAnimationFrame(raf);reset();$("news").classList.remove("on");$("newsText").textContent="…";
+  if(reduce){let guard=0;while(!tick(1/30)&&guard++<2000){}render();return;}
+  let last=performance.now();
+  const loop=t=>{const dt=Math.min(0.05,(t-last)/1000);last=t;const fin=tick(dt);if(!fin)raf=requestAnimationFrame(loop);};
+  raf=requestAnimationFrame(loop);track("psych-elephant-play-"+(trained?"trained":"untrained"));
+}
+$("play").addEventListener("click",play);
+document.querySelectorAll("[data-rider]").forEach(b=>b.addEventListener("click",()=>{trained=+b.dataset.rider;document.querySelectorAll("[data-rider]").forEach(x=>x.setAttribute("aria-pressed",x===b));cancelAnimationFrame(raf);reset();render();cap("Ready",trained?"This rider planned the route: the stop, the size, and what to do about news. Press play.":"This rider has no plan for the news. Press play.");}));
+render();
+
+/* ================= The dot-com bubble ================= */
+const DATA=[[1995,750],[1995.5,1000],[1996,1060],[1996.5,1180],[1997,1290],[1997.5,1590],[1998,1570],[1998.5,1870],[1998.75,1700],[1999,2190],[1999.5,2690],[1999.8,3200],[2000,4070],[2000.2,5048],[2000.35,3600],[2000.6,4200],[2000.9,2600],[2001.2,1840],[2001.5,2150],[2001.7,1420],[2001.95,1950],[2002.3,1700],[2002.5,1330],[2002.8,1114],[2003,1340],[2003.5,1700],[2003.95,2000]];
+const CALL=[{x:1998.5,t:"“Anyone can build a website and get rich”",side:-1},{x:1999.8,t:"“Profits don't matter any more”",side:-1},{x:2000.2,t:"“NASDAQ 5,000!”",side:1},{x:2001.2,t:"“Is the internet over?”",side:1},{x:2002.8,t:"“Tech is dead”",side:-1}];
+const dot=$("dot");let dRAF=null;
+function drawDot(p){
+  const C=(dot.clientWidth||600)<560,Wd=C?560:960,Hd=C?440:380,L=C?56:64,R=Wd-14,T=20,B=Hd-30,fs=C?15:13;
+  const X=y=>L+(R-L)*(y-1995)/9,Y=v=>T+(B-T)*(5400-v)/5000;
+  let s=`<svg viewBox="0 0 ${Wd} ${Hd}" role="img" aria-label="Approximate Nasdaq Composite from 1995 to 2003: a steep rise to just over 5,000 in March 2000, then a fall of almost 80% to around 1,100 in October 2002, with the headlines of each stage."><rect width="${Wd}" height="${Hd}" fill="#0a1220"/>`;
+  [1000,3000,5000].forEach(v=>{s+=`<line x1="${L}" x2="${R}" y1="${Y(v)}" y2="${Y(v)}" stroke="#1e293b"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end" ${mono} font-size="${fs-2}" fill="#6b7892">${v.toLocaleString("en-US")}</text>`});
+  for(let y=1995;y<=2003;y++)s+=`<text x="${X(y)}" y="${Hd-8}" text-anchor="middle" ${mono} font-size="${fs-2}" fill="#6b7892">${C&&y%2?"":"'"+String(y).slice(2)}</text>`;
+  const endX=1995+9*p, pts=[];
+  for(let i=0;i<DATA.length;i++){const [x,v]=DATA[i];if(x<=endX)pts.push([x,v]);else{if(i>0){const [x0,v0]=DATA[i-1],f=(endX-x0)/(x-x0);pts.push([endX,v0+(v-v0)*f]);}break;}}
+  s+=`<rect x="${X(1998.6)}" y="${T}" width="${X(2000.25)-X(1998.6)}" height="${B-T}" fill="rgba(239,68,68,.06)"/><text x="${(X(1998.6)+X(2000.25))/2}" y="${B-8}" text-anchor="middle" ${mono} font-size="${fs-3}" fill="#f87171" opacity=".8">EUPHORIA</text>`;
+  if(pts.length>1)s+=`<path d="${pts.map((q,i)=>(i?"L":"M")+X(q[0]).toFixed(1)+" "+Y(q[1]).toFixed(1)).join(" ")}" fill="none" stroke="#e8edf6" stroke-width="3" stroke-linejoin="round"/>`;
+  CALL.forEach((c,j)=>{if(c.x>endX)return;const v=DATA.find(d=>d[0]===c.x)[1],x=X(c.x),y=Y(v),w=Math.min(c.t.length*(fs*.56)+16,C?260:330),
+      bx=Math.min(R-w,Math.max(L,x-w/2)),by=c.side<0?y-56-(j%2)*6:y+22;
+    s+=`<line x1="${x}" y1="${y}" x2="${x}" y2="${c.side<0?by+28:by}" stroke="#a78bfa" stroke-dasharray="3 3"/><rect x="${bx}" y="${by}" width="${w}" height="28" rx="6" fill="#f8fafc"/><text x="${bx+w/2}" y="${by+19}" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="${fs-1}" fill="#0f172a">${C&&c.t.length>32?c.t.slice(0,30)+"…”":c.t}</text><circle cx="${x}" cy="${y}" r="5" fill="#f5b83d"/>`;});
+  if(p>=0.6)s+=`<text x="${X(2001.2)}" y="${Y(4700)}" ${mono} font-size="${fs}" font-weight="700" fill="#f87171">−78% PEAK TO LOW</text>`;
+  dot.innerHTML=s+"</svg>";
+}
+function playDot(){cancelAnimationFrame(dRAF);if(reduce){drawDot(1);return}const t0=performance.now(),D=6000;const st2=t=>{const p=Math.min(1,(t-t0)/D);drawDot(p);if(p<1)dRAF=requestAnimationFrame(st2)};dRAF=requestAnimationFrame(st2);}
+$("dotPlay").addEventListener("click",()=>{playDot();track("psych-elephant-dotcom")});
+drawDot(0);
+let seen=false;
+if("IntersectionObserver" in window){new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting&&!seen){seen=true;playDot();o.disconnect()}})},{threshold:.5}).observe(dot)}else drawDot(1);
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>drawDot(1),150)});
+})();
+</script>
+</body>
+</html>
