@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Why you can't set and forget anymore, and how to get it back | QDB Trading Psychology</title>
+<meta name="description" content="In 2010 you could place a trade and walk away. Since 2020 the swings are wilder and faster, and many traders end up babysitting every position. What changed, why watching makes it worse, and six fixes that make set-and-forget possible again.">
+<link rel="canonical" href="https://quasidb.com/psychology/set-and-forget/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/psychology/set-and-forget/">
+<meta property="og:title" content="Why you can't set and forget anymore, and how to get it back">
+<meta property="og:description" content="The market changed after 2020, and so did the way we watch it. Why babysitting a trade makes it worse, and how to trust your trades again.">
+<meta property="og:image" content="https://quasidb.com/psychology/set-and-forget/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why you can't set and forget anymore, and how to get it back">
+<meta name="twitter:description" content="The market changed after 2020, and so did the way we watch it. Why babysitting a trade makes it worse, and how to trust your trades again.">
+<meta name="twitter:image" content="https://quasidb.com/psychology/set-and-forget/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../guides/guides.css">
+<style>
+h1 em{color:#c4b5fd}
+.kick{color:#c4b5fd}
+.byline{display:flex;align-items:center;gap:12px;margin-top:18px;font-size:16px;color:var(--muted)}
+.byline img{width:40px;height:40px;border-radius:50%}
+.byline b{color:var(--text)}
+/* then vs now */
+.then-now{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media (max-width:760px){.then-now{grid-template-columns:1fr}}
+.tn{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.tn .yr{font-family:var(--mono);font-size:30px;font-weight:700;line-height:1}
+.tn.then .yr{color:var(--muted)} .tn.now .yr{color:#c4b5fd}
+.tn ul{list-style:none;display:grid;gap:10px;margin-top:14px}
+.tn li{font-size:17px;color:var(--muted);padding-left:22px;position:relative}
+.tn li:before{content:"";position:absolute;left:2px;top:.6em;width:9px;height:9px;border-radius:50%;background:var(--line)}
+.tn.now li:before{background:#a78bfa}
+.tn li b{color:var(--text)}
+/* verdict */
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media (max-width:760px){.verdict{grid-template-columns:1fr}}
+.verdict .card h3{margin-bottom:6px}
+.verdict .card p{color:var(--muted);font-size:17px}
+.verdict .card p b{color:var(--text)}
+/* the check-frequency demo */
+.demo{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}
+.demo .chartbox svg{display:block;width:100%;height:auto}
+.freq{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.freq button{border:1px solid var(--line);background:var(--bg2);border-radius:99px;padding:8px 14px;min-height:42px;font-size:15px;font-weight:600;color:var(--muted)}
+.freq button[aria-pressed="true"]{border-color:#a78bfa;background:rgba(167,139,250,.16);color:var(--text)}
+.dstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+@media (max-width:560px){.dstats{grid-template-columns:1fr}}
+.dstats div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.dstats b{display:block;font-family:var(--mono);font-size:26px;line-height:1.2}
+.dstats span{font-size:14px;color:var(--muted)}
+.dstats .red b{color:#fca5a5} .dstats .amb b{color:var(--accent)} .dstats .grn b{color:#86efac}
+/* damage list re-uses .mistakes */
+/* fixes */
+.fixes{counter-reset:f;display:grid;gap:12px;margin-top:18px}
+.fix{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.fix:before{counter-increment:f;content:counter(f);width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:20px;background:rgba(167,139,250,.18);color:#c4b5fd}
+.fix b{display:block;font-size:18px}
+.fix span{color:var(--muted);font-size:17px}
+.fix span b{display:inline;font-size:inherit;color:var(--text)}
+.fix .eg{display:block;margin-top:8px;font-family:var(--mono);font-size:14px;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+/* the plan card */
+.plan{margin-top:18px;background:var(--bg2);border:1px dashed #6d5bb0;border-radius:16px;padding:18px 20px;font-family:var(--mono);font-size:15px}
+.plan h3{font-family:var(--sans);font-size:19px;margin-bottom:10px}
+.plan ol{margin-left:22px;display:grid;gap:8px;color:var(--muted)}
+.plan ol b{color:var(--text)}
+.plan .blank{display:inline-block;min-width:5em;border-bottom:1px solid var(--dim)}
+/* honest note */
+.honest{margin-top:18px;background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(59,130,246,.08));border:1px solid rgba(167,139,250,.35);border-radius:18px;padding:20px 22px}
+.honest p{color:var(--muted);margin-top:8px;max-width:44em}
+.honest p b{color:var(--text)}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../../?ref=psych-set-forget"><img src="../../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../../sentiment/">Sentiment</a><a href="../../analytics/">Analytics</a><a href="../../cot/">COT</a><a href="../../guides/">Guides</a><a href="../../psychology/" aria-current="page">Psychology</a><a href="../../games/">Games</a><a href="../../shop/">Shop</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">Trading psychology · about 8 minutes</p>
+    <h1>Why you can't set and forget anymore, <em>and how to get it back</em></h1>
+    <p class="lead">When I started trading in 2010, I'd place a trade, set the stop and target, and get on with my day. In 2026 I catch myself watching every candle. So is it the market making me neurotic, or has the game really changed? <b>Honestly, it's a bit of both.</b> This is what changed, why watching makes it worse, and what I'm doing to get my set-and-forget back.</p>
+    <div class="byline"><img src="../../logo.png" alt=""><span><b>Dave</b> · QDB Trading Desk · trading since 2010</span></div>
+    <nav class="toc" aria-label="On this page">
+      <a href="#changed">What changed</a><a href="#verdict">Me or the market?</a><a href="#watching">Watch the noise</a><a href="#damage">What babysitting costs</a><a href="#fixes">How to get it back</a><a href="#plan">The plan card</a>
+    </nav>
+  </header>
+
+  <section class="sec" id="changed">
+    <h2>The market isn't the one I learned on</h2>
+    <p>You're not imagining it. Since 2020 the market has felt different, and there are good reasons why.</p>
+    <div class="then-now">
+      <div class="tn then"><span class="yr">2010</span>
+        <ul>
+          <li><b>News moved price, then it settled.</b> You had a few minutes to read the number before the market made up its mind.</li>
+          <li><b>Ranges were steadier.</b> A stop sized from last month still made sense this month.</li>
+          <li><b>You checked the trade at lunch</b>, maybe after work. There was no phone pinging in your pocket all day.</li>
+          <li><b>A stop below the obvious low</b> usually survived. Fewer people knew where everyone else's stops were.</li>
+        </ul>
+      </div>
+      <div class="tn now"><span class="yr">2026</span>
+        <ul>
+          <li><b>Algorithms read the headline before you do.</b> The first move after news happens in milliseconds, and it often reverses just as fast.</li>
+          <li><b>Ranges have widened and keep changing.</b> The pandemic, the inflation shock, the fastest rate hikes in decades, tariffs and wars: volatility comes in waves now.</li>
+          <li><b>Liquidity thins out at key moments.</b> Around news and the rollover, price can jump through a level instead of trading through it.</li>
+          <li><b>Stop hunts are sharper.</b> Everyone can see the obvious levels and the <a href="../../guides/stop-loss-clusters/?ref=psych-set-forget">stop loss clusters</a>, so a stop sitting on one gets taken.</li>
+          <li><b>The chart is always in your pocket.</b> Every tick is one tap away, and that changes how we behave.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="verdict">
+    <h2>So is it me, or the market?</h2>
+    <p>Both, and it helps to split them, because each half needs a different fix.</p>
+    <div class="verdict">
+      <div class="card"><span class="tag">The market's half</span><h3>The old settings don't fit</h3><p>A stop sized for 2010's ranges <b>will get tagged more often</b> in 2026's. That isn't you being weak, it's maths. If your stops and size haven't moved with the market, the trade really is fragile, and part of you knows it. That's why you watch.</p></div>
+      <div class="card"><span class="tag adv">Our half</span><h3>Watching feels like control</h3><p>When the swings are wild, staring at the screen <b>feels</b> like doing something about it. It isn't. Your stop and target were already doing the job. Watching only adds decisions, and decisions made mid-trade are usually the worst ones we make.</p></div>
+    </div>
+    <div class="note gold"><h4>The honest test</h4><p>Ask yourself: <b>"If I couldn't see this trade until it closed, would I still take it?"</b> If the answer is no, the setup or the size is wrong, and no amount of watching will fix it. If the answer is yes, you don't need to watch.</p></div>
+  </section>
+
+  <section class="sec" id="watching">
+    <h2>Same trade, different amount of noise</h2>
+    <p>Here's one trade over three days. It's a long, risking 1R, with a target at 2R, and it <b>hits the target every time</b>. The only thing that changes is how often you look at it. Pick a habit and count the moments that would have tempted you to interfere.</p>
+    <div class="demo">
+      <div class="chartbox" id="demoChart"></div>
+      <div class="freq" id="freq" role="group" aria-label="How often you check the trade">
+        <button type="button" data-n="1" aria-pressed="false">Every 5 min</button>
+        <button type="button" data-n="6" aria-pressed="false">Every 30 min</button>
+        <button type="button" data-n="12" aria-pressed="true">Hourly</button>
+        <button type="button" data-n="48" aria-pressed="false">Every 4 hours</button>
+        <button type="button" data-n="144" aria-pressed="false">Twice a day</button>
+        <button type="button" data-n="0" aria-pressed="false">Alerts only</button>
+      </div>
+      <div class="dstats" aria-live="polite">
+        <div><b id="dChecks">72</b><span>times you looked</span></div>
+        <div class="red"><b id="dScary">0</b><span>times it looked like a loser (worse than −0.5R)</span></div>
+        <div class="amb"><b id="dGive">0</b><span>times you watched profit slip away (down 0.3R or more from its best)</span></div>
+      </div>
+      <div class="cap"><span class="sn" id="dName">Hourly</span><p id="dCap"></p></div>
+    </div>
+    <p class="muted" style="font-size:15px">Illustrative price path, made to teach the idea. It isn't real market data.</p>
+  </section>
+
+  <section class="sec" id="damage">
+    <h2>What babysitting actually costs</h2>
+    <p>Watching a trade doesn't change what price does. It changes what <b>you</b> do. These are the habits it breeds, and I've been guilty of every one.</p>
+    <div class="mistakes">
+      <div class="mistake"><span class="x">✕</span><div><b>Cutting winners early</b><span>The trade is up 1R, then gives back half. You grab what's left "before it's gone", and it goes on to hit the target without you. Do that a few times and a good system starts to look like a bad one.</span></div></div>
+      <div class="mistake"><span class="x">✕</span><div><b>Moving the stop</b><span>Either too tight, too soon, right where the next wick will take it, or further away to "give it room", which turns a 1R loss into a 2R one.</span></div></div>
+      <div class="mistake"><span class="x">✕</span><div><b>Reacting to the first move on news</b><span>The algorithms' first spike is often the fake one. Closing or flipping into it means you trade their noise, not your plan.</span></div></div>
+      <div class="mistake"><span class="x">✕</span><div><b>Trading out of boredom</b><span>Hours at the screen with nothing to do invites a second trade, and a third. Most of them were never in the plan.</span></div></div>
+      <div class="mistake"><span class="x">✕</span><div><b>Burning out</b><span>Your attention is limited. Spend it all watching one open trade and there's nothing left for the next good setup, or for the rest of your life.</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="fixes">
+    <h2>How to get set-and-forget back</h2>
+    <p>The goal isn't to become a calmer person overnight. It's to <b>build trades that don't need you watching them</b>. Each step below takes a decision away from the moment and puts it in the plan.</p>
+    <div class="fixes">
+      <div class="fix"><div><b>Size the stop to today's market, not 2010's</b><span>Use the pair's average daily range (ADR) or the ATR to see how far price normally moves, and put the stop <b>beyond the strong level and beyond the crowd's stop cluster</b> sitting on it. Never on a round number, never on the obvious low.</span><span class="eg">If EURUSD moves 80 pips a day, a 15-pip stop is a coin toss.</span></div></div>
+      <div class="fix"><div><b>Trade smaller, so the wider stop costs the same</b><span>A wider stop doesn't mean more risk if the position is smaller. Keep each loss to the same <b>0.5 to 1% of the account</b>. The swings feel much less wild when less is riding on them.</span><span class="eg">$10,000 account, 1% risk = $100. 20-pip stop → 0.5 lots. 40-pip stop → 0.25 lots. Same $100 if it's wrong.</span></div></div>
+      <div class="fix"><div><b>Plan around the news, don't watch through it</b><span>Check the calendar before you enter. If a central bank decision or a big data release is due while the trade is open, <b>be flat, reduce size, or wait until after</b>. A clean setup into a rate decision is a coin flip.</span></div></div>
+      <div class="fix"><div><b>Write the management rules before you enter</b><span>Decide now what you'll do at each stage, so there's nothing to decide while you're watching. For example: <b>move the stop to break-even at 1R, take a partial at the first magnet, let the rest run to target</b>. If the rule isn't written down, you don't do it.</span></div></div>
+      <div class="fix"><div><b>Set alerts, not screen time</b><span>Put price alerts at your entry, at 1R and at the level that would prove you wrong. Then close the chart and <b>walk away on purpose</b>. If the alert hasn't gone off, nothing needs you.</span></div></div>
+      <div class="fix"><div><b>Pick your check-in times</b><span>Two or three set times a day, such as the London open, the New York open and before bed. Outside them, the trade looks after itself. If you manage the trade on a schedule, you're trading. If you manage it on a feeling, you're babysitting.</span></div></div>
+    </div>
+    <div class="note"><h4>When watching is fine</h4><p>Scalpers and intraday traders <b>do</b> need to be at the screen, because managing the trade is the system. The difference isn't how often you look. It's whether the decisions were made <b>before</b> the trade or <b>during</b> it.</p></div>
+  </section>
+
+  <section class="sec" id="plan">
+    <h2>The plan card: fill it in before you click</h2>
+    <p>Copy this into your journal, or onto a sticky note on the screen. If you can't fill in every line, you're not ready to place the trade.</p>
+    <div class="plan">
+      <h3>Before I enter this trade</h3>
+      <ol>
+        <li><b>The level:</b> strong weekly or daily demand or supply at <span class="blank"></span></li>
+        <li><b>The stop:</b> beyond the level and the stop cluster, at <span class="blank"></span> (ADR today: <span class="blank"></span>)</li>
+        <li><b>The size:</b> <span class="blank"></span> lots, so a loss costs <span class="blank"></span>% of the account</li>
+        <li><b>The news:</b> high-impact events while I'm in: <span class="blank"></span> My plan for them: <span class="blank"></span></li>
+        <li><b>At 1R I will:</b> <span class="blank"></span></li>
+        <li><b>The target:</b> <span class="blank"></span> (next magnet or stop cluster)</li>
+        <li><b>I'll check it at:</b> <span class="blank"></span> and <span class="blank"></span>. Alerts set: yes / no</li>
+        <li><b>Would I take this trade if I couldn't see it until it closed?</b> yes / no</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="honest">
+    <div class="honest">
+      <h2>A note from me</h2>
+      <p>I run a Discord full of traders, and I still struggle with this. I don't think that makes me less qualified to talk about it. I think it's the reason to. <b>Nobody beats the psychology side once and for all.</b> You build a process that protects you from yourself, and you keep coming back to it.</p>
+      <p>If you've been babysitting your trades since 2020, you're not broken and you're not alone. The market got faster. Our plans need to catch up with it, so that we can step away again.</p>
+    </div>
+    <div class="note gold"><h4>The one rule</h4><p>Never trade sentiment on its own. Use it only together with technical and fundamental analysis, and with strict <b>risk management</b>. A trade built that way is a trade you can walk away from.</p></div>
+  </section>
+
+  <div class="cta">
+    <h3>Practise trusting the plan</h3>
+    <p>Stick to the Plan is a free game about exactly this: ten trades, one year, real-life distractions. See whether the plan gets you funded when you stop interfering.</p>
+    <div class="row"><a class="btn primary" href="../../games/stick-to-the-plan/?ref=psych-set-forget">Play Stick to the Plan</a><a class="btn" href="../../guides/sentiment-in-a-system/?ref=psych-set-forget">The steps before every trade</a><a class="btn" href="../?ref=psych-set-forget">More on trading psychology</a></div>
+  </div>
+
+  <p class="foot">Educational only, not financial advice. The trade in the example is illustrative, not real market data. Trading on margin carries a high level of risk. <a href="../">Trading psychology</a> · <a href="../../guides/">Guides</a> · <a href="../../">QDB Trading Desk</a></p>
+</main>
+
+<script>
+(function(){
+const track=n=>{try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:n,title:n,event:true})}catch(e){}};
+/* seeded noise so the path is the same for everyone */
+let seed=20101;
+const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+/* anchors every 6 hours, in R. Long trade: stop at -1R, target at +2R. */
+const A=[0,-0.35,0.45,-0.2,-0.75,-0.3,0.55,0.1,1.05,0.45,1.3,0.85,1.75];
+const STEP=72; /* 5-minute bars per 6 hours */
+const P=[];
+for(let k=0;k<A.length-1;k++){
+  for(let i=0;i<STEP;i++){
+    const t=i/STEP, e=(1-Math.cos(Math.PI*t))/2;
+    P.push(A[k]+(A[k+1]-A[k])*e);
+  }
+}
+/* layered noise: a slow wander plus fast wicks */
+let w=0;
+for(let i=0;i<P.length;i++){
+  w=w*0.94+(rnd()-0.5)*0.09;
+  P[i]+=w+(rnd()-0.5)*0.12;
+  if(i===0)P[i]=0;
+  P[i]=Math.max(-0.93,Math.min(1.97,P[i]));
+}
+/* finish at the target */
+for(let i=0;i<14;i++)P.push(1.75+0.25*(i+1)/14+(rnd()-0.5)*0.03);
+P[P.length-1]=2;
+const N=P.length;
+
+const CAP={
+  1:"Watching every five minutes, you see every wick. The trade spends hours looking like a loser, and almost all of that is noise. This is where stops get moved and winners get cut.",
+  6:"Still a lot of red moments. Each one is a chance to talk yourself out of a good trade.",
+  12:"Hourly feels disciplined, but you still sit through every scare the trade throws at you.",
+  48:"Far fewer decisions. The scary dips mostly happen while you're living your life.",
+  144:"Morning and evening. You see the trade's progress, not its noise.",
+  0:"You look when the trade opens and when the target alert goes off. Same trade, same +2R, and nothing to interfere with."
+};
+const box=document.getElementById("demoChart");
+function draw(n){
+  const C=(box.clientWidth||600)<560, W=C?560:960, H=C?420:380, L=C?54:62, R=W-14, T=22, B=H-34;
+  const lo=-1.15, hi=2.2, X=i=>L+(R-L)*i/(N-1), Y=v=>T+(B-T)*(hi-v)/(hi-lo);
+  const fs=C?18:14, mono='font-family="JetBrains Mono, monospace"';
+  const idx=n?Array.from({length:Math.floor((N-1)/n)+1},(_,k)=>k*n):[0];
+  if(idx[idx.length-1]!==N-1)idx.push(N-1);
+  let scary=0,give=0,peak=0;
+  idx.forEach(i=>{const v=P[i];if(v< -0.5)scary++;peak=Math.max(peak,v);if(peak-v>=0.3&&i!==N-1)give++;});
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="A long trade over three days that dips towards its stop, then reaches its 2R target. Dots mark each time you check it."><rect width="${W}" height="${H}" fill="#0a1220"/>`;
+  s+=`<rect x="${L}" y="${Y(0)}" width="${R-L}" height="${Y(-1)-Y(0)}" fill="rgba(239,68,68,.07)"/>`;
+  const lines=[[2,"TARGET +2R","#22c55e"],[1,"+1R","#334155"],[0,"ENTRY","#94a3b8"],[-1,"STOP −1R","#ef4444"]];
+  lines.forEach(([v,l,c])=>{s+=`<line x1="${L}" x2="${R}" y1="${Y(v)}" y2="${Y(v)}" stroke="${c}" stroke-width="1.2" stroke-dasharray="${v===0?"0":"5 5"}" opacity=".8"/><text x="${L-6}" y="${Y(v)+4}" text-anchor="end" ${mono} font-size="${fs-4}" fill="${c==="#334155"?"#6b7892":c}">${C?l.replace("TARGET ","").replace("STOP ",""):l.split(" ").pop()}</text>`;});
+  for(let d=0;d<=3;d++){const x=L+(R-L)*Math.min(1,d*288/(N-1));s+=`<text x="${x}" y="${H-10}" text-anchor="${d===0?"start":d===3?"end":"middle"}" ${mono} font-size="${fs-4}" fill="#6b7892">${d===0?"OPEN":d===3?"DAY 3":"DAY "+d}</text>`;}
+  /* full path faint, the part you saw bright */
+  const full=P.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ");
+  s+=`<path d="${full}" fill="none" stroke="#e8edf6" stroke-width="${n===1?2:1.4}" opacity="${n===1?.9:.22}"/>`;
+  if(n!==1){const seen=idx.map((i,k)=>(k?"L":"M")+X(i).toFixed(1)+" "+Y(P[i]).toFixed(1)).join(" ");s+=`<path d="${seen}" fill="none" stroke="#c4b5fd" stroke-width="2.4" stroke-linejoin="round"/>`;}
+  if(idx.length<=150){let pk=0;idx.forEach(i=>{const v=P[i];pk=Math.max(pk,v);const red=v< -0.5, amb=!red&&pk-v>=0.3&&i!==N-1;const c=red?"#ef4444":amb?"#f5b83d":"#a78bfa";s+=`<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="${idx.length>80?2.6:4.2}" fill="${c}" stroke="#0a1220" stroke-width="1"/>`;});}
+  s+=`<circle cx="${X(N-1)}" cy="${Y(2)}" r="7" fill="#22c55e" stroke="#0a1220" stroke-width="2"/>`;
+  box.innerHTML=s+"</svg>";
+  document.getElementById("dChecks").textContent=n?idx.length:2;
+  document.getElementById("dScary").textContent=scary;
+  document.getElementById("dGive").textContent=give;
+  document.getElementById("dCap").textContent=CAP[n];
+}
+let cur=12;
+const fq=document.getElementById("freq");
+fq.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cur=+b.dataset.n;fq.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));document.getElementById("dName").textContent=b.textContent;draw(cur);track("psych-demo-"+b.textContent.toLowerCase().replace(/[^a-z0-9]+/g,"-"));});
+let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>draw(cur),150)});
+draw(cur);
+})();
+</script>
+</body>
+</html>

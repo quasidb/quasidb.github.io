@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trading psychology: the honest side of trading | QDB Trading Desk</title>
+<meta name="description" content="Trading psychology from QDB Trading Desk, written by a trader who still struggles with it. Why you can't set and forget anymore, and the habits that help you trust your trades again.">
+<link rel="canonical" href="https://quasidb.com/psychology/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/psychology/">
+<meta property="og:title" content="Trading psychology: the honest side of trading">
+<meta property="og:description" content="Written by a trader who still struggles with it. Why you can't set and forget anymore, and how to get it back.">
+<meta property="og:image" content="https://quasidb.com/psychology/set-and-forget/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trading psychology: the honest side of trading">
+<meta name="twitter:description" content="Written by a trader who still struggles with it. Why you can't set and forget anymore, and how to get it back.">
+<meta name="twitter:image" content="https://quasidb.com/psychology/set-and-forget/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../guides/guides.css">
+<style>
+h1 em{color:#c4b5fd}
+.kick{color:#c4b5fd}
+.pgrid{display:grid;gap:18px;grid-template-columns:repeat(2,1fr);margin-top:18px}
+@media (max-width:760px){.pgrid{grid-template-columns:1fr}}
+.piece{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
+a.piece:hover{border-color:#a78bfa;transform:translateY(-3px)}
+.piece img{display:block;width:100%;aspect-ratio:1200/630;object-fit:cover;background:var(--bg2)}
+.piece .b{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.piece p{color:var(--muted);font-size:17px;flex:1}
+.piece .go{font-weight:700;color:#c4b5fd}
+.piece.feature{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr}
+.piece.feature img{height:100%}
+.piece.feature .b{justify-content:center;padding:24px 26px}
+@media (max-width:760px){.piece.feature{display:flex}}
+.piece.soon{opacity:.75}
+.piece.soon .ph{aspect-ratio:1200/630;background:repeating-linear-gradient(135deg,#101624 0 14px,#0d1320 14px 28px);display:grid;place-items:center;font-family:var(--mono);color:var(--dim);font-size:14px;letter-spacing:.08em}
+.tag.psy{background:rgba(167,139,250,.16);color:#c4b5fd}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../?ref=psychology"><img src="../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../sentiment/">Sentiment</a><a href="../analytics/">Analytics</a><a href="../cot/">COT</a><a href="../guides/">Guides</a><a href="../psychology/" aria-current="page">Psychology</a><a href="../games/">Games</a><a href="../shop/">Shop</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">Free · from one trader to another</p>
+    <h1>Trading <em>psychology</em></h1>
+    <p class="lead">The tools tell you where to trade. This section is about the part no tool can do for you: <b>sticking to the plan once you're in</b>. It's written by a trader who still finds this hard, not by someone pretending to have it solved.</p>
+  </header>
+
+  <section class="sec" id="pieces">
+    <h2>Read</h2>
+    <div class="pgrid" id="pieceGrid"></div>
+  </section>
+
+  <div class="note gold"><h4>The one rule</h4><p>Never trade sentiment on its own. Use it only together with technical and fundamental analysis, and with strict <b>risk management</b>. Good psychology starts with a plan you can trust.</p></div>
+
+  <div class="cta">
+    <h3>Practise it, for free</h3>
+    <p>Stick to the Plan and the Retail Survival Simulator are short browser games about discipline under pressure. Get it wrong in the game, not in your account.</p>
+    <div class="row"><a class="btn primary" href="../games/stick-to-the-plan/?ref=psychology">Play Stick to the Plan</a><a class="btn" href="../games/retail-survival-simulator/?ref=psychology">Retail Survival Simulator</a><a class="btn" href="../guides/?ref=psychology">See the guides</a></div>
+  </div>
+
+  <p class="foot">Educational only, not financial advice. Trading on margin carries a high level of risk. <a href="../">Back to QDB Trading Desk</a></p>
+</main>
+
+<script>
+/* ===== Add a piece: put it in PIECES. live:false shows it as "coming soon". feature:true makes it full width. ===== */
+const PIECES=[
+  {slug:"set-and-forget",title:"Why you can't set and forget anymore, and how to get it back",tag:"Start here",live:true,feature:true,
+   blurb:"In 2010 I could place a trade and walk away. Since 2020 I catch myself watching every candle. What changed in the market, why babysitting makes it worse, and six fixes that let you step away again."},
+  {title:"The trade after a loss",tag:"Coming soon",live:false,
+   blurb:"Why the next trade after a stop-out is the dangerous one, and a simple rule that stops revenge trading before it starts."},
+  {title:"Losing streaks are normal",tag:"Coming soon",live:false,
+   blurb:"How many losses in a row a good system can throw at you, and how to size so that a bad run doesn't break you, or your confidence."}
+];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+document.getElementById("pieceGrid").innerHTML=PIECES.map(p=>p.live
+  ?`<a class="piece${p.feature?" feature":""}" href="${p.slug}/?ref=psychology"><img src="${p.slug}/og.png" alt="${esc(p.title)}" loading="lazy"><div class="b"><span class="tag psy">${esc(p.tag.toUpperCase())}</span><h3>${esc(p.title)}</h3><p>${esc(p.blurb)}</p><span class="go">Read it →</span></div></a>`
+  :`<div class="piece soon"><div class="ph">COMING SOON</div><div class="b"><span class="tag soon">${esc(p.tag.toUpperCase())}</span><h3>${esc(p.title)}</h3><p>${esc(p.blurb)}</p></div></div>`).join("");
+</script>
+</body>
+</html>
