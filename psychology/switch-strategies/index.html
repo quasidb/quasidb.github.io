@@ -32,6 +32,18 @@
 .quote span{display:block;margin-top:6px;font-size:15px;color:var(--dim)}
 .legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;color:var(--muted);margin-top:10px}
 .legend2 i{display:inline-block;width:18px;height:4px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.lh{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:2px 2px 10px}
+.lr{display:grid;grid-template-columns:minmax(0,13em) 1fr 4em;gap:10px;align-items:center;padding:4px 2px;font-size:15px}
+.lr .n{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lr .b{height:12px;background:#1e293b;border-radius:99px;overflow:hidden}
+.lr .b i{display:block;height:100%;width:0;background:linear-gradient(90deg,#f87171,#ef4444);border-radius:99px;transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+#lossBars.in .lr .b i{width:var(--w)}
+.lr b{font-family:var(--mono);text-align:right;color:#fca5a5}
+.lr.avg{border-top:1px dashed var(--line);margin-top:6px;padding-top:10px}
+.lr.avg .n{color:var(--text);font-weight:700}
+.lr.avg .b i{background:#a78bfa}.lr.avg b{color:#c4b5fd}
+@media (max-width:560px){.lr{grid-template-columns:minmax(0,9.5em) 1fr 3.6em;font-size:14px}}
+@media (prefers-reduced-motion:reduce){.lr .b i{transition:none}}
 .dstats .red b{color:#fca5a5} .dstats .grn b{color:#86efac} .dstats .pur b{color:#c4b5fd}
 </style>
 </head>
@@ -48,7 +60,7 @@
     <p class="lead">If there's one thing I've learned over the years, it's this. People switch strategies all the time, but they <b>never hone their risk management</b>. New system, a few wins, one big loss, blame the system, find a new one. Round and round. It's easier to change the strategy than to change ourselves.</p>
     <div class="byline"><img src="../../logo.png" alt=""><span><b>Dave</b> · QDB Trading Desk · trading since 2010</span></div>
     <nav class="toc" aria-label="On this page">
-      <a href="#carousel">The strategy carousel</a><a href="#why">Why we do it</a><a href="#herd">"The market hunts my stop"</a><a href="#hone">What to work on instead</a>
+      <a href="#carousel">The strategy carousel</a><a href="#why">Why we do it</a><a href="#herd">"The market hunts my stop"</a><a href="#hone">What to work on instead</a><a href="#numbers">Don't become a statistic</a>
     </nav>
   </header>
 
@@ -108,11 +120,25 @@
     </div>
   </section>
 
+  <section class="sec" id="numbers">
+    <h2>Don't become a statistic</h2>
+    <p>Every CFD broker regulated in the UK and EU has to publish what share of its retail clients lose money. The numbers are sobering, and they're remarkably similar from broker to broker. <b>Changing broker doesn't fix it any more than changing strategy does.</b></p>
+    <div class="demo" id="lossBars">
+      <div class="lh"><span>% of retail CFD accounts that lose money · UK FCA entities</span></div>
+      <div class="lr"><span class="n">eToro UK</span><span class="b"><i style="--w:51%"></i></span><b>51%</b></div><div class="lr"><span class="n">Saxo Markets UK</span><span class="b"><i style="--w:59%"></i></span><b>59%</b></div><div class="lr"><span class="n">Spreadex</span><span class="b"><i style="--w:65%"></i></span><b>65%</b></div><div class="lr"><span class="n">IG</span><span class="b"><i style="--w:68%"></i></span><b>68%</b></div><div class="lr"><span class="n">City Index (StoneX)</span><span class="b"><i style="--w:68%"></i></span><b>68%</b></div><div class="lr"><span class="n">CMC Markets<sup>*</sup></span><span class="b"><i style="--w:69%"></i></span><b>69%</b></div><div class="lr"><span class="n">XTB UK</span><span class="b"><i style="--w:71%"></i></span><b>71%</b></div><div class="lr"><span class="n">Tickmill UK</span><span class="b"><i style="--w:71%"></i></span><b>71%</b></div><div class="lr"><span class="n">Trading 212 UK</span><span class="b"><i style="--w:72%"></i></span><b>72%</b></div><div class="lr"><span class="n">FOREX.com UK</span><span class="b"><i style="--w:74%"></i></span><b>74%</b></div><div class="lr"><span class="n">Pepperstone</span><span class="b"><i style="--w:75.2%"></i></span><b>75.2%</b></div><div class="lr"><span class="n">Plus500 UK</span><span class="b"><i style="--w:76%"></i></span><b>76%</b></div><div class="lr"><span class="n">FxPro UK</span><span class="b"><i style="--w:79%"></i></span><b>79%</b></div><div class="lr"><span class="n">ActivTrades</span><span class="b"><i style="--w:82%"></i></span><b>82%</b></div>
+      <div class="lr avg"><span class="n">Average</span><span class="b"><i style="--w:70%"></i></span><b>70%</b></div>
+    </div>
+    <p class="muted" style="font-size:14px">Figures are the brokers' own published risk warnings, as compiled by <a href="https://www.theinvestorscentre.co.uk/trading/statistics/cfd-trading/" target="_blank" rel="noopener">The Investors Centre</a> (data checked 27 April 2026; <sup>*</sup>CMC Markets checked 26 October 2026). Brokers update these figures every quarter, and EU entities publish their own numbers, so check the broker's website for today's figure. A wider survey of 49 EU and UK brokers by <a href="https://brokerrank.net/research/retail-loss-rates" target="_blank" rel="noopener">BrokerRank</a> also averages <b>71%</b>.</p>
+    <div class="note gold"><h4>We track this live</h4><p>QDB measures how the retail crowd is doing every day. The <a href="../../?ref=psych-switch#confirm">Crowd Failure Rate</a> on the homepage shows the share of pairs where price is moving against the way the crowd is shifting, updated through the trading day.</p></div>
+  </section>
+
   <section class="sec">
     <div class="honest">
       <h2>A note from me</h2>
       <p>I've watched this cycle for years, in myself early on and in plenty of traders since. The strategies change, but the losses keep coming for the same reasons. <b>Strict risk management</b> is the one skill that goes with you to every chart, every market and every system.</p>
-      <p>So next time you're about to switch, try changing yourself first. It's harder. It's also the only change that sticks.</p>
+      <p>We know the vast majority of retail traders lose money, and we track how the crowd is doing right here on the site. So instead of becoming another statistic, practise and hone your <b>risk management</b> skills first and foremost.</p>
+      <p>Next time you're about to switch, stop. Take a moment to reflect on what happened, look within, and think about the longer term. Remember the tortoise and the hare: the hare didn't lose because he was slow. He burned himself out taking excessive risks and wasting energy, while the tortoise kept going at a pace he could sustain.</p>
+      <p>It happens to us all. Trading is that fine balance of knowing your risk and accepting the losses that come with it.</p>
     </div>
     <div class="note gold"><h4>The one rule</h4><p>Never trade sentiment on its own. Use it only together with technical and fundamental analysis, and with strict <b>risk management</b>.</p></div>
   </section>
@@ -224,6 +250,8 @@ document.getElementById("herdPlay").addEventListener("click",()=>{playHerd();tra
 document.querySelectorAll("[data-pos]").forEach(b=>b.addEventListener("click",()=>{pos=b.dataset.pos;document.querySelectorAll("[data-pos]").forEach(x=>x.setAttribute("aria-pressed",x===b));cancelAnimationFrame(hRAF);drawHerd(0);}));
 drawHerd(0);
 let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{drawCar(carK);drawHerd(0)},150)});
+const lb=document.getElementById("lossBars");
+if("IntersectionObserver" in window){new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){lb.classList.add("in");o.disconnect()}})},{threshold:.3}).observe(lb)}else lb.classList.add("in");
 })();
 </script>
 </body>
