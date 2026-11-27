@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Afloat or underwater: what following the plan does to your head | QDB Trading Psychology</title>
+<meta name="description" content="Two captains, the same sea, the same iceberg. One knows the weight of his cargo and stays afloat when the news hits; the other is overleveraged and goes under. What a trading plan and strict risk management do for you psychologically, with an interactive voyage.">
+<link rel="canonical" href="https://quasidb.com/psychology/afloat/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/psychology/afloat/">
+<meta property="og:title" content="Afloat or underwater: what following the plan does to your head">
+<meta property="og:description" content="Same sea, same iceberg. The captain who knew his size and risk stays afloat. The overleveraged one goes under. Try the voyage yourself.">
+<meta property="og:image" content="https://quasidb.com/psychology/afloat/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Afloat or underwater: what following the plan does to your head">
+<meta name="twitter:description" content="Same sea, same iceberg. The captain who knew his size and risk stays afloat. The overleveraged one goes under. Try the voyage yourself.">
+<meta name="twitter:image" content="https://quasidb.com/psychology/afloat/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../guides/guides.css">
+<link rel="stylesheet" href="../psych.css">
+<style>
+.ctl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;margin-top:12px}
+@media (max-width:560px){.ctl{grid-template-columns:minmax(0,1fr)}}
+.ctl .slider{min-width:0}.ctl .slider input{min-width:0;width:100%}.ctl .slider output{min-width:3.2em}
+.log{list-style:none;margin-top:12px;display:grid;gap:6px;font-family:var(--mono);font-size:14px;color:var(--muted);min-height:9.5em}
+.log li b{color:var(--text)}
+.log li.ice b{color:#7dd3fc}
+.verdict{margin-top:12px;border-radius:12px;padding:12px 14px;font-size:17px;background:var(--bg2);border:1px solid var(--line)}
+.verdict.ok{border-color:rgba(34,197,94,.45)} .verdict.warn{border-color:rgba(245,184,61,.5)} .verdict.sunk{border-color:rgba(239,68,68,.55)}
+.verdict b{color:var(--text)}
+.mind{display:grid;gap:10px;margin-top:18px}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:640px){.mrow{grid-template-columns:1fr}}
+.mrow>div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:16px;color:var(--muted)}
+.mrow .q{grid-column:1/-1;background:none;border:0;padding:10px 0 0;font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c4b5fd}
+.mrow .u:before{content:"UNDERWATER · ";font-family:var(--mono);font-size:12px;color:#fca5a5}
+.mrow .a:before{content:"AFLOAT · ";font-family:var(--mono);font-size:12px;color:#86efac}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../../?ref=psych-afloat"><img src="../../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../../sentiment/">Sentiment</a><a href="../../analytics/">Analytics</a><a href="../../cot/">COT</a><a href="../../guides/">Guides</a><a href="../../psychology/" aria-current="page">Psychology</a><a href="../../games/">Games</a><a href="../../shop/">Shop</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">Trading psychology · about 7 minutes</p>
+    <h1>Afloat or underwater: <em>what following the plan does to your head</em></h1>
+    <p class="lead">Picture two ships crossing the same sea. Same weather, same route, and the same iceberg waiting in the dark. One captain knows exactly what's in the hold and what it weighs. The other has packed in as much cargo as the ship will take, because more cargo means more profit. <b>When the iceberg hits, only one of them is still sailing in the morning.</b></p>
+    <div class="byline"><img src="../../logo.png" alt=""><span><b>Dave</b> · QDB Trading Desk · trading since 2010</span></div>
+    <nav class="toc" aria-label="On this page">
+      <a href="#captains">Two captains</a><a href="#voyage">Sail it yourself</a><a href="#head">What it does to your head</a><a href="#ship">Build your ship</a>
+    </nav>
+  </header>
+
+  <section class="sec" id="captains">
+    <h2>Two captains, one iceberg</h2>
+    <p>In trading the iceberg is a news event. A surprise rate decision, a payrolls number nobody expected, a headline at 3 am. You can't stop it from being there. You can only decide, before you sail, how much damage it's allowed to do.</p>
+    <div class="two">
+      <div class="card bad"><span class="tag red">Underwater</span><h3>The captain with no plan</h3>
+        <ul>
+          <li><b>Doesn't know the weight of the cargo.</b> Position size is whatever "feels right", and it feels bigger after a win.</li>
+          <li><b>No watertight compartments.</b> No stop loss, or one he moves "to give it room".</li>
+          <li><b>Never checked the weather.</b> He didn't know the central bank was speaking today.</li>
+          <li><b>Massively overleveraged.</b> One hit doesn't dent the ship, it breaks it in half.</li>
+        </ul>
+      </div>
+      <div class="card good"><span class="tag">Afloat</span><h3>The captain with a plan</h3>
+        <ul>
+          <li><b>Knows the cargo to the kilo.</b> Each trade risks the same 0.5 to 1% of the account, whatever happened last time.</li>
+          <li><b>Watertight compartments.</b> A stop beyond the level and the stop cluster, so one breach floods one room, not the ship.</li>
+          <li><b>Checked the weather.</b> Big news on the calendar means smaller, or no trade at all.</li>
+          <li><b>A line he won't cross.</b> A maximum loss for the day and the week. Hit it and he goes back to port.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="voyage">
+    <h2>Sail it yourself</h2>
+    <p>Set how much of the account you risk per trade, decide whether you use a stop, and set sail. Every voyage gets the same bad luck: <b>four losing trades in a row, then the iceberg</b>, a news event that gaps price straight through your stop. It's a rough run, but every trader meets one sooner or later.</p>
+    <div class="demo">
+      <div id="sea"></div>
+      <div class="ctl">
+        <div class="slider" style="margin-top:0"><label for="risk">Risk per trade</label><input type="range" id="risk" min="0.5" max="10" step="0.5" value="1"><output id="riskOut" for="risk">1%</output></div>
+        <button type="button" class="btn primary" id="sail">Set sail ⛵</button>
+      </div>
+      <div class="pills" role="group" aria-label="Stop loss">
+        <button type="button" data-stop="1" aria-pressed="true">Stop loss on every trade</button>
+        <button type="button" data-stop="0" aria-pressed="false">No stop, "I'll watch it"</button>
+      </div>
+      <ul class="log" id="log" aria-live="polite"></ul>
+      <div class="dstats">
+        <div><b id="dd">0%</b><span>of the account under water</span></div>
+        <div><b id="left">$10,000</b><span>left of a $10,000 account</span></div>
+        <div><b id="back">0%</b><span>gain needed just to get back to the start</span></div>
+      </div>
+      <div class="verdict" id="verdict">Pick your risk and set sail.</div>
+    </div>
+    <p class="muted" style="font-size:15px">With a stop, the iceberg costs twice your planned risk, because news can gap price past it. With no stop, the trade is held in hope and costs eight times. Illustrative numbers, made to teach the idea.</p>
+  </section>
+
+  <section class="sec" id="head">
+    <h2>What the plan does to your head</h2>
+    <p>The maths is the easy part. What I've noticed over the years is how differently the two captains <b>feel</b>, and how that feeling decides the next trade.</p>
+    <div class="mind">
+      <div class="mrow"><div class="q">When the news hits</div><div class="u">Panic. Every tick is a decision, and every decision is made in fear.</div><div class="a">Calm. The worst case was decided last night, so there's nothing to decide now.</div></div>
+      <div class="mrow"><div class="q">After a loss</div><div class="u">"I need to make it back." The next trade is bigger, earlier and forced.</div><div class="a">A loss is a cost of doing business, already paid for in the plan. Next setup, same size.</div></div>
+      <div class="mrow"><div class="q">Waiting for a setup</div><div class="u">Can't wait. Being out of the market feels like missing out.</div><div class="a">Waiting is part of the job. The ship is fine in port.</div></div>
+      <div class="mrow"><div class="q">At night</div><div class="u">Checking the phone at 2 am.</div><div class="a">Asleep. The stop and the alerts are on watch.</div></div>
+      <div class="mrow"><div class="q">After a run of losses</div><div class="u">Confidence gone, or worse, doubling down to prove a point.</div><div class="a">Down a few percent, still in the game, still trusting the process.</div></div>
+    </div>
+    <div class="note gold"><h4>The real gift of a plan</h4><p>It isn't that you win more. It's that <b>losing stops being an emergency</b>. Once a loss can't sink you, you stop trading scared, and trading scared is what sinks most of us.</p></div>
+  </section>
+
+  <section class="sec" id="ship">
+    <h2>Build your ship before you sail</h2>
+    <p>Everything that keeps you afloat is decided in port, never at sea.</p>
+    <div class="fixes">
+      <div class="fix"><div><b>Weigh the cargo</b><span>Fix your risk per trade at <b>0.5 to 1%</b> and size every position from the stop. The <b>Risk Calculation</b> and <b>SL &amp; TP Planner</b> tabs in the QDB Sheet do the arithmetic for you.</span></div></div>
+      <div class="fix"><div><b>Fit the watertight compartments</b><span>A stop on every trade, <b>beyond the strong level and the crowd's stop cluster</b>. Not on a round number, and never moved further away.</span></div></div>
+      <div class="fix"><div><b>Check the weather</b><span>Look at the calendar before every trade. Into a big release: <b>reduce, wait, or stay flat</b>. The calendar bot in the Discord posts the day's high-impact news each morning.</span></div></div>
+      <div class="fix"><div><b>Don't overload one hold</b><span>Three trades that are all "short USD" are one big trade. The <b>FX Pair Risk Matrix</b> shows where your positions overlap.</span></div></div>
+      <div class="fix"><div><b>Know when to head back to port</b><span>A maximum loss for the day and the week, written down. Hit it and you stop. The ship survives to sail tomorrow.</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="honest">
+    <div class="honest">
+      <h2>A note from me</h2>
+      <p>I've been the first captain. Early on, I didn't know the weight of my cargo. I knew how much I wanted to make. A single news event taught me the difference, and it's a lesson I'd rather you learnt from a web page than from your account.</p>
+      <p><b>The iceberg will come.</b> It always does. Strict risk management doesn't stop it from coming. It just decides whether you're still afloat when it's gone.</p>
+    </div>
+    <div class="note gold"><h4>The one rule</h4><p>Never trade sentiment on its own. Use it only together with technical and fundamental analysis, and with strict <b>risk management</b>.</p></div>
+  </section>
+
+  <section class="sec">
+    <h2>Keep reading</h2>
+    <div class="next">
+      <a href="../set-and-forget/?ref=psych-afloat"><span>TRADING PSYCHOLOGY</span>Why you can't set and forget anymore, and how to get it back</a>
+      <a href="../after-the-bloodbath/?ref=psych-afloat"><span>TRADING PSYCHOLOGY</span>No conviction after a bloodbath: why I miss the best long entries</a>
+      <a href="../../games/retail-survival-simulator/?ref=psych-afloat"><span>FREE GAME</span>Retail Survival Simulator: can a $7,500 account survive real crises?</a>
+    </div>
+  </section>
+
+  <p class="foot">Educational only, not financial advice. The voyage is illustrative, not real market data. Trading on margin carries a high level of risk. <a href="../">Trading psychology</a> · <a href="../../guides/">Guides</a> · <a href="../../">QDB Trading Desk</a></p>
+</main>
+
+<script>
+(function(){
+const track=n=>{try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:n,title:n,event:true})}catch(e){}};
+const $=id=>document.getElementById(id), sea=$("sea"), risk=$("risk");
+let stop=1, dd=0, timer=null, sailing=false, shipX=0;
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function draw(){
+  const C=(sea.clientWidth||600)<560, W=C?560:960, H=C?330:300, sl=C?150:140;
+  const sink=dd>=0.5?1:dd/0.5, draft=sink*(C?120:110), tilt=sink*(dd>=0.5?14:6);
+  const sx=C?120+shipX*230:180+shipX*470, ix=W-(C?110:170);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="A ship at sea with an iceberg ahead. The ship sits lower in the water as the account loses money."><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1426"/><stop offset="1" stop-color="#16233b"/></linearGradient><linearGradient id="wa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e3a5c" stop-opacity=".92"/><stop offset="1" stop-color="#05121f"/></linearGradient></defs>`;
+  s+=`<rect width="${W}" height="${H}" fill="url(#sk)"/><circle cx="${W-60}" cy="44" r="16" fill="#e8edf6" opacity=".85"/>`;
+  /* iceberg */
+  s+=`<g><path d="M${ix-60} ${sl} L${ix-28} ${sl-62} L${ix-8} ${sl-40} L${ix+10} ${sl-88} L${ix+44} ${sl-30} L${ix+70} ${sl} Z" fill="#dbeafe"/><path d="M${ix-80} ${sl} L${ix+90} ${sl} L${ix+60} ${sl+90} L${ix-50} ${sl+110} Z" fill="#7dd3fc" opacity=".35"/></g>`;
+  /* ship */
+  const y=sl-38+draft;
+  s+=`<g transform="translate(${sx} ${y}) rotate(${tilt})"><rect x="-6" y="-70" width="6" height="70" fill="#cbd5e1"/><path d="M0 -66 L48 -14 L0 -14 Z" fill="${stop?"#e8edf6":"#fca5a5"}"/><path d="M-4 -60 L-44 -18 L-4 -18 Z" fill="#cbd5e1" opacity=".8"/><path d="M-80 -6 L86 -6 L62 36 L-62 36 Z" fill="${dd>=0.5?"#7f1d1d":"#b45309"}"/><rect x="-80" y="-8" width="166" height="6" fill="#f5b83d"/>`;
+  for(let i=0;i<4;i++)s+=`<rect x="${-56+i*32}" y="2" width="22" height="16" rx="3" fill="#1a1205" opacity=".55"/>`;
+  s+=`</g>`;
+  /* water over the ship */
+  s+=`<rect x="0" y="${sl}" width="${W}" height="${H-sl}" fill="url(#wa)"/>`;
+  for(let k=0;k<W;k+=48)s+=`<path d="M${k} ${sl} q12 -6 24 0 t24 0" fill="none" stroke="#7dd3fc" stroke-opacity=".35" stroke-width="2"/>`;
+  s+=`<text x="16" y="${H-14}" font-family="JetBrains Mono, monospace" font-size="${C?17:14}" fill="#a3afc5">${dd>=0.5?"SUNK":"WATERLINE"} · ${Math.round(dd*100)}% under water</text>`;
+  sea.innerHTML=s+"</svg>";
+}
+function show(){
+  $("dd").textContent=Math.round(dd*100)+"%";
+  $("left").textContent="$"+Math.round(10000*(1-dd)).toLocaleString("en-US");
+  $("back").textContent=dd>=0.999?"∞":Math.round(dd/(1-dd)*100)+"%";
+  draw();
+}
+function sail(){
+  if(timer)clearInterval(timer);
+  const r=+risk.value/100, ev=[];
+  for(let i=1;i<=4;i++)ev.push({t:`Trade ${i}: stopped out`,loss:r});
+  ev.push({t:"🧊 The iceberg: surprise news gaps price",loss:stop?2*r:8*r,ice:1});
+  dd=0;shipX=0;const log=$("log");log.innerHTML="";$("verdict").className="verdict";$("verdict").textContent="Sailing…";
+  let k=0;sailing=true;show();
+  const step=()=>{
+    const e=ev[k], before=1-dd;let cost=e.loss*before;
+    dd=Math.min(1,1-before*(1-e.loss));shipX=(k+1)/ev.length;
+    log.insertAdjacentHTML("beforeend",`<li class="${e.ice?"ice":""}"><b>${e.t}</b> · −$${Math.round(10000*cost).toLocaleString("en-US")}</li>`);
+    show();k++;
+    if(k>=ev.length){clearInterval(timer);timer=null;sailing=false;verdict();}
+  };
+  if(reduce){while(k<ev.length)step();}else{step();timer=setInterval(step,750);}
+  track("psych-afloat-sail-"+risk.value+(stop?"":"-nostop"));
+}
+function verdict(){
+  const v=$("verdict"), pct=Math.round(dd*100);
+  if(dd>=0.5){v.className="verdict sunk";v.innerHTML=`<b>Sunk.</b> ${pct}% gone. You'd need ${dd>=0.999?"a miracle":Math.round(dd/(1-dd)*100)+"% just to get back"}, and the person who has to find that is the one who just watched it happen.`;}
+  else if(dd>=0.2){v.className="verdict warn";v.innerHTML=`<b>Holed and listing.</b> ${pct}% down after one bad week. Still afloat, but every trade from here feels like it has to win.`;}
+  else{v.className="verdict ok";v.innerHTML=`<b>Still sailing.</b> A rough week, ${pct}% down, and nothing you hadn't already accepted in port. Next setup, same size.`;}
+}
+risk.addEventListener("input",()=>{$("riskOut").textContent=risk.value+"%";});
+$("sail").addEventListener("click",sail);
+document.querySelectorAll("[data-stop]").forEach(b=>b.addEventListener("click",()=>{stop=+b.dataset.stop;document.querySelectorAll("[data-stop]").forEach(x=>x.setAttribute("aria-pressed",x===b));draw();}));
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(draw,150)});
+show();
+})();
+</script>
+</body>
+</html>
