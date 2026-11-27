@@ -115,7 +115,7 @@ h1 em{color:var(--accent)}
     <div class="cta">
       <h3>Want the full ranked list?</h3>
       <p>Members get the <b>Top 3 bubble trades</b> inside the QDB Sheet, ranked and marked <i>Ready</i> or <i>Wait</i>, plus the full QDB Score, FXCM SSI Delta, pivots and the Discord Signals channel. It refreshes through the trading day.</p>
-      <div class="row"><a class="btn primary" href="../shop/?ref=setups" data-goatcounter-click="setups-shop">See the plans</a><a class="btn" href="../trial/?ref=setups" data-goatcounter-click="setups-trial">Try the full sheet free, 14 days</a><a class="btn" href="../?ref=setups#free-sheet" data-goatcounter-click="setups-lite">Try the free Lite sheet</a></div>
+      <div class="row"><a class="btn primary" href="../shop/?ref=setups" data-goatcounter-click="setups-shop">See the plans</a><a data-trial class="btn" href="../trial/?ref=setups" data-goatcounter-click="setups-trial">Try the full sheet free, 14 days</a><a class="btn" href="../?ref=setups#free-sheet" data-goatcounter-click="setups-lite">Try the free Lite sheet</a></div>
     </div>
   </section>
 
@@ -243,6 +243,10 @@ $('rescan').addEventListener('click', run);
 run();
 setInterval(function(){ if (!document.hidden) run(); }, 10 * 60 * 1000);
 })();
+</script>
+<script>
+// Free trial links stay hidden until the Black Friday deal ends (same date as /black-friday/), then show by themselves.
+(function(){ if (new Date() < new Date('2026-12-02T00:00:00Z')) document.querySelectorAll('[data-trial]').forEach(function(e){ e.hidden = true; e.style.display = 'none'; }); })();
 </script>
 </body>
 </html>
