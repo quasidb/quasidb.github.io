@@ -66,16 +66,8 @@ var HEADERS = ['Requested', 'Email', 'Name', 'Status', 'Started', 'Ends', 'Remin
 var C = { requested: 1, email: 2, name: 3, status: 4, started: 5, ends: 6, reminded: 7, ended: 8, marketing: 9, source: 10, notes: 11 };
 var DAY = 24 * 60 * 60 * 1000;
 
-// ---------- Menu ----------
-function onOpen() {
-  SpreadsheetApp.getUi().createMenu('QDB Trials')
-    .addItem('1. Set up (run once)', 'setup')
-    .addItem('Run the hourly check now', 'hourlyCheck')
-    .addItem('Send me a test welcome email', 'sendTestEmails')
-    .addToUi();
-}
-
-/** Run once: makes the log tab and the hourly timer. Safe to run again. */
+// ---------- Start here ----------
+/** RUN THIS ONE FIRST (it is the first function, so the editor picks it by default). Run once: makes the log tab and the hourly timer. Safe to run again. */
 function setup() {
   var sh = logSheet_();
   ScriptApp.getProjectTriggers().forEach(function (t) {
@@ -86,6 +78,18 @@ function setup() {
   var f = DriveApp.getFileById(CONFIG.TRIAL_SHEET_ID);
   sh.getRange('M1').setValue('Trial sheet: ' + f.getName());
   try { SpreadsheetApp.getUi().alert('All set. Trials will share "' + f.getName() + '". Next: Deploy > New deployment > Web app (see INSTALL.md).'); } catch (e) {}
+}
+
+// ---------- Menu ----------
+// Adds the menu when the QDB Trials sheet is opened. Don't run this one from the editor.
+function onOpen() {
+  try {
+    SpreadsheetApp.getUi().createMenu('QDB Trials')
+      .addItem('1. Set up (run once)', 'setup')
+      .addItem('Run the hourly check now', 'hourlyCheck')
+      .addItem('Send me a test welcome email', 'sendTestEmails')
+      .addToUi();
+  } catch (e) {} // run from the editor: there is no sheet window to add a menu to
 }
 
 // ---------- Web endpoint (the form on quasidb.com/trial/) ----------
