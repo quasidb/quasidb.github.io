@@ -1,0 +1,39 @@
+/* Shared styles for /psychology/ articles. Loaded after ../../guides/guides.css. Purple is the section accent. */
+h1 em{color:#c4b5fd}
+.kick{color:#c4b5fd}
+.byline{display:flex;align-items:center;gap:12px;margin-top:18px;font-size:16px;color:var(--muted)}
+.byline img{width:40px;height:40px;border-radius:50%}
+.byline b{color:var(--text)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.two .card h3{margin:6px 0}
+.two .card p,.two .card li{color:var(--muted);font-size:17px}
+.two .card b{color:var(--text)}
+.two .card ul{margin:10px 0 0 20px;display:grid;gap:6px}
+.card.bad{border-top:4px solid var(--sell)}
+.card.good{border-top:4px solid var(--buy)}
+.tag.psy{background:rgba(167,139,250,.16);color:#c4b5fd}
+.tag.red{background:rgba(239,68,68,.13);color:#fca5a5}
+.fixes{counter-reset:f;display:grid;gap:12px;margin-top:18px}
+.fix{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.fix:before{counter-increment:f;content:counter(f);width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:20px;background:rgba(167,139,250,.18);color:#c4b5fd}
+.fix b{display:block;font-size:18px}
+.fix span{color:var(--muted);font-size:17px}
+.fix span b{display:inline;font-size:inherit;color:var(--text)}
+.honest{margin-top:18px;background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(59,130,246,.08));border:1px solid rgba(167,139,250,.35);border-radius:18px;padding:20px 22px}
+.honest p{color:var(--muted);margin-top:8px;max-width:44em}
+.honest p b{color:var(--text)}
+.demo{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}
+.demo svg{display:block;width:100%;height:auto}
+.dstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+@media (max-width:560px){.dstats{grid-template-columns:1fr}}
+.dstats div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.dstats b{display:block;font-family:var(--mono);font-size:26px;line-height:1.2}
+.dstats span{font-size:14px;color:var(--muted)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.pills button{border:1px solid var(--line);background:var(--bg2);border-radius:99px;padding:8px 14px;min-height:42px;font-size:15px;font-weight:600;color:var(--muted)}
+.pills button[aria-pressed="true"]{border-color:#a78bfa;background:rgba(167,139,250,.16);color:var(--text)}
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
+.next a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-decoration:none;color:var(--text)}
+.next a:hover{border-color:#a78bfa}
+.next a span{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:#c4b5fd;margin-bottom:4px}

@@ -79,10 +79,12 @@ a.piece:hover{border-color:#a78bfa;transform:translateY(-3px)}
 const PIECES=[
   {slug:"set-and-forget",title:"Why you can't set and forget anymore, and how to get it back",tag:"Start here",live:true,feature:true,
    blurb:"In 2010 I could place a trade and walk away. Since 2020 I catch myself watching every candle. What changed in the market, why babysitting makes it worse, and six fixes that let you step away again."},
+  {slug:"afloat",title:"Afloat or underwater: what following the plan does to your head",tag:"Risk",live:true,
+   blurb:"Two captains, one iceberg. The overleveraged one with no plan goes under when the news hits. The one who knew his size and risk stays afloat. Sail the voyage yourself."},
+  {slug:"after-the-bloodbath",title:"No conviction after a bloodbath: why I miss the best long entries",tag:"Personal",live:true,
+   blurb:"After a big sell-off in the indices I can never find the conviction to buy. My gut versus the QDB Risk Calculation score, from Capitulation 0 to Dominance 6."},
   {title:"The trade after a loss",tag:"Coming soon",live:false,
-   blurb:"Why the next trade after a stop-out is the dangerous one, and a simple rule that stops revenge trading before it starts."},
-  {title:"Losing streaks are normal",tag:"Coming soon",live:false,
-   blurb:"How many losses in a row a good system can throw at you, and how to size so that a bad run doesn't break you, or your confidence."}
+   blurb:"Why the next trade after a stop-out is the dangerous one, and a simple rule that stops revenge trading before it starts."}
 ];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 document.getElementById("pieceGrid").innerHTML=PIECES.map(p=>p.live

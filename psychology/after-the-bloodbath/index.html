@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>No conviction after a bloodbath: why I miss the best long entries | QDB Trading Psychology</title>
+<meta name="description" content="After a big sell-off in the indices, the best long entry arrives exactly when it feels worst. Why fear and recency bias make us wait until it's too late, and how the QDB Sheet's Risk Calculation scores the market mood from Capitulation 0 to Dominance 6 without emotion.">
+<link rel="canonical" href="https://quasidb.com/psychology/after-the-bloodbath/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="QDB Trading Desk">
+<meta property="og:url" content="https://quasidb.com/psychology/after-the-bloodbath/">
+<meta property="og:title" content="No conviction after a bloodbath: why I miss the best long entries">
+<meta property="og:description" content="The best long entry on the indices comes when it feels worst. My gut versus a rigid score from Capitulation 0 to Dominance 6.">
+<meta property="og:image" content="https://quasidb.com/psychology/after-the-bloodbath/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="No conviction after a bloodbath: why I miss the best long entries">
+<meta name="twitter:description" content="The best long entry on the indices comes when it feels worst. My gut versus a rigid score from Capitulation 0 to Dominance 6.">
+<meta name="twitter:image" content="https://quasidb.com/psychology/after-the-bloodbath/og.png">
+<meta name="theme-color" content="#0b0f17">
+<link rel="icon" href="../../logo.png">
+<script data-goatcounter="https://quasidb.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../guides/guides.css">
+<link rel="stylesheet" href="../psych.css">
+<style>
+.gut{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media (max-width:560px){.gut{grid-template-columns:1fr}}
+.gut>div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.gut .k{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.gut .feel{font-size:18px;color:#fca5a5;margin-top:4px}
+.gut .sc{display:flex;align-items:baseline;gap:10px;margin-top:2px}
+.gut .sc b{font-family:var(--mono);font-size:34px;line-height:1}
+.gut .sc span{font-size:19px;font-weight:700}
+.gut p{font-size:15px;color:var(--muted);margin-top:6px}
+.ladder{display:grid;gap:8px;margin-top:18px}
+.rung{display:grid;grid-template-columns:54px 1fr;gap:12px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.rung .n{width:54px;height:44px;border-radius:10px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:20px;color:#0b0f17}
+.rung b{display:block;font-size:18px}
+.rung p{color:var(--muted);font-size:16px}
+.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+@media (max-width:640px){.checks{grid-template-columns:1fr}}
+.checks div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.checks .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:#c4b5fd;text-transform:uppercase}
+.checks b{display:block;margin:4px 0}
+.checks p{color:var(--muted);font-size:16px}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="../../?ref=psych-bloodbath"><img src="../../logo.png" alt="">QDB Trading Desk</a>
+  <div class="navl"><a href="../../sentiment/">Sentiment</a><a href="../../analytics/">Analytics</a><a href="../../cot/">COT</a><a href="../../guides/">Guides</a><a href="../../psychology/" aria-current="page">Psychology</a><a href="../../games/">Games</a><a href="../../shop/">Shop</a></div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="kick">Trading psychology · a personal one · about 7 minutes</p>
+    <h1>No conviction after a bloodbath: <em>why I miss the best long entries</em></h1>
+    <p class="lead">Here's a confession. After a proper bloodbath in the indices, I can never find the conviction to go long. I know, on paper, that the best entries come when everything looks broken. But when the S&amp;P has just dropped hard, my head is full of red candles, and I wait. Then I wait some more. <b>By the time I feel ready, the optimal entry is long gone.</b></p>
+    <div class="byline"><img src="../../logo.png" alt=""><span><b>Dave</b> · QDB Trading Desk · trading since 2010</span></div>
+    <nav class="toc" aria-label="On this page">
+      <a href="#why">Why it happens</a><a href="#gut">My gut vs the score</a><a href="#ladder">Capitulation 0 to Dominance 6</a><a href="#how">How it's scored</a><a href="#use">How I use it</a>
+    </nav>
+  </header>
+
+  <section class="sec" id="why">
+    <h2>Why we freeze at the bottom</h2>
+    <p>It isn't a lack of knowledge. It's how our brains are wired, and every trader I know fights the same three things.</p>
+    <div class="fixes">
+      <div class="fix"><div><b>Recency bias</b><span>The last thing we saw was a crash, so our brain expects another one. The most recent candles feel like the whole story.</span></div></div>
+      <div class="fix"><div><b>The wound is still fresh</b><span>If the sell-off hurt you, buying feels like walking back into the room where you got hit. <b>Loss aversion</b> makes the pain of being wrong again feel twice as big as the reward of being right.</span></div></div>
+      <div class="fix"><div><b>Waiting for "confirmation"</b><span>We tell ourselves we'll buy once it's clearly turned. But "clearly turned" means the move has already happened, and by then the crowd is buying too.</span></div></div>
+    </div>
+    <p>The cruel part is that the feeling and the opportunity run in opposite directions. <b>Conviction tends to arrive at the top, not the bottom.</b></p>
+  </section>
+
+  <section class="sec" id="gut">
+    <h2>My gut vs the score</h2>
+    <p>Drag through a typical sell-off and recovery on an index. On the left is what my gut tells me. On the right is what the QDB Sheet's <b>Risk Calculation</b> score reads, with no emotion and no memory of how much the drop hurt.</p>
+    <div class="demo">
+      <div id="chart"></div>
+      <div class="slider"><label for="day">Day</label><input type="range" id="day" min="0" max="6" step="1" value="0"><output id="dayOut" for="day">Crash day</output></div>
+      <div class="gut" aria-live="polite">
+        <div><span class="k">My gut says</span><div class="feel" id="feel"></div></div>
+        <div><span class="k">The score says</span><div class="sc"><b id="scN"></b><span id="scName"></span></div><p id="scText"></p></div>
+      </div>
+    </div>
+    <p class="muted" style="font-size:15px">Illustrative path and scores, written to teach the idea, not a record of a real sell-off.</p>
+    <div class="note"><h4>Spot the irony</h4><p>My conviction finally shows up at <b>Euphoria</b>, the stage the sheet itself describes as "the point of maximum risk". The calm, boring entry was back at Capitulation and Extreme Fear, when every part of me said no.</p></div>
+  </section>
+
+  <section class="sec" id="ladder">
+    <h2>Capitulation 0 to Dominance 6</h2>
+    <p>The <b>🧭 Risk Calculation</b> tab places the market on one rung of this ladder. It's a rigid score: the same inputs always give the same answer, whether I'm feeling brave or bruised.</p>
+    <div class="ladder" id="ladderList"></div>
+    <div class="note gold"><h4>3 is no-man's land</h4><p><b>Denial and Doubt</b> both score 3. That's the market sitting on the fence, and it's deliberate: it's where I hold off. The <b>weekly change in the VIX</b> decides which of the two we're in, and so which way the ladder is leaning. Only when the score moves clearly off 3, in either direction, is the move big enough to act on.</p></div>
+  </section>
+
+  <section class="sec" id="how">
+    <h2>How the score is built</h2>
+    <p>Six checks, each worth one point. Three come from the crowd's big-picture positioning and three from the markets themselves.</p>
+    <div class="checks">
+      <div><span class="k">Now</span><b>Static view</b><p>Is risk sentiment, and is the live technical score, on the risk-on side right now? One point each.</p></div>
+      <div><span class="k">Yesterday</span><b>Yesterday's static view</b><p>Was each of them risk-on yesterday too? One point each. A single good day isn't enough.</p></div>
+      <div><span class="k">Direction</span><b>Dynamic view</b><p>Are they improving over time, or getting worse? One point each, so the score sees the turn before my gut does.</p></div>
+    </div>
+    <p>The <b>sentiment</b> side reads the crowd's net positioning, its weekly average against the live figure. The <b>technical</b> side is a weighted score across the markets that tell you about risk appetite: the US and European stock indices, the VIX, US yields and the yield curve, high-yield bonds, oil, copper, the Nikkei and Hang Seng, and EURAUD. Above 50% leans risk-on.</p>
+    <div class="note gold"><h4>Why it helps</h4><p>It answers the question I can't answer honestly after a bloodbath: <b>"Is the mood actually turning, or am I just scared?"</b> The score doesn't know I lost money last week. That's exactly why I trust it more than myself in that moment.</p></div>
+  </section>
+
+  <section class="sec" id="use">
+    <h2>How I use it, so I stop missing the turn</h2>
+    <div class="fixes">
+      <div class="fix"><div><b>Let the score start the conversation</b><span>When it climbs off <b>0 or 1</b> after a sell-off, that's my cue to start looking for longs on the indices, not to wait for my nerves to settle.</span></div></div>
+      <div class="fix"><div><b>Sit out the 3s</b><span>At <b>3 (Denial or Doubt)</b> the market is on the fence, so I am too. I wait for the score to move clearly off it before I commit, rather than guessing which way it'll break.</span></div></div>
+      <div class="fix"><div><b>Still only at a strong level</b><span>The score tells me the mood. The chart tells me <b>where</b>. I only buy at strong weekly or daily demand, with the stop beyond it and beyond the crowd's stop cluster.</span></div></div>
+      <div class="fix"><div><b>Scale in, small</b><span>No conviction? Then don't need it. Start with <b>half size</b> at the level and add the rest if the score keeps rising. A small position is much easier to take when you're scared.</span></div></div>
+      <div class="fix"><div><b>Be wary when it feels easy</b><span>At <b>5 (Euphoria)</b> and <b>6 (Dominance)</b>, when buying feels obvious, I tighten up. That's when leverage grows and caution looks foolish, so it's when the plan matters most.</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="honest">
+    <div class="honest">
+      <h2>A note from me</h2>
+      <p>I still feel it every time. The sell-off happens, I tell myself "not yet", and a week later I'm watching the index rip without me. Knowing the psychology hasn't cured it. <b>What helps is handing the first decision to something that can't feel fear.</b> I still decide the level, the size and the stop. The score just stops me from hiding behind "I'm waiting for confirmation".</p>
+    </div>
+    <div class="note gold"><h4>The one rule</h4><p>Never trade sentiment on its own. Use it only together with technical and fundamental analysis, and with strict <b>risk management</b>. The score is a read on the mood, not a signal to buy.</p></div>
+  </section>
+
+  <div class="cta">
+    <h3>See today's score</h3>
+    <p>The Risk Calculation tab is in the full QDB Sheet, with the market mood, the VIX and the live technical score, updated through the trading day.</p>
+    <div class="row"><a class="btn primary" href="../../?ref=psych-bloodbath#pricing" data-goatcounter-click="psych-bloodbath-pricing">Get the QDB Sheet</a><a class="btn" href="../../guides/?ref=psych-bloodbath#videos">Watch the Risk Calculation video</a><a class="btn" href="../../analytics/?ref=psych-bloodbath#spx500">SPX500 dashboard</a></div>
+  </div>
+
+  <section class="sec">
+    <h2>Keep reading</h2>
+    <div class="next">
+      <a href="../afloat/?ref=psych-bloodbath"><span>TRADING PSYCHOLOGY</span>Afloat or underwater: what following the plan does to your head</a>
+      <a href="../set-and-forget/?ref=psych-bloodbath"><span>TRADING PSYCHOLOGY</span>Why you can't set and forget anymore, and how to get it back</a>
+    </div>
+  </section>
+
+  <p class="foot">Educational only, not financial advice. The chart and scores in the example are illustrative, not real market data. Trading on margin carries a high level of risk. <a href="../">Trading psychology</a> · <a href="../../guides/">Guides</a> · <a href="../../">QDB Trading Desk</a></p>
+</main>
+
+<script>
+(function(){
+const track=n=>{try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:n,title:n,event:true})}catch(e){}};
+/* stages, as described in the QDB Sheet's Risk Calculation tab */
+const ST=[
+  {n:6,name:"Dominance",c:"#16a34a",t:"Peak confidence. Buyers are in full control, dips are bought instantly and caution looks foolish. Position sizes and leverage grow."},
+  {n:5,name:"Euphoria",c:"#4ade80",t:"Confidence turns into greed. Investors believe prices can only rise, chase late moves and ignore warning signs. This is the point of maximum risk."},
+  {n:4,name:"Complacency",c:"#a3e635",t:"The rally stalls, but nobody is worried. The first pullbacks are brushed off as “healthy” and bought, while risk quietly builds underneath."},
+  {n:3,name:"Denial",c:"#facc15",t:"The pullback deepens, yet investors insist it is temporary. Losing positions are held in hope of a rebound."},
+  {n:3,name:"Doubt",c:"#fbbf24",t:"Hope gives way to doubt. Volatility picks up, rallies fail and investors start cutting risk and moving to the sidelines."},
+  {n:2,name:"Fear",c:"#fb923c",t:"Doubt turns into fear. Selling speeds up, volatility jumps and money rushes to safe havens, driving sharp corrections."},
+  {n:1,name:"Extreme Fear",c:"#f87171",t:"Panic sets in. Investors sell at any price and safe havens surge. Contrarian bargain hunters start watching closely."},
+  {n:0,name:"Capitulation",c:"#ef4444",t:"The final flush. Volume surges as the last holders give up and sell. Selling exhausts itself, and this is often where the next cycle begins."}
+];
+const by=name=>ST.find(s=>s.name===name);
+document.getElementById("ladderList").innerHTML=ST.map(s=>`<div class="rung"><span class="n" style="background:${s.c}">${s.n}</span><div><b>${s.name}</b><p>${s.t}</p></div></div>`).join("");
+
+/* the walk-through: a sell-off, then the recovery */
+const DAYS=[
+  {d:"Crash day",i:10,st:"Capitulation",feel:"“I'm never buying this again.”",note:"The last holders give up. Selling is exhausting itself."},
+  {d:"Day 2",i:14,st:"Extreme Fear",feel:"“That bounce is a dead cat.”",note:"Still panicky, but the direction checks have started to improve."},
+  {d:"Day 4",i:19,st:"Fear",feel:"“I'll wait for confirmation.”",note:"Risk appetite is recovering underneath the headlines."},
+  {d:"Day 7",i:24,st:"Doubt",feel:"“It could still be a trap.”",note:"No-man's land: a 3. Half the checks are risk-on, and the weekly VIX change says which side of the fence we're on. Wait for the move off it."},
+  {d:"Day 10",i:29,st:"Complacency",feel:"“OK, maybe. Let me see one more day.”",note:"Most checks are risk-on. A lot of the move is already done."},
+  {d:"Day 14",i:34,st:"Euphoria",feel:"“Now I'm sure. Buy!”",note:"The sheet's own words: the point of maximum risk."},
+  {d:"Day 18",i:39,st:"Dominance",feel:"“Why didn't I buy at the bottom?”",note:"Peak confidence. Caution looks foolish, which is exactly when to be careful."}
+];
+/* index path: rally, crash, recovery */
+const P=[100,101,101.5,101,102,101.4,100,97.5,95,92.8,91.2,93,92,93.6,94.4,93.8,95,96,95.4,96.6,97.4,96.9,98.2,98.8,98.3,99.4,100.2,99.8,100.9,101.4,101,102,102.6,102.2,103.4,103.8,103.5,104.4,104.9,104.6];
+const box=document.getElementById("chart"), sl=document.getElementById("day");
+function draw(k){
+  const C=(box.clientWidth||600)<560, W=C?560:960, H=C?360:320, L=12, R=W-12, T=24, B=H-30;
+  const lo=89, hi=106, X=i=>L+(R-L)*i/(P.length-1), Y=v=>T+(B-T)*(hi-v)/(hi-lo), D=DAYS[k], st=by(D.st);
+  const mono='font-family="JetBrains Mono, monospace"', fs=C?17:13;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="An index sells off hard, bottoms, then recovers. A marker shows the selected day and its Risk Calculation score."><rect width="${W}" height="${H}" fill="#0a1220"/>`;
+  s+=`<text x="${L+4}" y="${T-6}" ${mono} font-size="${fs}" font-weight="700" fill="#e8edf6">INDEX · illustrative</text>`;
+  const path=(a,b)=>P.slice(a,b+1).map((v,j)=>(j?"L":"M")+X(a+j).toFixed(1)+" "+Y(v).toFixed(1)).join(" ");
+  s+=`<path d="${path(0,P.length-1)}" fill="none" stroke="#e8edf6" stroke-width="2" opacity=".25"/>`;
+  s+=`<path d="${path(0,D.i)}" fill="none" stroke="#e8edf6" stroke-width="2.6" stroke-linejoin="round"/>`;
+  /* the best-entry zone */
+  s+=`<rect x="${X(9)}" y="${T}" width="${X(15)-X(9)}" height="${B-T}" fill="rgba(34,197,94,.08)"/><text x="${(X(9)+X(15))/2}" y="${B+20}" text-anchor="middle" ${mono} font-size="${fs-2}" fill="#86efac">CALM ENTRY ZONE</text>`;
+  DAYS.forEach((dd,j)=>{const c=by(dd.st).c;s+=`<circle cx="${X(dd.i)}" cy="${Y(P[dd.i])}" r="${j===k?9:5}" fill="${j<=k?c:"#26324a"}" stroke="#0a1220" stroke-width="2"/>`;});
+  const x=X(D.i), y=Y(P[D.i]), lab=`${st.n} · ${st.name.toUpperCase()}`, tw=lab.length*(fs*0.62)+16, tx=Math.min(R-tw,Math.max(L,x-tw/2)), ty=y-(C?52:44);
+  s+=`<rect x="${tx}" y="${ty}" width="${tw}" height="${fs+12}" rx="7" fill="${st.c}"/><text x="${tx+tw/2}" y="${ty+fs+3}" text-anchor="middle" ${mono} font-size="${fs}" font-weight="700" fill="#0b0f17">${lab}</text>`;
+  box.innerHTML=s+"</svg>";
+  document.getElementById("dayOut").textContent=D.d;
+  document.getElementById("feel").textContent=D.feel;
+  document.getElementById("scN").textContent=st.n; document.getElementById("scN").style.color=st.c;
+  document.getElementById("scName").textContent=st.name;
+  document.getElementById("scText").textContent=D.note;
+}
+let first=true;
+sl.addEventListener("input",()=>{draw(+sl.value);if(first){track("psych-bloodbath-slider");first=false}});
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>draw(+sl.value),150)});
+draw(0);
+})();
+</script>
+</body>
+</html>
